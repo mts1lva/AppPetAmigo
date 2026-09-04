@@ -4,7 +4,7 @@
 **Atividade:** 01 — Análise do Estudo de Caso
 **Projeto:** PetAmigo — aplicativo de saúde animal (alimentação e peso ideal)
 **Turma:** Programação para Dispositivos Móveis
-**Integrantes:** Matheus Silva, Raissa Andrade, João Lopes, Paulo Emanuel, Matheus Leão
+**Integrantes:** Matheus Silva, Raissa Andrade Santos, João Lopes, Paulo Emanuel, Matheus Leão
 
 ---
 
@@ -20,7 +20,7 @@ Porque o excesso de peso está ligado a diabetes, problemas articulares e reduç
 
 - **Qual é a principal necessidade que a solução deverá atender?**
 
-Traduzir conhecimento veterinário técnico, expresso nas fórmulas da NRC, em uma ação diária simples e sem culpa. Essa necessidade se desdobra em três elos encadeados — saber quanto oferecer, registrar o que foi efetivamente oferecido e verificar se o plano funciona —, e a falha de qualquer um deles rompe o ciclo de mudança de comportamento.
+Traduzir conhecimento veterinário técnico, expresso nas fórmulas da NRC, em uma ação diária simples e sem culpa. Essa necessidade se desdobra em três elos encadeados — saber quanto oferecer, registrar o que foi efetivamente oferecido e verificar se o plano funciona, e a falha de qualquer um deles rompe o ciclo de mudança de comportamento.
 
 ---
 
