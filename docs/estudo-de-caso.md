@@ -3,8 +3,8 @@
 **Disciplina:** Programação para Dispositivos Móveis
 **Atividade:** 01 — Análise do Estudo de Caso
 **Projeto:** PetAmigo — aplicativo de saúde animal (alimentação e peso ideal)
-**Turma:** _(preencher)_
-**Integrantes:** _(preencher)_
+**Turma:** Programação para Dispositivos Móveis
+**Integrantes:** Matheus Silva, Raissa Andrade, João Lopes, Paulo Emanuel, Matheus Leão
 
 ---
 
