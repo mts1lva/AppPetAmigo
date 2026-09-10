@@ -136,6 +136,8 @@ A exigência da foto do pet no dashboard e das ilustrações de pets sorrindo é
 
 - **Botões grandes — necessidade atendida:** permitir o uso em pé, com uma única mão e com o animal no colo, em pet shops e durante passeios.
 
+- **Botão de exportação/compartilhamento de histórico — necessidade atendida:** facilitar a comunicação com o médico veterinário nutrólogo (usuário de validação). Um simples botão nativo de "compartilhar" na tela do gráfico gera um resumo em texto ou imagem para ser enviado via WhatsApp, dispensando o veterinário de manusear o celular do cliente.
+
 ---
 
 ## 2.7. Restrições e condições
@@ -175,6 +177,10 @@ A pasta de documentação deve manter o Documento de Requisitos com Personas e P
 - **Tom como requisito**
 
 A interface não pode culpabilizar o tutor, o que restringe diretamente a escrita das mensagens de erro, dos alertas de excesso calórico e do tratamento dado aos dias sem registro.
+
+- **Validação de dados (Sanity Checks)**
+
+Para evitar que erros de digitação corrompam as métricas (ex: digitar 50kg em vez de 5,0kg para um Pinscher), o app deve ter limites lógicos de inserção. Contudo, alinhado à restrição de "tom não punitivo", a interface deve perguntar gentilmente "Você tem certeza desse peso?" em vez de exibir mensagens de erro técnico como "Valor inválido".
 
 ---
 
