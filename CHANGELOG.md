@@ -28,3 +28,11 @@ Foi criada a estrutura inicial do repositório, incluindo a pasta docs destinada
 - **Mudança:** Contexto, decisões de escopo e funcionalidades F01 a F06, relacionadas ao problema e à pesquisa.
 - **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
 - **Resultado observado na documentação:** contexto delimitado e seis funcionalidades documentadas com necessidade e justificativa.
+
+## [17/09/2026] - Atividade 03 - Etapa 3
+
+**Responsável planejado:** João Lopes.
+
+- **Mudança:** Funcionalidades F07 a F12, relacionadas às personas e aos contextos de uso.
+- **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
+- **Resultado observado na documentação:** catálogo concluído com 12 funcionalidades e vínculo com as personas.
