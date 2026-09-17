@@ -20,3 +20,11 @@ Foi criada a estrutura inicial do repositório, incluindo a pasta docs destinada
 - **Mudança:** Requisitos funcionais RF01 a RF20 e coerência entre comportamentos e funcionalidades.
 - **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
 - **Resultado observado na documentação:** 20 comportamentos do sistema descritos e associados às funcionalidades.
+
+## [17/09/2026] - Atividade 03 - Etapa 2
+
+**Responsável planejado:** Raissa Andrade Santos.
+
+- **Mudança:** Contexto, decisões de escopo e funcionalidades F01 a F06, relacionadas ao problema e à pesquisa.
+- **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
+- **Resultado observado na documentação:** contexto delimitado e seis funcionalidades documentadas com necessidade e justificativa.
