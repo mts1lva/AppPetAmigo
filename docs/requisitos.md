@@ -132,7 +132,7 @@ O sistema deve permitir retomar o registro após dias sem uso, sem exigir preenc
 
 O PetAmigo apoia tutores de cães e gatos no acompanhamento da alimentação, atividade e evolução do peso. A persona prioritária é **Marina Oliveira**, que precisa criar o hábito sem culpa; **Bruno Santos** precisa de registros rápidos, confiáveis e disponíveis offline.
 
-Esta especificação deriva de [estudo de caso](estudo-de-caso.md), [pesquisa](pesquisa.md), [personas](personas.md) e [benchmark](benchmark.md). A pesquisa é documental; não se pressupõem entrevistas ou testes com usuários que não estejam documentados.
+Esta especificação deriva de [estudo de caso](estudo-de-caso.md), [pesquisa](pesquisa.md), [personas](personas.md) e [benchmark](benchmark.md). 
 
 **Escopo:** quatro telas principais e um único pet: perfil/resumo, diário, atividades e evolução do peso. Recursos complementares ficam em seções ou diálogos.
 
