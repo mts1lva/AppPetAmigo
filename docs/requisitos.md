@@ -124,6 +124,80 @@ O sistema deve apresentar mensagens positivas relacionadas à continuidade dos r
 
 ### RF20 - Retorno após ausência
 
+
+## 2. Contexto e decisões de escopo
+
+O PetAmigo apoia tutores de cães e gatos no acompanhamento da alimentação, atividade e evolução do peso. A persona prioritária é **Marina Oliveira**, que precisa criar o hábito sem culpa; **Bruno Santos** precisa de registros rápidos, confiáveis e disponíveis offline.
+
+Esta especificação deriva de [estudo de caso](estudo-de-caso.md), [pesquisa](pesquisa.md), [personas](personas.md) e [benchmark](benchmark.md). A pesquisa é documental; não se pressupõem entrevistas ou testes com usuários que não estejam documentados.
+
+* **Quatro telas principais e um único pet:** perfil/resumo, diário, atividades e evolução do peso. Recursos complementares ficam em seções ou diálogos.
+* **Dois toques e três interações:** até três interações para acessar o diário; dois toques para concluir o registro habitual a partir do atalho, com alimento e porção previamente definidos. Configuração inicial e correções podem exigir preenchimento.
+* **Dados nutricionais:** a meta é uma referência, com fórmula NRC documentada e validação profissional pendente. Não são inventados fatores ou fórmulas nesta atividade. Peso de referência e ECC não constituem diagnóstico. Perfis sem método validado devem receber orientação para consulta, sem estimativa numérica automática.
+* **Petiscos:** a pesquisa posterior diferencia recomendação de limite e consumo observado. O valor de 30% citado no estudo de caso não será usado como regra universal nem como limite do sistema. Eventuais limiares educativos dependerão da fonte documentada e da revisão técnica.
+* **Atividade:** registrar duração não autoriza converter minutos em calorias ou compensar automaticamente a alimentação.
+* **Sincronização opcional:** o uso local independe de conta; a cópia remota, quando ativada, exige identidade autenticada, isolamento por usuário e transmissão apenas por Wi-Fi. A autenticação será apresentada em diálogo do perfil. Dois aparelhos editando o mesmo dado devem gerar conflito visível, sem sobrescrita silenciosa; exclusão confirmada tem precedência para impedir restauração.
+* **Privacidade:** o projeto protegerá também dados do tutor que possam existir em identificadores, fotos e exportações. Não se presume que todo dado do pet seja automaticamente dado pessoal sensível na classificação legal; a definição da base legal e da política de retenção deve ser revisada antes da operação real.
+
+## 3. Funcionalidades
+
+Para cada funcionalidade, são indicados descrição, necessidade, justificativa, origem e prioridade. A classificação completa e suas dependências aparecem na seção 6.
+
+### F01 - Perfil do pet e dashboard
+
+* **Descrição:** Cadastrar um único cão ou gato, com foto, espécie, idade, castração, atividade, peso e dados necessários ao cálculo; consultar o resumo diário.
+* **Necessidade do usuário:** Marina precisa reconhecer Luna e entender a situação do dia; Bruno precisa centralizar os dados.
+* **Justificativa:** Os dados do perfil sustentam a personalização; a foto e o resumo favorecem o vínculo e a compreensão.
+* **Relação com os estudos:** Personas; estudo de caso 2.5 e 2.7.
+* **Prioridade:** Essencial.
+* **Requisitos associados:** RF01, RF02.
+
+### F02 - Referência calórica e quantidade de alimento
+
+* **Descrição:** Estimar a meta diária por fórmula NRC documentada e converter a energia em gramas com a densidade energética informada no rótulo.
+* **Necessidade do usuário:** Marina precisa entender quanto oferecer; Bruno quer conhecer a origem da estimativa.
+* **Justificativa:** Transforma os dados do pet em uma referência compreensível, com limites de aplicação explícitos.
+* **Relação com os estudos:** Pesquisa 2.2 e descoberta 1.
+* **Prioridade:** Essencial.
+* **Requisitos associados:** RF03, RF04.
+
+### F03 - Diário de refeições
+
+* **Descrição:** Registrar, consultar, corrigir e excluir refeições, identificando alimento, quantidade, energia e data/hora.
+* **Necessidade do usuário:** Bruno precisa registrar na cozinha com uma mão; Marina precisa de um fluxo curto.
+* **Justificativa:** É a funcionalidade mais importante: os registros alimentam o resumo e permitem comparar a rotina com a meta.
+* **Relação com os estudos:** Personas; pesquisa 3 e descoberta 3; estudo de caso 2.8.
+* **Prioridade:** Essencial.
+* **Requisitos associados:** RF05, RF06.
+
+### F04 - Petiscos e extras separados
+
+* **Descrição:** Registrar petiscos separadamente e apresentar sua participação no consumo e na meta diária.
+* **Necessidade do usuário:** Marina precisa perceber as calorias dos extras; Bruno quer separar as categorias.
+* **Justificativa:** Evita que o acompanhamento considere somente a ração e mostre um consumo incompleto.
+* **Relação com os estudos:** Pesquisa 2.3 e descoberta 2.
+* **Prioridade:** Essencial.
+* **Requisitos associados:** RF07, RF08.
+
+### F05 - Peso, ECC e objetivo de acompanhamento
+
+* **Descrição:** Registrar pesagens e ECC informado, explicar o conceito e acompanhar um objetivo de peso definido com orientação profissional.
+* **Necessidade do usuário:** Marina precisa compreender a condição corporal; Bruno precisa de medidas confiáveis.
+* **Justificativa:** Relaciona o acompanhamento à condição do animal sem transformar peso isolado em diagnóstico.
+* **Relação com os estudos:** Pesquisa 2.4; estudo de caso 2.6.
+* **Prioridade:** Essencial.
+* **Requisitos associados:** RF09, RF10.
+
+### F06 - Gráfico de evolução
+
+* **Descrição:** Exibir as pesagens por data e o objetivo informado, destacando períodos sem dados.
+* **Necessidade do usuário:** Marina precisa perceber evolução; Bruno revisa tendências semanalmente.
+* **Justificativa:** Torna visíveis as mudanças ao longo do tempo e ajuda a discutir a rotina na consulta.
+* **Relação com os estudos:** Personas; pesquisa descoberta 1.
+* **Prioridade:** Essencial.
+* **Requisitos associados:** RF11.
+
+
 O sistema deve permitir retomar o registro após dias sem uso, sem exigir preenchimento retroativo e sem tratar dias sem informação como consumo zero ou falha do tutor.
 
 **Origem:** F12.
