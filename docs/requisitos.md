@@ -319,3 +319,79 @@ O sistema deve apresentar mensagens acolhedoras de continuidade e progresso comp
 **Prioridade:** Secundária.
 
 **Requisitos associados:** RF19, RF20.
+
+## 4. Requisitos não funcionais
+
+Os valores abaixo são critérios propostos de aceitação para o projeto. As metas novas de desempenho e acessibilidade devem ser verificadas na implementação; não representam testes já realizados.
+
+### RNF01 - Usabilidade
+
+O acesso ao diário a partir do perfil deve exigir no máximo três interações. Com alimento e porção já configurados, abrir o atalho e confirmar a refeição deve exigir no máximo dois toques, sem digitação obrigatória.
+
+**Como verificar:** Contar toques no protótipo; cadastro inicial e correções são fluxos separados.
+
+### RNF02 - Acessibilidade
+
+Os controles acionáveis devem ter área mínima de 48 x 48 dp; os campos devem ter rótulos para leitor de tela, e gráficos e alertas não devem depender apenas de cor. O texto deve continuar utilizável com escala de fonte de 200%.
+
+**Como verificar:** Inspecionar alvos, navegar com TalkBack e testar fonte ampliada nas quatro telas.
+
+### RNF03 - Legibilidade
+
+Textos comuns devem ter contraste mínimo de 4,5:1 com o fundo e textos grandes de 3:1; a paleta pastel deve preservar leitura de valores, unidades e ações.
+
+**Como verificar:** Medir pares de cores e revisar a leitura em ambiente externo.
+
+### RNF04 - Proteção e minimização
+
+O aplicativo deve armazenar somente os dados necessários às funções descritas, manter o banco em área privada, proteger cópias remotas por controle de acesso e usar conexão cifrada na sincronização. Logs não devem expor fotos ou dados pessoais.
+
+**Como verificar:** Inspecionar permissões, logs e tráfego; testar negação de acesso entre usuários de teste.
+
+### RNF05 - Privacidade verificável
+
+O aplicativo deve informar finalidades e controles em linguagem simples, permitir exportação e exclusão e restringir a cópia remota à ativação pelo tutor. A exclusão remota deve abranger dados ativos e ter política documentada de expiração de backups.
+
+**Como verificar:** Testar exclusão local/remota e impedir restauração de dados excluídos; revisar política antes de disponibilização.
+
+### RNF06 - Desempenho
+
+Em Android 8.0, 2 GB de RAM e base de 1.000 registros, salvar localmente deve levar até 1 segundo e abrir o resumo ou gráfico até 2 segundos em pelo menos 95% de 20 execuções por ação.
+
+**Como verificar:** Medir 20 execuções após inicialização; registrar aparelho, versão e resultados. Metas propostas, ainda não medidas.
+
+### RNF07 - Compatibilidade
+
+O aplicativo deve executar em celulares Android 8.0 ou superior, com gráficos leves e sem depender de GPS, sensores especiais ou acessórios externos para as funções essenciais.
+
+**Como verificar:** Validar instalação e fluxos essenciais no Android 8.0 e em versão posterior definida pela equipe.
+
+### RNF08 - Persistência e integridade
+
+Registros confirmados devem sobreviver ao fechamento e reinício do aplicativo; gravações devem ser atômicas e cada registro deve possuir identificador estável. Correções devem preservar a consistência dos totais.
+
+**Como verificar:** Salvar, fechar, reabrir, corrigir e excluir; comparar banco e totais exibidos.
+
+### RNF09 - Conectividade
+
+As funções essenciais devem operar em modo avião. A sincronização não deve transmitir dados pela rede móvel e deve retomar uma fila interrompida sem duplicar nem restaurar registros excluídos.
+
+**Como verificar:** Alternar modo avião, rede móvel e Wi-Fi; interromper e repetir sincronização com a mesma fila.
+
+### RNF10 - Escopo e navegação
+
+A versão deve manter quatro telas principais: perfil/resumo, diário, atividades e evolução do peso. Dicas, privacidade, cálculo e compartilhamento devem usar seções, painéis ou diálogos nessas telas.
+
+**Como verificar:** Conferir mapa de navegação, incluindo estados vazios e diálogos, sem criar quinta tela principal.
+
+### RNF11 - Confiabilidade do cálculo
+
+Toda fórmula ou fator nutricional deve possuir referência, versão, unidades e limites documentados e ser validado com casos de referência antes de uso. O produto não deve apresentar a estimativa como diagnóstico ou prescrição.
+
+**Como verificar:** Revisar catálogo de fórmulas e conferir resultados com casos aprovados por profissional; validação ainda pendente.
+
+### RNF12 - Identidade e linguagem
+
+O perfil/resumo deve exibir a foto quando cadastrada; a interface deve usar ilustrações de pets sorrindo e mensagens acolhedoras. Ausência de dados e alertas não devem usar culpa nem classificar toda perda de peso como sucesso.
+
+**Como verificar:** Revisar textos e elementos visuais com cenários de Marina, Bruno e dias sem registro.

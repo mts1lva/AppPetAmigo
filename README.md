@@ -43,3 +43,4 @@ A especificação desta etapa está em [docs/requisitos.md](docs/requisitos.md).
 - **Paulo Emanuel:** requisitos funcionais RF01 a RF20 e coerência entre comportamentos e funcionalidades.
 - **Raissa Andrade Santos:** contexto, decisões de escopo e funcionalidades F01 a F06, relacionadas ao problema e à pesquisa.
 - **João Lopes:** funcionalidades F07 a F12, relacionadas às personas e aos contextos de uso.
+- **Matheus Leão:** requisitos não funcionais RNF01 a RNF12, restrições e critérios de verificação.

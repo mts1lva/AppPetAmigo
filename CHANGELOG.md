@@ -36,3 +36,11 @@ Foi criada a estrutura inicial do repositório, incluindo a pasta docs destinada
 - **Mudança:** Funcionalidades F07 a F12, relacionadas às personas e aos contextos de uso.
 - **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
 - **Resultado observado na documentação:** catálogo concluído com 12 funcionalidades e vínculo com as personas.
+
+## [17/09/2026] - Atividade 03 - Etapa 4
+
+**Responsável planejado:** Matheus Leão.
+
+- **Mudança:** Requisitos não funcionais RNF01 a RNF12, restrições e critérios de verificação.
+- **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
+- **Resultado observado na documentação:** 12 condições de qualidade e restrições documentadas com formas de verificação.
