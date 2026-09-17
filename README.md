@@ -8,7 +8,6 @@ Programação para Dispositivos Móveis
 
 ## Integrantes e responsabilidades nesta atividade
 
-_(Cada integrante deve possuir commits próprios no repositório. Ajustem a divisão abaixo caso ela não corresponda ao que foi feito.)_
 
 **Matheus Silva** — líder do grupo, responsável pela criação do repositório, pela estrutura de pastas, pela manutenção do CHANGELOG e pela consolidação final do documento de análise.
 
