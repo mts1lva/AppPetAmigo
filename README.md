@@ -41,3 +41,4 @@ A especificação desta etapa está em [docs/requisitos.md](docs/requisitos.md).
 ### Responsabilidades da Atividade 03
 
 - **Paulo Emanuel:** requisitos funcionais RF01 a RF20 e coerência entre comportamentos e funcionalidades.
+- **Raissa Andrade Santos:** contexto, decisões de escopo e funcionalidades F01 a F06, relacionadas ao problema e à pesquisa.
