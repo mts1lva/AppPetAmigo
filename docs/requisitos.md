@@ -124,6 +124,9 @@ O sistema deve apresentar mensagens positivas relacionadas à continuidade dos r
 
 ### RF20 - Retorno após ausência
 
+O sistema deve permitir retomar o registro após dias sem uso, sem exigir preenchimento retroativo e sem tratar dias sem informação como consumo zero ou falha do tutor.
+
+**Origem:** F12.
 
 ## 2. Contexto e decisões de escopo
 
