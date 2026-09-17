@@ -238,54 +238,84 @@ O sistema deve exibir as pesagens por data e o objetivo informado, destacando pe
 
 ### F07 - Passeios e atividades
 
-- **Descrição:** Registrar tipo de atividade, duração e data/hora; consultar, corrigir e excluir os registros.
-- **Necessidade do usuário:** Bruno registra ao terminar o passeio; Marina precisa incluir brincadeiras com Luna.
-- **Justificativa:** Relaciona a atividade à rotina sem exigir GPS, coleira inteligente ou estimativa inventada de gasto calórico.
-- **Relação com os estudos:** Pesquisa 3; estudo de caso 2.6; benchmark 4.
-- **Prioridade:** Essencial.
-- **Requisitos associados:** RF12.
+O sistema deve permitir registrar tipo de atividade, duração e data/hora; consultar, corrigir e excluir os registros.
+
+**Necessidade do usuário:** Bruno registra ao terminar o passeio; Marina precisa incluir brincadeiras com Luna.
+
+**Justificativa:** Relaciona a atividade à rotina sem exigir GPS, coleira inteligente ou estimativa inventada de gasto calórico.
+
+**Relação com os estudos:** Pesquisa 3; estudo de caso 2.6; benchmark 4.
+
+**Prioridade:** Essencial.
+
+**Requisitos associados:** RF12.
 
 ### F08 - Histórico compartilhável
 
-- **Descrição:** Gerar um resumo do período e abrir o compartilhamento nativo mediante ação do tutor.
-- **Necessidade do usuário:** Marina e Bruno precisam levar informações organizadas ao veterinário.
-- **Justificativa:** Facilita a comunicação, incluindo lacunas e fontes do cálculo para interpretar os registros.
-- **Relação com os estudos:** Personas; pesquisa 3; benchmark 6.
-- **Prioridade:** Importante.
-- **Requisitos associados:** RF13.
+O sistema deve gerar um resumo do período e abrir o compartilhamento nativo mediante ação do tutor.
+
+**Necessidade do usuário:** Marina e Bruno precisam levar informações organizadas ao veterinário.
+
+**Justificativa:** Facilita a comunicação, incluindo lacunas e fontes do cálculo para interpretar os registros.
+
+**Relação com os estudos:** Personas; pesquisa 3; benchmark 6.
+
+**Prioridade:** Importante.
+
+**Requisitos associados:** RF13.
 
 ### F09 - Uso offline e sincronização por Wi-Fi
 
-- **Descrição:** Salvar as ações localmente, enfileirar alterações e sincronizar somente por Wi-Fi quando o tutor ativar a cópia remota.
-- **Necessidade do usuário:** Bruno precisa evitar perdas na rua; Marina precisa registrar mesmo sem rede.
-- **Justificativa:** O registro deve acontecer no momento do cuidado, independentemente da conectividade.
-- **Relação com os estudos:** Personas; estudo de caso 2.7.
-- **Prioridade:** Essencial.
-- **Requisitos associados:** RF14, RF15.
+O sistema deve salvar as ações localmente, enfileirar alterações e sincronizar somente por Wi-Fi quando o tutor ativar a cópia remota.
+
+**Necessidade do usuário:** Bruno precisa evitar perdas na rua; Marina precisa registrar mesmo sem rede.
+
+**Justificativa:** O registro deve acontecer no momento do cuidado, independentemente da conectividade.
+
+**Relação com os estudos:** Personas; estudo de caso 2.7.
+
+**Prioridade:** Essencial.
+
+**Requisitos associados:** RF14, RF15.
 
 ### F10 - Privacidade e exclusão dos dados
 
-- **Descrição:** Disponibilizar explicação de uso dos dados e exclusão integral do perfil, foto, registros e cópias sincronizadas.
-- **Necessidade do usuário:** Os tutores precisam controlar as informações armazenadas e compartilhadas.
-- **Justificativa:** Atende à restrição explícita de exclusão total e torna o estado da remoção visível.
-- **Relação com os estudos:** Estudo de caso 2.7.
-- **Prioridade:** Essencial.
-- **Requisitos associados:** RF16, RF17.
+O sistema deve disponibilizar explicação de uso dos dados e exclusão integral do perfil, foto, registros e cópias sincronizadas.
+
+**Necessidade do usuário:** Os tutores precisam controlar as informações armazenadas e compartilhadas.
+
+**Justificativa:** Atende à restrição explícita de exclusão total e torna o estado da remoção visível.
+
+**Relação com os estudos:** Estudo de caso 2.7.
+
+**Prioridade:** Essencial.
+
+**Requisitos associados:** RF16, RF17.
 
 ### F11 - Dicas de exercício e enriquecimento
 
-- **Descrição:** Consultar conteúdo educativo adequado à espécie, disponível dentro da tela de atividades.
-- **Necessidade do usuário:** Marina precisa de alternativas aos petiscos para interagir com Luna.
-- **Justificativa:** Apoia o cuidado cotidiano e o papel educativo definido no estudo de caso.
-- **Relação com os estudos:** Estudo de caso 2.6; persona Marina.
-- **Prioridade:** Importante.
-- **Requisitos associados:** RF18.
+O sistema deve permitir consultar conteúdo educativo adequado à espécie, disponível dentro da tela de atividades.
+
+**Necessidade do usuário:** Marina precisa de alternativas aos petiscos para interagir com Luna.
+
+**Justificativa:** Apoia o cuidado cotidiano e o papel educativo definido no estudo de caso.
+
+**Relação com os estudos:** Estudo de caso 2.6; persona Marina.
+
+**Prioridade:** Importante.
+
+**Requisitos associados:** RF18.
 
 ### F12 - Celebrações de pequenas conquistas
 
-- **Descrição:** Apresentar mensagens acolhedoras de continuidade e progresso compatível com o objetivo informado.
-- **Necessidade do usuário:** Marina precisa de motivação sem culpa, inclusive após dias sem usar o app.
-- **Justificativa:** Apoia a formação do hábito; não celebra automaticamente qualquer redução de peso.
-- **Relação com os estudos:** Personas; estudo de caso 2.5 e 2.8.
-- **Prioridade:** Secundária.
-- **Requisitos associados:** RF19, RF20.
+O sistema deve apresentar mensagens acolhedoras de continuidade e progresso compatível com o objetivo informado.
+
+**Necessidade do usuário:** Marina precisa de motivação sem culpa, inclusive após dias sem usar o app.
+
+**Justificativa:** Apoia a formação do hábito; não celebra automaticamente qualquer redução de peso.
+
+**Relação com os estudos:** Personas; estudo de caso 2.5 e 2.8.
+
+**Prioridade:** Secundária.
+
+**Requisitos associados:** RF19, RF20.
