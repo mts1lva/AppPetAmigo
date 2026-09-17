@@ -395,3 +395,89 @@ Toda fórmula ou fator nutricional deve possuir referência, versão, unidades e
 O perfil/resumo deve exibir a foto quando cadastrada; a interface deve usar ilustrações de pets sorrindo e mensagens acolhedoras. Ausência de dados e alertas não devem usar culpa nem classificar toda perda de peso como sucesso.
 
 **Como verificar:** Revisar textos e elementos visuais com cenários de Marina, Bruno e dias sem registro.
+## 5. CRUD
+
+C = criar; R = consultar; U = atualizar; D = excluir. As operações do tutor ficam limitadas aos dados do próprio perfil.
+
+| Informação | C | R | U | D | Requisitos / justificativa |
+|---|---|---|---|---|---|
+| Perfil e foto | Cadastrar pet/foto | Ver perfil | Editar dados/trocar foto | Excluir todo o perfil | RF01, RF02, RF17 |
+| Alimento e porção reutilizável | Cadastrar alimento/porção | Consultar no diário | Corrigir porção/densidade | Excluir predefinição | RF04, RF05, RF06 |
+| Refeição | Adicionar refeição | Consultar por data | Corrigir quantidade/data | Excluir refeição | RF05, RF06 |
+| Petisco/extra | Adicionar extra | Consultar por data | Corrigir quantidade/energia | Excluir extra | RF07, RF08 |
+| Pesagem | Adicionar peso/data | Consultar histórico | Corrigir peso/data | Excluir pesagem | RF09, RF11 |
+| ECC e objetivo | Informar valor e origem | Consultar referência | Atualizar com data | Remover referência | RF10 |
+| Atividade | Adicionar passeio/brincadeira | Consultar histórico | Corrigir duração/tipo | Excluir atividade | RF12 |
+| Dicas e fórmulas | Não pelo tutor | Ler conteúdo/fonte | Não pelo tutor | Não pelo tutor | RF03, RF18; conteúdo mantido e versionado pela equipe |
+| Gráfico, totais e exportação | Gerados a partir dos registros | Consultar/compartilhar | Recalculados | Sem exclusão independente | RF08, RF11, RF13; visões derivadas, sem cadastro próprio |
+
+### Exemplo completo: refeição
+
+1. **Criar:** Bruno registra 60 g do alimento já cadastrado para Theo, com data e hora.
+2. **Consultar:** abre o diário e vê a refeição e o total do dia.
+3. **Atualizar:** percebe que ofereceu 50 g, corrige o registro e o sistema recalcula a energia com a densidade salva nesse registro.
+4. **Excluir:** identifica um registro duplicado e o remove; os totais são recalculados e a exclusão entra na fila de sincronização, se ativada.
+
+Os valores de 60 g e 50 g apenas ilustram operações de dados; não são recomendação alimentar. Remover um alimento dos atalhos não apaga refeições antigas. Dicas e fórmulas não possuem CRUD pelo tutor porque são conteúdo técnico versionado pela equipe. Gráfico e totais são resultados calculados: mudam quando os registros de origem mudam. O arquivo já compartilhado fica sob controle do destinatário; excluir o app não recolhe cópias enviadas externamente.
+
+## 6. Priorização
+
+**Essencial:** indispensável à proposta ou a uma restrição obrigatória. **Importante:** agrega valor, mas não impede o ciclo central. **Secundária:** pode ser desenvolvida posteriormente.
+
+| Funcionalidade | Prioridade | Motivo e dependências |
+|---|---|---|
+| F01 - Perfil do pet e dashboard | Essencial | Base dos dados e do vínculo com o pet. |
+| F02 - Referência calórica e quantidade de alimento | Essencial | Referência para interpretar a alimentação; depende de F01 e da validação técnica. |
+| F03 - Diário de refeições | Essencial | Produz o dado diário que sustenta o acompanhamento; depende de F01 e do cadastro de alimento. |
+| F04 - Petiscos e extras separados | Essencial | Evita omissão dos extras; compartilha a estrutura do diário. |
+| F05 - Peso, ECC e objetivo de acompanhamento | Essencial | Fornece medidas e objetivo para acompanhar o pet; depende de F01. |
+| F06 - Gráfico de evolução | Essencial | Mostra a evolução; depende das pesagens de F05. |
+| F07 - Passeios e atividades | Essencial | Integra a rotina e atende à tela de atividades exigida no estudo de caso. |
+| F08 - Histórico compartilhável | Importante | Apoia a consulta; depende dos registros de F03 a F07. |
+| F09 - Uso offline e sincronização por Wi-Fi | Essencial | Evita perda dos registros e atende à restrição offline/Wi-Fi. O uso local vem primeiro; a sincronização integra o escopo completo. |
+| F10 - Privacidade e exclusão dos dados | Essencial | Controle dos dados e exclusão são condições obrigatórias desde a primeira versão. |
+| F11 - Dicas de exercício e enriquecimento | Importante | Complementa a rotina; pode entrar após o registro de atividades, mas permanece no escopo completo do estudo de caso. |
+| F12 - Celebrações de pequenas conquistas | Secundária | Reforça o hábito após haver dados e objetivo válidos; é etapa posterior, sem remover a exigência do escopo completo. |
+
+### Funcionalidade mais importante
+
+**F03 - Diário de refeições.** Sem registros rápidos e confiáveis do que foi oferecido, a meta não pode ser comparada ao consumo e o acompanhamento perde sua base. Para Bruno, a prioridade é registrar durante a rotina sem demora; para Marina, o baixo esforço ajuda a formar o hábito. Por isso F03 deve funcionar offline (F09), reutilizar porções e somar os petiscos de F04. A calculadora orienta a meta, mas o diário permite acompanhar o que realmente foi registrado.
+
+### Ordem de desenvolvimento proposta
+
+1. Perfil, proteção dos dados, armazenamento local e cadastro de alimentos.
+2. Cálculo validado, diário e petiscos; acesso rápido e exclusão desde o início.
+3. Pesagens, ECC/objetivo, gráfico e atividades, completando as quatro telas.
+4. Sincronização por Wi-Fi com exclusão remota e tratamento de conflitos.
+5. Compartilhamento e dicas; depois, celebrações contextualizadas.
+
+As prioridades orientam a sequência, não eliminam restrições do estudo de caso. Autenticação é dependência técnica da cópia remota e não um cadastro obrigatório para usar o app localmente. Múltiplos pets, rede social, localização GPS e integração com coleiras ficam fora desta versão.
+
+## 7. Rastreabilidade e conferência da entrega
+
+| Base do projeto | Decisão nesta atividade |
+|---|---|
+| Marina: orientação simples, motivação e registros esparsos | F01, F02, F04, F06, F12; RF20; RNF12 |
+| Bruno: rapidez, precisão e uso sem rede | F03, F07, F09; RNF01, RNF06, RNF08, RNF09 |
+| Pesquisa: cálculo individual e acompanhamento | F02, F05, F06; RF03, RF10; RNF11 |
+| Pesquisa: petiscos visíveis | F04; RF07, RF08 |
+| Pesquisa: adesão e comunicação | F03, F08, F12; RNF01, RNF12 |
+| Benchmark: foco e independência de hardware | F03, F07, F08, F09; RNF07, RNF10 |
+| Restrições do estudo de caso | RNF01 a RNF12; RF14 a RF17 |
+
+- [x] 12 funcionalidades com descrição, necessidade e justificativa.
+- [x] 20 requisitos funcionais numerados.
+- [x] 12 requisitos não funcionais com verificação proposta.
+- [x] CRUD e justificativa das operações não aplicáveis.
+- [x] Priorização e escolha da funcionalidade mais importante.
+- [x] Relação com problema, personas e pesquisa.
+- [x] README e CHANGELOG preparados para a Atividade 03.
+- [x] Apresentação preparada em `docs/apresentacaoRequisitos.pdf`.
+- [ ] Cada integrante revisar e publicar sua contribuição identificável no GitHub.
+- [ ] Grupo ensaiar e realizar a apresentação.
+
+## 8. Fontes e decisões pendentes para implementação
+
+As fontes bibliográficas NRC, AAHA, WSAVA e CRMV-SP já estão registradas em [pesquisa.md](pesquisa.md); os comparativos estão em [benchmark.md](benchmark.md). Esta atividade reutiliza a pesquisa existente e não apresenta nova coleta ou nova validação clínica.
+
+Antes da implementação do cálculo, selecionar e documentar as equações aplicáveis por espécie/fase de vida, a referência de ECC, o método de peso de referência e os parâmetros aprovados. Antes da operação remota, definir provedor, autenticação, base legal, política de retenção e expiração de backups. Essas pendências não autorizam inventar resultados nutricionais ou declarar conformidade legal já validada.
