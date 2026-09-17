@@ -11,3 +11,12 @@ Foi criada a análise inicial do estudo de caso, disponível em docs/estudo-de-c
 Foi criado o README.md, com a identificação do projeto, dos integrantes e da turma, uma breve descrição da solução e a divisão de responsabilidades adotada nesta atividade.
 
 Foi criada a estrutura inicial do repositório, incluindo a pasta docs destinada à documentação do projeto.
+
+
+## [17/09/2026] - Atividade 03 - Etapa 1
+
+**Responsável:** Paulo Emanuel.
+
+- **Mudança:** Requisitos funcionais RF01 a RF20 e coerência entre comportamentos e funcionalidades.
+- **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
+- **Resultado observado na documentação:** 20 comportamentos do sistema descritos e associados às funcionalidades.

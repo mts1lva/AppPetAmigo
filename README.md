@@ -33,3 +33,12 @@ O repositório contém, na raiz, os arquivos README.md e CHANGELOG.md, e, na pas
 ## Status
 
 Atividade 01, correspondente à análise do estudo de caso, concluída.
+
+
+## Atividade 03 - Funcionalidades e requisitos
+
+A especificação desta etapa está em [docs/requisitos.md](docs/requisitos.md). As responsabilidades acima descrevem a Atividade 01; abaixo está a divisão planejada da Atividade 03. Cada integrante deve revisar e publicar sua contribuição com a própria conta.
+
+### Responsabilidades da Atividade 03
+
+- **Paulo Emanuel:** requisitos funcionais RF01 a RF20 e coerência entre comportamentos e funcionalidades.
