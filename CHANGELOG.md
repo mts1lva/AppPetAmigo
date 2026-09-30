@@ -44,3 +44,11 @@ Foi criada a estrutura inicial do repositório, incluindo a pasta docs destinada
 - **Mudança:** Requisitos não funcionais RNF01 a RNF12, restrições e critérios de verificação.
 - **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
 - **Resultado observado na documentação:** 12 condições de qualidade e restrições documentadas com formas de verificação.
+
+## [17/09/2026] - Atividade 03 - Etapa 5
+
+**Responsável planejado:** Matheus Silva.
+
+- **Mudança:** CRUD, priorização, rastreabilidade, consolidação da apresentação e organização da entrega.
+- **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
+- **Resultado observado na documentação:** CRUD e prioridades definidos, documentos consolidados e apresentação preparada. Publicação individual no GitHub ainda depende de cada integrante.
