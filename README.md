@@ -21,7 +21,7 @@ Programação para Dispositivos Móveis
 
 ## Breve descrição do projeto
 
-O PetAmigo combate a obesidade e a desnutrição de cães e gatos oferecendo ao tutor uma calculadora de peso ideal e de calorias diárias baseada em fórmulas veterinárias da NRC, um diário de alimentação que contabiliza ração e petiscos separadamente, um registro de passeios e um gráfico de evolução do peso ao longo do tempo.
+O PetAmigo é uma proposta de aplicativo para acompanhar alimentação, petiscos, atividades e peso de um único cão ou gato. A referência alimentar baseada em método NRC permanece indisponível até documentação e validação profissional; diário e histórico funcionam independentemente dessa referência. A especificação atual está em `docs/requisitos.md`.
 
 O aplicativo é pensado para uso diário em contextos de pouca atenção, como a cozinha durante a refeição do animal, o balcão do pet shop e a rua durante o passeio, e por isso prioriza o registro em poucos toques, o funcionamento offline e uma interface acolhedora, que motiva o tutor sem culpá-lo. O público-alvo reúne tutores de cães e gatos, médicos veterinários nutrólogos, pet shops e ONGs.
 
@@ -46,9 +46,27 @@ A especificação desta etapa está em [docs/requisitos.md](docs/requisitos.md).
 - **Matheus Leão:** requisitos não funcionais RNF01 a RNF12, restrições e critérios de verificação.
 - **Matheus Silva:** CRUD, priorização, rastreabilidade, consolidação da apresentação e organização da entrega.
 
-### Arquivos e situação da Atividade 03
 
-- [Requisitos completos](docs/requisitos.md): funcionalidades, RF, RNF, CRUD e prioridades.
-- [Apresentação para a aula](docs/apresentacaoRequisitos.pdf).
-- Documentos de base: [estudo de caso](docs/estudo-de-caso.md), [pesquisa](docs/pesquisa.md), [personas](docs/personas.md) e [benchmark](docs/benchmark.md).
-- Especificação e apresentação preparadas; revisão do grupo, publicação dos commits individuais e apresentação em aula permanecem pendentes. O aplicativo ainda não foi implementado nesta atividade.
+## Atividade 04 - Prototipação
+
+Protótipos e documentação preparados em 30/09/2026. Não há aplicativo implementado nesta entrega.
+
+- [Figma - arquivo único](https://www.figma.com/design/KMFuEzPGv0SJTS7L8c3DMV): planejamento, fluxos, baixa fidelidade, identidade/componentes, alta fidelidade e seis slides editáveis. Visualização pública sem login verificada em 30/09/2026.
+- [Baixa fidelidade](docs/prototipoBaixaFidelidade.pdf).
+- [Alta fidelidade](docs/prototipoAltaFidelidade.pdf).
+- [Justificativas, arquitetura e matriz de requisitos](docs/justificativas.md).
+- [Evolução e roteiro da apresentação](docs/apresentacao-prototipacao.md).
+
+### Divisão proposta da Atividade 04
+
+| Integrante | Contribuição para revisar e publicar |
+|---|---|
+| Paulo Emanuel | `docs/prototipoBaixaFidelidade.pdf` |
+| Raissa Andrade Santos | `docs/justificativas.md` |
+| João Lopes | `docs/prototipoAltaFidelidade.pdf` |
+| Matheus Leão | `docs/apresentacao-prototipacao.md` e revisão dos seis slides |
+| Matheus Silva | `README.md`, `CHANGELOG.md`, links e consolidação |
+
+### Escopo e pendências
+
+Quatro destinos: Início, Diário, Atividades e Evolução; uso local sem conta e cópia remota opcional por Wi-Fi. Dados demonstrativos; não há recomendação clínica gerada. Cálculo NRC, revisão das dicas, reflow a 200%, TalkBack, desempenho, persistência e sincronização precisam de validação/implementação. Os PDFs mostram telas e estados representados no Figma, incluindo conferência de variação de peso; seletores nativos e operações dinâmicas são simulações documentadas.

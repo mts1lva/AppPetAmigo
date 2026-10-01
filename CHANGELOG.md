@@ -52,3 +52,13 @@ Foi criada a estrutura inicial do repositório, incluindo a pasta docs destinada
 - **Mudança:** CRUD, priorização, rastreabilidade, consolidação da apresentação e organização da entrega.
 - **Motivo:** transformar os estudos anteriores em especificação verificável e atender à Atividade 03.
 - **Resultado observado na documentação:** CRUD e prioridades definidos, documentos consolidados e apresentação preparada. Publicação individual no GitHub ainda depende de cada integrante.
+
+## [30/09/2026] - Atividade 04 - Prototipação
+
+- Preparados protótipos de baixa e alta fidelidade em um único arquivo Figma, com quatro destinos, componentes editáveis, planejamento, matriz RF/RNF e seis slides.
+- Gerados PDFs dos protótipos, justificativas de interface/arquitetura e roteiro de evolução/apresentação.
+- Preparada divisão individual: Paulo Emanuel (baixa fidelidade), Raissa Andrade Santos (justificativas), João Lopes (alta fidelidade), Matheus Leão (evolução/apresentação) e Matheus Silva (README/CHANGELOG e consolidação).
+- Decisão: `docs/requisitos.md` prevalece sobre estudos antigos. Sem método NRC validado, a referência permanece indisponível; petiscos não usam 30% como regra universal e atividades não compensam calorias.
+- Verificações: estrutura editável e fonte Inter inspecionadas; PDFs revisados visualmente; pares principais de contraste medidos. Não foram realizados testes de usuários, TalkBack, desempenho, persistência ou sincronização no Android.
+- Visualização pública do Figma verificada sem login; primeiro acesso sem pet e conferência de variação de peso representados.
+- Pendências: validação nutricional, revisão das dicas e critérios de implementação descritos em `docs/justificativas.md`.
