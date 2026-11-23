@@ -3,12 +3,15 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/sync/fila_sync_provider.dart';
+import '../../data/fotos/armazenamento_fotos_local.dart';
+import '../../data/fotos/seletor_foto_galeria.dart';
 import '../../data/repositorios/pet_repositorio_drift.dart';
 import '../../domain/casos_de_uso/cadastrar_pet.dart';
 import '../../domain/casos_de_uso/editar_pet.dart';
 import '../../domain/casos_de_uso/excluir_pet.dart';
 import '../../domain/casos_de_uso/trocar_pet_atual.dart';
 import '../../domain/entidades/pet.dart';
+import '../../domain/repositorios/fotos_pet.dart';
 import '../../domain/repositorios/pet_repositorio.dart';
 import 'pet_atual_provider.dart';
 
@@ -25,6 +28,12 @@ final petRepositorioProvider = Provider<PetRepositorio>(
     novoId: ref.watch(novoIdProvider),
   ),
 );
+
+/// Fotos na área privada do app (P1-1.4).
+final armazenamentoFotosProvider = Provider<ArmazenamentoFotos>((ref) => ArmazenamentoFotosLocal());
+
+/// Seletor nativo da galeria (P1-1.4).
+final seletorFotoProvider = Provider<SeletorFoto>((ref) => SeletorFotoGaleria());
 
 /// Pets do aparelho, por ordem de cadastro (N1 Seus pets).
 final petsProvider = StreamProvider<List<Pet>>((ref) => ref.watch(petRepositorioProvider).observarTodos());
@@ -46,11 +55,19 @@ final petAtualProvider = Provider<Pet?>((ref) {
 });
 
 final cadastrarPetProvider = Provider(
-  (ref) => CadastrarPet(ref.watch(petRepositorioProvider), novoId: ref.watch(novoIdProvider)),
+  (ref) => CadastrarPet(
+    ref.watch(petRepositorioProvider),
+    ref.watch(armazenamentoFotosProvider),
+    novoId: ref.watch(novoIdProvider),
+  ),
 );
 
-final editarPetProvider = Provider((ref) => EditarPet(ref.watch(petRepositorioProvider)));
+final editarPetProvider = Provider(
+  (ref) => EditarPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider)),
+);
 
-final excluirPetProvider = Provider((ref) => ExcluirPet(ref.watch(petRepositorioProvider)));
+final excluirPetProvider = Provider(
+  (ref) => ExcluirPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider)),
+);
 
 final trocarPetAtualProvider = Provider((ref) => TrocarPetAtual(ref.watch(petAtualRepositorioProvider)));

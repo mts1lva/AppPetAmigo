@@ -146,6 +146,21 @@ void main() {
       expect(pets.edicoes.last.$2, 5.6);
     });
 
+    testWidgets('foto: escolher e voltar sem salvar não guarda; escolher e salvar guarda a cópia', (tester) async {
+      final pets = PetsFalsos(iniciais: [(luna(), 5.4)]);
+      pets.fotos.proxima = '/cache/galeria.jpg';
+      await abrir(tester, pets, petId: 'p1');
+      await tocar(tester, botao('Adicionar ou trocar foto'));
+      await tocar(tester, botao('Voltar'));
+      expect(pets.fotos.guardadas, isEmpty);
+
+      await tocar(tester, find.text('abrir'));
+      await tocar(tester, botao('Adicionar ou trocar foto'));
+      await tocar(tester, botao('Salvar pet'));
+      expect(pets.fotos.guardadas, [('/cache/galeria.jpg', 'p1')]);
+      expect(pets.edicoes.single.$1.fotoArquivo, '/privado/fotos/p1-1.jpg');
+    });
+
     testWidgets('com um pet só, não há "Excluir este pet"', (tester) async {
       await abrir(tester, PetsFalsos(iniciais: [(luna(), 5.4)]), petId: 'p1');
       expect(botao('Excluir este pet'), findsNothing);

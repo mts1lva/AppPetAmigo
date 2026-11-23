@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:petamigo/features/pets/apresentacao/providers/pet_atual_provider.dart';
 import 'package:petamigo/features/pets/apresentacao/providers/pets_providers.dart';
 import 'package:petamigo/features/pets/domain/entidades/pet.dart';
+import 'package:petamigo/features/pets/domain/repositorios/fotos_pet.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_atual_repositorio.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_repositorio.dart';
 
@@ -18,6 +19,26 @@ Pet luna({String id = 'p1', String nome = 'Luna'}) => Pet(
       castrado: true,
       nivelAtividade: NivelAtividade.moderada,
     );
+
+/// Seletor e armazenamento de fotos falsos: o seletor devolve [proxima] e o
+/// armazenamento só anota o que guardou e apagou.
+final class FotosFalsas implements SeletorFoto, ArmazenamentoFotos {
+  String? proxima;
+  final guardadas = <(String, String)>[];
+  final apagadas = <String>[];
+
+  @override
+  Future<String?> escolher() async => proxima;
+
+  @override
+  Future<String> guardar(String origem, {required String petId}) async {
+    guardadas.add((origem, petId));
+    return '/privado/fotos/$petId-${guardadas.length}.jpg';
+  }
+
+  @override
+  Future<void> apagar(String caminho) async => apagadas.add(caminho);
+}
 
 /// Pets em memória para widget tests (sem drift, sem timers pendentes).
 /// Implementa os dois repositórios do pacote `pets` e guarda as chamadas.
@@ -35,6 +56,7 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
   String? _atual;
   final _mudou = StreamController<void>.broadcast();
 
+  final fotos = FotosFalsas();
   final cadastros = <(Pet, double)>[];
   final edicoes = <(Pet, double?)>[];
   final exclusoes = <String>[];
@@ -44,6 +66,8 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
         petRepositorioProvider.overrideWithValue(this),
         petAtualRepositorioProvider.overrideWithValue(this),
         novoIdProvider.overrideWithValue(() => 'novo-${cadastros.length + 1}'),
+        armazenamentoFotosProvider.overrideWithValue(fotos),
+        seletorFotoProvider.overrideWithValue(fotos),
       ];
 
   Stream<T> _observar<T>(T Function() ler) => Stream.multi((s) {

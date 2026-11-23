@@ -63,6 +63,10 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
   bool? _castrado;
   NivelAtividade? _atividade;
 
+  /// Foto escolhida na galeria (arquivo temporário). Só é copiada para a área
+  /// privada ao salvar; voltar sem salvar não guarda nada.
+  String? _fotoEscolhida;
+
   Map<CampoPet, String> _erros = const {};
   var _salvando = false;
   var _preenchido = false;
@@ -145,11 +149,17 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
       final agora = DateTime.now();
       final petId = widget.petId;
       if (petId == null) {
-        await ref.read(cadastrarPetProvider)(dados, agora: agora);
+        await ref.read(cadastrarPetProvider)(dados, agora: agora, fotoEscolhida: _fotoEscolhida);
       } else {
         final atual = ref.read(petProvider(petId)).value;
         if (atual == null) return;
-        await ref.read(editarPetProvider)(atual, dados, pesoInicialAtualKg: _pesoInicialSalvo, agora: agora);
+        await ref.read(editarPetProvider)(
+          atual,
+          dados,
+          pesoInicialAtualKg: _pesoInicialSalvo,
+          agora: agora,
+          fotoEscolhida: _fotoEscolhida,
+        );
       }
       // Só fecha depois que a transação terminou (sem UI otimista).
       if (mounted) Navigator.of(context).pop();
@@ -172,14 +182,20 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
     }
   }
 
+  Future<void> _escolherFoto() async {
+    final foto = await ref.read(seletorFotoProvider).escolher();
+    if (foto != null && mounted) setState(() => _fotoEscolhida = foto);
+  }
+
   Future<void> _excluir() async {
-    final petId = widget.petId!;
+    final pet = ref.read(petProvider(widget.petId!)).value;
+    if (pet == null) return;
     final excluir = ref.read(excluirPetProvider);
     final navegador = Navigator.of(context);
     if (!await confirmarExclusao(context)) return;
     // Quem chamou a tela 23 fecha o próprio diálogo e executa a exclusão.
     navegador.pop();
-    await excluir(petId, agora: DateTime.now());
+    await excluir(pet, agora: DateTime.now());
   }
 
   @override
@@ -276,8 +292,7 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
               ),
             ],
       botoes: [
-        // TODO(P1-1.4): image_picker → cópia para a área privada → fotoArquivo.
-        const PaBotao.primario(texto: 'Adicionar ou trocar foto', aoTocar: null),
+        PaBotao.primario(texto: 'Adicionar ou trocar foto', aoTocar: carregandoEdicao ? null : _escolherFoto),
         PaBotao.primario(texto: 'Salvar pet', carregando: _salvando, aoTocar: carregandoEdicao ? null : _salvar),
         if (_edicao && quantidadePets >= 2) PaBotao.perigo(texto: 'Excluir este pet', aoTocar: _excluir),
         PaBotao.secundario(texto: 'Voltar', aoTocar: () => Navigator.of(context).pop()),
