@@ -1,0 +1,1512 @@
+<canvas id="0:1" name="Page 1" x="0" y="0" width="0" height="0">
+  <rounded-rectangle id="1:2" name="Rectangle 1" x="-227" y="-164" width="100" height="100" />
+  <frame id="1:52" name="home • Bom dia, Marina" x="-1240" y="-7282" width="390" height="844">
+    <frame id="1:53" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:54" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:55" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:56" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:57" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:58" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:59" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:63" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:64" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:65" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:66" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:67" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:68" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:69" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:70" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:71" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:72" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:73" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:74" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:75" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:76" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:77" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:78" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:79" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:80" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:81" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:82" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:83" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:84" name="diary • Diário" x="-800" y="-7282" width="390" height="844">
+    <frame id="1:85" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:86" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:87" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:88" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:89" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:90" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:91" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:92" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:93" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:94" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:95" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:96" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:97" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:98" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:99" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:100" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:101" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:102" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:103" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:104" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:105" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:106" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:107" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:108" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:109" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:110" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:111" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:112" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:113" name="activity • Atividades" x="-360" y="-7282" width="390" height="844">
+    <frame id="1:114" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:115" name="Atividades" x="20" y="20" width="350" height="36" />
+      <text id="1:116" name="Pequenos momentos juntos." x="20" y="68" width="350" height="20" />
+      <frame id="1:117" name="Hoje" x="20" y="100" width="350" height="147">
+        <text id="1:118" name="Hoje" x="12" y="12" width="326" height="25" />
+        <text id="1:119" name="18:00 • Brincadeira • 10 min" x="12" y="49" width="326" height="22" />
+        <instance id="1:120" name="Botão • Editar atividade" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:121" name="Novo momento" x="20" y="259" width="350" height="147">
+        <text id="1:122" name="Novo momento" x="12" y="12" width="326" height="25" />
+        <text id="1:123" name="Passeio ou brincadeira, sem GPS." x="12" y="49" width="326" height="22" />
+        <instance id="1:124" name="Botão • Registrar atividade" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:125" name="Dica para gatos" x="20" y="418" width="350" height="127">
+        <text id="1:126" name="Dica para gatos" x="12" y="12" width="326" height="25" />
+        <text id="1:127" name="Reserve um momento de brincadeira. Conteúdo educativo em revisão. Fonte: pesquisa do projeto • set. 2026" x="12" y="49" width="326" height="66" />
+      </frame>
+    </frame>
+    <frame id="1:128" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:129" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:130" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:131" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:132" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:133" name="weight • Evolução" x="80" y="-7282" width="390" height="844">
+    <frame id="1:134" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:135" name="Evolução" x="20" y="20" width="350" height="36" />
+      <text id="1:136" name="Peso é uma parte do acompanhamento." x="20" y="68" width="350" height="20" />
+      <frame id="1:137" name="Gráfico e alternativa textual" x="20" y="100" width="350" height="168">
+        <frame id="1:138" name="Frame" x="12" y="12" width="310" height="92">
+          <vector id="1:139" name="Vector" x="12" y="10" width="288" height="62" />
+          <vector id="1:140" name="Vector" x="40" y="30" width="230" height="24" />
+          <vector id="1:141" name="Vector" x="35" y="25" width="10" height="10" />
+          <vector id="1:142" name="Vector" x="135" y="37" width="10" height="10" />
+          <vector id="1:143" name="Vector" x="265" y="49" width="10" height="10" />
+        </frame>
+        <text id="1:144" name="16 set. 5,6 kg → 23 set. 5,5 kg 30 set. 5,4 kg • objetivo não informado" x="12" y="116" width="326" height="40" />
+      </frame>
+      <frame id="1:145" name="Última pesagem" x="20" y="280" width="350" height="169">
+        <text id="1:146" name="Última pesagem" x="12" y="12" width="326" height="25" />
+        <text id="1:147" name="5,4 kg • 30 set. 2026 Anterior: 5,5 kg • 23 set." x="12" y="49" width="326" height="44" />
+        <instance id="1:148" name="Botão • Editar pesagem" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:149" name="Acompanhar" x="20" y="461" width="350" height="147">
+        <text id="1:150" name="Acompanhar" x="12" y="12" width="326" height="25" />
+        <text id="1:151" name="Uma mudança não define melhora." x="12" y="49" width="326" height="22" />
+        <instance id="1:152" name="Botão • Registrar peso" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:153" name="ECC e objetivo" x="20" y="620" width="350" height="169">
+        <text id="1:154" name="ECC e objetivo" x="12" y="12" width="326" height="25" />
+        <text id="1:155" name="ECC não informado • Objetivo não informado" x="12" y="49" width="326" height="44" />
+        <instance id="1:156" name="Botão • Atualizar referências" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:157" name="Resumo para consulta" x="20" y="801" width="350" height="147">
+        <text id="1:158" name="Resumo para consulta" x="12" y="12" width="326" height="25" />
+        <text id="1:159" name="Você escolhe quando compartilhar." x="12" y="49" width="326" height="22" />
+        <instance id="1:160" name="Botão • Compartilhar resumo" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:161" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:162" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:163" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:164" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:165" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:166" name="pet • Dados de Luna" x="520" y="-6232" width="350" height="748">
+    <text id="1:167" name="Dados de Luna" x="16" y="16" width="318" height="36" />
+    <text id="1:168" name="Cadastro e edição no mesmo formulário." x="16" y="64" width="318" height="20" />
+    <instance id="1:169" name="Campo • Nome • Luna" x="16" y="96" width="318" height="64" />
+    <instance id="1:170" name="Campo • Espécie • Gato" x="16" y="172" width="318" height="64" />
+    <instance id="1:171" name="Campo • Idade • 6 anos" x="16" y="248" width="318" height="64" />
+    <instance id="1:172" name="Campo • Castração • Sim" x="16" y="324" width="318" height="64" />
+    <instance id="1:173" name="Campo • Atividade • Moderada" x="16" y="400" width="318" height="64" />
+    <instance id="1:174" name="Campo • Peso inicial • 5,4 kg" x="16" y="476" width="318" height="64" />
+    <instance id="1:175" name="Botão • Adicionar ou trocar foto" x="16" y="552" width="318" height="52" />
+    <instance id="1:176" name="Botão • Salvar pet" x="16" y="616" width="318" height="52" />
+    <instance id="1:177" name="Botão • Voltar" x="16" y="680" width="318" height="52" />
+  </frame>
+  <frame id="1:178" name="quick • Registrar refeição" x="-1240" y="-6232" width="350" height="598">
+    <text id="1:179" name="Registrar refeição" x="16" y="16" width="318" height="36" />
+    <text id="1:180" name="Confira e confirme a porção habitual." x="16" y="64" width="318" height="20" />
+    <instance id="1:181" name="Campo • Alimento • Ração habitual" x="16" y="96" width="318" height="64" />
+    <instance id="1:182" name="Campo • Porção • 30 g / 108 kcal" x="16" y="172" width="318" height="64" />
+    <instance id="1:183" name="Campo • Data e hora • 30 set. 2026 • agora" x="16" y="248" width="318" height="64" />
+    <text id="1:184" name="Energia do rótulo demonstrativo: 360 kcal/100 g. Esta porção não é uma prescrição." x="16" y="324" width="318" height="66" />
+    <instance id="1:185" name="Botão • Confirmar refeição" x="16" y="402" width="318" height="52" />
+    <instance id="1:186" name="Botão • Alterar dados" x="16" y="466" width="318" height="52" />
+    <instance id="1:187" name="Botão • Voltar" x="16" y="530" width="318" height="52" />
+  </frame>
+  <frame id="1:188" name="meal • Refeição" x="-800" y="-6232" width="350" height="672">
+    <text id="1:189" name="Refeição" x="16" y="16" width="318" height="36" />
+    <text id="1:190" name="Adicionar ou corrigir um registro." x="16" y="64" width="318" height="20" />
+    <instance id="1:191" name="Campo • Alimento • Ração habitual" x="16" y="96" width="318" height="64" />
+    <instance id="1:192" name="Campo • Quantidade • 30 g" x="16" y="172" width="318" height="64" />
+    <instance id="1:193" name="Campo • Energia • 108 kcal (rótulo)" x="16" y="248" width="318" height="64" />
+    <instance id="1:194" name="Campo • Data • 30 set. 2026" x="16" y="324" width="318" height="64" />
+    <instance id="1:195" name="Campo • Horário • 08:00" x="16" y="400" width="318" height="64" />
+    <instance id="1:196" name="Botão • Salvar refeição" x="16" y="476" width="318" height="52" />
+    <instance id="1:197" name="Botão • Excluir registro" x="16" y="540" width="318" height="52" />
+    <instance id="1:198" name="Botão • Voltar" x="16" y="604" width="318" height="52" />
+  </frame>
+  <frame id="1:199" name="treat • Petisco ou extra" x="-360" y="-6232" width="350" height="672">
+    <text id="1:200" name="Petisco ou extra" x="16" y="16" width="318" height="36" />
+    <text id="1:201" name="Categoria separada das refeições." x="16" y="64" width="318" height="20" />
+    <instance id="1:202" name="Campo • Descrição • Petisco" x="16" y="96" width="318" height="64" />
+    <instance id="1:203" name="Campo • Quantidade • 3 g" x="16" y="172" width="318" height="64" />
+    <instance id="1:204" name="Campo • Energia informada • 12 kcal" x="16" y="248" width="318" height="64" />
+    <instance id="1:205" name="Campo • Data • 30 set. 2026" x="16" y="324" width="318" height="64" />
+    <instance id="1:206" name="Campo • Horário • 12:00" x="16" y="400" width="318" height="64" />
+    <instance id="1:207" name="Botão • Salvar petisco" x="16" y="476" width="318" height="52" />
+    <instance id="1:208" name="Botão • Excluir registro" x="16" y="540" width="318" height="52" />
+    <instance id="1:209" name="Botão • Voltar" x="16" y="604" width="318" height="52" />
+  </frame>
+  <frame id="1:210" name="food • Alimentos e porções" x="80" y="-6232" width="350" height="682">
+    <text id="1:211" name="Alimentos e porções" x="16" y="16" width="318" height="36" />
+    <text id="1:212" name="Valores do rótulo, sem recomendação automática." x="16" y="64" width="318" height="40" />
+    <instance id="1:213" name="Campo • Alimento • Ração habitual" x="16" y="116" width="318" height="64" />
+    <instance id="1:214" name="Campo • Densidade • 360 kcal/100 g" x="16" y="192" width="318" height="64" />
+    <instance id="1:215" name="Campo • Porção reutilizável • 30 g" x="16" y="268" width="318" height="64" />
+    <text id="1:216" name="Registros antigos preservam alimento, densidade e quantidade usados naquele momento." x="16" y="344" width="318" height="66" />
+    <instance id="1:217" name="Botão • Salvar alimento e porção" x="16" y="422" width="318" height="52" />
+    <instance id="1:218" name="Botão • Excluir alimento e porção" x="16" y="486" width="318" height="52" />
+    <instance id="1:219" name="Botão • Conferir erro de densidade" x="16" y="550" width="318" height="52" />
+    <instance id="1:220" name="Botão • Voltar" x="16" y="614" width="318" height="52" />
+  </frame>
+  <frame id="1:221" name="activityForm • Passeio ou brincadeira" x="520" y="-5282" width="350" height="652">
+    <text id="1:222" name="Passeio ou brincadeira" x="16" y="16" width="318" height="36" />
+    <text id="1:223" name="Um formulário para criar e editar." x="16" y="64" width="318" height="20" />
+    <instance id="1:224" name="Campo • Tipo • Brincadeira" x="16" y="96" width="318" height="64" />
+    <instance id="1:225" name="Campo • Duração • 10 minutos" x="16" y="172" width="318" height="64" />
+    <instance id="1:226" name="Campo • Data • 30 set. 2026" x="16" y="248" width="318" height="64" />
+    <instance id="1:227" name="Campo • Horário • 18:00" x="16" y="324" width="318" height="64" />
+    <text id="1:228" name="Atividades não descontam calorias da alimentação." x="16" y="400" width="318" height="44" />
+    <instance id="1:229" name="Botão • Salvar atividade" x="16" y="456" width="318" height="52" />
+    <instance id="1:230" name="Botão • Excluir registro" x="16" y="520" width="318" height="52" />
+    <instance id="1:231" name="Botão • Voltar" x="16" y="584" width="318" height="52" />
+  </frame>
+  <frame id="1:232" name="weightForm • Pesagem" x="-1240" y="-5282" width="350" height="662">
+    <text id="1:233" name="Pesagem" x="16" y="16" width="318" height="36" />
+    <text id="1:234" name="Valores positivos em quilogramas." x="16" y="64" width="318" height="20" />
+    <instance id="1:235" name="Campo • Peso • 5,4 kg" x="16" y="96" width="318" height="64" />
+    <instance id="1:236" name="Campo • Data • 30 set. 2026" x="16" y="172" width="318" height="64" />
+    <instance id="1:237" name="Campo • Horário • 09:00" x="16" y="248" width="318" height="64" />
+    <text id="1:238" name="Variações suspeitas exigem conferência; o registro não é descartado silenciosamente." x="16" y="324" width="318" height="66" />
+    <instance id="1:239" name="Botão • Salvar peso" x="16" y="402" width="318" height="52" />
+    <instance id="1:240" name="Botão • Excluir registro" x="16" y="466" width="318" height="52" />
+    <instance id="1:241" name="Botão • Conferir variação" x="16" y="530" width="318" height="52" />
+    <instance id="1:242" name="Botão • Voltar" x="16" y="594" width="318" height="52" />
+  </frame>
+  <frame id="1:243" name="reference • ECC e objetivo" x="-800" y="-5282" width="350" height="674">
+    <text id="1:244" name="ECC e objetivo" x="16" y="16" width="318" height="36" />
+    <text id="1:245" name="Informações orientadas pelo veterinário." x="16" y="64" width="318" height="20" />
+    <instance id="1:246" name="Campo • ECC informado • Não informado" x="16" y="96" width="318" height="64" />
+    <instance id="1:247" name="Campo • Objetivo (kg) • Não informado" x="16" y="172" width="318" height="64" />
+    <instance id="1:248" name="Campo • Origem • Veterinário / consulta" x="16" y="248" width="318" height="64" />
+    <instance id="1:249" name="Campo • Data • 30 set. 2026" x="16" y="324" width="318" height="64" />
+    <text id="1:250" name="ECC é o escore de condição corporal. Precisa de avaliação profissional; peso isolado não diagnostica." x="16" y="400" width="318" height="66" />
+    <instance id="1:251" name="Botão • Salvar referências" x="16" y="478" width="318" height="52" />
+    <instance id="1:252" name="Botão • Remover referências" x="16" y="542" width="318" height="52" />
+    <instance id="1:253" name="Botão • Voltar" x="16" y="606" width="318" height="52" />
+  </frame>
+  <frame id="1:254" name="share • Compartilhar resumo" x="-360" y="-5282" width="350" height="458">
+    <text id="1:255" name="Compartilhar resumo" x="16" y="16" width="318" height="36" />
+    <text id="1:256" name="Somente quando você solicitar." x="16" y="64" width="318" height="20" />
+    <instance id="1:257" name="Campo • Início • 01 set. 2026" x="16" y="96" width="318" height="64" />
+    <instance id="1:258" name="Campo • Fim • 30 set. 2026" x="16" y="172" width="318" height="64" />
+    <text id="1:259" name="Inclui perfil, alimentação, atividades, peso, lacunas e situação da referência alimentar. Revise antes de enviar." x="16" y="248" width="318" height="66" />
+    <instance id="1:260" name="Botão • Abrir compartilhamento" x="16" y="326" width="318" height="52" />
+    <instance id="1:261" name="Botão • Voltar" x="16" y="390" width="318" height="52" />
+  </frame>
+  <frame id="1:262" name="privacy • Seus dados" x="80" y="-5282" width="350" height="456">
+    <text id="1:263" name="Seus dados" x="16" y="16" width="318" height="36" />
+    <text id="1:264" name="O uso essencial funciona sem conta." x="16" y="64" width="318" height="20" />
+    <text id="1:265" name="Perfil, foto e registros servem ao acompanhamento de Luna. Ficam neste aparelho. Você controla a exportação e a exclusão. Cópia remota é opcional." x="16" y="96" width="318" height="88" />
+    <instance id="1:266" name="Botão • Cópia remota opcional" x="16" y="196" width="318" height="52" />
+    <instance id="1:267" name="Botão • Exportar dados" x="16" y="260" width="318" height="52" />
+    <instance id="1:268" name="Botão • Excluir todos os dados" x="16" y="324" width="318" height="52" />
+    <instance id="1:269" name="Botão • Voltar" x="16" y="388" width="318" height="52" />
+  </frame>
+  <frame id="1:270" name="remote • Cópia remota opcional" x="520" y="-4332" width="350" height="500">
+    <text id="1:271" name="Cópia remota opcional" x="16" y="16" width="318" height="36" />
+    <text id="1:272" name="A conta só é necessária para esta opção." x="16" y="64" width="318" height="20" />
+    <instance id="1:273" name="Campo • E-mail • tutor@exemplo.invalid" x="16" y="96" width="318" height="64" />
+    <instance id="1:274" name="Campo • Senha • informada no aparelho" x="16" y="172" width="318" height="64" />
+    <text id="1:275" name="Autenticação simulada. Sincronização só por Wi-Fi; o uso local continua livre." x="16" y="248" width="318" height="44" />
+    <instance id="1:276" name="Botão • Ativar e aguardar Wi-Fi" x="16" y="304" width="318" height="52" />
+    <instance id="1:277" name="Botão • Desativar cópia" x="16" y="368" width="318" height="52" />
+    <instance id="1:278" name="Botão • Voltar" x="16" y="432" width="318" height="52" />
+  </frame>
+  <frame id="1:279" name="sync • Cópia remota" x="-1240" y="-4332" width="350" height="528">
+    <text id="1:280" name="Cópia remota" x="16" y="16" width="318" height="36" />
+    <text id="1:281" name="Local salvo • aguardando Wi-Fi" x="16" y="64" width="318" height="20" />
+    <text id="1:282" name="Pendente: alterações na fila. Sincronizado: cópia atualizada. Falha: dados locais preservados." x="16" y="96" width="318" height="66" />
+    <instance id="1:283" name="Botão • Resolver conflito" x="16" y="174" width="318" height="52" />
+    <instance id="1:284" name="Mensagem • pendente" x="16" y="238" width="318" height="62" />
+    <instance id="1:285" name="Mensagem • sincronizado" x="16" y="312" width="318" height="62" />
+    <instance id="1:286" name="Mensagem • falha" x="16" y="386" width="318" height="62" />
+    <instance id="1:287" name="Botão • Voltar" x="16" y="460" width="318" height="52" />
+  </frame>
+  <frame id="1:288" name="conflict • Conferir versões" x="-800" y="-4332" width="350" height="412">
+    <text id="1:289" name="Conferir versões" x="16" y="16" width="318" height="36" />
+    <text id="1:290" name="A mesma refeição foi editada em dois aparelhos." x="16" y="64" width="318" height="40" />
+    <text id="1:291" name="Neste aparelho: 30 g • 08:00 Na cópia: 35 g • 08:10 Escolha a versão. Exclusões confirmadas têm precedência." x="16" y="116" width="318" height="88" />
+    <instance id="1:292" name="Botão • Manter versão local" x="16" y="216" width="318" height="52" />
+    <instance id="1:293" name="Botão • Usar versão da cópia" x="16" y="280" width="318" height="52" />
+    <instance id="1:294" name="Botão • Voltar" x="16" y="344" width="318" height="52" />
+  </frame>
+  <frame id="1:295" name="method • Referência indisponível" x="-360" y="-4332" width="350" height="350">
+    <text id="1:296" name="Referência indisponível" x="16" y="16" width="318" height="36" />
+    <text id="1:297" name="Ainda não há método NRC validado." x="16" y="64" width="318" height="20" />
+    <text id="1:298" name="Para calcular, a equipe precisa documentar edição, equação, parâmetros, unidades e limites, e validar os resultados. Nenhuma meta clínica é inventada." x="16" y="96" width="318" height="110" />
+    <instance id="1:299" name="Botão • Voltar ao perfil" x="16" y="218" width="318" height="52" />
+    <instance id="1:300" name="Botão • Voltar" x="16" y="282" width="318" height="52" />
+  </frame>
+  <frame id="1:301" name="date • Consultar outra data" x="80" y="-4332" width="350" height="284">
+    <text id="1:302" name="Consultar outra data" x="16" y="16" width="318" height="36" />
+    <text id="1:303" name="29 setembro 2026" x="16" y="64" width="318" height="20" />
+    <text id="1:304" name="Sem registros nesta data. Ausência de dados não significa consumo zero." x="16" y="96" width="318" height="44" />
+    <instance id="1:305" name="Botão • Retomar registro hoje" x="16" y="152" width="318" height="52" />
+    <instance id="1:306" name="Botão • Voltar" x="16" y="216" width="318" height="52" />
+  </frame>
+  <frame id="1:307" name="saved • Refeição salva" x="520" y="-3382" width="350" height="306">
+    <text id="1:308" name="Refeição salva" x="16" y="16" width="318" height="36" />
+    <text id="1:309" name="Salva neste aparelho." x="16" y="64" width="318" height="20" />
+    <text id="1:310" name="O diário passa de 120 para 228 kcal. Ração 216 kcal • Petiscos 12 kcal. Continue no seu ritmo." x="16" y="96" width="318" height="66" />
+    <instance id="1:311" name="Botão • Consultar diário atualizado" x="16" y="174" width="318" height="52" />
+    <instance id="1:312" name="Botão • Voltar" x="16" y="238" width="318" height="52" />
+  </frame>
+  <frame id="1:313" name="diarySaved • Diário atualizado" x="520" y="-7282" width="390" height="844">
+    <frame id="1:314" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:315" name="Diário atualizado" x="20" y="20" width="350" height="36" />
+      <text id="1:316" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:317" name="Refeições" x="20" y="100" width="350" height="169">
+        <text id="1:318" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:319" name="08:00 • 30 g • 108 kcal Agora • 30 g • 108 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:320" name="Botão • Editar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:321" name="Petiscos" x="20" y="281" width="350" height="147">
+        <text id="1:322" name="Petiscos" x="12" y="12" width="326" height="25" />
+        <text id="1:323" name="12:00 • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:324" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:325" name="Total registrado" x="20" y="440" width="350" height="169">
+        <text id="1:326" name="Total registrado" x="12" y="12" width="326" height="25" />
+        <text id="1:327" name="228 kcal • Ração 216 • Extras 12 Comparação indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:328" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:329" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:330" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:331" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:332" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:333" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:334" name="error • Confira a densidade" x="-800" y="-3382" width="350" height="382">
+    <text id="1:335" name="Confira a densidade" x="16" y="16" width="318" height="36" />
+    <text id="1:336" name="O valor precisa ser positivo." x="16" y="64" width="318" height="20" />
+    <instance id="1:337" name="Campo • Densidade • 0 kcal/100 g" x="16" y="96" width="318" height="64" />
+    <text id="1:338" name="Informe o valor e a unidade da embalagem. Não é possível converter com zero." x="16" y="172" width="318" height="66" />
+    <instance id="1:339" name="Botão • Corrigir valor demonstrativo" x="16" y="250" width="318" height="52" />
+    <instance id="1:340" name="Botão • Voltar" x="16" y="314" width="318" height="52" />
+  </frame>
+  <frame id="1:341" name="empty • Vamos começar?" x="-360" y="-3382" width="350" height="198">
+    <text id="1:342" name="Vamos começar?" x="16" y="16" width="318" height="36" />
+    <text id="1:343" name="Cadastre um único cão ou gato." x="16" y="64" width="318" height="20" />
+    <text id="1:344" name="Não há pet nem registros neste aparelho." x="16" y="96" width="318" height="22" />
+    <instance id="1:345" name="Botão • Cadastrar pet" x="16" y="130" width="318" height="52" />
+  </frame>
+  <frame id="1:346" name="delete • Confirmar exclusão" x="80" y="-3382" width="350" height="350">
+    <text id="1:347" name="Confirmar exclusão" x="16" y="16" width="318" height="36" />
+    <text id="1:348" name="Ação sobre o item selecionado." x="16" y="64" width="318" height="20" />
+    <text id="1:349" name="No aplicativo, exclui apenas o item escolhido e atualiza os totais. Para exclusão integral, remove também pet, foto e metas; a remoção remota pode ficar pendente." x="16" y="96" width="318" height="110" />
+    <instance id="1:350" name="Botão • Confirmar exclusão" x="16" y="218" width="318" height="52" />
+    <instance id="1:351" name="Botão • Cancelar" x="16" y="282" width="318" height="52" />
+  </frame>
+  <frame id="1:352" name="system • Recurso do aparelho" x="520" y="-2432" width="350" height="328">
+    <text id="1:353" name="Recurso do aparelho" x="16" y="16" width="318" height="36" />
+    <text id="1:354" name="Transição nativa representada." x="16" y="64" width="318" height="20" />
+    <text id="1:355" name="Seleção de foto e compartilhamento abrem os seletores nativos no aplicativo. Este protótipo não acessa arquivos nem envia dados." x="16" y="96" width="318" height="88" />
+    <instance id="1:356" name="Botão • Concluir simulação" x="16" y="196" width="318" height="52" />
+    <instance id="1:357" name="Botão • Voltar" x="16" y="260" width="318" height="52" />
+  </frame>
+  <frame id="1:358" name="PDF • Bom dia, Marina" x="-1240" y="-382" width="390" height="1022">
+    <frame id="1:359" name="Conteúdo rolável" x="0" y="24" width="390" height="902">
+      <text id="1:360" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:361" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:362" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:363" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:364" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:365" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:369" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:370" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:371" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:372" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:373" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:374" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:375" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:376" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:377" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:378" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:379" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:380" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:381" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:382" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:383" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:384" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:385" name="Navegação inferior fixa" x="0" y="950" width="390" height="72">
+      <instance id="1:386" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:387" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:388" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:389" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:390" name="PDF • Diário" x="-800" y="-382" width="390" height="1045">
+    <frame id="1:391" name="Conteúdo rolável" x="0" y="24" width="390" height="925">
+      <text id="1:392" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:393" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:394" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:395" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:396" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:397" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:398" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:399" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:400" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:401" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:402" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:403" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:404" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:405" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:406" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:407" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:408" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:409" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:410" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:411" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:412" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:413" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:414" name="Navegação inferior fixa" x="0" y="973" width="390" height="72">
+      <instance id="1:415" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:416" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:417" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:418" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:419" name="PDF • Atividades" x="-360" y="-382" width="390" height="685">
+    <frame id="1:420" name="Conteúdo rolável" x="0" y="24" width="390" height="565">
+      <text id="1:421" name="Atividades" x="20" y="20" width="350" height="36" />
+      <text id="1:422" name="Pequenos momentos juntos." x="20" y="68" width="350" height="20" />
+      <frame id="1:423" name="Hoje" x="20" y="100" width="350" height="147">
+        <text id="1:424" name="Hoje" x="12" y="12" width="326" height="25" />
+        <text id="1:425" name="18:00 • Brincadeira • 10 min" x="12" y="49" width="326" height="22" />
+        <instance id="1:426" name="Botão • Editar atividade" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:427" name="Novo momento" x="20" y="259" width="350" height="147">
+        <text id="1:428" name="Novo momento" x="12" y="12" width="326" height="25" />
+        <text id="1:429" name="Passeio ou brincadeira." x="12" y="49" width="326" height="22" />
+        <instance id="1:430" name="Botão • Registrar atividade" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:431" name="Dica para gatos" x="20" y="418" width="350" height="127">
+        <text id="1:432" name="Dica para gatos" x="12" y="12" width="326" height="25" />
+        <text id="1:433" name="Reserve um momento de brincadeira. Conteúdo educativo em revisão. Fonte: pesquisa do projeto • set. 2026" x="12" y="49" width="326" height="66" />
+      </frame>
+    </frame>
+    <frame id="1:434" name="Navegação inferior fixa" x="0" y="613" width="390" height="72">
+      <instance id="1:435" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:436" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:437" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:438" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:439" name="PDF • Evolução" x="80" y="-382" width="390" height="1088">
+    <frame id="1:440" name="Conteúdo rolável" x="0" y="24" width="390" height="968">
+      <text id="1:441" name="Evolução" x="20" y="20" width="350" height="36" />
+      <text id="1:442" name="Peso é uma parte do acompanhamento." x="20" y="68" width="350" height="20" />
+      <frame id="1:443" name="Gráfico e alternativa textual" x="20" y="100" width="350" height="168">
+        <frame id="1:444" name="Frame" x="12" y="12" width="310" height="92">
+          <vector id="1:445" name="Vector" x="12" y="10" width="288" height="62" />
+          <vector id="1:446" name="Vector" x="40" y="30" width="230" height="24" />
+          <vector id="1:447" name="Vector" x="35" y="25" width="10" height="10" />
+          <vector id="1:448" name="Vector" x="135" y="37" width="10" height="10" />
+          <vector id="1:449" name="Vector" x="265" y="49" width="10" height="10" />
+        </frame>
+        <text id="1:450" name="16 set. 5,6 kg → 23 set. 5,5 kg 30 set. 5,4 kg • objetivo não informado" x="12" y="116" width="326" height="40" />
+      </frame>
+      <frame id="1:451" name="Última pesagem" x="20" y="280" width="350" height="169">
+        <text id="1:452" name="Última pesagem" x="12" y="12" width="326" height="25" />
+        <text id="1:453" name="5,4 kg • 30 set. 2026 Anterior: 5,5 kg • 23 set." x="12" y="49" width="326" height="44" />
+        <instance id="1:454" name="Botão • Editar pesagem" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:455" name="Acompanhar" x="20" y="461" width="350" height="147">
+        <text id="1:456" name="Acompanhar" x="12" y="12" width="326" height="25" />
+        <text id="1:457" name="Uma mudança não define melhora." x="12" y="49" width="326" height="22" />
+        <instance id="1:458" name="Botão • Registrar peso" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:459" name="ECC e objetivo" x="20" y="620" width="350" height="169">
+        <text id="1:460" name="ECC e objetivo" x="12" y="12" width="326" height="25" />
+        <text id="1:461" name="ECC não informado • Objetivo não informado" x="12" y="49" width="326" height="44" />
+        <instance id="1:462" name="Botão • Atualizar referências" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:463" name="Resumo para consulta" x="20" y="801" width="350" height="147">
+        <text id="1:464" name="Resumo para consulta" x="12" y="12" width="326" height="25" />
+        <text id="1:465" name="Você escolhe quando compartilhar." x="12" y="49" width="326" height="22" />
+        <instance id="1:466" name="Botão • Compartilhar resumo" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:467" name="Navegação inferior fixa" x="0" y="1016" width="390" height="72">
+      <instance id="1:468" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:469" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:470" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:471" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:472" name="PDF • Dados de Luna" x="520" y="-382" width="390" height="844">
+    <frame id="1:473" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:474" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:475" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:476" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:477" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:478" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:479" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:483" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:484" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:485" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:486" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:487" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:488" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:489" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:490" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:491" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:492" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:493" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:494" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:495" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:496" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:497" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:498" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:499" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:500" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:501" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:502" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:503" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:504" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:505" name="pet • Dados de Luna" x="20" y="48" width="350" height="748">
+      <text id="1:506" name="Dados de Luna" x="16" y="16" width="318" height="36" />
+      <text id="1:507" name="Cadastro e edição no mesmo formulário." x="16" y="64" width="318" height="20" />
+      <instance id="1:508" name="Campo • Nome • Luna" x="16" y="96" width="318" height="64" />
+      <instance id="1:509" name="Campo • Espécie • Gato" x="16" y="172" width="318" height="64" />
+      <instance id="1:510" name="Campo • Idade • 6 anos" x="16" y="248" width="318" height="64" />
+      <instance id="1:511" name="Campo • Castração • Sim" x="16" y="324" width="318" height="64" />
+      <instance id="1:512" name="Campo • Atividade • Moderada" x="16" y="400" width="318" height="64" />
+      <instance id="1:513" name="Campo • Peso inicial • 5,4 kg" x="16" y="476" width="318" height="64" />
+      <instance id="1:514" name="Botão • Adicionar ou trocar foto" x="16" y="552" width="318" height="52" />
+      <instance id="1:515" name="Botão • Salvar pet" x="16" y="616" width="318" height="52" />
+      <instance id="1:516" name="Botão • Voltar" x="16" y="680" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:517" name="PDF • Registrar refeição" x="-1240" y="1018" width="390" height="844">
+    <frame id="1:518" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:519" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:520" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:521" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:522" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:523" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:524" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:528" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:529" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:530" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:531" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:532" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:533" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:534" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:535" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:536" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:537" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:538" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:539" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:540" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:541" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:542" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:543" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:544" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:545" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:546" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:547" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:548" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:549" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:550" name="quick • Registrar refeição" x="20" y="123" width="350" height="598">
+      <text id="1:551" name="Registrar refeição" x="16" y="16" width="318" height="36" />
+      <text id="1:552" name="Confira e confirme a porção habitual." x="16" y="64" width="318" height="20" />
+      <instance id="1:553" name="Campo • Alimento • Ração habitual" x="16" y="96" width="318" height="64" />
+      <instance id="1:554" name="Campo • Porção • 30 g / 108 kcal" x="16" y="172" width="318" height="64" />
+      <instance id="1:555" name="Campo • Data e hora • 30 set. 2026 • agora" x="16" y="248" width="318" height="64" />
+      <text id="1:556" name="Energia do rótulo demonstrativo: 360 kcal/100 g. Esta porção não é uma prescrição." x="16" y="324" width="318" height="66" />
+      <instance id="1:557" name="Botão • Confirmar refeição" x="16" y="402" width="318" height="52" />
+      <instance id="1:558" name="Botão • Alterar dados" x="16" y="466" width="318" height="52" />
+      <instance id="1:559" name="Botão • Voltar" x="16" y="530" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:560" name="PDF • Refeição" x="-800" y="1018" width="390" height="844">
+    <frame id="1:561" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:562" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:563" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:564" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:565" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:566" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:567" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:568" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:569" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:570" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:571" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:572" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:573" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:574" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:575" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:576" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:577" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:578" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:579" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:580" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:581" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:582" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:583" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:584" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:585" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:586" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:587" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:588" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:589" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:590" name="meal • Refeição" x="20" y="86" width="350" height="672">
+      <text id="1:591" name="Refeição" x="16" y="16" width="318" height="36" />
+      <text id="1:592" name="Adicionar ou corrigir um registro." x="16" y="64" width="318" height="20" />
+      <instance id="1:593" name="Campo • Alimento • Ração habitual" x="16" y="96" width="318" height="64" />
+      <instance id="1:594" name="Campo • Quantidade • 30 g" x="16" y="172" width="318" height="64" />
+      <instance id="1:595" name="Campo • Energia • 108 kcal (rótulo)" x="16" y="248" width="318" height="64" />
+      <instance id="1:596" name="Campo • Data • 30 set. 2026" x="16" y="324" width="318" height="64" />
+      <instance id="1:597" name="Campo • Horário • 08:00" x="16" y="400" width="318" height="64" />
+      <instance id="1:598" name="Botão • Salvar refeição" x="16" y="476" width="318" height="52" />
+      <instance id="1:599" name="Botão • Excluir registro" x="16" y="540" width="318" height="52" />
+      <instance id="1:600" name="Botão • Voltar" x="16" y="604" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:601" name="PDF • Petisco ou extra" x="-360" y="1018" width="390" height="844">
+    <frame id="1:602" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:603" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:604" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:605" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:606" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:607" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:608" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:609" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:610" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:611" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:612" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:613" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:614" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:615" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:616" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:617" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:618" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:619" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:620" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:621" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:622" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:623" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:624" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:625" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:626" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:627" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:628" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:629" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:630" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:631" name="treat • Petisco ou extra" x="20" y="86" width="350" height="672">
+      <text id="1:632" name="Petisco ou extra" x="16" y="16" width="318" height="36" />
+      <text id="1:633" name="Categoria separada das refeições." x="16" y="64" width="318" height="20" />
+      <instance id="1:634" name="Campo • Descrição • Petisco" x="16" y="96" width="318" height="64" />
+      <instance id="1:635" name="Campo • Quantidade • 3 g" x="16" y="172" width="318" height="64" />
+      <instance id="1:636" name="Campo • Energia informada • 12 kcal" x="16" y="248" width="318" height="64" />
+      <instance id="1:637" name="Campo • Data • 30 set. 2026" x="16" y="324" width="318" height="64" />
+      <instance id="1:638" name="Campo • Horário • 12:00" x="16" y="400" width="318" height="64" />
+      <instance id="1:639" name="Botão • Salvar petisco" x="16" y="476" width="318" height="52" />
+      <instance id="1:640" name="Botão • Excluir registro" x="16" y="540" width="318" height="52" />
+      <instance id="1:641" name="Botão • Voltar" x="16" y="604" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:642" name="PDF • Alimentos e porções" x="80" y="1018" width="390" height="844">
+    <frame id="1:643" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:644" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:645" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:646" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:647" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:648" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:649" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:650" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:651" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:652" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:653" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:654" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:655" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:656" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:657" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:658" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:659" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:660" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:661" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:662" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:663" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:664" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:665" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:666" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:667" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:668" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:669" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:670" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:671" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:672" name="food • Alimentos e porções" x="20" y="81" width="350" height="682">
+      <text id="1:673" name="Alimentos e porções" x="16" y="16" width="318" height="36" />
+      <text id="1:674" name="Valores do rótulo, sem recomendação automática." x="16" y="64" width="318" height="40" />
+      <instance id="1:675" name="Campo • Alimento • Ração habitual" x="16" y="116" width="318" height="64" />
+      <instance id="1:676" name="Campo • Densidade • 360 kcal/100 g" x="16" y="192" width="318" height="64" />
+      <instance id="1:677" name="Campo • Porção reutilizável • 30 g" x="16" y="268" width="318" height="64" />
+      <text id="1:678" name="Registros antigos preservam alimento, densidade e quantidade usados naquele momento." x="16" y="344" width="318" height="66" />
+      <instance id="1:679" name="Botão • Salvar alimento e porção" x="16" y="422" width="318" height="52" />
+      <instance id="1:680" name="Botão • Excluir alimento e porção" x="16" y="486" width="318" height="52" />
+      <instance id="1:681" name="Botão • Conferir erro de densidade" x="16" y="550" width="318" height="52" />
+      <instance id="1:682" name="Botão • Voltar" x="16" y="614" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:683" name="PDF • Passeio ou brincadeira" x="520" y="1018" width="390" height="844">
+    <frame id="1:684" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:685" name="Atividades" x="20" y="20" width="350" height="36" />
+      <text id="1:686" name="Pequenos momentos juntos." x="20" y="68" width="350" height="20" />
+      <frame id="1:687" name="Hoje" x="20" y="100" width="350" height="147">
+        <text id="1:688" name="Hoje" x="12" y="12" width="326" height="25" />
+        <text id="1:689" name="18:00 • Brincadeira • 10 min" x="12" y="49" width="326" height="22" />
+        <instance id="1:690" name="Botão • Editar atividade" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:691" name="Novo momento" x="20" y="259" width="350" height="147">
+        <text id="1:692" name="Novo momento" x="12" y="12" width="326" height="25" />
+        <text id="1:693" name="Passeio ou brincadeira, sem GPS." x="12" y="49" width="326" height="22" />
+        <instance id="1:694" name="Botão • Registrar atividade" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:695" name="Dica para gatos" x="20" y="418" width="350" height="127">
+        <text id="1:696" name="Dica para gatos" x="12" y="12" width="326" height="25" />
+        <text id="1:697" name="Reserve um momento de brincadeira. Conteúdo educativo em revisão. Fonte: pesquisa do projeto • set. 2026" x="12" y="49" width="326" height="66" />
+      </frame>
+    </frame>
+    <frame id="1:698" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:699" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:700" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:701" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:702" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:703" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:704" name="activityForm • Passeio ou brincadeira" x="20" y="96" width="350" height="652">
+      <text id="1:705" name="Passeio ou brincadeira" x="16" y="16" width="318" height="36" />
+      <text id="1:706" name="Um formulário para criar e editar." x="16" y="64" width="318" height="20" />
+      <instance id="1:707" name="Campo • Tipo • Brincadeira" x="16" y="96" width="318" height="64" />
+      <instance id="1:708" name="Campo • Duração • 10 minutos" x="16" y="172" width="318" height="64" />
+      <instance id="1:709" name="Campo • Data • 30 set. 2026" x="16" y="248" width="318" height="64" />
+      <instance id="1:710" name="Campo • Horário • 18:00" x="16" y="324" width="318" height="64" />
+      <text id="1:711" name="Atividades não descontam calorias da alimentação." x="16" y="400" width="318" height="44" />
+      <instance id="1:712" name="Botão • Salvar atividade" x="16" y="456" width="318" height="52" />
+      <instance id="1:713" name="Botão • Excluir registro" x="16" y="520" width="318" height="52" />
+      <instance id="1:714" name="Botão • Voltar" x="16" y="584" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:715" name="PDF • Pesagem" x="-1240" y="2418" width="390" height="844">
+    <frame id="1:716" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:717" name="Evolução" x="20" y="20" width="350" height="36" />
+      <text id="1:718" name="Peso é uma parte do acompanhamento." x="20" y="68" width="350" height="20" />
+      <frame id="1:719" name="Gráfico e alternativa textual" x="20" y="100" width="350" height="168">
+        <frame id="1:720" name="Frame" x="12" y="12" width="310" height="92">
+          <vector id="1:721" name="Vector" x="12" y="10" width="288" height="62" />
+          <vector id="1:722" name="Vector" x="40" y="30" width="230" height="24" />
+          <vector id="1:723" name="Vector" x="35" y="25" width="10" height="10" />
+          <vector id="1:724" name="Vector" x="135" y="37" width="10" height="10" />
+          <vector id="1:725" name="Vector" x="265" y="49" width="10" height="10" />
+        </frame>
+        <text id="1:726" name="16 set. 5,6 kg → 23 set. 5,5 kg 30 set. 5,4 kg • objetivo não informado" x="12" y="116" width="326" height="40" />
+      </frame>
+      <frame id="1:727" name="Última pesagem" x="20" y="280" width="350" height="169">
+        <text id="1:728" name="Última pesagem" x="12" y="12" width="326" height="25" />
+        <text id="1:729" name="5,4 kg • 30 set. 2026 Anterior: 5,5 kg • 23 set." x="12" y="49" width="326" height="44" />
+        <instance id="1:730" name="Botão • Editar pesagem" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:731" name="Acompanhar" x="20" y="461" width="350" height="147">
+        <text id="1:732" name="Acompanhar" x="12" y="12" width="326" height="25" />
+        <text id="1:733" name="Uma mudança não define melhora." x="12" y="49" width="326" height="22" />
+        <instance id="1:734" name="Botão • Registrar peso" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:735" name="ECC e objetivo" x="20" y="620" width="350" height="169">
+        <text id="1:736" name="ECC e objetivo" x="12" y="12" width="326" height="25" />
+        <text id="1:737" name="ECC não informado • Objetivo não informado" x="12" y="49" width="326" height="44" />
+        <instance id="1:738" name="Botão • Atualizar referências" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:739" name="Resumo para consulta" x="20" y="801" width="350" height="147">
+        <text id="1:740" name="Resumo para consulta" x="12" y="12" width="326" height="25" />
+        <text id="1:741" name="Você escolhe quando compartilhar." x="12" y="49" width="326" height="22" />
+        <instance id="1:742" name="Botão • Compartilhar resumo" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:743" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:744" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:745" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:746" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:747" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:748" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:749" name="weightForm • Pesagem" x="20" y="91" width="350" height="662">
+      <text id="1:750" name="Pesagem" x="16" y="16" width="318" height="36" />
+      <text id="1:751" name="Valores positivos em quilogramas." x="16" y="64" width="318" height="20" />
+      <instance id="1:752" name="Campo • Peso • 5,4 kg" x="16" y="96" width="318" height="64" />
+      <instance id="1:753" name="Campo • Data • 30 set. 2026" x="16" y="172" width="318" height="64" />
+      <instance id="1:754" name="Campo • Horário • 09:00" x="16" y="248" width="318" height="64" />
+      <text id="1:755" name="Variações suspeitas exigem conferência; o registro não é descartado silenciosamente." x="16" y="324" width="318" height="66" />
+      <instance id="1:756" name="Botão • Salvar peso" x="16" y="402" width="318" height="52" />
+      <instance id="1:757" name="Botão • Excluir registro" x="16" y="466" width="318" height="52" />
+      <instance id="1:758" name="Botão • Conferir variação" x="16" y="530" width="318" height="52" />
+      <instance id="1:759" name="Botão • Voltar" x="16" y="594" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:760" name="PDF • ECC e objetivo" x="-800" y="2418" width="390" height="844">
+    <frame id="1:761" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:762" name="Evolução" x="20" y="20" width="350" height="36" />
+      <text id="1:763" name="Peso é uma parte do acompanhamento." x="20" y="68" width="350" height="20" />
+      <frame id="1:764" name="Gráfico e alternativa textual" x="20" y="100" width="350" height="168">
+        <frame id="1:765" name="Frame" x="12" y="12" width="310" height="92">
+          <vector id="1:766" name="Vector" x="12" y="10" width="288" height="62" />
+          <vector id="1:767" name="Vector" x="40" y="30" width="230" height="24" />
+          <vector id="1:768" name="Vector" x="35" y="25" width="10" height="10" />
+          <vector id="1:769" name="Vector" x="135" y="37" width="10" height="10" />
+          <vector id="1:770" name="Vector" x="265" y="49" width="10" height="10" />
+        </frame>
+        <text id="1:771" name="16 set. 5,6 kg → 23 set. 5,5 kg 30 set. 5,4 kg • objetivo não informado" x="12" y="116" width="326" height="40" />
+      </frame>
+      <frame id="1:772" name="Última pesagem" x="20" y="280" width="350" height="169">
+        <text id="1:773" name="Última pesagem" x="12" y="12" width="326" height="25" />
+        <text id="1:774" name="5,4 kg • 30 set. 2026 Anterior: 5,5 kg • 23 set." x="12" y="49" width="326" height="44" />
+        <instance id="1:775" name="Botão • Editar pesagem" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:776" name="Acompanhar" x="20" y="461" width="350" height="147">
+        <text id="1:777" name="Acompanhar" x="12" y="12" width="326" height="25" />
+        <text id="1:778" name="Uma mudança não define melhora." x="12" y="49" width="326" height="22" />
+        <instance id="1:779" name="Botão • Registrar peso" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:780" name="ECC e objetivo" x="20" y="620" width="350" height="169">
+        <text id="1:781" name="ECC e objetivo" x="12" y="12" width="326" height="25" />
+        <text id="1:782" name="ECC não informado • Objetivo não informado" x="12" y="49" width="326" height="44" />
+        <instance id="1:783" name="Botão • Atualizar referências" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:784" name="Resumo para consulta" x="20" y="801" width="350" height="147">
+        <text id="1:785" name="Resumo para consulta" x="12" y="12" width="326" height="25" />
+        <text id="1:786" name="Você escolhe quando compartilhar." x="12" y="49" width="326" height="22" />
+        <instance id="1:787" name="Botão • Compartilhar resumo" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:788" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:789" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:790" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:791" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:792" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:793" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:794" name="reference • ECC e objetivo" x="20" y="85" width="350" height="674">
+      <text id="1:795" name="ECC e objetivo" x="16" y="16" width="318" height="36" />
+      <text id="1:796" name="Informações orientadas pelo veterinário." x="16" y="64" width="318" height="20" />
+      <instance id="1:797" name="Campo • ECC informado • Não informado" x="16" y="96" width="318" height="64" />
+      <instance id="1:798" name="Campo • Objetivo (kg) • Não informado" x="16" y="172" width="318" height="64" />
+      <instance id="1:799" name="Campo • Origem • Veterinário / consulta" x="16" y="248" width="318" height="64" />
+      <instance id="1:800" name="Campo • Data • 30 set. 2026" x="16" y="324" width="318" height="64" />
+      <text id="1:801" name="ECC é o escore de condição corporal. Precisa de avaliação profissional; peso isolado não diagnostica." x="16" y="400" width="318" height="66" />
+      <instance id="1:802" name="Botão • Salvar referências" x="16" y="478" width="318" height="52" />
+      <instance id="1:803" name="Botão • Remover referências" x="16" y="542" width="318" height="52" />
+      <instance id="1:804" name="Botão • Voltar" x="16" y="606" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:805" name="PDF • Compartilhar resumo" x="-360" y="2418" width="390" height="844">
+    <frame id="1:806" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:807" name="Evolução" x="20" y="20" width="350" height="36" />
+      <text id="1:808" name="Peso é uma parte do acompanhamento." x="20" y="68" width="350" height="20" />
+      <frame id="1:809" name="Gráfico e alternativa textual" x="20" y="100" width="350" height="168">
+        <frame id="1:810" name="Frame" x="12" y="12" width="310" height="92">
+          <vector id="1:811" name="Vector" x="12" y="10" width="288" height="62" />
+          <vector id="1:812" name="Vector" x="40" y="30" width="230" height="24" />
+          <vector id="1:813" name="Vector" x="35" y="25" width="10" height="10" />
+          <vector id="1:814" name="Vector" x="135" y="37" width="10" height="10" />
+          <vector id="1:815" name="Vector" x="265" y="49" width="10" height="10" />
+        </frame>
+        <text id="1:816" name="16 set. 5,6 kg → 23 set. 5,5 kg 30 set. 5,4 kg • objetivo não informado" x="12" y="116" width="326" height="40" />
+      </frame>
+      <frame id="1:817" name="Última pesagem" x="20" y="280" width="350" height="169">
+        <text id="1:818" name="Última pesagem" x="12" y="12" width="326" height="25" />
+        <text id="1:819" name="5,4 kg • 30 set. 2026 Anterior: 5,5 kg • 23 set." x="12" y="49" width="326" height="44" />
+        <instance id="1:820" name="Botão • Editar pesagem" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:821" name="Acompanhar" x="20" y="461" width="350" height="147">
+        <text id="1:822" name="Acompanhar" x="12" y="12" width="326" height="25" />
+        <text id="1:823" name="Uma mudança não define melhora." x="12" y="49" width="326" height="22" />
+        <instance id="1:824" name="Botão • Registrar peso" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:825" name="ECC e objetivo" x="20" y="620" width="350" height="169">
+        <text id="1:826" name="ECC e objetivo" x="12" y="12" width="326" height="25" />
+        <text id="1:827" name="ECC não informado • Objetivo não informado" x="12" y="49" width="326" height="44" />
+        <instance id="1:828" name="Botão • Atualizar referências" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:829" name="Resumo para consulta" x="20" y="801" width="350" height="147">
+        <text id="1:830" name="Resumo para consulta" x="12" y="12" width="326" height="25" />
+        <text id="1:831" name="Você escolhe quando compartilhar." x="12" y="49" width="326" height="22" />
+        <instance id="1:832" name="Botão • Compartilhar resumo" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:833" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:834" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:835" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:836" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:837" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:838" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:839" name="share • Compartilhar resumo" x="20" y="193" width="350" height="458">
+      <text id="1:840" name="Compartilhar resumo" x="16" y="16" width="318" height="36" />
+      <text id="1:841" name="Somente quando você solicitar." x="16" y="64" width="318" height="20" />
+      <instance id="1:842" name="Campo • Início • 01 set. 2026" x="16" y="96" width="318" height="64" />
+      <instance id="1:843" name="Campo • Fim • 30 set. 2026" x="16" y="172" width="318" height="64" />
+      <text id="1:844" name="Inclui perfil, alimentação, atividades, peso, lacunas e situação da referência alimentar. Revise antes de enviar." x="16" y="248" width="318" height="66" />
+      <instance id="1:845" name="Botão • Abrir compartilhamento" x="16" y="326" width="318" height="52" />
+      <instance id="1:846" name="Botão • Voltar" x="16" y="390" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:847" name="PDF • Seus dados" x="80" y="2418" width="390" height="844">
+    <frame id="1:848" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:849" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:850" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:851" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:852" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:853" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:854" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:858" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:859" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:860" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:861" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:862" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:863" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:864" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:865" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:866" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:867" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:868" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:869" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:870" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:871" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:872" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:873" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:874" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:875" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:876" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:877" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:878" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:879" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:880" name="privacy • Seus dados" x="20" y="194" width="350" height="456">
+      <text id="1:881" name="Seus dados" x="16" y="16" width="318" height="36" />
+      <text id="1:882" name="O uso essencial funciona sem conta." x="16" y="64" width="318" height="20" />
+      <text id="1:883" name="Perfil, foto e registros servem ao acompanhamento de Luna. Ficam neste aparelho. Você controla a exportação e a exclusão. Cópia remota é opcional." x="16" y="96" width="318" height="88" />
+      <instance id="1:884" name="Botão • Cópia remota opcional" x="16" y="196" width="318" height="52" />
+      <instance id="1:885" name="Botão • Exportar dados" x="16" y="260" width="318" height="52" />
+      <instance id="1:886" name="Botão • Excluir todos os dados" x="16" y="324" width="318" height="52" />
+      <instance id="1:887" name="Botão • Voltar" x="16" y="388" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:888" name="PDF • Cópia remota opcional" x="520" y="2418" width="390" height="844">
+    <frame id="1:889" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:890" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:891" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:892" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:893" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:894" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:895" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:899" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:900" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:901" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:902" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:903" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:904" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:905" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:906" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:907" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:908" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:909" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:910" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:911" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:912" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:913" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:914" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:915" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:916" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:917" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:918" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:919" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:920" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:921" name="remote • Cópia remota opcional" x="20" y="172" width="350" height="500">
+      <text id="1:922" name="Cópia remota opcional" x="16" y="16" width="318" height="36" />
+      <text id="1:923" name="A conta só é necessária para esta opção." x="16" y="64" width="318" height="20" />
+      <instance id="1:924" name="Campo • E-mail • tutor@exemplo.invalid" x="16" y="96" width="318" height="64" />
+      <instance id="1:925" name="Campo • Senha • informada no aparelho" x="16" y="172" width="318" height="64" />
+      <text id="1:926" name="Autenticação simulada. Sincronização só por Wi-Fi; o uso local continua livre." x="16" y="248" width="318" height="44" />
+      <instance id="1:927" name="Botão • Ativar e aguardar Wi-Fi" x="16" y="304" width="318" height="52" />
+      <instance id="1:928" name="Botão • Desativar cópia" x="16" y="368" width="318" height="52" />
+      <instance id="1:929" name="Botão • Voltar" x="16" y="432" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:930" name="PDF • Cópia remota" x="-1240" y="3818" width="390" height="844">
+    <frame id="1:931" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:932" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:933" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:934" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:935" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:936" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:937" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:941" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:942" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:943" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:944" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:945" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:946" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:947" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:948" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:949" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:950" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:951" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:952" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:953" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:954" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:955" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:956" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:957" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:958" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:959" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:960" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:961" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:962" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:963" name="sync • Cópia remota" x="20" y="158" width="350" height="528">
+      <text id="1:964" name="Cópia remota" x="16" y="16" width="318" height="36" />
+      <text id="1:965" name="Local salvo • aguardando Wi-Fi" x="16" y="64" width="318" height="20" />
+      <text id="1:966" name="Pendente: alterações na fila. Sincronizado: cópia atualizada. Falha: dados locais preservados." x="16" y="96" width="318" height="66" />
+      <instance id="1:967" name="Botão • Resolver conflito" x="16" y="174" width="318" height="52" />
+      <instance id="1:968" name="Mensagem • pendente" x="16" y="238" width="318" height="62" />
+      <instance id="1:969" name="Mensagem • sincronizado" x="16" y="312" width="318" height="62" />
+      <instance id="1:970" name="Mensagem • falha" x="16" y="386" width="318" height="62" />
+      <instance id="1:971" name="Botão • Voltar" x="16" y="460" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:972" name="PDF • Conferir versões" x="-800" y="3818" width="390" height="844">
+    <frame id="1:973" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:974" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:975" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:976" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:977" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:978" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:979" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:983" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:984" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:985" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:986" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:987" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:988" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:989" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:990" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:991" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:992" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:993" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:994" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:995" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:996" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:997" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:998" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:999" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1000" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1001" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1002" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1003" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1004" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1005" name="conflict • Conferir versões" x="20" y="216" width="350" height="412">
+      <text id="1:1006" name="Conferir versões" x="16" y="16" width="318" height="36" />
+      <text id="1:1007" name="A mesma refeição foi editada em dois aparelhos." x="16" y="64" width="318" height="40" />
+      <text id="1:1008" name="Neste aparelho: 30 g • 08:00 Na cópia: 35 g • 08:10 Escolha a versão. Exclusões confirmadas têm precedência." x="16" y="116" width="318" height="88" />
+      <instance id="1:1009" name="Botão • Manter versão local" x="16" y="216" width="318" height="52" />
+      <instance id="1:1010" name="Botão • Usar versão da cópia" x="16" y="280" width="318" height="52" />
+      <instance id="1:1011" name="Botão • Voltar" x="16" y="344" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1012" name="PDF • Referência indisponível" x="-360" y="3818" width="390" height="844">
+    <frame id="1:1013" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1014" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:1015" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:1016" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:1017" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:1018" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:1019" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:1023" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:1024" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:1025" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:1026" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1027" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:1028" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:1029" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:1030" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1031" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:1032" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:1033" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:1034" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1035" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:1036" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:1037" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:1038" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1039" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1040" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1041" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1042" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1043" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1044" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1045" name="method • Referência indisponível" x="20" y="247" width="350" height="350">
+      <text id="1:1046" name="Referência indisponível" x="16" y="16" width="318" height="36" />
+      <text id="1:1047" name="Ainda não há método NRC validado." x="16" y="64" width="318" height="20" />
+      <text id="1:1048" name="Para calcular, a equipe precisa documentar edição, equação, parâmetros, unidades e limites, e validar os resultados. Nenhuma meta clínica é inventada." x="16" y="96" width="318" height="110" />
+      <instance id="1:1049" name="Botão • Voltar ao perfil" x="16" y="218" width="318" height="52" />
+      <instance id="1:1050" name="Botão • Voltar" x="16" y="282" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1051" name="PDF • Consultar outra data" x="80" y="3818" width="390" height="844">
+    <frame id="1:1052" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1053" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:1054" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:1055" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:1056" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:1057" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:1058" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1059" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:1060" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:1061" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:1062" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1063" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:1064" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:1065" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:1066" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1067" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:1068" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:1069" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:1070" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1071" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:1072" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:1073" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:1074" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1075" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1076" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1077" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1078" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1079" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1080" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1081" name="date • Consultar outra data" x="20" y="280" width="350" height="284">
+      <text id="1:1082" name="Consultar outra data" x="16" y="16" width="318" height="36" />
+      <text id="1:1083" name="29 setembro 2026" x="16" y="64" width="318" height="20" />
+      <text id="1:1084" name="Sem registros nesta data. Ausência de dados não significa consumo zero." x="16" y="96" width="318" height="44" />
+      <instance id="1:1085" name="Botão • Retomar registro hoje" x="16" y="152" width="318" height="52" />
+      <instance id="1:1086" name="Botão • Voltar" x="16" y="216" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1087" name="PDF • Refeição salva" x="520" y="3818" width="390" height="844">
+    <frame id="1:1088" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1089" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:1090" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:1091" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:1092" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:1093" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:1094" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:1098" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:1099" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:1100" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:1101" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1102" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:1103" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:1104" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:1105" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1106" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:1107" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:1108" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:1109" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1110" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:1111" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:1112" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:1113" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1114" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1115" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1116" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1117" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1118" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1119" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1120" name="saved • Refeição salva" x="20" y="269" width="350" height="306">
+      <text id="1:1121" name="Refeição salva" x="16" y="16" width="318" height="36" />
+      <text id="1:1122" name="Salva neste aparelho." x="16" y="64" width="318" height="20" />
+      <text id="1:1123" name="O diário passa de 120 para 228 kcal. Ração 216 kcal • Petiscos 12 kcal. Continue no seu ritmo." x="16" y="96" width="318" height="66" />
+      <instance id="1:1124" name="Botão • Consultar diário atualizado" x="16" y="174" width="318" height="52" />
+      <instance id="1:1125" name="Botão • Voltar" x="16" y="238" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1126" name="PDF • Diário atualizado" x="-1240" y="5218" width="390" height="749">
+    <frame id="1:1127" name="Conteúdo rolável" x="0" y="24" width="390" height="629">
+      <text id="1:1128" name="Diário atualizado" x="20" y="20" width="350" height="36" />
+      <text id="1:1129" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:1130" name="Refeições" x="20" y="100" width="350" height="169">
+        <text id="1:1131" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:1132" name="08:00 • 30 g • 108 kcal Agora • 30 g • 108 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:1133" name="Botão • Editar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1134" name="Petiscos" x="20" y="281" width="350" height="147">
+        <text id="1:1135" name="Petiscos" x="12" y="12" width="326" height="25" />
+        <text id="1:1136" name="12:00 • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:1137" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1138" name="Total registrado" x="20" y="440" width="350" height="169">
+        <text id="1:1139" name="Total registrado" x="12" y="12" width="326" height="25" />
+        <text id="1:1140" name="228 kcal • Ração 216 • Extras 12 Comparação indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:1141" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1142" name="Navegação inferior fixa" x="0" y="677" width="390" height="72">
+      <instance id="1:1143" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1144" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1145" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1146" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+  </frame>
+  <frame id="1:1147" name="PDF • Confira a densidade" x="-800" y="5218" width="390" height="844">
+    <frame id="1:1148" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1149" name="Diário" x="20" y="20" width="350" height="36" />
+      <text id="1:1150" name="30 setembro 2026" x="20" y="68" width="350" height="20" />
+      <frame id="1:1151" name="Data selecionada" x="20" y="100" width="350" height="147">
+        <text id="1:1152" name="Data selecionada" x="12" y="12" width="326" height="25" />
+        <text id="1:1153" name="Confira o que foi registrado." x="12" y="49" width="326" height="22" />
+        <instance id="1:1154" name="Botão • Selecionar data" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1155" name="Refeições" x="20" y="259" width="350" height="147">
+        <text id="1:1156" name="Refeições" x="12" y="12" width="326" height="25" />
+        <text id="1:1157" name="08:00 • Ração habitual • 30 g • 108 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:1158" name="Botão • Editar refeição" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1159" name="Petiscos e extras" x="20" y="418" width="350" height="147">
+        <text id="1:1160" name="Petiscos e extras" x="12" y="12" width="326" height="25" />
+        <text id="1:1161" name="12:00 • Petisco • 3 g • 12 kcal" x="12" y="49" width="326" height="22" />
+        <instance id="1:1162" name="Botão • Editar petisco" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1163" name="Resumo do dia" x="20" y="577" width="350" height="169">
+        <text id="1:1164" name="Resumo do dia" x="12" y="12" width="326" height="25" />
+        <text id="1:1165" name="120 kcal • Petiscos 10% dos registros Comparação com meta indisponível." x="12" y="49" width="326" height="44" />
+        <instance id="1:1166" name="Botão • Adicionar petisco" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1167" name="Alimentos e porções" x="20" y="758" width="350" height="147">
+        <text id="1:1168" name="Alimentos e porções" x="12" y="12" width="326" height="25" />
+        <text id="1:1169" name="Reutilize os valores da embalagem." x="12" y="49" width="326" height="22" />
+        <instance id="1:1170" name="Botão • Gerenciar alimentos" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1171" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1172" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1173" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1174" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1175" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1176" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1177" name="error • Confira a densidade" x="20" y="231" width="350" height="382">
+      <text id="1:1178" name="Confira a densidade" x="16" y="16" width="318" height="36" />
+      <text id="1:1179" name="O valor precisa ser positivo." x="16" y="64" width="318" height="20" />
+      <instance id="1:1180" name="Campo • Densidade • 0 kcal/100 g" x="16" y="96" width="318" height="64" />
+      <text id="1:1181" name="Informe o valor e a unidade da embalagem. Não é possível converter com zero." x="16" y="172" width="318" height="66" />
+      <instance id="1:1182" name="Botão • Corrigir valor demonstrativo" x="16" y="250" width="318" height="52" />
+      <instance id="1:1183" name="Botão • Voltar" x="16" y="314" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1184" name="PDF • Vamos começar?" x="-360" y="5218" width="390" height="844">
+    <frame id="1:1185" name="empty • Vamos começar?" x="20" y="120" width="350" height="198">
+      <text id="1:1186" name="Vamos começar?" x="16" y="16" width="318" height="36" />
+      <text id="1:1187" name="Cadastre um único cão ou gato." x="16" y="64" width="318" height="20" />
+      <text id="1:1188" name="Não há pet nem registros neste aparelho." x="16" y="96" width="318" height="22" />
+      <instance id="1:1189" name="Botão • Cadastrar pet" x="16" y="130" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1190" name="PDF • Confirmar exclusão" x="80" y="5218" width="390" height="844">
+    <frame id="1:1191" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1192" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:1193" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:1194" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:1195" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:1196" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:1197" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:1201" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:1202" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:1203" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:1204" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1205" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:1206" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:1207" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:1208" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1209" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:1210" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:1211" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:1212" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1213" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:1214" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:1215" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:1216" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1217" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1218" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1219" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1220" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1221" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1222" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1223" name="delete • Confirmar exclusão" x="20" y="247" width="350" height="350">
+      <text id="1:1224" name="Confirmar exclusão" x="16" y="16" width="318" height="36" />
+      <text id="1:1225" name="Ação sobre o item selecionado." x="16" y="64" width="318" height="20" />
+      <text id="1:1226" name="No aplicativo, exclui apenas o item escolhido e atualiza os totais. Para exclusão integral, remove também pet, foto e metas; a remoção remota pode ficar pendente." x="16" y="96" width="318" height="110" />
+      <instance id="1:1227" name="Botão • Confirmar exclusão" x="16" y="218" width="318" height="52" />
+      <instance id="1:1228" name="Botão • Cancelar" x="16" y="282" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1229" name="PDF • Recurso do aparelho" x="520" y="5218" width="390" height="844">
+    <frame id="1:1230" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1231" name="Bom dia, Marina" x="20" y="20" width="350" height="36" />
+      <text id="1:1232" name="Um cuidado de cada vez." x="20" y="68" width="350" height="20" />
+      <frame id="1:1233" name="Frame" x="20" y="100" width="350" height="80">
+        <ellipse id="1:1234" name="Foto de Luna" x="0" y="0" width="64" height="64" />
+        <text id="1:1235" name="Luna Gata • 6 anos" x="76" y="0" width="176" height="50" />
+        <frame id="1:1236" name="Pet sorrindo" x="264" y="0" width="64" height="64" />
+      </frame>
+      <frame id="1:1240" name="Luna" x="20" y="192" width="350" height="169">
+        <text id="1:1241" name="Luna" x="12" y="12" width="326" height="25" />
+        <text id="1:1242" name="Gata • 6 anos • castrada Atividade moderada • 5,4 kg" x="12" y="49" width="326" height="44" />
+        <instance id="1:1243" name="Botão • Editar pet" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1244" name="Hoje · 30 set." x="20" y="373" width="350" height="169">
+        <text id="1:1245" name="Hoje · 30 set." x="12" y="12" width="326" height="25" />
+        <text id="1:1246" name="Ração 108 kcal • Petiscos 12 kcal Total registrado: 120 kcal" x="12" y="49" width="326" height="44" />
+        <instance id="1:1247" name="Botão • Registrar refeição" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1248" name="Referência alimentar" x="20" y="554" width="350" height="169">
+        <text id="1:1249" name="Referência alimentar" x="12" y="12" width="326" height="25" />
+        <text id="1:1250" name="Indisponível: método NRC não validado. Os registros continuam disponíveis." x="12" y="49" width="326" height="44" />
+        <instance id="1:1251" name="Botão • Entender a referência" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1252" name="Seu controle" x="20" y="735" width="350" height="147">
+        <text id="1:1253" name="Seu controle" x="12" y="12" width="326" height="25" />
+        <text id="1:1254" name="Dados salvos neste aparelho." x="12" y="49" width="326" height="22" />
+        <instance id="1:1255" name="Botão • Privacidade e cópia remota" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1256" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1257" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1258" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1259" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1260" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1261" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1262" name="system • Recurso do aparelho" x="20" y="258" width="350" height="328">
+      <text id="1:1263" name="Recurso do aparelho" x="16" y="16" width="318" height="36" />
+      <text id="1:1264" name="Transição nativa representada." x="16" y="64" width="318" height="20" />
+      <text id="1:1265" name="Seleção de foto e compartilhamento abrem os seletores nativos no aplicativo. Este protótipo não acessa arquivos nem envia dados." x="16" y="96" width="318" height="88" />
+      <instance id="1:1266" name="Botão • Concluir simulação" x="16" y="196" width="318" height="52" />
+      <instance id="1:1267" name="Botão • Voltar" x="16" y="260" width="318" height="52" />
+    </frame>
+  </frame>
+  <frame id="1:1268" name="checkWeight • Conferir pesagem" x="960" y="-2382" width="350" height="468">
+    <text id="1:1269" name="Conferir pesagem" x="16" y="16" width="318" height="36" />
+    <text id="1:1270" name="Valor fora do esperado no exemplo." x="16" y="64" width="318" height="20" />
+    <instance id="1:1271" name="Campo • Peso informado • 54 kg" x="16" y="96" width="318" height="64" />
+    <text id="1:1272" name="Anterior: 5,4 kg. Confira unidade e separador decimal. Corrija ou mantenha o valor; nenhum dado será descartado silenciosamente." x="16" y="172" width="318" height="88" />
+    <instance id="1:1273" name="Botão • Corrigir para 5,4 kg" x="16" y="272" width="318" height="52" />
+    <instance id="1:1274" name="Botão • Manter valor informado" x="16" y="336" width="318" height="52" />
+    <instance id="1:1275" name="Botão • Voltar" x="16" y="400" width="318" height="52" />
+  </frame>
+  <frame id="1:1276" name="PDF • Conferir pesagem" x="960" y="6118" width="390" height="844">
+    <frame id="1:1277" name="Conteúdo rolável" x="0" y="24" width="390" height="728">
+      <text id="1:1278" name="Evolução" x="20" y="20" width="350" height="36" />
+      <text id="1:1279" name="Peso é uma parte do acompanhamento." x="20" y="68" width="350" height="20" />
+      <frame id="1:1280" name="Gráfico e alternativa textual" x="20" y="100" width="350" height="168">
+        <frame id="1:1281" name="Frame" x="12" y="12" width="310" height="92">
+          <vector id="1:1282" name="Vector" x="12" y="10" width="288" height="62" />
+          <vector id="1:1283" name="Vector" x="40" y="30" width="230" height="24" />
+          <vector id="1:1284" name="Vector" x="35" y="25" width="10" height="10" />
+          <vector id="1:1285" name="Vector" x="135" y="37" width="10" height="10" />
+          <vector id="1:1286" name="Vector" x="265" y="49" width="10" height="10" />
+        </frame>
+        <text id="1:1287" name="16 set. 5,6 kg → 23 set. 5,5 kg 30 set. 5,4 kg • objetivo não informado" x="12" y="116" width="326" height="40" />
+      </frame>
+      <frame id="1:1288" name="Última pesagem" x="20" y="280" width="350" height="169">
+        <text id="1:1289" name="Última pesagem" x="12" y="12" width="326" height="25" />
+        <text id="1:1290" name="5,4 kg • 30 set. 2026 Anterior: 5,5 kg • 23 set." x="12" y="49" width="326" height="44" />
+        <instance id="1:1291" name="Botão • Editar pesagem" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1292" name="Acompanhar" x="20" y="461" width="350" height="147">
+        <text id="1:1293" name="Acompanhar" x="12" y="12" width="326" height="25" />
+        <text id="1:1294" name="Uma mudança não define melhora." x="12" y="49" width="326" height="22" />
+        <instance id="1:1295" name="Botão • Registrar peso" x="12" y="83" width="326" height="52" />
+      </frame>
+      <frame id="1:1296" name="ECC e objetivo" x="20" y="620" width="350" height="169">
+        <text id="1:1297" name="ECC e objetivo" x="12" y="12" width="326" height="25" />
+        <text id="1:1298" name="ECC não informado • Objetivo não informado" x="12" y="49" width="326" height="44" />
+        <instance id="1:1299" name="Botão • Atualizar referências" x="12" y="105" width="326" height="52" />
+      </frame>
+      <frame id="1:1300" name="Resumo para consulta" x="20" y="801" width="350" height="147">
+        <text id="1:1301" name="Resumo para consulta" x="12" y="12" width="326" height="25" />
+        <text id="1:1302" name="Você escolhe quando compartilhar." x="12" y="49" width="326" height="22" />
+        <instance id="1:1303" name="Botão • Compartilhar resumo" x="12" y="83" width="326" height="52" />
+      </frame>
+    </frame>
+    <frame id="1:1304" name="Navegação inferior fixa" x="0" y="772" width="390" height="72">
+      <instance id="1:1305" name="Navegação • Início" x="8" y="8" width="87" height="56" />
+      <instance id="1:1306" name="Navegação • Diário" x="103" y="8" width="87" height="56" />
+      <instance id="1:1307" name="Navegação • Atividades" x="198" y="8" width="87" height="56" />
+      <instance id="1:1308" name="Navegação • Evolução" x="293" y="8" width="87" height="56" />
+    </frame>
+    <rounded-rectangle id="1:1309" name="Rectangle" x="0" y="0" width="390" height="844" />
+    <frame id="1:1310" name="checkWeight • Conferir pesagem" x="20" y="188" width="350" height="468">
+      <text id="1:1311" name="Conferir pesagem" x="16" y="16" width="318" height="36" />
+      <text id="1:1312" name="Valor fora do esperado no exemplo." x="16" y="64" width="318" height="20" />
+      <instance id="1:1313" name="Campo • Peso informado • 54 kg" x="16" y="96" width="318" height="64" />
+      <text id="1:1314" name="Anterior: 5,4 kg. Confira unidade e separador decimal. Corrija ou mantenha o valor; nenhum dado será descartado silenciosamente." x="16" y="172" width="318" height="88" />
+      <instance id="1:1315" name="Botão • Corrigir para 5,4 kg" x="16" y="272" width="318" height="52" />
+      <instance id="1:1316" name="Botão • Manter valor informado" x="16" y="336" width="318" height="52" />
+      <instance id="1:1317" name="Botão • Voltar" x="16" y="400" width="318" height="52" />
+    </frame>
+  </frame>
+</canvas>IMPORTANT: After you call this tool, you MUST call get_design_context if trying to implement the design, since this tool only returns metadata. If you do not call get_design_context, the agent will not be able to implement the design.
