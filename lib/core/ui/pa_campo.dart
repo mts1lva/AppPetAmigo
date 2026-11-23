@@ -161,21 +161,12 @@ class PaCampoEscolha<T> extends StatelessWidget {
   }
 
   Future<void> _abrir(BuildContext context) async {
-    final escolhida = await mostrarPaDialogo<PaOpcao<T>>(
+    final escolhida = await escolherOpcao<T>(
       context,
-      builder: (contexto) => PaDialogo(
-        titulo: rotulo,
-        subtitulo: subtituloDialogo,
-        botoes: [
-          for (final o in opcoes)
-            PaBotao(
-              texto: o.rotulo,
-              variante: o.valor == valor ? PaBotaoVariante.primario : PaBotaoVariante.secundario,
-              aoTocar: () => Navigator.of(contexto).pop(o),
-            ),
-          PaBotao.secundario(texto: 'Voltar', aoTocar: () => Navigator.of(contexto).pop()),
-        ],
-      ),
+      titulo: rotulo,
+      subtitulo: subtituloDialogo,
+      opcoes: opcoes,
+      valorAtual: valor,
     );
     if (escolhida != null) aoEscolher?.call(escolhida.valor);
   }
@@ -188,6 +179,64 @@ class PaCampoEscolha<T> extends StatelessWidget {
       valorSemantico: _textoValor,
       aoTocar: aoEscolher == null ? null : () => _abrir(context),
       child: Text('$rotulo • $_textoValor', style: PaTexto.corpo),
+    );
+  }
+}
+
+/// Diálogo de escolha do design system: as opções como botões `secundario`,
+/// a atual em `primario` e "Voltar" por último. Devolve a opção tocada, ou
+/// `null` se o tutor voltar. Use para escolhas em mais de um passo (ex.:
+/// Idade em anos e depois em meses, com [PaCampoAcao]).
+Future<PaOpcao<T>?> escolherOpcao<T>(
+  BuildContext context, {
+  required String titulo,
+  required List<PaOpcao<T>> opcoes,
+  T? valorAtual,
+  String? subtitulo,
+}) {
+  return mostrarPaDialogo<PaOpcao<T>>(
+    context,
+    builder: (contexto) => PaDialogo(
+      titulo: titulo,
+      subtitulo: subtitulo,
+      botoes: [
+        for (final o in opcoes)
+          PaBotao(
+            texto: o.rotulo,
+            variante: o.valor == valorAtual ? PaBotaoVariante.primario : PaBotaoVariante.secundario,
+            aoTocar: () => Navigator.of(contexto).pop(o),
+          ),
+        PaBotao.secundario(texto: 'Voltar', aoTocar: () => Navigator.of(contexto).pop()),
+      ],
+    ),
+  );
+}
+
+/// Campo "Rótulo • valor" cujo toque executa [aoTocar], para escolhas que
+/// não cabem num único [PaCampoEscolha] (ex.: Idade em anos + meses, tela 05).
+/// Mesma caixa e mesma acessibilidade dos outros campos.
+class PaCampoAcao extends StatelessWidget {
+  const PaCampoAcao({
+    super.key,
+    required this.rotulo,
+    required this.valorTexto,
+    required this.aoTocar,
+    this.erro,
+  });
+
+  final String rotulo;
+  final String valorTexto;
+  final VoidCallback? aoTocar;
+  final String? erro;
+
+  @override
+  Widget build(BuildContext context) {
+    return _CaixaCampo(
+      erro: erro,
+      rotuloSemantico: rotulo,
+      valorSemantico: valorTexto,
+      aoTocar: aoTocar,
+      child: Text('$rotulo • $valorTexto', style: PaTexto.corpo),
     );
   }
 }
@@ -339,7 +388,8 @@ class _CaixaCampo extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         caixa,
-        if (erro != null)
+        // Erro sem texto (ex.: escolha obrigatória em R05) só pinta a borda.
+        if (erro != null && erro!.isNotEmpty)
           Padding(
             padding: const EdgeInsets.only(top: 4),
             child: Text(erro!, style: PaTexto.legenda.copyWith(color: PaCores.erro)),
