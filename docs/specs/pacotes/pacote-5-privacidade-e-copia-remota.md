@@ -7,9 +7,9 @@
 Entregar os controles de privacidade e toda a **cópia remota opcional**: conta Firebase só para quem ativar, fila de sincronização que **só transmite por Wi-Fi**, estados visíveis, conflitos resolvidos pelo tutor e **exclusão integral** local e remota.
 
 **Requisitos:** RF15, RF16, RF17, RNF04, RNF05, RNF08, RNF09 · **Unidade II:** U2-10 (todos os pets na cópia), U2-15, U2-16 (sincronização em lote via Wi-Fi), teste oficial T5.
-**Depende de:** P1 (base, Firebase inicializado), P2 (Firebase Emulator Suite, P2-2.3, para testar regras e motor), P3 (`AgendadorNotificacoes.cancelarTodos` e `ReagendarTodos`). **Entrega para:** todos (`FilaSync` e `MapeadorSync` na Fase 0, com uma fila que não faz nada; e o motor, que chama os mapeadores de cada pacote na Fase 3).
+**Depende de:** P1 (base, Firebase inicializado), P2 (Firebase Emulator Suite, P2-2.3, para testar regras e motor), P3 (`AgendadorNotificacoes.cancelarTodos` e `ReagendarTodos`). **Entrega para:** todos (o motor, que chama os mapeadores de cada pacote, e os testes de integração de todas as coleções rodando, P5-3.7). Os contratos `FilaSync` e `MapeadorSync` (P5-0.1) são feitos pelo P1 na etapa 1, porque todos gravam pela fila desde o início.
 
-**Ordem de execução:** tarefas `P5-0.x` → `P5-1.x` → `P5-2.x` → `P5-3.x` → `P5-4.x` do `plano-de-execucao.md`. Na Fase 1, o motor é construído e testado contra um **remoto falso em memória**. O Firebase real só entra na Fase 3, quando os mapeadores dos outros pacotes existirem.
+**Ordem de execução:** **etapa 5** do `plano-de-execucao.md`, a última da sequência. Primeiro o motor é construído e testado contra um **remoto falso em memória** (T5); depois entra o Firebase real, já com os mapeadores de todos os pacotes prontos. A etapa fecha o projeto: testes de integração de todas as coleções e os 5 testes oficiais juntos.
 
 ## Componentes de código
 

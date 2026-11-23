@@ -9,7 +9,7 @@ Entregar a funcionalidade mais importante do app (F03): registrar, consultar, co
 **Requisitos:** RF04, RF05, RF06, RF07, RF08, RF14, RF19 (mensagem pós-registro), RF20, RNF01, RNF06, RNF08 · **Unidade II:** U2-01 (meta no diário e gramas), U2-05/U2-06 (refeições passadas recalculam na hora), U2-11 (S1), U2-12 (aderência), briefing B-b, teste oficial T2.
 **Depende de:** P1 (componentes, banco, rotas). **Entrega para:** P1 (`resumoDiaProvider` no card "Hoje"), P4 (`aderenciaProvider`, ingestão diária para a projeção), **todos** (Firebase Emulator Suite e apoio aos testes de integração, P2-2.3).
 
-**Ordem de execução:** tarefas `P2-0.x` → `P2-1.x` → `P2-2.x` → `P2-3.x` → `P2-4.x` do `plano-de-execucao.md`. Na Fase 1, a ordem importa: **alimento → refeição → petisco → diário → atalho**, porque o atalho precisa de um alimento cadastrado e o diário precisa dos registros para exibir.
+**Ordem de execução:** **etapa 2** do `plano-de-execucao.md`, depois que o P1 entregar. Nas telas, a ordem importa: **alimento → refeição → petisco → diário → atalho**, porque o atalho precisa de um alimento cadastrado e o diário precisa dos registros para exibir.
 
 ## Dados e regras
 

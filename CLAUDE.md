@@ -8,7 +8,7 @@ As specs em `docs/specs/` são a fonte da verdade. Leia nesta ordem:
 1. `docs/specs/README.md`: visão geral, divisão em pacotes e prioridade das fontes.
 2. `docs/specs/unidade-2.md`: exigências do professor (U2-01 a U2-18). **Prevalece sobre tudo**, inclusive sobre `docs/requisitos.md`.
 3. `docs/specs/comum/`: contratos compartilhados (arquitetura, design system, navegação, dados e sync, regras, modelos matemáticos M1–M10).
-4. O pacote da tarefa em `docs/specs/pacotes/` e a fase correspondente em `docs/specs/plano-de-execucao.md`.
+4. O pacote da tarefa em `docs/specs/pacotes/` e a etapa correspondente em `docs/specs/plano-de-execucao.md` (o trabalho é em sequência, um pacote por vez: P1 → P2 → P3 → P4 → P5).
 5. `docs/specs/pendencias.md`, para decisões já tomadas (P-01…) e parâmetros ainda em aberto.
 
 Se a spec não cobre algo ou está em conflito, pergunte. Não invente comportamento, texto de tela nem parâmetro numérico.

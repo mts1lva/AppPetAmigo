@@ -11,7 +11,7 @@ Criar o esqueleto que os outros quatro pacotes usam (projeto Flutter em **Clean 
 
 ## Ordem de execução
 
-Siga as tarefas `P1-0.x` → `P1-1.x` → `P1-2.x` → `P1-3.x` → `P1-4.x` do `plano-de-execucao.md`. A Fase 0 inteira é deste pacote (exceto os contratos do P5 e as regras puras do P2, P3 e P4), e **os outros pacotes só montam telas quando ela fechar**.
+Siga a **etapa 1** do `plano-de-execucao.md`: o P1 é o primeiro da sequência e faz o pacote inteiro (base, contratos da fila do P5, pets, Início, mapeador e teste de integração) antes de passar a vez para o P2.
 
 ## Entregas da base (Fase 0)
 
@@ -47,7 +47,7 @@ Tocar no cabeçalho do pet (item 3) abre **N1 Seus pets**. Com 2 ou mais pets, a
 
 Peso no card 4: última pesagem (`ultimaPesagemProvider`, do P4). Sem pesagem: `peso não informado`.
 
-Até a Fase 2, os providers do P2 (`resumoDiaProvider`), do P3 (`lembretesProvider`), do P4 (`ultimaPesagemProvider`), do P5 (`estadoCopiaProvider`) e o `sugestoesProvider` (que junta S1, S2 e S3) são **stubs** com a assinatura final (`plano-de-execucao.md` → Stubs). Monte o Início com eles; nenhum código do Início muda quando forem trocados.
+Como o P1 vem primeiro, os providers do P2 (`resumoDiaProvider`), do P3 (`lembretesProvider`), do P5 (`estadoCopiaProvider`) e as regras S1, S2 e S3 do `sugestoesProvider` começam como **stubs** com a assinatura final, criados pelo P1 (`plano-de-execucao.md` → Stubs). Cada pacote troca o seu na própria etapa; nenhum código do Início muda. O `ultimaPesagemProvider` é real desde a etapa 1 (lê a tabela `pesagens`) e o P4 o assume na etapa 4.
 
 ### 05 — Dados do pet (`05-dados-do-pet.png`)
 

@@ -199,7 +199,7 @@ referenciaProvider(petId) ┘   projecaoProvider(petId)       (M4)
                               sugestoesProvider(petId)      (M8)
 ```
 - Os providers de entrada são **streams do drift**. Qualquer gravação (nova refeição, peso editado, peso inicial alterado, atividade registrada) emite um valor novo e recalcula a cadeia **sozinha**, sem "atualizar" manual.
-- Os modelos são O(n) e devem levar < 50 ms com 1.000 registros (medir na Fase 4).
+- Os modelos são O(n) e devem levar < 50 ms com 1.000 registros (medir na P2-4.3 e na P4-4.3).
 
 ## M10 — Exceções e estados vazios (U2-07)
 

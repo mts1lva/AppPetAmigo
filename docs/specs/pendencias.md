@@ -25,7 +25,7 @@ Pontos que o protótipo e os requisitos não definiam, ou definiam de forma cont
 
 ## Parâmetros da Unidade II que o enunciado não define (confirmar com o professor)
 
-O enunciado exige os modelos, mas não dá todos os números. Abaixo, os valores adotados, cada um numa constante de `domain/parametros.dart` para mudar num lugar só. **Levar esta tabela ao professor** antes da Fase 1.
+O enunciado exige os modelos, mas não dá todos os números. Abaixo, os valores adotados, cada um numa constante de `domain/parametros.dart` para mudar num lugar só. **Levar esta tabela ao professor** antes da etapa 2 do `plano-de-execucao.md`.
 
 | ID | Parâmetro | Valor adotado | Por que / risco |
 |---|---|---|---|

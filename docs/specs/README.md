@@ -5,7 +5,7 @@ Especificação para implementar o PetAmigo em **Flutter + Dart**, com **Clean A
 ## Como ler
 
 1. Todo mundo lê `unidade-2.md` e a pasta `comum/` antes de começar. Elas definem o que o professor exige e o que é compartilhado entre os pacotes: arquitetura, design system, navegação, dados, regras e modelos matemáticos.
-2. Cada integrante assume **um pacote** em `pacotes/` e implementa só o que está nele, respeitando os contratos de `comum/`, **na ordem do `plano-de-execucao.md`**.
+2. Cada integrante assume **um pacote** em `pacotes/` e implementa só o que está nele, respeitando os contratos de `comum/`, **na sua etapa do `plano-de-execucao.md`**.
 3. Antes de entregar, cada um confere os critérios de aceite do próprio pacote e guarda as evidências pedidas.
 4. `revisao-tecnica.md` explica como cada pessoa se prepara para a revisão técnica individual, registrando durante o trabalho o que precisará relatar depois.
 
@@ -60,20 +60,18 @@ A tela 24 ("Recurso do aparelho") só existe no protótipo. No app, ela vira os 
 
 ## Ordem de execução
 
-A ordem completa, com tarefas numeradas e critérios para passar de fase, está em **`plano-de-execucao.md`**. Resumo:
+A ordem completa, com tarefas numeradas e a lista para passar a vez, está em **`plano-de-execucao.md`**. O trabalho é **em sequência**: cada integrante faz o próprio pacote inteiro (código, parte Firebase, testes e evidências) e passa a vez para o próximo. Resumo:
 
 ```
-Fase 0  Fundação           P1: projeto, Clean Architecture, tema, componentes, banco com TODAS as tabelas, rotas, meta (M1), Firebase inicializado
-                           P5: contratos da fila e dos mapeadores
-                           P2, P3, P4: modelos e regras em Dart puro + testes oficiais T2–T4, e stubs dos providers
-Fase 1  Funcionalidades    Os 5 pacotes em paralelo, tudo offline (o P5 testa o envio em lote contra um remoto falso, T5)
-Fase 2  Integração local   Stubs trocados pelos dados reais; recálculo em tempo real conferido; emulador do Firebase (P2)
-Fase 3  Firebase           Mapeadores (P1–P4) + Auth, sync em lote real, conflitos e exclusão remota (P5)
-Fase 4  Verificação        5 testes oficiais, desempenho, Android 8 e 14, TalkBack/200%, evidências e revisão técnica
+Etapa 1  P1  base (feita), contratos da fila, pets, Início, meta M1, mapeador do pet
+Etapa 2  P2  diário, liga o card Hoje no Início, Firebase Emulator Suite do grupo
+Etapa 3  P3  atividades, lembretes com o app fechado, PDF, liga o card Lembretes
+Etapa 4  P4  evolução, gráfico interativo, projeção, liga S3 e as curvas no PDF
+Etapa 5  P5  privacidade, sync em lote, Firebase real de todas as coleções, 5 testes juntos
 ```
 
-Nenhum pacote espera o código de outro dentro de uma fase: as tabelas existem desde a Fase 0 e os dados que um pacote fornece a outro começam como stubs.
+Quem vem antes usa stubs para o que ainda não existe; quem vem depois troca o stub pelo real e liga os próprios dados nas telas que já existem. Não há etapa só de testes.
 
-**Antes da Fase 1:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
+**Antes da etapa 2:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
 
 Regra de convivência: nenhum pacote cria um componente visual próprio se existe um equivalente em `core/ui`. Se faltar alguma variante, peça ao pacote 1.

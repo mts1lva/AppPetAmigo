@@ -24,7 +24,7 @@ Fonte: enunciado da Unidade II (`PetAmigo.pdf`, páginas 3 e 4, recebido em 19/1
 | U2-14 | **Clean Architecture** | `arquitetura.md` → Clean Architecture | todos (P1 monta o esqueleto) |
 | U2-15 | **Offline-first** | Já era a base das specs | todos |
 | U2-16 | **Sincronização em lote via Wi-Fi** | `dados-e-sync.md` → Envio em lote | P5 |
-| U2-17 | **5 testes automatizados** (no mínimo) | Os 5 obrigatórios estão em `plano-de-execucao.md` → Fase 4; cada pacote tem vários outros | todos |
+| U2-17 | **5 testes automatizados** (no mínimo) | Os 5 obrigatórios estão em `plano-de-execucao.md` → Os 5 testes automatizados oficiais; cada pacote tem vários outros | todos |
 | U2-18 | **Exportação em PDF** para consulta veterinária | `pacote-3` → Resumo em PDF | P3 |
 
 ## Itens do briefing original que mudam as specs

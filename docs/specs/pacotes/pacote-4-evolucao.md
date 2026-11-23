@@ -7,7 +7,7 @@
 Entregar a aba **Evolução** com a matemática da Unidade II: peso ideal, curva ideal de 90 dias, **projeção adaptativa** de 90 dias, **data prevista**, percentual de evolução e **gráfico interativo**, além das pesagens com conferência de valores suspeitos e do ECC/objetivo informados pelo veterinário. Tudo recalculado em tempo real e sem culpar o tutor.
 
 **Requisitos:** RF09, RF10, RF11, RF19, RNF02 (gráfico não depende de cor), RNF06, RNF07 (gráfico leve), RNF11, RNF12 · **Unidade II:** U2-02, U2-03, U2-04, U2-05, U2-06 (peso inicial), U2-07, U2-08, U2-11 (S3), U2-12, briefing B-a (celebração), teste oficial T4.
-**Depende de:** P1 (base, `metaProvider` de M1). Lê `aderenciaProvider` e a ingestão diária do P2 e o `gastoAtividadeProvider` do P3; até a Fase 2, usa stubs com a mesma assinatura. **Entrega para:** P1 (`ultimaPesagemProvider`, regra S3 para o card de sugestões), P3 (valores das curvas para o gráfico do PDF).
+**Depende de:** P1 (base, `metaProvider` de M1). Lê `aderenciaProvider` e a ingestão diária do P2 e o `gastoAtividadeProvider` do P3, que já existem quando chega a sua vez (**etapa 4** do `plano-de-execucao.md`). **Entrega para:** P1 (`ultimaPesagemProvider`, regra S3 para o card de sugestões), P3 (valores das curvas para o gráfico do PDF).
 
 Observação: a primeira pesagem, criada junto com o pet, é inserida pelo P1 direto na tabela `pesagens`. Ela é o **peso inicial** (M7) e precisa aparecer normalmente na Evolução, no gráfico e na conferência de variação.
 
@@ -57,7 +57,7 @@ Sem peso ideal (sem ECC nem objetivo), o card Indicadores mostra `Peso ideal •
 - `CustomPainter` + `GestureDetector`, sem biblioteca (gráficos leves). A pintura recebe um objeto pronto de `grafico_dados.dart` (pontos já mapeados), então o painter **não faz conta** e pode ser testado com golden.
 - Séries, estilos, balão e acessibilidade: `design-system.md` → Gráfico interativo.
 - Arrastar o dedo mostra o valor do dia (M6): pesagem exata, estimativa interpolada (passado) ou projeção e ideal (futuro).
-- O gráfico é refeito em menos de 1 frame quando chega um valor novo do provider (U2-05). Medir na Fase 4.
+- O gráfico é refeito em menos de 1 frame quando chega um valor novo do provider (U2-05). Medir na P4-4.3.
 
 ### 11 — Pesagem (`11-pesagem.png`)
 

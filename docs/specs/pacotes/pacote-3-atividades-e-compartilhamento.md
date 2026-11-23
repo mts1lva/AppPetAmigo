@@ -7,7 +7,7 @@
 Entregar a aba **Atividades** (passeios e brincadeiras, com dicas por espécie e o gasto estimado que alimenta a projeção), os **lembretes locais** que disparam mesmo com o app fechado, o **resumo em PDF** para o veterinário e a **exportação dos dados**. Arquivos só saem do aparelho quando o tutor pede.
 
 **Requisitos:** RF12, RF13, RF16 (exportação), RF18, RNF05, RNF07 (sem GPS), RNF10 · **Unidade II:** U2-04 (gasto de atividade na projeção), U2-09, U2-11 (S2), U2-18, teste oficial T3.
-**Depende de:** P1 (base e todas as tabelas, criadas na Fase 0). O PDF lê as tabelas e os providers do P2 e do P4; até a Fase 2, os testes populam dados de exemplo. **Entrega para:** P1 (`lembretesProvider`, card Lembretes), P4 (`gastoAtividadeProvider` e diálogo 13), P5 (`GeradorExportacao` e `AgendadorNotificacoes.cancelarTodos` na exclusão integral).
+**Depende de:** P1 (base e todas as tabelas) e P2 (diário), que vêm antes na sequência (**etapa 3** do `plano-de-execucao.md`). O PDF lê os dados reais do P2; as curvas do P4 usam dados de exemplo até a etapa 4, quando o P4 as liga (P4-2.2). **Entrega para:** P1 (`lembretesProvider`, card Lembretes), P4 (`gastoAtividadeProvider` e diálogo 13), P5 (`GeradorExportacao` e `AgendadorNotificacoes.cancelarTodos` na exclusão integral).
 
 **Ordem de execução:** tarefas `P3-0.x` → `P3-1.x` → `P3-2.x` → `P3-3.x` → `P3-4.x` do `plano-de-execucao.md`. Comece pelo domínio dos lembretes e pelo gasto de atividade (Fase 0, Dart puro).
 
