@@ -28,7 +28,7 @@ part 'database.g.dart';
     Lembretes,
     Pesagens,
     Referencias,
-    FilaSync,
+    ItensFilaSync,
     Conflitos,
     Config,
   ],

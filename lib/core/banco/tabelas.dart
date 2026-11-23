@@ -7,7 +7,7 @@ import 'package:drift/drift.dart';
 /// `database.dart`) e de acordo com o grupo.
 ///
 /// Nomes no SQLite: o drift converte para snake_case (`petId` → `pet_id`,
-/// `FilaSync` → `fila_sync`). As classes de linha terminam em `Linha` para
+/// `Pesagens` → `pesagens`). As classes de linha terminam em `Linha` para
 /// não colidir com as entidades do domínio (`Pet`, `Refeicao`…).
 
 /// Colunas de controle de toda tabela sincronizável.
@@ -134,9 +134,16 @@ class Referencias extends Table with ColunasControle {
 // ---------------------------------------------------------------- controle (P5)
 
 /// Fila de sincronização. `operacao`: `upsert`/`excluir`.
+///
+/// A classe se chama `ItensFilaSync` (e não `FilaSync`) para não colidir com
+/// a interface `FilaSync` de `core/sync/fila_sync.dart`; no SQLite a tabela
+/// continua `fila_sync`. Acesso: `banco.itensFilaSync`.
 @DataClassName('FilaSyncLinha')
 @TableIndex(name: 'idx_fila_sync_registro', columns: {#tabela, #registroId})
-class FilaSync extends Table {
+class ItensFilaSync extends Table {
+  @override
+  String get tableName => 'fila_sync';
+
   IntColumn get id => integer().autoIncrement()();
   TextColumn get tabela => text()();
   TextColumn get registroId => text()();

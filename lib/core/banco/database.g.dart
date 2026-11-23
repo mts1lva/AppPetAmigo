@@ -6003,12 +6003,12 @@ class ReferenciasCompanion extends UpdateCompanion<ReferenciaLinha> {
   }
 }
 
-class $FilaSyncTable extends FilaSync
-    with TableInfo<$FilaSyncTable, FilaSyncLinha> {
+class $ItensFilaSyncTable extends ItensFilaSync
+    with TableInfo<$ItensFilaSyncTable, FilaSyncLinha> {
   @override
   final GeneratedDatabase attachedDatabase;
   final String? _alias;
-  $FilaSyncTable(this.attachedDatabase, [this._alias]);
+  $ItensFilaSyncTable(this.attachedDatabase, [this._alias]);
   static const VerificationMeta _idMeta = const VerificationMeta('id');
   @override
   late final GeneratedColumn<int> id = GeneratedColumn<int>(
@@ -6197,8 +6197,8 @@ class $FilaSyncTable extends FilaSync
   }
 
   @override
-  $FilaSyncTable createAlias(String alias) {
-    return $FilaSyncTable(attachedDatabase, alias);
+  $ItensFilaSyncTable createAlias(String alias) {
+    return $ItensFilaSyncTable(attachedDatabase, alias);
   }
 }
 
@@ -6234,8 +6234,8 @@ class FilaSyncLinha extends DataClass implements Insertable<FilaSyncLinha> {
     return map;
   }
 
-  FilaSyncCompanion toCompanion(bool nullToAbsent) {
-    return FilaSyncCompanion(
+  ItensFilaSyncCompanion toCompanion(bool nullToAbsent) {
+    return ItensFilaSyncCompanion(
       id: Value(id),
       tabela: Value(tabela),
       registroId: Value(registroId),
@@ -6294,7 +6294,7 @@ class FilaSyncLinha extends DataClass implements Insertable<FilaSyncLinha> {
     tentativas: tentativas ?? this.tentativas,
     ultimoErro: ultimoErro.present ? ultimoErro.value : this.ultimoErro,
   );
-  FilaSyncLinha copyWithCompanion(FilaSyncCompanion data) {
+  FilaSyncLinha copyWithCompanion(ItensFilaSyncCompanion data) {
     return FilaSyncLinha(
       id: data.id.present ? data.id.value : this.id,
       tabela: data.tabela.present ? data.tabela.value : this.tabela,
@@ -6349,7 +6349,7 @@ class FilaSyncLinha extends DataClass implements Insertable<FilaSyncLinha> {
           other.ultimoErro == this.ultimoErro);
 }
 
-class FilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
+class ItensFilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
   final Value<int> id;
   final Value<String> tabela;
   final Value<String> registroId;
@@ -6357,7 +6357,7 @@ class FilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
   final Value<DateTime> criadoEm;
   final Value<int> tentativas;
   final Value<String?> ultimoErro;
-  const FilaSyncCompanion({
+  const ItensFilaSyncCompanion({
     this.id = const Value.absent(),
     this.tabela = const Value.absent(),
     this.registroId = const Value.absent(),
@@ -6366,7 +6366,7 @@ class FilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
     this.tentativas = const Value.absent(),
     this.ultimoErro = const Value.absent(),
   });
-  FilaSyncCompanion.insert({
+  ItensFilaSyncCompanion.insert({
     this.id = const Value.absent(),
     required String tabela,
     required String registroId,
@@ -6398,7 +6398,7 @@ class FilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
     });
   }
 
-  FilaSyncCompanion copyWith({
+  ItensFilaSyncCompanion copyWith({
     Value<int>? id,
     Value<String>? tabela,
     Value<String>? registroId,
@@ -6407,7 +6407,7 @@ class FilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
     Value<int>? tentativas,
     Value<String?>? ultimoErro,
   }) {
-    return FilaSyncCompanion(
+    return ItensFilaSyncCompanion(
       id: id ?? this.id,
       tabela: tabela ?? this.tabela,
       registroId: registroId ?? this.registroId,
@@ -6447,7 +6447,7 @@ class FilaSyncCompanion extends UpdateCompanion<FilaSyncLinha> {
 
   @override
   String toString() {
-    return (StringBuffer('FilaSyncCompanion(')
+    return (StringBuffer('ItensFilaSyncCompanion(')
           ..write('id: $id, ')
           ..write('tabela: $tabela, ')
           ..write('registroId: $registroId, ')
@@ -7020,7 +7020,7 @@ abstract class _$BancoLocal extends GeneratedDatabase {
   late final $LembretesTable lembretes = $LembretesTable(this);
   late final $PesagensTable pesagens = $PesagensTable(this);
   late final $ReferenciasTable referencias = $ReferenciasTable(this);
-  late final $FilaSyncTable filaSync = $FilaSyncTable(this);
+  late final $ItensFilaSyncTable itensFilaSync = $ItensFilaSyncTable(this);
   late final $ConflitosTable conflitos = $ConflitosTable(this);
   late final $ConfigTable config = $ConfigTable(this);
   late final Index idxAlimentosPet = Index(
@@ -7069,7 +7069,7 @@ abstract class _$BancoLocal extends GeneratedDatabase {
     lembretes,
     pesagens,
     referencias,
-    filaSync,
+    itensFilaSync,
     conflitos,
     config,
     idxAlimentosPet,
@@ -11379,28 +11379,30 @@ typedef $$ReferenciasTableProcessedTableManager =
       ReferenciaLinha,
       PrefetchHooks Function({bool petId})
     >;
-typedef $$FilaSyncTableCreateCompanionBuilder = FilaSyncCompanion Function({
-  Value<int> id,
-  required String tabela,
-  required String registroId,
-  required String operacao,
-  required DateTime criadoEm,
-  Value<int> tentativas,
-  Value<String?> ultimoErro,
-});
-typedef $$FilaSyncTableUpdateCompanionBuilder = FilaSyncCompanion Function({
-  Value<int> id,
-  Value<String> tabela,
-  Value<String> registroId,
-  Value<String> operacao,
-  Value<DateTime> criadoEm,
-  Value<int> tentativas,
-  Value<String?> ultimoErro,
-});
+typedef $$ItensFilaSyncTableCreateCompanionBuilder =
+    ItensFilaSyncCompanion Function({
+      Value<int> id,
+      required String tabela,
+      required String registroId,
+      required String operacao,
+      required DateTime criadoEm,
+      Value<int> tentativas,
+      Value<String?> ultimoErro,
+    });
+typedef $$ItensFilaSyncTableUpdateCompanionBuilder =
+    ItensFilaSyncCompanion Function({
+      Value<int> id,
+      Value<String> tabela,
+      Value<String> registroId,
+      Value<String> operacao,
+      Value<DateTime> criadoEm,
+      Value<int> tentativas,
+      Value<String?> ultimoErro,
+    });
 
-class $$FilaSyncTableFilterComposer
-    extends Composer<_$BancoLocal, $FilaSyncTable> {
-  $$FilaSyncTableFilterComposer({
+class $$ItensFilaSyncTableFilterComposer
+    extends Composer<_$BancoLocal, $ItensFilaSyncTable> {
+  $$ItensFilaSyncTableFilterComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -11443,9 +11445,9 @@ class $$FilaSyncTableFilterComposer
   );
 }
 
-class $$FilaSyncTableOrderingComposer
-    extends Composer<_$BancoLocal, $FilaSyncTable> {
-  $$FilaSyncTableOrderingComposer({
+class $$ItensFilaSyncTableOrderingComposer
+    extends Composer<_$BancoLocal, $ItensFilaSyncTable> {
+  $$ItensFilaSyncTableOrderingComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -11488,9 +11490,9 @@ class $$FilaSyncTableOrderingComposer
   );
 }
 
-class $$FilaSyncTableAnnotationComposer
-    extends Composer<_$BancoLocal, $FilaSyncTable> {
-  $$FilaSyncTableAnnotationComposer({
+class $$ItensFilaSyncTableAnnotationComposer
+    extends Composer<_$BancoLocal, $ItensFilaSyncTable> {
+  $$ItensFilaSyncTableAnnotationComposer({
     required super.$db,
     required super.$table,
     super.joinBuilder,
@@ -11525,35 +11527,35 @@ class $$FilaSyncTableAnnotationComposer
   );
 }
 
-class $$FilaSyncTableTableManager
+class $$ItensFilaSyncTableTableManager
     extends
         RootTableManager<
           _$BancoLocal,
-          $FilaSyncTable,
+          $ItensFilaSyncTable,
           FilaSyncLinha,
-          $$FilaSyncTableFilterComposer,
-          $$FilaSyncTableOrderingComposer,
-          $$FilaSyncTableAnnotationComposer,
-          $$FilaSyncTableCreateCompanionBuilder,
-          $$FilaSyncTableUpdateCompanionBuilder,
+          $$ItensFilaSyncTableFilterComposer,
+          $$ItensFilaSyncTableOrderingComposer,
+          $$ItensFilaSyncTableAnnotationComposer,
+          $$ItensFilaSyncTableCreateCompanionBuilder,
+          $$ItensFilaSyncTableUpdateCompanionBuilder,
           (
             FilaSyncLinha,
-            BaseReferences<_$BancoLocal, $FilaSyncTable, FilaSyncLinha>,
+            BaseReferences<_$BancoLocal, $ItensFilaSyncTable, FilaSyncLinha>,
           ),
           FilaSyncLinha,
           PrefetchHooks Function()
         > {
-  $$FilaSyncTableTableManager(_$BancoLocal db, $FilaSyncTable table)
+  $$ItensFilaSyncTableTableManager(_$BancoLocal db, $ItensFilaSyncTable table)
     : super(
         TableManagerState(
           db: db,
           table: table,
           createFilteringComposer: () =>
-              $$FilaSyncTableFilterComposer($db: db, $table: table),
+              $$ItensFilaSyncTableFilterComposer($db: db, $table: table),
           createOrderingComposer: () =>
-              $$FilaSyncTableOrderingComposer($db: db, $table: table),
+              $$ItensFilaSyncTableOrderingComposer($db: db, $table: table),
           createComputedFieldComposer: () =>
-              $$FilaSyncTableAnnotationComposer($db: db, $table: table),
+              $$ItensFilaSyncTableAnnotationComposer($db: db, $table: table),
           updateCompanionCallback:
               ({
                 Value<int> id = const Value.absent(),
@@ -11563,7 +11565,7 @@ class $$FilaSyncTableTableManager
                 Value<DateTime> criadoEm = const Value.absent(),
                 Value<int> tentativas = const Value.absent(),
                 Value<String?> ultimoErro = const Value.absent(),
-              }) => FilaSyncCompanion(
+              }) => ItensFilaSyncCompanion(
                 id: id,
                 tabela: tabela,
                 registroId: registroId,
@@ -11581,7 +11583,7 @@ class $$FilaSyncTableTableManager
                 required DateTime criadoEm,
                 Value<int> tentativas = const Value.absent(),
                 Value<String?> ultimoErro = const Value.absent(),
-              }) => FilaSyncCompanion.insert(
+              }) => ItensFilaSyncCompanion.insert(
                 id: id,
                 tabela: tabela,
                 registroId: registroId,
@@ -11593,12 +11595,12 @@ class $$FilaSyncTableTableManager
           withReferenceMapper: (p0) => p0
               .map(
                 (e) => (
-                  e.readTable<$FilaSyncTable, FilaSyncLinha>(table),
-                  BaseReferences<_$BancoLocal, $FilaSyncTable, FilaSyncLinha>(
-                    db,
-                    table,
-                    e,
-                  ),
+                  e.readTable<$ItensFilaSyncTable, FilaSyncLinha>(table),
+                  BaseReferences<
+                    _$BancoLocal,
+                    $ItensFilaSyncTable,
+                    FilaSyncLinha
+                  >(db, table, e),
                 ),
               )
               .toList(),
@@ -11607,19 +11609,19 @@ class $$FilaSyncTableTableManager
       );
 }
 
-typedef $$FilaSyncTableProcessedTableManager =
+typedef $$ItensFilaSyncTableProcessedTableManager =
     ProcessedTableManager<
       _$BancoLocal,
-      $FilaSyncTable,
+      $ItensFilaSyncTable,
       FilaSyncLinha,
-      $$FilaSyncTableFilterComposer,
-      $$FilaSyncTableOrderingComposer,
-      $$FilaSyncTableAnnotationComposer,
-      $$FilaSyncTableCreateCompanionBuilder,
-      $$FilaSyncTableUpdateCompanionBuilder,
+      $$ItensFilaSyncTableFilterComposer,
+      $$ItensFilaSyncTableOrderingComposer,
+      $$ItensFilaSyncTableAnnotationComposer,
+      $$ItensFilaSyncTableCreateCompanionBuilder,
+      $$ItensFilaSyncTableUpdateCompanionBuilder,
       (
         FilaSyncLinha,
-        BaseReferences<_$BancoLocal, $FilaSyncTable, FilaSyncLinha>,
+        BaseReferences<_$BancoLocal, $ItensFilaSyncTable, FilaSyncLinha>,
       ),
       FilaSyncLinha,
       PrefetchHooks Function()
@@ -11978,8 +11980,8 @@ class $BancoLocalManager {
       $$PesagensTableTableManager(_db, _db.pesagens);
   $$ReferenciasTableTableManager get referencias =>
       $$ReferenciasTableTableManager(_db, _db.referencias);
-  $$FilaSyncTableTableManager get filaSync =>
-      $$FilaSyncTableTableManager(_db, _db.filaSync);
+  $$ItensFilaSyncTableTableManager get itensFilaSync =>
+      $$ItensFilaSyncTableTableManager(_db, _db.itensFilaSync);
   $$ConflitosTableTableManager get conflitos =>
       $$ConflitosTableTableManager(_db, _db.conflitos);
   $$ConfigTableTableManager get config =>
