@@ -4,6 +4,7 @@ import 'package:material_ui/material_ui.dart';
 
 import '../core/ui/ui.dart';
 import '../features/pets/apresentacao/providers/pet_atual_provider.dart';
+import '../features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import '../features/pets/apresentacao/telas/tela_vamos_comecar.dart';
 import 'tema/cores.dart';
 import 'telas_provisorias.dart';
@@ -52,8 +53,7 @@ final roteadorProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: Rotas.comecar,
-        // TODO(P1-1.3): abrir o 05 Dados do pet em modo cadastro.
-        builder: (context, state) => const TelaVamosComecar(aoCadastrar: null),
+        builder: (context, state) => TelaVamosComecar(aoCadastrar: () => abrirDadosPet(context)),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, abas) => EstruturaAbas(abas: abas),

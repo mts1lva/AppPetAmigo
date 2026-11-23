@@ -12,8 +12,7 @@ import '../../../../core/ui/ui.dart';
 class TelaVamosComecar extends StatelessWidget {
   const TelaVamosComecar({super.key, required this.aoCadastrar});
 
-  /// Abre o 05 Dados do pet em modo cadastro. Nulo até a P1-1.3 (botão
-  /// desabilitado).
+  /// Abre o 05 Dados do pet em modo cadastro.
   final VoidCallback? aoCadastrar;
 
   @override
