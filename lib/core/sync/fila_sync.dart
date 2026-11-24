@@ -40,9 +40,14 @@ abstract final class ColecoesSync {
   static const pesagens = 'pesagens';
   static const referencias = 'referencias';
 
+  /// Fotos dos pets (P-23, P-27): um documento por pet, com a imagem. Não
+  /// passam pela fila: o motor envia a foto depois do commit do lote que
+  /// contém o pet, fora do `WriteBatch`.
+  static const fotos = 'fotos';
+
   /// Na ordem em que o pull deve aplicar (os pets antes, por causa das chaves
   /// estrangeiras do banco local).
-  static const todas = [pets, alimentos, refeicoes, extras, atividades, lembretes, pesagens, referencias];
+  static const todas = [pets, fotos, alimentos, refeicoes, extras, atividades, lembretes, pesagens, referencias];
 }
 
 abstract interface class FilaSync {

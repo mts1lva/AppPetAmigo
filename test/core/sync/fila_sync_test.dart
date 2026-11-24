@@ -56,6 +56,7 @@ void main() {
     expect(EstadoSync.values.map((e) => e.name), ['local', 'pendente', 'sincronizado', 'falha', 'conflito']);
     expect(ColecoesSync.todas, [
       'pets',
+      'fotos',
       'alimentos',
       'refeicoes',
       'extras',

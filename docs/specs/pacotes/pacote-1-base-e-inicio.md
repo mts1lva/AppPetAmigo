@@ -123,8 +123,8 @@ Na Fase 0, o P1 cria o esqueleto de pastas de `arquitetura.md` → Clean Archite
 1. Criar o projeto no console (região `southamerica-east1`) no plano gratuito (Spark) e ativar Authentication (e-mail/senha) e Firestore, sem Cloud Storage (P-23). As regras ficam com o P5.
 2. `flutterfire configure` → `lib/firebase_options.dart`.
 3. `main.dart`: `Firebase.initializeApp`, `Settings(persistenceEnabled: false)` e `disableNetwork()`.
-4. `PetMapeador` (`data/sync/mapeadores/pet_mapeador.dart`) com o teste de ida e volta.
-5. Fotos na cópia remota (P-23): `enviarFoto(uid, petId, arquivo)` → documento `usuarios/{uid}/fotos/{petId}` com a imagem em `Bytes` (`dados-e-sync.md` → Foto do pet), e `baixarFoto(...)` para a restauração, gravando o arquivo na área privada. O motor do P5 chama essas funções.
+4. `PetMapeador` (`features/pets/data/mapeadores/pet_mapeador.dart`) com o teste de ida e volta. O caminho da foto (`fotoArquivo`) não vai no documento do pet: só vale no aparelho.
+5. Fotos na cópia remota (P-23, P-27): `FotoPetMapeador` (coleção `fotos`, imagem em `Blob`) e `FotosPetSync`, sem rede: `fotoParaEnvio(pet)` lê o arquivo e devolve a foto pronta (ou nada, sem foto), e `guardarFotoRecebida(foto)` grava na área privada e devolve o caminho para `fotoArquivo`. Quem envia e baixa é o motor do P5, pelo `FirebaseRemoto`.
 6. P1-3.2: `integration_test/sync_pet_test.dart` no emulador (preparado pelo P2). **Ida:** cadastrar **dois pets** com foto e editar um → motor → ler `usuarios/{uid}/pets/{id}` com `FirebaseFirestore.instance` e conferir os campos (inclusive `idadeMeses`); conferir que os dois documentos `usuarios/{uid}/fotos/{petId}` existem com a imagem. **Volta:** apagar o banco local → pull → conferir os dois pets e as fotos restaurados.
 
 ## Critérios de aceite

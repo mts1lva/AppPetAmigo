@@ -69,7 +69,7 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 | P1-1.6 | Tela 01 Início: cards de perfil e Referência alimentar com dados reais; Hoje, Sugestões, Lembretes e Seu controle nos stubs | `pacote-1` |
 | P1-1.7 | Tela 18 "Como a meta é calculada" | `pacote-1` |
 | P1-1.8 | Golden do 01 e do 05 comparados com os PNGs | `design-system.md` → Verificação visual |
-| P1-3.1 | `PetMapeador` + `enviarFoto`/`baixarFoto` (foto em `usuarios/{uid}/fotos`, P-23) + teste de ida e volta do mapeador | `pacote-1` → Parte Firebase |
+| P1-3.1 | `PetMapeador`, `FotoPetMapeador` e `FotosPetSync` (foto em `usuarios/{uid}/fotos`, sem rede, P-23 e P-27) + testes de ida e volta | `pacote-1` → Parte Firebase |
 | P1-3.2 | `integration_test/sync_pet_test.dart`: dois pets com foto, ida e volta, fotos no Firestore (roteiro na P5-3.7). Roda na etapa 5 | `pacote-1` → Parte Firebase |
 | P1-4.4 | Instalação e cadastro no emulador Android 8.0 (API 26) | `pacote-1` |
 | P1-4.6 | TalkBack e fonte em 200% nas telas do P1 | `pacote-1` → Critérios |

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:petamigo/features/pets/apresentacao/providers/pet_atual_provider.dart';
@@ -42,6 +43,20 @@ final class FotosFalsas implements SeletorFoto, ArmazenamentoFotos {
     guardadas.add((origem, petId));
     return '/privado/fotos/$petId-${guardadas.length}.jpg';
   }
+
+  /// Conteúdo dos arquivos "gravados" ou já existentes, por caminho.
+  final arquivos = <String, Uint8List>{};
+
+  @override
+  Future<String> guardarBytes(Uint8List imagem, {required String petId}) async {
+    guardadas.add(('bytes', petId));
+    final caminho = '/privado/fotos/$petId-${guardadas.length}.jpg';
+    arquivos[caminho] = imagem;
+    return caminho;
+  }
+
+  @override
+  Future<Uint8List?> ler(String caminho) async => arquivos[caminho];
 
   @override
   Future<void> apagar(String caminho) async => apagadas.add(caminho);
