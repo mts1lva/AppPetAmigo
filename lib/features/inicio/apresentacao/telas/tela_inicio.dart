@@ -15,6 +15,7 @@ import '../../../diario/domain/entidades/resumo_dia.dart';
 import '../../../evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
 import '../../../lembretes/apresentacao/providers/lembretes_provider.dart';
 import '../../../nutricao/apresentacao/providers/meta_provider.dart';
+import '../../../nutricao/apresentacao/telas/dialogo_como_meta.dart';
 import '../../../nutricao/domain/descricao_meta.dart';
 import '../../../pets/apresentacao/providers/pet_atual_provider.dart';
 import '../../../pets/apresentacao/providers/pets_providers.dart';
@@ -164,8 +165,10 @@ class _CardReferencia extends ConsumerWidget {
               densidadeKcalPor100g: alimento?.densidadeKcalPor100g,
             ),
       filhos: [
-        // TODO(P1-1.7): abrir a tela 18 Como a meta é calculada.
-        PaBotao.secundario(texto: botaoEntenderReferencia, aoTocar: () {}),
+        PaBotao.secundario(
+          texto: botaoEntenderReferencia,
+          aoTocar: () => abrirComoMetaECalculada(context, pet.id),
+        ),
       ],
     );
   }

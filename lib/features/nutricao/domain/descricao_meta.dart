@@ -7,6 +7,7 @@ import '../../../core/resultado.dart';
 import '../../pets/domain/descricao_pet.dart';
 import '../../pets/domain/entidades/pet.dart';
 import 'meta_diaria.dart';
+import 'parametros.dart';
 
 /// Por que o fator foi escolhido, no texto do card: `castrada`, `não castrado`,
 /// `filhote`, `atividade alta`. O protótipo só mostra `(castrada)`; os outros
@@ -49,3 +50,44 @@ String textoReferenciaAlimentar(
           'RER × ${formatarNumero(m.fator.valor)} (${rotuloFator(pet, m.fator)}). Estimativa educativa.';
   }
 }
+
+/// Título, subtítulo e aviso da tela 18 "Como a meta é calculada".
+const tituloComoMeta = 'Como a meta é calculada';
+const subtituloComoMeta = 'Fórmula veterinária (NRC).';
+const avisoMeta = 'Estimativa educativa. Não substitui a avaliação do veterinário.';
+
+/// Texto da tela 18, com os números do pet (`pacote-1` → 18):
+/// `RER = 70 × peso^0,75 = 70 × 5,4^0,75 = 248 kcal` /
+/// `Fator 1,6 (castrada) → meta de 397 kcal por dia` /
+/// `Com Ração habitual (360 kcal/100 g): ≈ 110 g por dia.` /
+/// `Estimativa educativa. Não substitui a avaliação do veterinário.`
+///
+/// Sem alimento (ou com densidade inválida), sem a linha dos gramas (P-24).
+/// Sem pesagem, só o motivo (`Registre uma pesagem para calcular a meta.`).
+String textoComoMetaECalculada(
+  Resultado<MetaDiaria> meta,
+  Pet pet, {
+  String? alimentoNome,
+  double? densidadeKcalPor100g,
+}) {
+  switch (meta) {
+    case Indisponivel(:final motivo):
+      return motivo;
+    case Disponivel(valor: final m):
+      final coeficiente = formatarNumero(coeficienteRer, casas: 0);
+      final expoente = formatarNumero(expoenteRer, casas: 2);
+      final emGramas = (alimentoNome != null && densidadeKcalPor100g != null)
+          ? gramasAproximadas(m.mer, densidadeKcalPor100g)
+          : null;
+      return [
+        'RER = $coeficiente × peso^$expoente = $coeficiente × ${formatarNumero(m.pesoKg)}^$expoente = '
+            '${formatarEnergia(m.rer)}',
+        'Fator ${formatarNumero(m.fator.valor)} (${rotuloFator(pet, m.fator)}) → meta de ${formatarEnergia(m.mer)} por dia',
+        if (emGramas != null) 'Com $alimentoNome (${_densidade(densidadeKcalPor100g!)} kcal/100 g): $emGramas por dia.',
+        avisoMeta,
+      ].join('\n');
+  }
+}
+
+/// Densidade do rótulo sem casas quando é inteira (`360`), senão com uma (`365,5`).
+String _densidade(double valor) => formatarNumero(valor, casas: valor == valor.roundToDouble() ? 0 : 1);
