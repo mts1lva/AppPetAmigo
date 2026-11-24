@@ -8,17 +8,24 @@ import 'package:petamigo/features/pets/domain/repositorios/fotos_pet.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_atual_repositorio.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_repositorio.dart';
 
-/// Luna, a gata do protótipo: 6 anos, castrada, atividade moderada.
+/// Luna, a gata do protótipo: 6 anos, castrada, atividade moderada. A idade
+/// é informada hoje, para o teste não depender da data em que roda (a idade
+/// avança um mês por mês desde `idadeInformadaEm`).
 Pet luna({String id = 'p1', String nome = 'Luna'}) => Pet(
       id: id,
       nome: nome,
       especie: Especie.gato,
       sexo: Sexo.femea,
       idadeMeses: 72,
-      idadeInformadaEm: DateTime(2026, 9, 30),
+      idadeInformadaEm: _hoje(),
       castrado: true,
       nivelAtividade: NivelAtividade.moderada,
     );
+
+DateTime _hoje() {
+  final agora = DateTime.now();
+  return DateTime(agora.year, agora.month, agora.day);
+}
 
 /// Seletor e armazenamento de fotos falsos: o seletor devolve [proxima] e o
 /// armazenamento só anota o que guardou e apagou.
@@ -54,6 +61,9 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
   final _pets = <String, Pet>{};
   final _pesos = <String, double>{};
   String? _atual;
+
+  /// Pet atual, para conferir direto nos testes (sem esperar stream).
+  String? get atual => _atual;
   final _mudou = StreamController<void>.broadcast();
 
   final fotos = FotosFalsas();
