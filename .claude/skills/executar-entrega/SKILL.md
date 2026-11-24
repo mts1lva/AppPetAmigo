@@ -7,10 +7,33 @@ description: Verifica no GitHub se uma tarefa do plano do PetAmigo já pode ser 
 
 As tarefas do `docs/specs/plano-de-execucao.md` não seguem mais uma fila fixa por pacote. Cada tarefa tem dependências diretas em `docs/specs/dependencias.yaml`, e só pode ser feita quando todas elas estiverem **na `origin/dev`** (PR aceito). Uma tarefa conta como feita quando o **título** de um commit na `origin/dev` tem o código dela.
 
+## 0. Seu pacote
+
+Cada integrante escolhe o pacote pelo qual se responsabiliza. Ninguém recebe um pacote pronto. Antes de qualquer tarefa, rode:
+
+```
+dart tool/dependencias.dart responsaveis
+```
+
+A última linha diz quem é a pessoa (pelo `git config user.name`) e o pacote dela.
+
+- **`VOCÊ (Nome): P2`**: siga para o passo 1.
+- **`VOCÊ (Nome): sem pacote`**: **não execute nada ainda.** Primeiro apresente os pacotes e pergunte qual ela assume:
+  1. Para **cada pacote**, explique em 2 ou 3 linhas simples, sem jargão: o que ele constrói (escopo), as telas, a parte Firebase, o teste oficial, o progresso e se já tem responsável. Use a saída do `responsaveis`. Se precisar de mais contexto, leia o começo do `docs/specs/pacotes/pacote-N-*.md` (linhas "Requisitos", "Depende de" e "Entrega para").
+  2. Diga que cada pessoa assume **um** pacote e responde sozinha à revisão técnica sobre ele (código, parte Firebase, testes e evidências).
+  3. Pergunte qual pacote a pessoa assume, oferecendo **só os livres**. Use a ferramenta de perguntas se houver até 4 livres; se houver mais, pergunte em texto. Pacote com escolha "pendente" em outro branch ou PR já está tomado. Não escolha pela pessoa.
+  4. Confirme o nome que vai para o README (o do `git config user.name`, ou outro que a pessoa disser) e registre:
+     ```
+     dart tool/dependencias.dart assumir P2 ["Nome"]
+     ```
+     O script recusa pacote já escolhido por outra pessoa e segunda escolha da mesma pessoa.
+  5. Faça o commit `docs(specs): <Nome> assume o pacote N` e dê push no branch, para os colegas verem a escolha pelo `responsaveis` mesmo antes do merge. Ela vai junto no PR do branch.
+- **`CONFLITO`** num pacote: duas pessoas o escolheram em branches diferentes. Avise e peça para combinarem; vale a escolha que chegar primeiro à `dev`.
+
 ## 1. Identificar a tarefa
 
 - Se o pedido tem um código (`P2-1.3`), use-o. Mais de um código: verifique todos.
-- Se não tem ("minha entrega", "próxima tarefa"), rode `dart tool/dependencias.dart proximas` (ou `proximas P2` se o pacote for conhecido), mostre a lista e pergunte qual fazer. Não escolha sozinho.
+- Se não tem ("minha entrega", "próxima tarefa"), rode `dart tool/dependencias.dart proximas <pacote da pessoa>`, mostre a lista e pergunte qual fazer. Não escolha sozinho.
 
 ## 2. Verificar no GitHub
 
@@ -32,9 +55,12 @@ Se o aviso "sem rede" aparecer, diga que a verificação usou o último estado b
 
 Se uma dependência parecer errada (a tarefa claramente não precisa dela), **não ignore o bloqueio**: aponte o problema e proponha mudar a linha no `dependencias.yaml`, o que é uma decisão do grupo.
 
-## 3. Avisar quando a tarefa é de outro pacote
+## 3. Tarefa de outro pacote
 
-O pacote é o prefixo do código (`P3-0.2` → pacote 3). Se a pessoa está fazendo uma tarefa de outro pacote, diga isso e lembre que a revisão técnica é individual (`plano-de-execucao.md` → Revisão técnica individual): o ideal é combinar com o dono, que está na tabela "Divisão em pacotes" do `docs/specs/README.md`. Isso não bloqueia.
+O pacote é o prefixo do código (`P3-0.2` → P3). Se não é o pacote da pessoa (passo 0):
+
+- **Tem responsável**: diga de quem é e pergunte se foi combinado com essa pessoa. A revisão técnica é individual, então fazer a tarefa de um colega tira dele o que mostrar. Só siga se a pessoa confirmar.
+- **Sem responsável**: avise que a tarefa é de um pacote que ninguém assumiu e pergunte se ela quer seguir mesmo assim.
 
 ## 4. Preparar
 

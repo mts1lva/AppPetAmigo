@@ -3,6 +3,8 @@
 //   dart tool/dependencias.dart verificar P2-1.3 [P2-1.4 ...]
 //   dart tool/dependencias.dart proximas [P2]
 //   dart tool/dependencias.dart validar
+//   dart tool/dependencias.dart responsaveis   (pacotes, responsáveis e progresso)
+//   dart tool/dependencias.dart assumir P2 ["Nome"]   (registra no README)
 //   dart tool/dependencias.dart hook      (UserPromptSubmit do Claude Code)
 //
 // Opção: --sem-fetch (não roda `git fetch`; usa o último estado baixado).
@@ -22,6 +24,7 @@ import 'dependencias_nucleo.dart';
 final Directory _raiz = File.fromUri(Platform.script).parent.parent;
 const String _caminhoYaml = 'docs/specs/dependencias.yaml';
 const String _caminhoPlano = 'docs/specs/plano-de-execucao.md';
+const String _caminhoReadme = 'docs/specs/README.md';
 
 Future<void> main(List<String> argumentos) async {
   final semFetch = argumentos.contains('--sem-fetch');
@@ -39,6 +42,10 @@ Future<void> main(List<String> argumentos) async {
         exitCode = await _proximas(args.length > 1 ? args[1].toUpperCase() : null, semFetch: semFetch);
       case 'validar':
         exitCode = _validar();
+      case 'responsaveis':
+        exitCode = await _responsaveis(semFetch: semFetch);
+      case 'assumir':
+        exitCode = await _assumir(args.skip(1).toList(), semFetch: semFetch);
       case 'hook':
         await _hook();
       default:
@@ -60,6 +67,8 @@ Uso:
   dart tool/dependencias.dart verificar <código> [<código> ...]   ex.: verificar P2-1.3
   dart tool/dependencias.dart proximas [<pacote>]                 ex.: proximas P2
   dart tool/dependencias.dart validar
+  dart tool/dependencias.dart responsaveis
+  dart tool/dependencias.dart assumir <pacote> ["Nome"]           ex.: assumir P2
 Opção: --sem-fetch  usa o último estado baixado do GitHub''');
 }
 
@@ -154,6 +163,129 @@ int _validar() {
   }
   erros.forEach(stderr.writeln);
   return 1;
+}
+
+// ---------------------------------------------------------------- responsáveis
+
+/// Quem pegou cada pacote: na dev, neste branch (README local) e nos branches
+/// remotos (escolhas ainda em PR).
+class _Escolhas {
+  _Escolhas(this.pacotes, this.porPacote);
+
+  /// Pacotes do README local (escopo, telas, Firebase, teste).
+  final List<InfoPacote> pacotes;
+
+  /// Pacote → nome → onde está registrado ('dev', 'neste branch', branch remoto).
+  final Map<String, Map<String, List<String>>> porPacote;
+
+  Map<String, List<String>> de(String pacote) => porPacote[pacote] ?? const {};
+
+  /// Pacote de [nome], se houver.
+  String? pacoteDe(String nome) {
+    for (final e in porPacote.entries) {
+      if (e.value.keys.any((n) => _mesmoNome(n, nome))) return e.key;
+    }
+    return null;
+  }
+}
+
+bool _mesmoNome(String a, String b) => a.trim().toLowerCase() == b.trim().toLowerCase();
+
+Future<String?> _readmeEm(String ref) async {
+  final r = await Process.run('git', ['show', '$ref:$_caminhoReadme'], workingDirectory: _raiz.path, stdoutEncoding: utf8);
+  return r.exitCode == 0 ? r.stdout as String : null;
+}
+
+Future<_Escolhas> _lerEscolhas(Repositorio repo) async {
+  final porPacote = <String, Map<String, List<String>>>{};
+  void anotar(String? readme, String onde) {
+    if (readme == null) return;
+    for (final p in pacotesDoReadme(readme)) {
+      final nome = p.responsavel;
+      if (nome == null) continue;
+      final nomes = porPacote.putIfAbsent(p.pacote, () => {});
+      final chave = nomes.keys.firstWhere((n) => _mesmoNome(n, nome), orElse: () => nome);
+      nomes.putIfAbsent(chave, () => []).add(onde);
+    }
+  }
+
+  anotar(await _readmeEm('origin/dev'), 'dev');
+  final local = _ler(_caminhoReadme);
+  anotar(local, 'neste branch');
+  final refs = await _git(['for-each-ref', 'refs/remotes/origin', '--format=%(refname:short)']);
+  for (final b in refs.split('\n').map((s) => s.trim())) {
+    if (b.isEmpty || b == 'origin/dev' || b == 'origin/HEAD' || b == 'origin') continue;
+    final pr = repo.prPorBranch[b];
+    anotar(await _readmeEm(b), pr == null ? b : '$b, PR #$pr');
+  }
+  return _Escolhas(pacotesDoReadme(local), porPacote);
+}
+
+Future<String> _eu() async => (await _git(['config', 'user.name'])).trim();
+
+String _descreverEscolha(Map<String, List<String>> nomes) {
+  if (nomes.isEmpty) return 'livre';
+  final partes = nomes.entries.map((e) {
+    if (e.value.contains('dev')) return '${e.key} (confirmado na dev)';
+    return '${e.key} (pendente: ${e.value.join('; ')})';
+  }).toList();
+  return nomes.length > 1 ? 'CONFLITO: ${partes.join(' x ')}' : partes.single;
+}
+
+Future<int> _responsaveis({required bool semFetch}) async {
+  final deps = _lerYaml();
+  final repo = await _lerRepositorio(semFetch: semFetch);
+  final escolhas = await _lerEscolhas(repo);
+  for (final p in escolhas.pacotes) {
+    final tarefas = deps.keys.where((c) => pacoteDe(c) == p.pacote).toList();
+    final feitas = tarefas.where((c) => repo.situacao(c) == Situacao.feita).length;
+    final andamento = tarefas
+        .where((c) => repo.situacao(c) == Situacao.noSeuBranch || repo.situacao(c) == Situacao.emOutroBranch)
+        .length;
+    stdout
+      ..writeln('${p.pacote} — ${p.escopo}')
+      ..writeln('   Telas: ${p.telas} · Firebase: ${p.firebase} · Teste oficial: ${p.teste}')
+      ..writeln('   Responsável: ${_descreverEscolha(escolhas.de(p.pacote))}')
+      ..writeln('   Progresso: $feitas de ${tarefas.length} tarefas na dev, $andamento em andamento')
+      ..writeln();
+  }
+  final eu = await _eu();
+  final meu = eu.isEmpty ? null : escolhas.pacoteDe(eu);
+  stdout.writeln(meu == null ? 'VOCÊ ($eu): sem pacote' : 'VOCÊ ($eu): $meu');
+  return 0;
+}
+
+Future<int> _assumir(List<String> args, {required bool semFetch}) async {
+  if (args.isEmpty || !RegExp(r'^P[1-5]$').hasMatch(args.first.toUpperCase())) {
+    _uso();
+    return 64;
+  }
+  final pacote = args.first.toUpperCase();
+  final nome = args.length > 1 ? args.skip(1).join(' ').trim() : await _eu();
+  if (nome.isEmpty || nome.contains('|')) {
+    stderr.writeln('Informe o nome: dart tool/dependencias.dart assumir $pacote "Seu Nome"');
+    return 64;
+  }
+
+  final repo = await _lerRepositorio(semFetch: semFetch);
+  final escolhas = await _lerEscolhas(repo);
+  final outros = escolhas.de(pacote).keys.where((n) => !_mesmoNome(n, nome)).toList();
+  if (outros.isNotEmpty) {
+    stderr.writeln('O $pacote já foi escolhido: ${_descreverEscolha(escolhas.de(pacote))}. Escolha outro pacote.');
+    return 1;
+  }
+  final atual = escolhas.pacoteDe(nome);
+  if (atual != null && atual != pacote) {
+    stderr.writeln('$nome já é responsável pelo $atual. Cada pessoa assume um pacote.');
+    return 1;
+  }
+
+  final arquivo = File('${_raiz.path}/$_caminhoReadme');
+  arquivo.writeAsStringSync(readmeComResponsavel(arquivo.readAsStringSync(), pacote, nome));
+  stdout
+    ..writeln('$nome registrado(a) como responsável pelo $pacote em $_caminhoReadme.')
+    ..writeln('Commit sugerido: docs(specs): $nome assume o pacote ${pacote.substring(1)}');
+  return 0;
 }
 
 /// Hook UserPromptSubmit: se a mensagem cita uma tarefa do plano, lembra o

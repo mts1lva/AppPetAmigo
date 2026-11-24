@@ -57,6 +57,8 @@ docs/specs/
 | 4 | Evolução: pesagens, **peso ideal, curvas de 90 dias, projeção adaptativa, data prevista, gráfico interativo**, indicadores | 04, 11, 12, 25, N3 | U2-02 a U2-08, U2-11 (S3), U2-12 | Mapeadores de pesagens e referências; teste de integração | T4 | _a definir_ |
 | 5 | Privacidade, cópia remota, **sincronização em lote**, conflitos e exclusão integral | 14, 15, 16, 17 | U2-15, U2-16 | Auth, motor com `WriteBatch`, regras de segurança, exclusão remota | T5 | _a definir_ |
 
+Cada integrante **escolhe** o próprio pacote, um por pessoa. Na primeira tarefa, a skill `executar-entrega` explica os pacotes e pergunta qual a pessoa assume. Sem o Claude Code: `dart tool/dependencias.dart responsaveis` mostra quem pegou o quê (inclusive escolhas ainda em PR) e `dart tool/dependencias.dart assumir P2` registra a escolha nesta tabela. Se duas pessoas escolherem o mesmo pacote, vale a escolha que chegar primeiro à `dev`.
+
 A tela 24 ("Recurso do aparelho") só existe no protótipo. No app, ela vira os seletores nativos de foto (pacote 1) e de compartilhamento (pacote 3). Veja `pendencias.md`.
 
 ## Ordem de execução

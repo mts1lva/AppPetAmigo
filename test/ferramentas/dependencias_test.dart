@@ -116,6 +116,33 @@ P1-1.1: [P1-0.1, P1-0.2]
     });
   });
 
+  group('responsáveis no README', () {
+    const readme = '| Pacote | Escopo | Telas | Unidade II | Parte Firebase | Teste oficial | Responsável |\n'
+        '|---|---|---|---|---|---|---|\n'
+        '| 1 | Base e **Início** | 01, 05 | U2-10 | `pets` | T1 | Ana |\n'
+        '| 2 | Diário | 02 | U2-12 | mapeadores | T2 | _a definir_ |\n';
+
+    test('lê escopo e responsável; _a definir_ é livre', () {
+      final pacotes = pacotesDoReadme(readme);
+      expect(pacotes.map((p) => p.pacote), ['P1', 'P2']);
+      expect(pacotes.first.escopo, 'Base e Início');
+      expect(pacotes.first.responsavel, 'Ana');
+      expect(pacotes.last.responsavel, isNull);
+    });
+
+    test('registra o responsável só na linha do pacote', () {
+      final novo = readmeComResponsavel(readme, 'P2', 'Bruno');
+      expect(pacotesDoReadme(novo).map((p) => p.responsavel), ['Ana', 'Bruno']);
+      expect(novo.split('\n').where((l) => l.startsWith('| 1 |')).single, readme.split('\n')[2]);
+      expect(() => readmeComResponsavel(readme, 'P5', 'Bruno'), throwsStateError);
+    });
+
+    test('o README real tem os 5 pacotes', () {
+      final pacotes = pacotesDoReadme(File('docs/specs/README.md').readAsStringSync());
+      expect(pacotes.map((p) => p.pacote), ['P1', 'P2', 'P3', 'P4', 'P5']);
+    });
+  });
+
   test('dependencias.yaml é válido e tem as mesmas tarefas do plano', () {
     final deps = lerDependencias(File('docs/specs/dependencias.yaml').readAsStringSync());
     final plano = codigosDoPlano(File('docs/specs/plano-de-execucao.md').readAsStringSync());

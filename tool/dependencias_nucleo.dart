@@ -125,6 +125,75 @@ Set<String> codigosDoPlano(String plano) {
   return codigos;
 }
 
+/// Uma linha da tabela "Divisão em pacotes" do `docs/specs/README.md`.
+class InfoPacote {
+  const InfoPacote({
+    required this.pacote,
+    required this.escopo,
+    required this.telas,
+    required this.firebase,
+    required this.teste,
+    this.responsavel,
+  });
+
+  /// `P1` … `P5`.
+  final String pacote;
+  final String escopo;
+  final String telas;
+  final String firebase;
+  final String teste;
+
+  /// `null` enquanto estiver `_a definir_`.
+  final String? responsavel;
+}
+
+const _semResponsavel = '_a definir_';
+
+/// Linhas `| 1 | escopo | telas | U2 | Firebase | teste | responsável |` da
+/// tabela "Divisão em pacotes".
+final RegExp _linhaPacote = RegExp(r'^\|\s*([1-5])\s*\|(.*)\|\s*$');
+
+/// Pacotes da tabela "Divisão em pacotes" do README, com o responsável.
+List<InfoPacote> pacotesDoReadme(String readme) {
+  final pacotes = <InfoPacote>[];
+  for (final linha in readme.split(RegExp(r'\r?\n'))) {
+    final m = _linhaPacote.firstMatch(linha);
+    if (m == null) continue;
+    final celulas = m[2]!.split('|').map((c) => c.trim()).toList();
+    if (celulas.length != 6) continue;
+    String limpo(String s) => s.replaceAll('**', '').replaceAll('`', '');
+    final responsavel = celulas[5];
+    pacotes.add(InfoPacote(
+      pacote: 'P${m[1]}',
+      escopo: limpo(celulas[0]),
+      telas: celulas[1],
+      firebase: limpo(celulas[3]),
+      teste: celulas[4],
+      responsavel: responsavel.isEmpty || responsavel == _semResponsavel ? null : responsavel,
+    ));
+  }
+  return pacotes;
+}
+
+/// O README com [nome] como responsável do [pacote] (`P2`). Lança
+/// [StateError] se o pacote não estiver na tabela.
+String readmeComResponsavel(String readme, String pacote, String nome) {
+  final numero = pacote.substring(1);
+  var trocou = false;
+  final linhas = readme.split('\n').map((linha) {
+    final m = _linhaPacote.firstMatch(linha.trimRight());
+    if (m == null || m[1] != numero) return linha;
+    final celulas = m[2]!.split('|');
+    if (celulas.length != 6) return linha;
+    trocou = true;
+    celulas[5] = ' $nome ';
+    final fimDeLinha = linha.endsWith('\r') ? '\r' : '';
+    return '| $numero |${celulas.join('|')}|$fimDeLinha';
+  }).toList();
+  if (!trocou) throw StateError('pacote $pacote não está na tabela do README');
+  return linhas.join('\n');
+}
+
 /// Pacote dono da tarefa (`P2-1.3` → `P2`).
 String pacoteDe(String codigo) => codigo.substring(0, 2);
 
