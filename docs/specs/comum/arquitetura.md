@@ -24,7 +24,7 @@ Adicionar com `flutter pub add`, usando a versão estável atual de cada uma. Ne
 | `pdf` | Gerar o resumo em PDF para o veterinário (U2-18) | P3 |
 | `share_plus` | Seletor nativo de compartilhamento (PDF e exportação) | P3 |
 | `connectivity_plus` | Saber se a conexão atual é Wi-Fi | P5 |
-| `firebase_core`, `firebase_auth`, `cloud_firestore`, `firebase_storage` | Cópia remota opcional | P1 (core), P5 (resto) |
+| `firebase_core`, `firebase_auth`, `cloud_firestore` | Cópia remota opcional | P1 (core), P5 (resto) |
 
 O gráfico é feito com `CustomPainter` + `GestureDetector`, sem biblioteca de gráficos (briefing: "gráficos leves"; RNF07).
 
@@ -117,26 +117,25 @@ Onde um pacote cita um caminho antigo (`domain/energia.dart`, `data/repos/…`, 
 
 ### O que é (resumo para o grupo)
 
-O Firebase é uma plataforma do Google com serviços prontos de nuvem para apps, sem que a equipe precise criar ou manter um servidor. O PetAmigo usa três:
+O Firebase é uma plataforma do Google com serviços prontos de nuvem para apps, sem que a equipe precise criar ou manter um servidor. O PetAmigo usa dois, ambos no plano gratuito (Spark):
 
 | Serviço | O que faz | Uso no PetAmigo |
 |---|---|---|
 | **Authentication** | Login de usuários | E-mail e senha do tutor que ativa a cópia remota |
-| **Cloud Firestore** | Banco de dados na nuvem (coleções e documentos) | Cópia dos registros em `usuarios/{uid}/…` |
-| **Cloud Storage** | Armazenamento de arquivos | Fotos dos pets |
+| **Cloud Firestore** | Banco de dados na nuvem (coleções e documentos) | Cópia dos registros em `usuarios/{uid}/…`, inclusive as fotos dos pets, reduzidas, em `usuarios/{uid}/fotos/{petId}` |
 
-Em desenvolvimento, o **Firebase Local Emulator Suite** roda esses três serviços no computador, para testar sem mexer no projeto real.
+Em desenvolvimento, o **Firebase Local Emulator Suite** roda esses serviços no computador, para testar sem mexer no projeto real.
 
 **O Firebase não é o banco do app.** O banco principal é o SQLite no celular (offline-first). O Firebase guarda só uma **cópia remota opcional**, enviada **em lotes e apenas pelo Wi-Fi** quando o tutor ativa essa opção. Ela serve para não perder dados ao trocar de celular e para usar o app em mais de um aparelho.
 
 ### Configuração
 
-- Um projeto Firebase do grupo, configurado com `flutterfire configure`, que gera `lib/firebase_options.dart`. Região do Firestore e do Storage: **`southamerica-east1`** (São Paulo).
-- Serviços usados: **Authentication (e-mail/senha)**, **Cloud Firestore** e **Cloud Storage**. Nenhum outro: sem Analytics nem Crashlytics, pela minimização de dados (RNF04). As notificações são **locais** e não usam o Firebase Cloud Messaging.
-- Em desenvolvimento: **Firebase Local Emulator Suite** (Auth, Firestore, Storage), configurado pelo P2. Todos os testes de sincronização rodam nele (`integration_test/`, pacote `integration_test` do SDK); o projeto real só é usado para a conferência final (Todos-3.7).
+- Um projeto Firebase do grupo, configurado com `flutterfire configure`, que gera `lib/firebase_options.dart`. Região do Firestore: **`southamerica-east1`** (São Paulo).
+- Serviços usados: **Authentication (e-mail/senha)** e **Cloud Firestore**, só no **plano gratuito (Spark)** (P-23). Sem Cloud Storage, que exige o plano pago Blaze. Nenhum outro: sem Analytics nem Crashlytics, pela minimização de dados (RNF04). As notificações são **locais** e não usam o Firebase Cloud Messaging.
+- Em desenvolvimento: **Firebase Local Emulator Suite** (Auth e Firestore), configurado pelo P2. Todos os testes de sincronização rodam nele (`integration_test/`, pacote `integration_test` do SDK); o projeto real só é usado para a conferência final (Todos-3.7).
 - **Persistência offline do Firestore desligada** (`Settings(persistenceEnabled: false)`) e **rede do Firestore desligada por padrão** (`disableNetwork()` logo após a inicialização). O motor de sync só chama `enableNetwork()` enquanto há Wi-Fi. Detalhes em `dados-e-sync.md`.
   Motivo: com o cache ligado, o SDK reenvia gravações pendentes sozinho assim que houver qualquer rede, inclusive dados móveis, o que viola RF15/RNF09.
-- Configuração da cópia remota (auth, regras, envio em lote, exclusão): pacote 5. Inicialização e Storage da foto: pacote 1.
+- Configuração da cópia remota (auth, regras, envio em lote, exclusão): pacote 5. Inicialização e envio da foto: pacote 1.
 
 ## Desempenho (RNF06)
 

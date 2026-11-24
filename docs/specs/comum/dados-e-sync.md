@@ -116,12 +116,10 @@ usuarios/{uid}/
   lembretes/{id}
   pesagens/{id}
   referencias/{id}
+  fotos/{petId}       foto do pet: imagem (Bytes, JPEG de até 512 px) + petId
 
 Cada documento: campos do domínio (inclusive petId) + versao (int)
                 + atualizadoEm (serverTimestamp) + dispositivoId (string) + excluido (bool)
-
-Storage
-usuarios/{uid}/pets/{petId}.jpg
 ```
 
 As coleções ficam "achatadas" por usuário, com `petId` como campo, em vez de uma subcoleção por pet. Assim o motor sincroniza todos os pets com as mesmas consultas, e a exclusão integral apaga uma coleção por vez.
@@ -138,16 +136,6 @@ service cloud.firestore {
     }
   }
 }
-
-// storage.rules
-rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /usuarios/{uid}/{allPaths=**} {
-      allow read, write: if request.auth != null && request.auth.uid == uid;
-    }
-  }
-}
 ```
 
 ## Motor de sincronização (P5)
@@ -155,7 +143,7 @@ service firebase.storage {
 ### Só por Wi-Fi
 
 - `connectivity_plus`: a sync só roda se a lista de conexões atual contém `ConnectivityResult.wifi`.
-- Firestore com `persistenceEnabled: false` e `disableNetwork()` na inicialização. Ao começar um ciclo no Wi-Fi: `enableNetwork()`. Ao terminar, ou se o Wi-Fi cair (`onConnectivityChanged`): `disableNetwork()` e cancelamento dos uploads do Storage em andamento.
+- Firestore com `persistenceEnabled: false` e `disableNetwork()` na inicialização. Ao começar um ciclo no Wi-Fi: `enableNetwork()`. Ao terminar, ou se o Wi-Fi cair (`onConnectivityChanged`): `disableNetwork()`.
 - Gatilhos de um ciclo: app volta ao primeiro plano, Wi-Fi conecta, gravação nova com Wi-Fi ativo (com 5 s de espera para agrupar) e o botão de tentar de novo no 16.
 
 ### Envio em lote (push, U2-16)
@@ -182,7 +170,7 @@ enquanto houver itens na fila e Wi-Fi:
 
 - **Idempotência**: os IDs dos documentos são os IDs locais, então repetir um lote nunca cria documento duplicado. Caso especial: o commit deu certo, mas a confirmação não chegou porque o Wi-Fi caiu. Na repetição, o remoto já está uma versão à frente. Para não confundir isso com conflito, o passo 3 tem uma regra antes do "senão": se `remoto.dispositivoId == este aparelho` **e** `remoto.versao == local.versaoRemota + 1`, a mudança remota foi feita por este próprio aparelho. Não é conflito: o item segue como "versão bate", usando `remoto.versao`, e o conteúdo local atual é regravado. Isso também preserva uma edição feita depois do commit sem confirmação.
 - **Janela de corrida**: entre a leitura (2) e o commit (4), outro aparelho pode gravar o mesmo documento. Para este projeto, isso é aceitável: o pull seguinte detecta a divergência de versão e abre o conflito.
-- A foto (Storage) não entra no `WriteBatch`: é enviada depois do commit do documento do pet, e uma falha só marca o pet como `falha` para tentar de novo.
+- **Foto do pet** (P-23): vai num documento próprio, `usuarios/{uid}/fotos/{petId}`, com a imagem como `Bytes` (JPEG de até 512 px, bem abaixo do limite de 1 MB por documento do Firestore) e os mesmos campos de controle (`versao`, `atualizadoEm`, `dispositivoId`, `excluido`). Não entra no `WriteBatch`, para o lote não passar do limite de tamanho: é gravada com `set()` depois do commit do documento do pet, e uma falha só marca o pet como `falha` para tentar de novo. Remover a foto grava a lápide (`excluido: true`, sem `imagem`). No pull, a imagem é gravada na área privada e o caminho vai para `fotoArquivo`, sem entrar na fila.
 
 ### Recebimento (pull)
 
@@ -202,6 +190,6 @@ Exclusão sempre vence: se um dos lados excluiu, não há escolha (texto: "Exclu
 
 1. Transação local: apaga todas as tabelas de domínio (todos os pets) e a fila, e grava `exclusaoRemotaPendente = true` se a cópia estava ativa. Cancela todos os lembretes agendados.
 2. Apaga os arquivos das fotos.
-3. No Wi-Fi: apaga todos os documentos de `usuarios/{uid}/*` em lotes de até 500, apaga os arquivos do Storage e então chama `currentUser.delete()`. Se o Firebase pedir login recente, mostra o diálogo de senha.
+3. No Wi-Fi: apaga todos os documentos de `usuarios/{uid}/*` (inclusive as fotos) em lotes de até 500 e então chama `currentUser.delete()`. Se o Firebase pedir login recente, mostra o diálogo de senha.
 4. Só depois do passo 3 confirmado: `exclusaoRemotaPendente = false` e a mensagem "Remoção da cópia remota concluída."
 5. Backups do Firestore: não ativar backup agendado nem PITR enquanto a política de retenção não for definida (pendência do `requisitos.md`).

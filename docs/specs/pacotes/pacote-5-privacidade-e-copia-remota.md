@@ -18,9 +18,9 @@ Entregar os controles de privacidade e toda a **cópia remota opcional**: conta 
 | `data/sync/fila_sync.dart` | Implementa `FilaSync.enfileirar` (`comum/dados-e-sync.md`); com a cópia desligada, não faz nada |
 | `data/sync/wifi.dart` | Stream `estaNoWifi` com `connectivity_plus`; liga e desliga a rede do Firestore |
 | `data/sync/motor_sync.dart` | Ciclos de **envio em lote** (U2-16) e recebimento, versões, lápides, conflitos, novas tentativas (`dados-e-sync.md` → Envio em lote) |
-| `data/sync/firebase_remoto.dart` | Única classe que fala com `cloud_firestore`, `firebase_auth` e `firebase_storage` (facilita usar um falso nos testes) |
+| `data/sync/firebase_remoto.dart` | Única classe que fala com `cloud_firestore` e `firebase_auth` (facilita usar um falso nos testes) |
 | `data/sync/exclusao_integral.dart` | RF17 de ponta a ponta |
-| `firestore.rules`, `storage.rules` | Regras de `comum/dados-e-sync.md`, publicadas com `firebase deploy --only firestore:rules,storage` |
+| `firestore.rules` | Regras de `comum/dados-e-sync.md` (cobrem também `fotos`), publicadas com `firebase deploy --only firestore:rules` |
 
 Providers expostos: `estadoCopiaProvider` (desligada / pendente(n) / sincronizado(hora) / falha / conflito(n)), usado pelo card "Seu controle" do Início (P1).
 
@@ -90,7 +90,7 @@ Comportamento das escolhas: `comum/dados-e-sync.md` → Conflito.
 ## Regras de transmissão (RNF09)
 
 - `persistenceEnabled: false` e `disableNetwork()` na inicialização (feito pelo P1). **Só este pacote chama `enableNetwork()`**, e somente dentro de um ciclo no Wi-Fi.
-- Wi-Fi caiu no meio do ciclo: `disableNetwork()`, cancela uploads do Storage, os itens continuam na fila e o próximo ciclo recomeça do primeiro item. IDs estáveis + versões garantem que **repetir não duplica**.
+- Wi-Fi caiu no meio do ciclo: `disableNetwork()`, os itens continuam na fila e o próximo ciclo recomeça do primeiro item. IDs estáveis + versões garantem que **repetir não duplica**.
 - Nova tentativa após falha: no próximo gatilho (Wi-Fi conectar, app voltar ao primeiro plano ou "Tentar agora"). Sem laço de repetição em segundo plano.
 
 ## Critérios de aceite
@@ -121,7 +121,7 @@ Testes do motor com o remoto falso; testes das regras no Firebase Emulator Suite
 Pedi para a IA gerar a configuração do Firestore e o envio dos registros. O trecho que precisei corrigir foi [colar o trecho real]. [Exemplo do tipo de problema neste pacote: o código deixava a persistência offline do Firestore ligada, que é o padrão no Android, e gravava direto com `set()`. Com isso, o próprio SDK reenviava as alterações assim que aparecia qualquer rede, inclusive dados móveis, o que quebra o requisito de sincronizar só por Wi-Fi.] Ajustei [desligando a persistência, deixando a rede do Firestore desligada por padrão e ligando só dentro do ciclo de sync no Wi-Fi] e conferi [no Network Inspector com dados móveis: nenhum tráfego].
 
 **2. Conhecimentos da disciplina aplicados**
-Usei integração com backend em nuvem (Firebase Authentication, Firestore e Storage), persistência local com transações, programação assíncrona com `Future` e `Stream` (fila, estado da conexão, ciclo de sincronização) e segurança, com as regras de acesso por usuário. Também usei conceitos de conectividade em dispositivos móveis, tratando o app como offline-first. [Ajustar para os nomes da disciplina.]
+Usei integração com backend em nuvem (Firebase Authentication e Firestore), persistência local com transações, programação assíncrona com `Future` e `Stream` (fila, estado da conexão, ciclo de sincronização) e segurança, com as regras de acesso por usuário. Também usei conceitos de conectividade em dispositivos móveis, tratando o app como offline-first. [Ajustar para os nomes da disciplina.]
 
 **3. Solução para a dificuldade**
 Montei uma fila própria no banco local, gravada na mesma transação de cada registro, e um motor que só liga a rede do Firestore quando o `connectivity_plus` informa Wi-Fi. O envio é em lote: leio as versões remotas de até 100 itens, separo os conflitos e gravo o resto num único `WriteBatch`, que é atômico (ou grava tudo, ou nada). Cada documento usa o mesmo ID do registro local e um número de versão, então reenviar não duplica, e uma versão diferente da esperada vira conflito em vez de sobrescrever. Verifiquei [derrubando o Wi-Fi no meio do envio, alternando para dados móveis e repetindo a fila: resultado].
@@ -130,7 +130,7 @@ Montei uma fila própria no banco local, gravada na mesma transação de cada re
 A maior dificuldade foi garantir que a sincronização acontecesse só por Wi-Fi e sem duplicar nem perder dados. O Firestore foi feito para sincronizar sozinho em qualquer rede, e o requisito pede o contrário: tudo local primeiro e envio só no Wi-Fi, com os estados pendente, sincronizado e falha visíveis. Isso apareceu [quando liguei o motor de sync pela primeira vez] e [descrever o que aconteceu: envio por dados móveis, documentos duplicados, conflito sobrescrito etc.].
 
 **5. Uso do Firebase**
-No PetAmigo o Firebase é só a cópia remota opcional: sem ativá-la, o app nunca fala com a nuvem. Eu usei o Firebase Authentication com e-mail e senha para identificar o tutor que ativa a cópia, o Cloud Firestore para guardar a cópia dos registros em `usuarios/{uid}`, as regras de segurança para que cada usuário só acesse os próprios dados e o Cloud Storage na exclusão integral, para apagar a foto. [Citar o Emulator Suite se você usou nos testes.]
+No PetAmigo o Firebase é só a cópia remota opcional: sem ativá-la, o app nunca fala com a nuvem. Eu usei o Firebase Authentication com e-mail e senha para identificar o tutor que ativa a cópia, o Cloud Firestore para guardar a cópia dos registros em `usuarios/{uid}`, as regras de segurança para que cada usuário só acesse os próprios dados e a exclusão integral, que apaga também as fotos. [Citar o Emulator Suite se você usou nos testes.]
 
 **6. Principal contribuição individual**
 Fiz a cópia remota e a privacidade. O resultado concreto é que o app continua funcionando sem conta e sem internet, mas quem quiser pode guardar uma cópia que só sincroniza no Wi-Fi, ver se ela está pendente, sincronizada ou com falha, resolver conflitos entre aparelhos e apagar tudo, local e remoto, com a exclusão integral.
@@ -146,7 +146,7 @@ Quando qualquer tela grava um registro, o repositório grava no banco local e, n
 - Estados pendente, sincronizado e falha, inclusive no Início.
 - Conflitos entre aparelhos, com escolha da versão.
 - Exclusão integral local e remota, com bloqueio de restauração enquanto estiver pendente.
-- Regras de segurança do Firestore e do Storage.
+- Regras de segurança do Firestore.
 [Apagar ou detalhar.]
 
 **9. O que faria diferente**

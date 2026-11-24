@@ -51,7 +51,7 @@ docs/specs/
 
 | Pacote | Escopo | Telas (PNG e novos) | Unidade II | Parte Firebase | Teste oficial | Responsável |
 |---|---|---|---|---|---|---|
-| 1 | Base em Clean Architecture, design system, navegação, Início, vários pets, meta diária | 01, 05, 18, 23, 26, N1 | U2-01, U2-06, U2-10, U2-14 | Projeto Firebase, inicialização, mapeador dos pets, fotos no Storage, teste de integração | T1 | Matheus Leão |
+| 1 | Base em Clean Architecture, design system, navegação, Início, vários pets, meta diária | 01, 05, 18, 23, 26, N1 | U2-01, U2-06, U2-10, U2-14 | Projeto Firebase, inicialização, mapeador dos pets, fotos no Firestore, teste de integração | T1 | Matheus Leão |
 | 2 | Diário: refeições, petiscos, alimentos, atalho, meta no diário, aderência | 02, 06, 07, 08, 09, 19, 20, 21, 22 | U2-01, U2-06, U2-11 (S1), U2-12 | **Firebase Emulator Suite do grupo**; mapeadores do diário; teste de integração | T2 | _a definir_ |
 | 3 | Atividades, dicas, **lembretes com o app fechado**, **PDF** e exportação | 03, 10, 13, N2 | U2-04, U2-09, U2-11 (S2), U2-18 | Mapeadores de atividades e lembretes; teste de integração com reagendamento | T3 | _a definir_ |
 | 4 | Evolução: pesagens, **peso ideal, curvas de 90 dias, projeção adaptativa, data prevista, gráfico interativo**, indicadores | 04, 11, 12, 25, N3 | U2-02 a U2-08, U2-11 (S3), U2-12 | Mapeadores de pesagens e referências; teste de integração | T4 | _a definir_ |

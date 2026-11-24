@@ -125,7 +125,7 @@ Componente da base, feito pelo P1 na Fase 0 (`confirmarExclusao()`, ver `pacote-
 ### Firebase Emulator Suite (P2-2.3), usado por todo o grupo
 
 Este pacote monta o ambiente local de Firebase em que todos testam a sincronização sem tocar no projeto real.
-1. `firebase init emulators` com **Auth, Firestore e Storage**. Portas no `firebase.json`; arquivos de regras apontando para os do P5.
+1. `firebase init emulators` com **Auth e Firestore** (sem Storage, P-23). Portas no `firebase.json`; arquivos de regras apontando para os do P5.
 2. Scripts `emuladores.sh` e `emuladores.ps1` (`firebase emulators:start --import ./emulador-dados --export-on-exit`). `emulador-dados/` fica no `.gitignore`.
 3. `integration_test/apoio_firebase.dart`:
    ```dart
@@ -133,7 +133,6 @@ Este pacote monta o ambiente local de Firebase em que todos testam a sincroniza�
      // 10.0.2.2 = máquina host vista pelo emulador Android
      FirebaseFirestore.instance.useFirestoreEmulator('10.0.2.2', 8080);
      await FirebaseAuth.instance.useAuthEmulator('10.0.2.2', 9099);
-     await FirebaseStorage.instance.useStorageEmulator('10.0.2.2', 9199);
    }
    Future<void> limparEmuladores();          // DELETE nos endpoints REST de limpeza do emulador
    Future<User> criarUsuarioDeTeste(String sufixo);
@@ -188,7 +187,7 @@ A solução foi guardar na própria refeição uma cópia do nome e da densidade
 A parte mais difícil foi manter os totais corretos quando os dados mudam depois. Uma refeição depende do alimento, mas o requisito diz que corrigir ou excluir um alimento não pode mudar o histórico. Isso apareceu [quando implementei a edição de refeições / a exclusão de alimentos] e fez [o resumo do dia mostrar valores diferentes depois de editar o alimento].
 
 **5. Uso do Firebase**
-No projeto, o Firebase só guarda a cópia remota opcional; o diário funciona todo no aparelho. Eu montei o ambiente de testes do grupo com o Firebase Local Emulator Suite, rodando Authentication, Cloud Firestore e Cloud Storage na máquina, e escrevi as funções que apontam o app para os emuladores e criam um usuário de teste. Assim todo mundo testava a sincronização sem mexer nos dados do projeto real. No Cloud Firestore, escrevi os mapeadores que transformam alimentos, refeições e petiscos em documentos dentro de `usuarios/{uid}` e o caminho de volta, e o teste de integração dessa parte, lendo os documentos direto do Firestore para conferir a versão, as lápides das exclusões e a restauração. [Apagar o que não usou.]
+No projeto, o Firebase só guarda a cópia remota opcional; o diário funciona todo no aparelho. Eu montei o ambiente de testes do grupo com o Firebase Local Emulator Suite, rodando Authentication e Cloud Firestore na máquina, e escrevi as funções que apontam o app para os emuladores e criam um usuário de teste. Assim todo mundo testava a sincronização sem mexer nos dados do projeto real. No Cloud Firestore, escrevi os mapeadores que transformam alimentos, refeições e petiscos em documentos dentro de `usuarios/{uid}` e o caminho de volta, e o teste de integração dessa parte, lendo os documentos direto do Firestore para conferir a versão, as lápides das exclusões e a restauração. [Apagar o que não usou.]
 
 **6. Principal contribuição individual**
 Fiz o diário de alimentação, que é a funcionalidade principal do app. O resultado concreto é que o tutor consegue registrar a refeição habitual em dois toques a partir do Início, que era o requisito de usabilidade mais importante, vê o total do dia comparado com a meta calculada, e os petiscos ficam separados da ração. A partir desses registros eu calculo a aderência ao plano alimentar e a sugestão de reduzir petiscos.

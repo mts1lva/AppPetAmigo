@@ -65,7 +65,7 @@ Diálogo. Título `Dados de {nome}` (ou `Dados do pet` no cadastro). Subtítulo:
 
 Botões: `primario` **Adicionar ou trocar foto**, `primario` **Salvar pet**, `perigo` **Excluir este pet** (só na edição e com 2 ou mais pets → 23 → apaga o pet, os registros dele e os lembretes), `secundario` **Voltar**.
 
-- Foto: `image_picker` (galeria, `maxWidth: 1024`, `imageQuality: 85`). O arquivo é copiado para a área privada do app e o caminho vai para `fotoArquivo`. A foto antiga é apagada ao trocar.
+- Foto: `image_picker` (galeria, `maxWidth: 512`, `maxHeight: 512`, `imageQuality: 80`). Cabe com folga num documento do Firestore (P-23); o círculo do cabeçalho tem 64 dp. O arquivo é copiado para a área privada do app e o caminho vai para `fotoArquivo`. A foto antiga é apagada ao trocar.
 - Validação: R05. Salvar só fecha o diálogo depois da transação terminar.
 
 ### 18 — Como a meta é calculada (`18-referencia-indisponivel.png`, layout reaproveitado)
@@ -120,12 +120,12 @@ Na Fase 0, o P1 cria o esqueleto de pastas de `arquitetura.md` → Clean Archite
 
 ## Parte Firebase
 
-1. Criar o projeto no console (região `southamerica-east1`) e ativar Authentication (e-mail/senha), Firestore e Storage. As regras ficam com o P5.
+1. Criar o projeto no console (região `southamerica-east1`) no plano gratuito (Spark) e ativar Authentication (e-mail/senha) e Firestore, sem Cloud Storage (P-23). As regras ficam com o P5.
 2. `flutterfire configure` → `lib/firebase_options.dart`.
 3. `main.dart`: `Firebase.initializeApp`, `Settings(persistenceEnabled: false)` e `disableNetwork()`.
 4. `PetMapeador` (`data/sync/mapeadores/pet_mapeador.dart`) com o teste de ida e volta.
-5. Fotos na cópia remota: `enviarFoto(uid, petId, arquivo)` → `usuarios/{uid}/pets/{petId}.jpg`, e `baixarFoto(...)` para a restauração. O motor do P5 chama essas funções.
-6. P1-3.2: `integration_test/sync_pet_test.dart` no emulador (preparado pelo P2). **Ida:** cadastrar **dois pets** com foto e editar um → motor → ler `usuarios/{uid}/pets/{id}` com `FirebaseFirestore.instance` e conferir os campos (inclusive `idadeMeses`); conferir que os dois arquivos existem no emulador do Storage. **Volta:** apagar o banco local → pull → conferir os dois pets e as fotos restaurados.
+5. Fotos na cópia remota (P-23): `enviarFoto(uid, petId, arquivo)` → documento `usuarios/{uid}/fotos/{petId}` com a imagem em `Bytes` (`dados-e-sync.md` → Foto do pet), e `baixarFoto(...)` para a restauração, gravando o arquivo na área privada. O motor do P5 chama essas funções.
+6. P1-3.2: `integration_test/sync_pet_test.dart` no emulador (preparado pelo P2). **Ida:** cadastrar **dois pets** com foto e editar um → motor → ler `usuarios/{uid}/pets/{id}` com `FirebaseFirestore.instance` e conferir os campos (inclusive `idadeMeses`); conferir que os dois documentos `usuarios/{uid}/fotos/{petId}` existem com a imagem. **Volta:** apagar o banco local → pull → conferir os dois pets e as fotos restaurados.
 
 ## Critérios de aceite
 
@@ -146,7 +146,7 @@ Na Fase 0, o P1 cria o esqueleto de pastas de `arquitetura.md` → Clean Archite
 
 ## Evidências para guardar
 
-Prints do Início lado a lado com o PNG 01; print com fonte em 200%; saída de `flutter test` (com T1); vídeo curto do cadastro em modo avião e da troca de pet; print da tela 18 com o cálculo; print do console do Firebase com o projeto e o Storage; hash dos seus commits.
+Prints do Início lado a lado com o PNG 01; print com fonte em 200%; saída de `flutter test` (com T1); vídeo curto do cadastro em modo avião e da troca de pet; print da tela 18 com o cálculo; print do console do Firebase com o projeto e um documento de `fotos`; hash dos seus commits.
 
 ## Rascunho para a revisão técnica
 
@@ -165,13 +165,13 @@ Para resolver isso, troquei todas as alturas fixas por alturas mínimas e deixei
 A maior dificuldade foi deixar as telas fiéis ao Figma sem quebrar a acessibilidade. O protótipo tem medidas exatas (botão de 52, campo de 64, navegação de 87 × 56), mas o requisito pede que tudo continue utilizável com a fonte em 200%. Isso aconteceu [quando montei os componentes, na primeira semana], e [descrever o que quebrou: textos cortados, navegação estourando etc.].
 
 **5. Uso do Firebase**
-No PetAmigo o Firebase não é o banco principal: o app funciona offline e sem conta, e o Firebase só guarda uma cópia quando o tutor ativa a cópia remota. Pessoalmente, criei o projeto no console, configurei o app com o `flutterfire configure` e deixei a inicialização no `main` com a rede do Firestore desligada por padrão, para nada sair do aparelho sem o tutor pedir. Também escrevi o mapeamento do pet para o documento do Firestore e usei o Cloud Storage para guardar a foto do pet na cópia remota. Testei essas duas partes no Firebase Local Emulator Suite antes de usar o projeto real.
+No PetAmigo o Firebase não é o banco principal: o app funciona offline e sem conta, e o Firebase só guarda uma cópia quando o tutor ativa a cópia remota. Pessoalmente, criei o projeto no console, configurei o app com o `flutterfire configure` e deixei a inicialização no `main` com a rede do Firestore desligada por padrão, para nada sair do aparelho sem o tutor pedir. Também escrevi o mapeamento do pet para o documento do Firestore e guardei a foto do pet na cópia remota como um documento do Firestore, reduzida, já que o Cloud Storage exige o plano pago. Testei essas duas partes no Firebase Local Emulator Suite antes de usar o projeto real.
 
 **6. Principal contribuição individual**
 Minha principal contribuição foi a base do app: a estrutura em Clean Architecture, o tema e os sete componentes (botão, campo, card, mensagem, diálogo, navegação e histórico), a navegação, o banco local, o suporte a vários pets e o cálculo da meta diária (RER × fator), que o diário e a evolução usam. O resultado foi que os colegas montaram as telas deles reaproveitando esses componentes e seguindo a funcionalidade `pets` como exemplo, então o app ficou consistente e parecido com o protótipo sem cada um refazer estilo ou arquitetura. [Citar um número real, se tiver: quantas telas usam os componentes, quanto tempo economizou etc.]
 
 **7. Fluxo de dados com o Firebase**
-O fluxo que fiz foi o da foto do pet. Quando o tutor escolhe a foto, o app copia o arquivo para a pasta privada e grava o caminho na tabela `pets`, tudo local. Se a cópia remota estiver ativa, essa alteração entra na fila de sincronização; quando houver Wi-Fi, o motor de sync chama o meu mapeador, que transforma cada pet num documento em `usuarios/{uid}/pets/{id}`, e a minha função de upload envia a imagem para `usuarios/{uid}/pets/{id}.jpg` no Storage. Na restauração em outro aparelho acontece o caminho inverso: o documento é lido e a foto é baixada para a pasta local.
+O fluxo que fiz foi o da foto do pet. Quando o tutor escolhe a foto, o app copia o arquivo para a pasta privada e grava o caminho na tabela `pets`, tudo local. Se a cópia remota estiver ativa, essa alteração entra na fila de sincronização; quando houver Wi-Fi, o motor de sync chama o meu mapeador, que transforma cada pet num documento em `usuarios/{uid}/pets/{id}`, e a minha função de envio grava a imagem em `usuarios/{uid}/fotos/{id}`, num documento próprio, depois do lote. Na restauração em outro aparelho acontece o caminho inverso: os documentos são lidos e a foto é gravada na pasta local.
 
 **8. Funcionalidades implementadas**
 - Design system: tema e os sete componentes reutilizáveis usados em todas as telas, mais a confirmação de exclusão usada por todos os pacotes.
@@ -187,4 +187,4 @@ O fluxo que fiz foi o da foto do pet. Quando o tutor escolhe a foto, o app copia
 Eu priorizaria testar o Início e o cadastro com tutores de verdade e com o TalkBack ligado desde o começo, em vez de só no fim. [Ou outra melhoria real.] O Início é a tela mais vista do app e o design system é usado por todas as outras, então um problema de acessibilidade nele se espalha por todo o app.
 
 **10. Testes e evidências**
-Testei de três formas. Widget tests para cada componente, verificando altura mínima, semântica e variantes ([N] testes passando), e o teste oficial T1 da meta diária, com os valores calculados à mão para a Luna (RER 247,97 e meta 396,75 kcal), o filhote e o caso sem pesagem ([resultado]). Golden test da tela Início comparado com o PNG do Figma ([resultado/diferenças]). E testes manuais no emulador Android 8.0: cadastro em modo avião, fonte em 200% e navegação com TalkBack ([resultado]). Na parte do Firebase, escrevi um teste de integração no emulador que cadastra o pet com foto, sincroniza e confere o documento no Firestore e o arquivo no Storage, e depois restaura tudo num banco vazio ([resultado]). As evidências são [prints, saída do `flutter test`, vídeo, commits].
+Testei de três formas. Widget tests para cada componente, verificando altura mínima, semântica e variantes ([N] testes passando), e o teste oficial T1 da meta diária, com os valores calculados à mão para a Luna (RER 247,97 e meta 396,75 kcal), o filhote e o caso sem pesagem ([resultado]). Golden test da tela Início comparado com o PNG do Figma ([resultado/diferenças]). E testes manuais no emulador Android 8.0: cadastro em modo avião, fonte em 200% e navegação com TalkBack ([resultado]). Na parte do Firebase, escrevi um teste de integração no emulador que cadastra o pet com foto, sincroniza e confere o documento no Firestore e o documento da foto, e depois restaura tudo num banco vazio ([resultado]). As evidências são [prints, saída do `flutter test`, vídeo, commits].

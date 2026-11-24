@@ -1,6 +1,6 @@
 # Pendências e decisões
 
-Pontos que o protótipo e os requisitos não definiam, ou definiam de forma contraditória. **Todos foram decididos em 19/11/2026** e as specs já refletem as decisões. Se o grupo quiser mudar alguma, atualize esta tabela e os arquivos indicados.
+Pontos que o protótipo e os requisitos não definiam, ou definiam de forma contraditória. **Decididos em 19/11/2026** (P-23 em 24/11/2026) e as specs já refletem as decisões. Se o grupo quiser mudar alguma, atualize esta tabela e os arquivos indicados.
 
 ## Decisões tomadas
 
@@ -35,6 +35,7 @@ O enunciado exige os modelos, mas não dá todos os números. Abaixo, os valores
 | P-20 | Energia por kg de peso e base da meta | **7.700 kcal/kg**; meta = RER do **peso atual** × fator | 7.700 é um valor usual em modelos de balanço energético. Alternativa comum para perda de peso: RER do **peso ideal**. Perguntar qual o professor prefere |
 | P-21 | Gasto de atividade e metas de exercício | MET passeio **3,0**, brincadeira **4,0**; meta de exercício (S2) **30 min/dia (cão)** e **15 min/dia (gato)** | Valores didáticos para a atividade entrar na projeção; não há fonte específica no repositório |
 | P-22 | Parâmetros da projeção adaptativa | Janelas de **30 dias** (pesagens) e **14 dias** (alimentação e atividade); peso da tendência observada `w = n ÷ 4`; limite de **2% do peso por semana** | Escolhas de modelagem para a projeção reagir aos dados sem oscilar; todas testadas no T4 |
+| P-23 | Cloud Storage exige o plano pago (Blaze) | **Só serviços gratuitos (Spark)**: Authentication e Firestore. A foto do pet vai reduzida (JPEG de até 512 px) como `Bytes` num documento `usuarios/{uid}/fotos/{petId}`; sem `firebase_storage` e sem `storage.rules` | Decisão do grupo de não usar nada pago; a foto continua sendo restaurada num aparelho novo | `arquitetura.md`, `dados-e-sync.md`; P1 (foto, P1-3.1, P1-3.2), P2 (emuladores), P5 (regras, exclusão) |
 
 ### Diferenças visuais esperadas em relação aos PNGs
 

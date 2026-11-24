@@ -69,8 +69,8 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 | P1-1.6 | Tela 01 Início: cards de perfil e Referência alimentar com dados reais; Hoje, Sugestões, Lembretes e Seu controle nos stubs | `pacote-1` |
 | P1-1.7 | Tela 18 "Como a meta é calculada" | `pacote-1` |
 | P1-1.8 | Golden do 01 e do 05 comparados com os PNGs | `design-system.md` → Verificação visual |
-| P1-3.1 | `PetMapeador` + `enviarFoto`/`baixarFoto` (Storage) + teste de ida e volta do mapeador | `pacote-1` → Parte Firebase |
-| P1-3.2 | `integration_test/sync_pet_test.dart`: dois pets com foto, ida e volta, fotos no Storage (roteiro na P5-3.7). Roda na etapa 5 | `pacote-1` → Parte Firebase |
+| P1-3.1 | `PetMapeador` + `enviarFoto`/`baixarFoto` (foto em `usuarios/{uid}/fotos`, P-23) + teste de ida e volta do mapeador | `pacote-1` → Parte Firebase |
+| P1-3.2 | `integration_test/sync_pet_test.dart`: dois pets com foto, ida e volta, fotos no Firestore (roteiro na P5-3.7). Roda na etapa 5 | `pacote-1` → Parte Firebase |
 | P1-4.4 | Instalação e cadastro no emulador Android 8.0 (API 26) | `pacote-1` |
 | P1-4.6 | TalkBack e fonte em 200% nas telas do P1 | `pacote-1` → Critérios |
 
@@ -92,7 +92,7 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 | P2-1.6 | Tela 06 Registrar refeição com **escolha de quantidade** (B-b) + tela 20 + título "Diário atualizado" | `pacote-2` |
 | P2-1.7 | Golden do 02 e do 06 | `design-system.md` |
 | P2-2.1 | **Ligar no Início:** trocar o stub de `resumoDiaProvider` pela leitura real (card Hoje e botão Registrar refeição); `aderenciaProvider` real; S1 no `sugestoesProvider`. Sem alimento, o atalho leva ao 09 | `pacote-2`; `pacote-1` → Início |
-| P2-2.3 | **Firebase Emulator Suite** (Auth, Firestore, Storage): `firebase.json`, scripts `emuladores.sh`/`.ps1` e `integration_test/apoio_firebase.dart` com `usarEmuladores()`, `limparEmuladores()` e `criarUsuarioDeTeste()`. Documentar em `integration_test/README.md` | `pacote-2` |
+| P2-2.3 | **Firebase Emulator Suite** (Auth e Firestore): `firebase.json`, scripts `emuladores.sh`/`.ps1` e `integration_test/apoio_firebase.dart` com `usarEmuladores()`, `limparEmuladores()` e `criarUsuarioDeTeste()`. Documentar em `integration_test/README.md` | `pacote-2` |
 | P2-3.1 | `AlimentoMapeador`, `RefeicaoMapeador`, `ExtraMapeador` + testes de ida e volta | `dados-e-sync.md` |
 | P2-3.2 | Testes de integração de alimentos, refeições e extras (roteiro na P5-3.7). Rodam na etapa 5 | `pacote-2` |
 | P2-4.3 | RNF06 do diário: 20 medições (salvar, abrir o resumo) com 1.000 registros, em `--profile` | `arquitetura.md` → Desempenho |
@@ -162,7 +162,7 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 | P5-1.2 | Exclusão integral local (transação, fotos, `cancelarTodos` dos lembretes do P3, volta ao 26) | `pacote-5` |
 | P5-1.3 | `wifi.dart` (`connectivity_plus`) | `pacote-5` |
 | P5-1.4 | `FilaSyncAtiva` + `MotorSync` com **envio em lote** contra um **remoto falso em memória** (`FakeRemoto`) + **T5** | `dados-e-sync.md` → Envio em lote |
-| P5-1.5 | `firestore.rules` e `storage.rules` | `dados-e-sync.md` |
+| P5-1.5 | `firestore.rules` | `dados-e-sync.md` |
 | P5-2.2 | "Exportar dados" usa o `GeradorExportacao` do P3 | `pacote-5` |
 | P5-3.1 | `FirebaseRemoto` real com **`WriteBatch`** (troca o `FakeRemoto`), rede só no Wi-Fi, registrando os mapeadores de todos os pacotes | `pacote-5` |
 | P5-3.2 | Tela 15 Cópia remota opcional (Auth, ativar/desativar, primeiro envio em lotes, restauração + `ReagendarTodos`) | `pacote-5` |
@@ -228,7 +228,7 @@ Cada integrante precisa responder **sozinho** às 10 perguntas da revisão técn
 | 1. Código de IA corrigido | componentes e telas | repositórios e formulários | agendador e PDF | modelos e gráfico | motor de sync |
 | 2. Conhecimentos aplicados | layout, tema, rotas, SQLite | formulários, CRUD, streams | notificações, arquivos | `CustomPainter`, gestos, cálculo | autenticação, rede, lotes |
 | 3 e 4. Dificuldade e solução | fidelidade ao Figma × fonte 200% | atalho em 2 toques, recálculo | aviso com o app fechado | projeção e divisão por zero | lote atômico, conflitos |
-| 5. Uso do Firebase | projeto, `flutterfire`, init sem rede, Storage | Emulator Suite, mapeadores | mapeadores, reagendamento | mapeadores, recálculo | Auth, `WriteBatch`, regras |
+| 5. Uso do Firebase | projeto, `flutterfire`, init sem rede, foto no Firestore | Emulator Suite, mapeadores | mapeadores, reagendamento | mapeadores, recálculo | Auth, `WriteBatch`, regras |
 | 6. Contribuição | base usada por todos | diário | lembretes e PDF | evolução | cópia remota e privacidade |
 | 7. Fluxo de dados com o Firebase | pet e foto | refeição | lembrete | pesagem | ciclo de envio e pull |
 | 8. Funcionalidades | tabela da etapa 1 | tabela da etapa 2 | tabela da etapa 3 | tabela da etapa 4 | tabela da etapa 5 |
