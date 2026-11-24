@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../core/ui/ui.dart';
+import '../features/inicio/apresentacao/telas/tela_inicio.dart';
 import '../features/pets/apresentacao/providers/pet_atual_provider.dart';
 import '../features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import '../features/pets/apresentacao/telas/tela_vamos_comecar.dart';
@@ -59,8 +60,7 @@ final roteadorProvider = Provider<GoRouter>((ref) {
         builder: (context, state, abas) => EstruturaAbas(abas: abas),
         branches: [
           StatefulShellBranch(routes: [
-            // TODO(P1-1.6): tela 01 Início.
-            GoRoute(path: Rotas.inicio, builder: (context, state) => const TelaProvisoria(titulo: 'Início')),
+            GoRoute(path: Rotas.inicio, builder: (context, state) => const TelaInicio()),
           ]),
           StatefulShellBranch(routes: [
             // TODO(P2-1.5): tela 02 Diário.
