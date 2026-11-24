@@ -1,11 +1,33 @@
 ---
 name: executar-entrega
-description: Verifica no GitHub se uma tarefa do plano do PetAmigo já pode ser feita (dependências em docs/specs/dependencias.yaml) e conduz a execução. Use SEMPRE que alguém pedir para fazer, implementar, executar, começar, continuar ou retomar uma tarefa do plano (código P1-1.6, P2-1.3 etc.), "a minha entrega", "a próxima tarefa" ou "o que posso fazer agora", antes de escrever qualquer código.
+description: Prepara o ambiente, ajuda a pessoa a escolher o pacote, verifica no GitHub se uma tarefa do plano do PetAmigo já pode ser feita (dependências em docs/specs/dependencias.yaml) e conduz a execução. Use SEMPRE que alguém pedir para fazer, implementar, executar, começar, continuar ou retomar uma tarefa do plano (código P1-1.6, P2-1.3 etc.), "a minha entrega", "quero começar", "a próxima tarefa" ou "o que posso fazer agora", antes de escrever qualquer código.
 ---
 
 # Executar uma entrega do PetAmigo
 
 As tarefas do `docs/specs/plano-de-execucao.md` não seguem mais uma fila fixa por pacote. Cada tarefa tem dependências diretas em `docs/specs/dependencias.yaml`, e só pode ser feita quando todas elas estiverem **na `origin/dev`** (PR aceito). Uma tarefa conta como feita quando o **título** de um commit na `origin/dev` tem o código dela.
+
+## Antes de tudo: preparar o ambiente
+
+Rode `flutter --version` e `git config user.name`.
+
+**Flutter ausente** ("command not found" ou "não é reconhecido") **ou em outra versão**: não siga adiante. A versão do grupo e da CI é a **3.50.1 (stable)**. Pergunte o sistema da pessoa, se não souber, e explique a instalação em passos curtos, um de cada vez, esperando a pessoa confirmar:
+
+- **Windows**
+  1. Baixar o zip do Flutter **3.50.1** para Windows em https://docs.flutter.dev/release/archive (aba Windows, canal stable).
+  2. Extrair para uma pasta **sem espaços nem acentos**, por exemplo `C:\dev\flutter`. Caminho com acento ou espaço (como uma pasta de usuário com "ã") quebra o Gradle do Android.
+  3. Pôr `C:\dev\flutter\bin` no Path: menu Iniciar → "Editar as variáveis de ambiente para sua conta" → Path → Editar → Novo.
+  4. Fechar e abrir de novo o terminal **e o Claude Code**, e conferir `flutter --version`.
+- **macOS**: baixar o zip 3.50.1 do macOS (Apple Silicon ou Intel) na mesma página, extrair em `~/dev/flutter`, acrescentar `export PATH="$HOME/dev/flutter/bin:$PATH"` ao `~/.zshrc` e abrir um terminal novo.
+- **Linux**: baixar o `.tar.xz` 3.50.1, extrair em `~/dev/flutter` e pôr `~/dev/flutter/bin` no PATH do `~/.bashrc`.
+
+Se a pessoa preferir, ofereça fazer os passos por ela, pedindo permissão para cada comando (o download tem cerca de 1 GB).
+
+Com o Flutter certo:
+- Rode `flutter pub get` na pasta do projeto.
+- O Android SDK e o emulador **não** são necessários agora: os testes rodam sem eles. Avisos do `flutter doctor` sobre o Android podem ser ignorados até a pessoa querer abrir o app no emulador.
+- **`git config user.name` vazio**: pergunte o nome da pessoa e rode `git config user.name "Nome"` (é o nome que vai para a tabela de responsáveis). Confira também o `git config user.email`.
+- O `gh` (GitHub CLI) é opcional para verificar tarefas, mas necessário para abrir PR. Se faltar, explique na hora do PR (passo 7): instalar em https://cli.github.com e rodar `gh auth login`.
 
 ## 0. Seu pacote
 

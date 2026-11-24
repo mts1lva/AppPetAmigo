@@ -2,6 +2,22 @@
 
 Aplicativo mobile de saúde animal voltado à alimentação e ao peso ideal de cães e gatos.
 
+## Como começar a programar (Unidade II)
+
+1. Instale o [Claude Code](https://claude.com/claude-code) e o Git.
+2. No terminal:
+   ```
+   git clone https://github.com/mts1lva/AppPetAmigo.git
+   cd AppPetAmigo
+   git switch dev
+   claude
+   ```
+3. Escreva: `quero começar minha entrega`.
+
+O Claude confere se o Flutter 3.50.1 está instalado (e explica a instalação, se não estiver), apresenta os 5 pacotes, registra o que você escolher e mostra as tarefas que você já pode fazer. As regras do projeto estão em [`CLAUDE.md`](CLAUDE.md) e as specs em [`docs/specs/`](docs/specs/README.md).
+
+Sem o Claude Code: instale o Flutter 3.50.1 e use `dart tool/dependencias.dart responsaveis`, `assumir P2` e `proximas P2`.
+
 ## Turma
 
 Programação para Dispositivos Móveis

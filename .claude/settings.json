@@ -9,8 +9,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "dart \"$CLAUDE_PROJECT_DIR/tool/dependencias.dart\" hook",
-            "timeout": 15
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/lembrar-entrega.sh\"",
+            "timeout": 10
           }
         ]
       }

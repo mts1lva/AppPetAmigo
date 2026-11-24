@@ -5,7 +5,6 @@
 //   dart tool/dependencias.dart validar
 //   dart tool/dependencias.dart responsaveis   (pacotes, responsáveis e progresso)
 //   dart tool/dependencias.dart assumir P2 ["Nome"]   (registra no README)
-//   dart tool/dependencias.dart hook      (UserPromptSubmit do Claude Code)
 //
 // Opção: --sem-fetch (não roda `git fetch`; usa o último estado baixado).
 //
@@ -46,8 +45,6 @@ Future<void> main(List<String> argumentos) async {
         exitCode = await _responsaveis(semFetch: semFetch);
       case 'assumir':
         exitCode = await _assumir(args.skip(1).toList(), semFetch: semFetch);
-      case 'hook':
-        await _hook();
       default:
         _uso();
         exitCode = 64;
@@ -286,25 +283,6 @@ Future<int> _assumir(List<String> args, {required bool semFetch}) async {
     ..writeln('$nome registrado(a) como responsável pelo $pacote em $_caminhoReadme.')
     ..writeln('Commit sugerido: docs(specs): $nome assume o pacote ${pacote.substring(1)}');
   return 0;
-}
-
-/// Hook UserPromptSubmit: se a mensagem cita uma tarefa do plano, lembra o
-/// Claude de usar a skill executar-entrega. Não faz fetch (precisa ser
-/// rápido) e nunca bloqueia a mensagem.
-Future<void> _hook() async {
-  try {
-    final entrada = await stdin.transform(utf8.decoder).join();
-    final prompt = (jsonDecode(entrada) as Map<String, dynamic>)['prompt'] as String? ?? '';
-    final codigos = codigosNoTexto(prompt.toUpperCase());
-    if (codigos.isEmpty) return;
-    stdout.writeln(
-      'A mensagem cita tarefa(s) do plano: ${codigos.join(', ')}. '
-      'Se o pedido é executar, implementar, começar ou continuar uma delas, '
-      'use a skill executar-entrega antes de escrever código.',
-    );
-  } catch (_) {
-    // Hook nunca pode atrapalhar a conversa.
-  }
 }
 
 // ---------------------------------------------------------------- apoio
