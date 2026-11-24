@@ -13,7 +13,11 @@ Cada pacote termina com um **rascunho das 10 respostas**, escrito a partir do qu
 
 ## Diário de bordo (preencher durante o trabalho)
 
-Crie um arquivo seu (por exemplo `notas/diario-<nome>.md`, fora do app) e anote a cada sessão:
+Crie um arquivo seu na pasta **`notas/`**, na raiz do projeto (por exemplo `notas/diario-<nome>.md`), e anote a cada sessão.
+
+> **Este material é individual e não vai para o GitHub.** A pasta `notas/` está no `.gitignore`: nem um `git add .` a envia. Guarde ali o diário, as respostas das 10 perguntas e as evidências pessoais. Nunca use `git add -f` nela, e não copie esse conteúdo para `docs/` nem para a descrição de um PR.
+
+Modelo:
 
 ```markdown
 ## 2026-MM-DD
