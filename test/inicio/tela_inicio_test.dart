@@ -13,6 +13,7 @@ import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
 import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provider.dart';
 import 'package:petamigo/features/inicio/apresentacao/telas/tela_inicio.dart';
+import 'package:petamigo/features/nutricao/apresentacao/telas/dialogo_como_meta.dart';
 import 'package:petamigo/features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import 'package:petamigo/features/pets/apresentacao/telas/dialogo_seus_pets.dart';
 import 'package:petamigo/features/pets/domain/entidades/pet.dart';
@@ -193,5 +194,28 @@ void main() {
     await tester.tap(find.widgetWithText(PaBotao, 'Agora não'));
     await tester.pump();
     expect(adiadas.adiadas, {TipoSugestao.reduzirPetiscos: agora});
+  });
+
+  testWidgets('"Entender a referência" abre a tela 18 com os números da Luna; os dois botões fecham', (tester) async {
+    await montar(tester, pets: PetsFalsos(iniciais: [(luna(), 5.4)]), pesos: {'p1': Stream.value(pesagem('p1', 5.4))});
+
+    for (final botao in ['Voltar ao perfil', 'Voltar']) {
+      await tester.tap(find.widgetWithText(PaBotao, 'Entender a referência'));
+      await tester.pumpAndSettle();
+      expect(find.byType(DialogoComoMeta), findsOneWidget);
+      expect(find.text('Como a meta é calculada'), findsOneWidget);
+      expect(find.text('Fórmula veterinária (NRC).'), findsOneWidget);
+      expect(
+        tester.widget<PaDialogo>(find.byType(PaDialogo)).texto,
+        'RER = 70 × peso^0,75 = 70 × 5,4^0,75 = 248 kcal\n'
+        'Fator 1,6 (castrada) → meta de 397 kcal por dia\n'
+        'Estimativa educativa. Não substitui a avaliação do veterinário.',
+      );
+      expect(tester.widget<PaBotao>(find.widgetWithText(PaBotao, 'Voltar ao perfil')).variante, PaBotaoVariante.primario);
+
+      await tester.tap(find.widgetWithText(PaBotao, botao));
+      await tester.pumpAndSettle();
+      expect(find.byType(DialogoComoMeta), findsNothing, reason: botao);
+    }
   });
 }

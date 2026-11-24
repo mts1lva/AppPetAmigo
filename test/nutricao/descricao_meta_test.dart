@@ -59,4 +59,38 @@ void main() {
       expect(textoReferenciaAlimentar(metaDiaria(filhote, 5.4, hoje), filhote), contains('RER × 3,0 (filhote).'));
     });
   });
+
+  group('tela 18 — Como a meta é calculada', () {
+    test('Luna com Ração habitual: os 4 textos da spec', () {
+      expect(
+        textoComoMetaECalculada(
+          metaDiaria(lunaPet, 5.4, hoje),
+          lunaPet,
+          alimentoNome: 'Ração habitual',
+          densidadeKcalPor100g: 360,
+        ),
+        'RER = 70 × peso^0,75 = 70 × 5,4^0,75 = 248 kcal\n'
+        'Fator 1,6 (castrada) → meta de 397 kcal por dia\n'
+        'Com Ração habitual (360 kcal/100 g): ≈ 110 g por dia.\n'
+        'Estimativa educativa. Não substitui a avaliação do veterinário.',
+      );
+    });
+
+    test('sem alimento: sem a linha dos gramas (P-24)', () {
+      final texto = textoComoMetaECalculada(metaDiaria(lunaPet, 5.4, hoje), lunaPet);
+      expect(texto.split('\n'), hasLength(3));
+      expect(texto, isNot(contains('g por dia')));
+    });
+
+    test('densidade com casa decimal', () {
+      expect(
+        textoComoMetaECalculada(metaDiaria(lunaPet, 5.4, hoje), lunaPet, alimentoNome: 'Úmida', densidadeKcalPor100g: 95.5),
+        contains('Com Úmida (95,5 kcal/100 g): ≈ 415 g por dia.'),
+      );
+    });
+
+    test('sem pesagem: só o motivo', () {
+      expect(textoComoMetaECalculada(metaDiaria(lunaPet, null, hoje), lunaPet), 'Registre uma pesagem para calcular a meta.');
+    });
+  });
 }
