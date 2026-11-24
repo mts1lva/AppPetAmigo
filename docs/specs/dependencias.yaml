@@ -1,0 +1,108 @@
+# Dependências entre as tarefas do plano-de-execucao.md
+#
+# Formato: uma linha por tarefa.
+#   <código>: [<dependências diretas>]   # descrição curta
+#
+# Uma tarefa pode ser feita, de qualquer pacote, quando todas as dependências
+# diretas já estão na origin/dev (PR aceito). Uma tarefa conta como feita
+# quando o título de um commit na origin/dev tem o código dela.
+#
+# Conferir:  dart tool/dependencias.dart verificar P2-1.3
+# Listar:    dart tool/dependencias.dart proximas [P2]
+# Validar:   dart tool/dependencias.dart validar  (também roda no flutter test)
+#
+# Ao incluir uma tarefa no plano, inclua a linha aqui no mesmo commit.
+
+# Etapa 1 — P1: base, pets e Início
+P1-0.1: []                                   # Projeto Flutter Android com dependências e assets
+P1-0.2: [P1-0.1]                             # Esqueleto da Clean Architecture e Resultado
+P1-0.3: [P1-0.2]                             # Cores, espaços, tipografia e ThemeData
+P1-0.4: [P1-0.3]                             # Os 7 componentes do design system e confirmarExclusao
+P1-0.5: [P1-0.4]                             # Infraestrutura de widget e golden tests
+P1-0.6: [P1-0.2]                             # Banco local drift com todas as tabelas e índices
+P1-0.7: [P1-0.2]                             # Formatos pt-BR (R10), saudação e idade (R11)
+P1-0.8: [P1-0.2]                             # Rotas das 4 abas, estado sem pet e pet atual
+P1-0.9: [P1-0.2]                             # Meta diária M1 (RER x fator) e T1
+P1-0.10: [P1-0.1]                            # Firebase sem rede, fuso horário e notificações
+P1-0.11: [P1-0.2]                            # sugestoesProvider juntando S1, S2 e S3 (M8)
+P5-0.1: [P1-0.6]                             # Contratos da fila (FilaSync, OperacaoSync, MapeadorSync)
+P1-1.1: [P1-0.4, P1-0.6, P5-0.1]             # Funcionalidade pets completa + primeira pesagem
+P1-1.2: [P1-0.4, P1-0.8]                     # Tela 26 Vamos começar?
+P1-1.3: [P1-1.1, P1-1.2]                     # Tela 05 Dados do pet
+P1-1.4: [P1-1.3]                             # Foto do pet
+P1-1.5: [P1-1.1, P1-0.8]                     # N1 Seus pets e troca do pet atual
+P1-1.6: [P1-1.1, P1-0.9, P1-0.11, P1-1.5]    # Tela 01 Início
+P1-1.7: [P1-0.9, P1-1.6]                     # Tela 18 Como a meta é calculada
+P1-1.8: [P1-0.5, P1-1.3, P1-1.6]             # Golden do 01 e do 05
+P1-3.1: [P5-0.1, P1-1.4]                     # PetMapeador + enviarFoto/baixarFoto (foto no Firestore)
+P1-3.2: [P1-3.1, P2-2.3]                     # Teste de integração dos pets (usa usarEmuladores da P2-2.3)
+P1-4.4: [P1-1.4]                             # Instalação e cadastro no Android 8.0
+P1-4.6: [P1-1.5, P1-1.7]                     # TalkBack e fonte 200% nas telas do P1
+
+# Etapa 2 — P2: diário
+P2-0.1: [P1-0.9]                             # Domínio do diário (R01, R02, R04, M7, S1) + T2
+P2-1.1: [P2-0.1, P1-0.6, P5-0.1]             # Repositórios de alimentos, refeições e extras
+P2-1.2: [P2-1.1, P1-0.4]                     # Tela 09 Alimentos e porções + tela 22
+P2-1.3: [P2-1.2]                             # Tela 07 Refeição
+P2-1.4: [P2-1.1]                             # Tela 08 Petisco ou extra
+P2-1.5: [P2-1.3, P2-1.4]                     # Tela 02 Diário + tela 19
+P2-1.6: [P2-1.3]                             # Tela 06 Registrar refeição + tela 20
+P2-1.7: [P2-1.5, P2-1.6, P1-0.5]             # Golden do 02 e do 06
+P2-2.1: [P2-1.6, P1-1.6]                     # Ligar no Início: resumoDiaProvider, aderenciaProvider, S1
+P2-2.3: [P1-0.10]                            # Firebase Emulator Suite e usarEmuladores()
+P2-3.1: [P2-1.1]                             # Mapeadores do diário
+P2-3.2: [P2-3.1, P2-2.3]                     # Testes de integração do diário
+P2-4.3: [P2-1.5]                             # RNF06 do diário
+P2-4.6: [P2-1.7]                             # TalkBack e fonte 200% nas telas do P2
+
+# Etapa 3 — P3: atividades, lembretes e PDF
+P3-0.1: [P1-0.2]                             # Domínio dos lembretes, gasto de atividade (M4), S2 + T3
+P3-0.2: [P1-0.1]                             # assets/conteudo/dicas.json
+P3-1.1: [P3-0.1, P1-0.6, P5-0.1]             # Repositórios de atividades e lembretes
+P3-1.2: [P3-1.1, P1-0.4]                     # Tela 10 Passeio ou brincadeira
+P3-1.3: [P3-1.2, P3-0.2]                     # Tela 03 Atividades
+P3-1.4: [P3-0.1, P1-0.10]                    # AgendadorLocal e permissões
+P3-1.5: [P3-1.1, P3-1.4]                     # N2 Lembretes
+P3-1.6: [P3-1.5]                             # Teste manual: aviso com o app fechado
+P3-1.7: [P2-1.1, P1-1.1]                     # GeradorPdf (R12) + tela 13
+P3-1.8: [P1-0.6]                             # GeradorExportacao (R13)
+P3-1.9: [P3-1.3]                             # Golden do 03
+P3-2.1: [P3-1.5, P1-1.6]                     # Ligar no Início: lembretesProvider, gastoAtividadeProvider, S2
+P3-3.1: [P3-1.1]                             # Mapeadores de atividades e lembretes
+P3-3.2: [P3-3.1, P2-2.3]                     # Testes de integração de atividades e lembretes
+P3-4.5: [P3-1.6]                             # Lembretes no Android 14 e no 8.0
+P3-4.6: [P3-1.5, P3-1.7, P3-1.9]             # TalkBack e fonte 200% nas telas do P3
+
+# Etapa 4 — P4: evolução
+P4-0.1: [P1-0.9]                             # Domínio da evolução (R06, M2–M8) + T4
+P4-1.1: [P4-0.1, P1-0.6, P5-0.1]             # Repositórios de pesagens e referências
+P4-1.2: [P4-1.1]                             # Tela 11 Pesagem + tela 25 + N3
+P4-1.3: [P4-1.1, P2-2.1, P3-2.1]             # Providers de M9 (usa aderência do P2 e gasto do P3)
+P4-1.4: [P4-1.3]                             # Gráfico interativo
+P4-1.5: [P4-1.4]                             # Tela 04 Evolução
+P4-1.6: [P4-1.1]                             # Tela 12 ECC e objetivo
+P4-1.7: [P4-1.5]                             # Golden do 04
+P4-2.1: [P4-1.2, P1-0.11, P1-1.3]            # Ligar S3 e conferência R06 no peso inicial do 05
+P4-2.2: [P4-1.5, P3-1.7]                     # Compartilhar resumo e curvas reais no PDF
+P4-2.4: [P4-1.5, P2-1.3, P3-1.2]             # U2-05: projeção mudando em tempo real
+P4-3.1: [P4-1.1]                             # Mapeadores de pesagens e referências
+P4-3.2: [P4-3.1, P2-2.3]                     # Testes de integração da evolução
+P4-4.3: [P4-1.5]                             # RNF06 da evolução
+P4-4.6: [P4-1.2, P4-1.6, P4-1.7]             # TalkBack e fonte 200% nas telas do P4
+
+# Etapa 5 — P5: privacidade e cópia remota
+P5-1.1: [P1-0.4, P1-0.8]                     # Tela 14 Seus dados
+P5-1.2: [P5-1.1, P1-1.4, P3-1.4]             # Exclusão integral local (usa cancelarTodos do P3)
+P5-1.3: [P1-0.2]                             # wifi.dart
+P5-1.4: [P5-0.1, P5-1.3]                     # FilaSyncAtiva + MotorSync com FakeRemoto + T5
+P5-1.5: [P1-0.10]                            # firestore.rules
+P5-2.2: [P5-1.1, P3-1.8]                     # Exportar dados com o GeradorExportacao
+P5-3.1: [P5-1.4, P1-3.1, P2-3.1, P3-3.1, P4-3.1]  # FirebaseRemoto real com os mapeadores de todos
+P5-3.2: [P5-3.1, P3-0.1]                     # Tela 15 Cópia remota opcional (usa ReagendarTodos)
+P5-3.3: [P5-3.2, P1-1.6]                     # Tela 16 + estadoCopiaProvider real
+P5-3.4: [P5-3.1]                             # Tela 17 Conferir versões
+P5-3.5: [P5-1.2, P5-3.1]                     # Exclusão integral remota
+P5-3.6: [P5-1.5, P2-2.3]                     # Regras testadas no emulador e publicadas
+P5-3.7: [P5-3.1, P1-3.2, P2-3.2, P3-3.2, P4-3.2]  # Testes de integração de todas as coleções
+P5-4.7: [P5-3.1]                             # Network Inspector
+P5-4.6: [P5-1.1, P5-3.2, P5-3.3, P5-3.4]     # TalkBack e fonte 200% nas telas do P5

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76934890542",
+    "project_id": "pet-amigo-bac9e",
+    "storage_bucket": "pet-amigo-bac9e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76934890542:android:0c19c97c6fd3787a6b8bbf",
+        "android_client_info": {
+          "package_name": "br.com.petamigo.petamigo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyOOTQ6dZSiXPCNtcDT6CXO3Shuiksotk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,56 @@
+# Confere cada PR para a dev e a main (regra 6 do plano-de-execucao.md):
+# dependências entre tarefas válidas, flutter analyze sem avisos e
+# flutter test passando (inclusive os testes oficiais e os goldens).
+#
+# Roda no Windows porque os goldens são gerados no Windows: no Linux a fonte
+# é renderizada de outro jeito e a comparação falharia sem motivo.
+name: CI
+
+on:
+  pull_request:
+    branches: [dev, main]
+  push:
+    branches: [dev, main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    name: Análise e testes
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Flutter (mesma versão do grupo)
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.50.1
+          cache: true
+
+      - name: Dependências
+        run: flutter pub get
+
+      - name: Dependências entre tarefas
+        run: dart tool/dependencias.dart validar
+
+      - name: flutter analyze
+        run: flutter analyze
+
+      - name: flutter test
+        run: flutter test
+
+      - name: Guardar as diferenças dos goldens
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: goldens-com-diferenca
+          path: test/**/failures/
+          if-no-files-found: ignore
