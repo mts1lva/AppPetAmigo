@@ -11,7 +11,13 @@ final class SeletorFotoGaleria implements SeletorFoto {
 
   @override
   Future<String?> escolher() async {
-    final foto = await _picker.pickImage(source: ImageSource.gallery, maxWidth: 1024, imageQuality: 85);
+    final foto = await _picker.pickImage(
+      source: ImageSource.gallery,
+      // Reduzida para caber com folga num documento do Firestore (P-23).
+      maxWidth: 512,
+      maxHeight: 512,
+      imageQuality: 80,
+    );
     return foto?.path;
   }
 }
