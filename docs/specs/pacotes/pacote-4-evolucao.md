@@ -7,11 +7,11 @@
 Entregar a aba **Evolução** com a matemática da Unidade II: peso ideal, curva ideal de 90 dias, **projeção adaptativa** de 90 dias, **data prevista**, percentual de evolução e **gráfico interativo**, além das pesagens com conferência de valores suspeitos e do ECC/objetivo informados pelo veterinário. Tudo recalculado em tempo real e sem culpar o tutor.
 
 **Requisitos:** RF09, RF10, RF11, RF19, RNF02 (gráfico não depende de cor), RNF06, RNF07 (gráfico leve), RNF11, RNF12 · **Unidade II:** U2-02, U2-03, U2-04, U2-05, U2-06 (peso inicial), U2-07, U2-08, U2-11 (S3), U2-12, briefing B-a (celebração), teste oficial T4.
-**Depende de:** P1 (base, `metaProvider` de M1). Lê `aderenciaProvider` e a ingestão diária do P2 e o `gastoAtividadeProvider` do P3, que já existem quando chega a sua vez (**etapa 4** do `plano-de-execucao.md`). **Entrega para:** P1 (`ultimaPesagemProvider`, regra S3 para o card de sugestões), P3 (valores das curvas para o gráfico do PDF).
+**Depende de:** P1 (base, `metaProvider` de M1). Lê `aderenciaProvider` e a ingestão diária do P2 e o `gastoAtividadeProvider` do P3, reais desde a P2-2.1 e a P3-2.1, das quais a P4-1.3 depende (`dependencias.yaml`; **etapa 4** do `plano-de-execucao.md`). **Entrega para:** P1 (`ultimaPesagemProvider`, regra S3 para o card de sugestões), P3 (valores das curvas para o gráfico do PDF).
 
 Observação: a primeira pesagem, criada junto com o pet, é inserida pelo P1 direto na tabela `pesagens`. Ela é o **peso inicial** (M7) e precisa aparecer normalmente na Evolução, no gráfico e na conferência de variação.
 
-**Ordem de execução:** tarefas `P4-0.x` → `P4-1.x` → `P4-2.x` → `P4-3.x` → `P4-4.x` do `plano-de-execucao.md`. Comece pelos modelos M2 a M8 em Dart puro (Fase 0), com os casos de teste de `modelos-matematicos.md`. Eles são o coração deste pacote.
+**Ordem de execução:** a das dependências (`dependencias.yaml`) das tarefas da etapa 4 do `plano-de-execucao.md`. Comece pelos modelos M2 a M8 em Dart puro (Fase 0), com os casos de teste de `modelos-matematicos.md`. Eles são o coração deste pacote.
 
 ## Dados e regras
 

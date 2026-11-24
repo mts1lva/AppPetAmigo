@@ -11,7 +11,7 @@ Criar o esqueleto que os outros quatro pacotes usam (projeto Flutter em **Clean 
 
 ## Ordem de execução
 
-Siga a **etapa 1** do `plano-de-execucao.md`: o P1 é o primeiro da sequência e faz o pacote inteiro (base, contratos da fila do P5, pets, Início, mapeador e teste de integração) antes de passar a vez para o P2.
+Siga a **etapa 1** do `plano-de-execucao.md`, na ordem das dependências (`dependencias.yaml`): o P1 faz o pacote inteiro (base, contratos da fila do P5, pets, Início, mapeador e teste de integração), e a base dele libera as primeiras tarefas dos outros pacotes.
 
 ## Entregas da base (Fase 0)
 

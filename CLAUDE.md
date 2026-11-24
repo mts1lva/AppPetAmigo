@@ -8,7 +8,7 @@ As specs em `docs/specs/` são a fonte da verdade. Leia nesta ordem:
 1. `docs/specs/README.md`: visão geral, divisão em pacotes e prioridade das fontes.
 2. `docs/specs/unidade-2.md`: exigências do professor (U2-01 a U2-18). **Prevalece sobre tudo**, inclusive sobre `docs/requisitos.md`.
 3. `docs/specs/comum/`: contratos compartilhados (arquitetura, design system, navegação, dados e sync, regras, modelos matemáticos M1–M10).
-4. O pacote da tarefa em `docs/specs/pacotes/` e a etapa correspondente em `docs/specs/plano-de-execucao.md` (o trabalho é em sequência, um pacote por vez: P1 → P2 → P3 → P4 → P5).
+4. O pacote da tarefa em `docs/specs/pacotes/` e a etapa correspondente em `docs/specs/plano-de-execucao.md`. A ordem vem das dependências em `docs/specs/dependencias.yaml`: uma tarefa só pode ser feita quando todas as dependências estão na `origin/dev`. **Antes de executar qualquer tarefa, use a skill `executar-entrega`**, que confere isso no GitHub; se estiver bloqueada, não implemente.
 5. `docs/specs/pendencias.md`, para decisões já tomadas (P-01…) e parâmetros ainda em aberto.
 
 Se a spec não cobre algo ou está em conflito, pergunte. Não invente comportamento, texto de tela nem parâmetro numérico.
@@ -39,7 +39,7 @@ Documentos antigos (`docs/justificativas.md` etc.) citam "Android nativo". Isso 
 - Código, nomes de arquivos, classes e textos em **português** (ex.: `resultado.dart`, `apresentacao/`, `RegistrarRefeicao`), seguindo os nomes já usados nas specs.
 - Textos de tela, formatos de data/número e mensagens seguem `docs/specs/comum/regras.md` exatamente.
 - Aparência: `docs/design/telas/*.png` (exportação 2x, 780 px = 390 dp), medidas exatas em `docs/design/estrutura-page1.xml` e tokens em `docs/design/tokens.json`. Evite chamar o Figma: a conta está no plano Starter, sem cota, e tudo já foi exportado para `docs/design/`.
-- Commits em Conventional Commits, em português, com o código da tarefa do plano: `feat(diario): P2-1.3 formulário de refeição`.
+- Commits em Conventional Commits, em português, com o código da tarefa do plano **no título**: `feat(diario): P2-1.3 formulário de refeição`. É pelo título que o `tool/dependencias.dart` sabe que a tarefa foi feita.
 
 ## Testes
 

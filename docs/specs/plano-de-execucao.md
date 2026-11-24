@@ -1,8 +1,17 @@
 # Plano de execução
 
-Ordem em que o app deve ser construído, já incluindo as exigências da **Unidade II** (`unidade-2.md`).
+Tarefas para construir o app, já incluindo as exigências da **Unidade II** (`unidade-2.md`), e a ordem entre elas.
 
-O trabalho é feito **em sequência, um pacote por vez**, na ordem **P1 → P2 → P3 → P4 → P5**. Cada integrante faz o próprio pacote **inteiro**: código, parte Firebase, testes e evidências. Depois entrega e passa a vez para o próximo. **Não há etapa só de testes**: todo mundo programa na própria etapa, e o que depende do app completo (motor de sync real e os 5 testes oficiais juntos) fecha na etapa 5, a última.
+A ordem é dada pelas **dependências entre tarefas**, em `dependencias.yaml`. Uma tarefa de qualquer pacote pode ser feita assim que todas as tarefas de que ela depende estiverem **na `dev`**, ou seja, com o PR aceito. Por isso os pacotes podem andar em paralelo. Cada integrante continua responsável pelo próprio pacote **inteiro**: código, parte Firebase, testes e evidências. **Não há etapa só de testes.** O que depende do app completo (motor de sync real e os 5 testes oficiais juntos) fecha na etapa 5.
+
+Antes de começar uma tarefa, confira se ela está liberada. No Claude Code, a skill `executar-entrega` faz isso sozinha. No terminal:
+
+```
+dart tool/dependencias.dart verificar P2-1.3   # liberada, bloqueada (e por quê) ou já feita
+dart tool/dependencias.dart proximas P2        # o que já dá para fazer no pacote 2
+```
+
+As etapas abaixo agrupam as tarefas por pacote e guardam a lista "pronta para passar" de cada pacote. **A ordem entre as etapas não é mais obrigatória.**
 
 ```
 Etapa 1 ──────► Etapa 2 ──────► Etapa 3 ──────► Etapa 4 ──────► Etapa 5
@@ -12,11 +21,11 @@ Início, meta    emulador do     lembretes,      gráfico,        Firebase real 
                 Firebase        PDF             projeção        coleções, fechamento
 ```
 
-Em sequência, o tempo total é a **soma** das etapas. Combine com o grupo um prazo para cada uma.
+O desenho mostra o sentido geral das dependências, não uma fila. Combine com o grupo um prazo para cada pacote.
 
-## Por que esta ordem
+## Quem usa o quê
 
-Cada pacote só usa o que os anteriores já entregaram:
+Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 
 | Pacote | Usa | Entrega para quem vem depois |
 |---|---|---|
@@ -26,20 +35,21 @@ Cada pacote só usa o que os anteriores já entregaram:
 | P4 | P1, P2, P3 | curvas para o PDF do P3, `ultimaPesagemProvider`, S3 |
 | P5 | todos | motor de sync que envia as coleções de todos |
 
-## Regras da sequência
+## Regras
 
 1. **Stubs só para frente.** Quem vem antes usa stub (mesma assinatura da versão final) para o que ainda não existe. Quem vem depois **troca o stub pelo real e liga os próprios dados nas telas que já existem**. Essas ligações estão listadas na etapa de cada um.
-2. **Códigos das tarefas.** Continuam os mesmos (`P2-1.3` = pacote 2, tarefa 1.3) e vão nas mensagens de commit (ex.: `feat(diario): P2-1.3 formulário de refeição`). O número do meio agora só agrupa o tipo de tarefa (0 regras e domínio, 1 telas, 2 ligações, 3 Firebase, 4 verificação), não diz quando ela é feita. Dentro de uma etapa, siga a **ordem da tabela**.
+2. **Códigos e dependências.** Os códigos continuam os mesmos (`P2-1.3` = pacote 2, tarefa 1.3). O número do meio só agrupa o tipo de tarefa (0 regras e domínio, 1 telas, 2 ligações, 3 Firebase, 4 verificação), não diz quando ela é feita. A ordem vem do `dependencias.yaml`: uma tarefa só começa quando **todas as dependências diretas** estão na `dev`. Se uma dependência estiver errada, corrija a linha do `dependencias.yaml` num PR combinado com o grupo; não pule o bloqueio. Nova tarefa no plano ganha a sua linha no `dependencias.yaml` no mesmo commit, e o `flutter test` confere isso.
+   - O **título** do commit leva o código da tarefa (ex.: `feat(diario): P2-1.3 formulário de refeição`). É por ele que a tarefa conta como feita. Tarefas de verificação manual também terminam com um commit de evidência que tenha o código no título.
 3. **Tudo offline até a etapa 5.** Nenhuma chamada ao Firebase além da inicialização sem rede (P1-0.10). Todo repositório já chama `fila.enfileirar(...)` dentro da transação, com a `FilaSyncInativa`.
 4. **A parte Firebase de cada um fica na própria etapa:** o mapeador da coleção, com teste de ida e volta, e o **teste de integração** no emulador (`integration_test/sync_<colecao>_test.dart`, roteiro na P5-3.7). Esse teste só roda quando o motor real existir; o P5 o faz passar na etapa 5. A partir da etapa 2, o emulador do P2 já sobe com `usarEmuladores()`.
-5. **Git.** Cada etapa num branch a partir da `dev` (ex.: `p2/diario`) e um PR para a `dev`. O próximo só começa depois desse PR aceito.
-6. **Passagem de vez.** A etapa só termina quando:
-   - [ ] `flutter analyze` não mostra avisos e `flutter test` passa, inclusive os testes oficiais das etapas anteriores e o da etapa;
-   - [ ] a lista "pronta para passar" da etapa está marcada;
-   - [ ] o diário de bordo e as evidências do próprio pacote estão guardados (`revisao-tecnica.md`), para responder às 10 perguntas da revisão técnica (seção abaixo);
-   - [ ] o PR para a `dev` foi aceito, com uma **nota de passagem** na descrição: stubs criados ou trocados, o que depende das próximas etapas e as pendências.
+5. **Git.** Cada grupo de tarefas num branch a partir da `dev` atualizada (ex.: `p2/diario`) e um PR para a `dev`. Uma tarefa conta como feita quando o PR é aceito; até lá, quem depende dela espera. PRs pequenos liberam os colegas mais cedo.
+6. **Cada PR para a `dev`** precisa de:
+   - [ ] `flutter analyze` sem avisos e `flutter test` passando, inclusive os testes oficiais que já existem;
+   - [ ] o diário de bordo e as evidências atualizados (`revisao-tecnica.md`), para responder às 10 perguntas da revisão técnica (seção abaixo);
+   - [ ] uma **nota de passagem** na descrição: tarefas entregues, stubs criados ou trocados, o que elas liberam e as pendências.
+7. **Pacote completo.** Um pacote termina quando todas as tarefas da etapa dele estão na `dev` e a lista "pronta para passar" da etapa está marcada.
 
-**Antes da etapa 2:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
+**Antes das tarefas do P2 em diante:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
 
 ---
 

@@ -5,7 +5,7 @@ Especificação para implementar o PetAmigo em **Flutter + Dart**, com **Clean A
 ## Como ler
 
 1. Todo mundo lê `unidade-2.md` e a pasta `comum/` antes de começar. Elas definem o que o professor exige e o que é compartilhado entre os pacotes: arquitetura, design system, navegação, dados, regras e modelos matemáticos.
-2. Cada integrante assume **um pacote** em `pacotes/` e implementa só o que está nele, respeitando os contratos de `comum/`, **na sua etapa do `plano-de-execucao.md`**.
+2. Cada integrante assume **um pacote** em `pacotes/` e implementa só o que está nele, respeitando os contratos de `comum/`, **na sua etapa do `plano-de-execucao.md`** e na ordem das dependências (`dependencias.yaml`).
 3. Antes de entregar, cada um confere os critérios de aceite do próprio pacote e guarda as evidências pedidas.
 4. `revisao-tecnica.md` explica como cada pessoa se prepara para a revisão técnica individual, registrando durante o trabalho o que precisará relatar depois.
 
@@ -28,7 +28,8 @@ Especificação para implementar o PetAmigo em **Flutter + Dart**, com **Clean A
 docs/specs/
 ├── README.md                 ← este arquivo
 ├── unidade-2.md              exigências da Unidade II (U2-01 a U2-18) e conflitos resolvidos
-├── plano-de-execucao.md      fases, tarefas numeradas, critérios para passar de fase e os 5 testes oficiais
+├── plano-de-execucao.md      etapas, tarefas numeradas, regras dos PRs e os 5 testes oficiais
+├── dependencias.yaml         do que cada tarefa depende (lido por tool/dependencias.dart)
 ├── comum/
 │   ├── arquitetura.md        stack, Clean Architecture, pastas, notificações, o que é o Firebase
 │   ├── design-system.md      tokens → tema Flutter; 7 componentes; gráfico interativo
@@ -60,7 +61,7 @@ A tela 24 ("Recurso do aparelho") só existe no protótipo. No app, ela vira os 
 
 ## Ordem de execução
 
-A ordem completa, com tarefas numeradas e a lista para passar a vez, está em **`plano-de-execucao.md`**. O trabalho é **em sequência**: cada integrante faz o próprio pacote inteiro (código, parte Firebase, testes e evidências) e passa a vez para o próximo. Resumo:
+As tarefas numeradas e a lista "pronta para passar" de cada pacote estão em **`plano-de-execucao.md`**. A ordem vem das **dependências entre tarefas** (`dependencias.yaml`): uma tarefa de qualquer pacote pode ser feita quando tudo de que ela depende já está na `dev`, com o PR aceito. Cada integrante continua fazendo o próprio pacote inteiro (código, parte Firebase, testes e evidências). Para saber se uma tarefa está liberada, use a skill `executar-entrega` no Claude Code ou rode `dart tool/dependencias.dart verificar P2-1.3`. Etapas por pacote:
 
 ```
 Etapa 1  P1  base (feita), contratos da fila, pets, Início, meta M1, mapeador do pet
@@ -72,6 +73,6 @@ Etapa 5  P5  privacidade, sync em lote, Firebase real de todas as coleções, 5 
 
 Quem vem antes usa stubs para o que ainda não existe; quem vem depois troca o stub pelo real e liga os próprios dados nas telas que já existem. Não há etapa só de testes.
 
-**Antes da etapa 2:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
+**Antes das tarefas do P2 em diante:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
 
 Regra de convivência: nenhum pacote cria um componente visual próprio se existe um equivalente em `core/ui`. Se faltar alguma variante, peça ao pacote 1.
