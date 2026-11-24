@@ -2,6 +2,8 @@
 /// ficam em `data/fotos/` (image_picker e path_provider).
 library;
 
+import 'dart:typed_data';
+
 /// Abre o seletor nativo de fotos (galeria).
 abstract interface class SeletorFoto {
   /// Caminho da foto escolhida (arquivo temporário), ou `null` se o tutor
@@ -14,6 +16,13 @@ abstract interface class ArmazenamentoFotos {
   /// Copia a foto de [origem] para a área privada e devolve o novo caminho
   /// (sempre um arquivo novo, para não reaproveitar a imagem em cache).
   Future<String> guardar(String origem, {required String petId});
+
+  /// Grava na área privada uma foto recebida da cópia remota e devolve o
+  /// caminho (sempre um arquivo novo).
+  Future<String> guardarBytes(Uint8List imagem, {required String petId});
+
+  /// Bytes da foto em [caminho], ou `null` se o arquivo não existe mais.
+  Future<Uint8List?> ler(String caminho);
 
   /// Apaga a foto; não faz nada se ela já não existe.
   Future<void> apagar(String caminho);

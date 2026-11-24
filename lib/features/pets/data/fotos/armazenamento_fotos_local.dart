@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:path_provider/path_provider.dart';
 
@@ -20,12 +21,29 @@ final class ArmazenamentoFotosLocal implements ArmazenamentoFotos {
     return pasta;
   }
 
+  Future<String> _novoCaminho(String petId) async {
+    final pasta = await _pastaFotos();
+    return '${pasta.path}${Platform.pathSeparator}$petId-${_relogio().microsecondsSinceEpoch}.jpg';
+  }
+
   @override
   Future<String> guardar(String origem, {required String petId}) async {
-    final pasta = await _pastaFotos();
-    final destino = '${pasta.path}${Platform.pathSeparator}$petId-${_relogio().microsecondsSinceEpoch}.jpg';
+    final destino = await _novoCaminho(petId);
     await File(origem).copy(destino);
     return destino;
+  }
+
+  @override
+  Future<String> guardarBytes(Uint8List imagem, {required String petId}) async {
+    final destino = await _novoCaminho(petId);
+    await File(destino).writeAsBytes(imagem, flush: true);
+    return destino;
+  }
+
+  @override
+  Future<Uint8List?> ler(String caminho) async {
+    final arquivo = File(caminho);
+    return await arquivo.exists() ? arquivo.readAsBytes() : null;
   }
 
   @override
