@@ -120,7 +120,7 @@ void main() {
       for (final (item, selecionado) in [('Início', true), ('Diário', false), ('Atividades', false), ('Evolução', false)]) {
         expect(
           tester.getSemantics(find.bySemanticsLabel(item)),
-          containsSemantics(label: item, isButton: true, hasSelectedState: true, isSelected: selecionado),
+          isSemantics(label: item, isButton: true, hasSelectedState: true, isSelected: selecionado),
           reason: item,
         );
       }
@@ -144,7 +144,7 @@ void main() {
 
       expect(
         tester.getSemantics(find.bySemanticsLabel('Luna, Gata • 6 anos')),
-        containsSemantics(isButton: true, hint: 'Abre Seus pets', hasTapAction: true),
+        isSemantics(isButton: true, hint: 'Abre Seus pets', hasTapAction: true),
       );
       semantica.dispose();
     });
