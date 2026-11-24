@@ -1,0 +1,44 @@
+/// Alimento cadastrado de um pet (`dados-e-sync.md` → tabela `alimentos`).
+/// Dart puro.
+///
+/// Criado pelo P1 na etapa 1, com os campos da tabela, para o card
+/// "Referência alimentar" do Início converter a meta em gramas (R04). O P2 é
+/// o dono e completa na etapa 2.
+final class Alimento {
+  const Alimento({
+    required this.id,
+    required this.petId,
+    required this.nome,
+    required this.densidadeKcalPor100g,
+    required this.porcaoPadraoG,
+    this.arquivado = false,
+  });
+
+  final String id;
+  final String petId;
+  final String nome;
+
+  /// Energia do rótulo, em kcal por 100 g.
+  final double densidadeKcalPor100g;
+
+  /// Porção habitual, em gramas.
+  final double porcaoPadraoG;
+  final bool arquivado;
+
+  @override
+  bool operator ==(Object other) =>
+      other is Alimento &&
+      other.id == id &&
+      other.petId == petId &&
+      other.nome == nome &&
+      other.densidadeKcalPor100g == densidadeKcalPor100g &&
+      other.porcaoPadraoG == porcaoPadraoG &&
+      other.arquivado == arquivado;
+
+  @override
+  int get hashCode => Object.hash(id, petId, nome, densidadeKcalPor100g, porcaoPadraoG, arquivado);
+
+  /// Sem o nome, que é dado do tutor (logs não expõem dados pessoais).
+  @override
+  String toString() => 'Alimento($id)';
+}

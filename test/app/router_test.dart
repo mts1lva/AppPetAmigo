@@ -6,11 +6,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:petamigo/app/app.dart';
 import 'package:petamigo/app/router.dart';
 import 'package:petamigo/core/ui/ui.dart';
+import 'package:petamigo/features/inicio/apresentacao/telas/tela_inicio.dart';
 import 'package:petamigo/features/pets/apresentacao/providers/pet_atual_provider.dart';
 import 'package:petamigo/features/pets/apresentacao/telas/tela_vamos_comecar.dart';
 
-/// Título da tela da aba visível (a palavra também aparece na navegação).
-Finder tituloDaAba(String titulo) => find.descendant(of: find.byType(PaTelaPrincipal), matching: find.text(titulo));
+import '../apoio/inicio_falso.dart';
+
+/// A tela da aba visível: o Início real (o título dele é a saudação) ou o
+/// título da tela provisória (a palavra também aparece na navegação).
+Finder tituloDaAba(String titulo) => titulo == 'Início'
+    ? find.byType(TelaInicio)
+    : find.descendant(of: find.byType(PaTelaPrincipal), matching: find.text(titulo));
 
 int abaAtiva(WidgetTester tester) => tester.widget<PaNavegacao>(find.byType(PaNavegacao)).indiceAtual;
 
@@ -23,7 +29,7 @@ Future<StreamController<String?>> montarApp(WidgetTester tester, {String? petIni
   addTearDown(pet.close);
   await tester.pumpWidget(
     ProviderScope(
-      overrides: [petAtualIdProvider.overrideWith((ref) => pet.stream)],
+      overrides: [petAtualIdProvider.overrideWith((ref) => pet.stream), ...overridesSemBanco()],
       child: const PetAmigoApp(),
     ),
   );
@@ -62,7 +68,7 @@ void main() {
       expect(find.byType(PaNavegacao), findsNothing);
     });
 
-    testWidgets('com pet: 4 abas provisórias; tocar troca a aba', (tester) async {
+    testWidgets('com pet: Início e 3 abas provisórias; tocar troca a aba', (tester) async {
       await montarApp(tester, petInicial: 'p1');
 
       expect(find.byType(PaNavegacao), findsOneWidget);
