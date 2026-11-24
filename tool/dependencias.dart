@@ -204,7 +204,7 @@ Future<String> _git(List<String> args) async {
 
 Future<Set<String>> _codigosDosTitulos(String intervalo) async {
   final titulos = await _git(['log', intervalo, '--format=%s']);
-  return codigosNoTexto(titulos);
+  return codigosConcluidos(titulos);
 }
 
 Future<Repositorio> _lerRepositorio({required bool semFetch}) async {

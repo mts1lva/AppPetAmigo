@@ -27,6 +27,13 @@ void main() {
     });
   });
 
+  test('codigosConcluidos ignora commits (parcial)', () {
+    const titulos = 'feat(diario): P2-1.3 (parcial) validação\n'
+        'feat(diario): P2-1.4 petisco\n'
+        'feat(diario): P2-1.5 (Parcial) lista';
+    expect(codigosConcluidos(titulos), {'P2-1.4'});
+  });
+
   group('lerDependencias', () {
     test('lê lista, lista vazia e comentários', () {
       final deps = lerDependencias('''

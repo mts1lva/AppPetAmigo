@@ -39,7 +39,7 @@ Documentos antigos (`docs/justificativas.md` etc.) citam "Android nativo". Isso 
 - Código, nomes de arquivos, classes e textos em **português** (ex.: `resultado.dart`, `apresentacao/`, `RegistrarRefeicao`), seguindo os nomes já usados nas specs.
 - Textos de tela, formatos de data/número e mensagens seguem `docs/specs/comum/regras.md` exatamente.
 - Aparência: `docs/design/telas/*.png` (exportação 2x, 780 px = 390 dp), medidas exatas em `docs/design/estrutura-page1.xml` e tokens em `docs/design/tokens.json`. Evite chamar o Figma: a conta está no plano Starter, sem cota, e tudo já foi exportado para `docs/design/`.
-- Commits em [Conventional Commits](https://www.conventionalcommits.org/pt-br/), em português: `tipo(escopo): descrição`, com o código da tarefa do plano **no título** quando houver: `feat(diario): P2-1.3 formulário de refeição`. É pelo título que o `tool/dependencias.dart` sabe que a tarefa foi feita. Tipos:
+- Commits em [Conventional Commits](https://www.conventionalcommits.org/pt-br/), em português: `tipo(escopo): descrição`, com o código da tarefa do plano **no título** quando houver: `feat(diario): P2-1.3 formulário de refeição`. É pelo título que o `tool/dependencias.dart` sabe que a tarefa foi feita, então o código só vai **sozinho** no título do commit que conclui a tarefa. Commits intermediários levam `(parcial)` no título e não contam: `feat(diario): P2-1.3 (parcial) validação do formulário`. Tipos:
 
   | Tipo | Quando usar |
   |---|---|
@@ -69,4 +69,4 @@ Documentos antigos (`docs/justificativas.md` etc.) citam "Android nativo". Isso 
 - Commits, push do branch de trabalho e abertura ou atualização de PR para a `dev` podem ser feitos.
 - **Nunca fazer merge** de PR, nem push direto na `dev` ou na `main`. Quem aceita o PR é o grupo.
 - **Sem assinatura do Claude** em commits e PRs: nada de `Co-Authored-By: Claude`, "Generated with Claude Code" ou equivalente.
-- O `gh` desta máquina tem duas contas e a ativa só tem leitura no repositório. Para escrever (PR), use a conta da faculdade sem trocar a ativa: `GH_TOKEN=$(gh auth token --user MatheusLeaoLagunaz) gh pr ...`.
+- Para abrir ou editar PR, o `gh` precisa estar com uma conta que tenha escrita no repositório.

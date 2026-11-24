@@ -32,6 +32,13 @@ Set<String> codigosNoTexto(String texto) {
   return codigos;
 }
 
+/// Códigos das tarefas concluídas, a partir dos títulos dos commits (um por
+/// linha). Títulos com `(parcial)` são commits intermediários e não contam.
+Set<String> codigosConcluidos(String titulos) => {
+      for (final titulo in titulos.split(RegExp(r'\r?\n')))
+        if (!titulo.toLowerCase().contains('(parcial)')) ...codigosNoTexto(titulo),
+    };
+
 /// Lê o `dependencias.yaml`. Mantém a ordem do arquivo. Lança
 /// [FormatException] em linha mal formada ou tarefa repetida.
 Map<String, List<String>> lerDependencias(String texto) {

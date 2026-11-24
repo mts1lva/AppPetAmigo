@@ -46,14 +46,48 @@ O pacote é o prefixo do código (`P3-0.2` → pacote 3). Se a pessoa está faze
 Siga o `CLAUDE.md` (arquitetura, convenções, textos de tela, testes). No fim:
 
 - `flutter analyze` sem avisos e `flutter test` passando.
-- Commit em Conventional Commits, em português, com **o código da tarefa no título**: `feat(diario): P2-1.3 formulário de refeição`. Sem o código no título, a tarefa nunca conta como feita.
+- Commit em Conventional Commits, em português, com **o código da tarefa no título** do commit que a **conclui**: `feat(diario): P2-1.3 formulário de refeição`. Sem o código no título, a tarefa nunca conta como feita.
+- Se a tarefa for dividida em vários commits, os intermediários levam `(parcial)` no título (`feat(diario): P2-1.3 (parcial) validação`). Eles não contam como conclusão, então não liberam quem depende da tarefa antes da hora.
 - Tarefas de verificação manual (emulador, TalkBack, Network Inspector) também terminam com um commit que tenha o código no título, guardando a evidência.
-- Push do branch e PR para a `dev` podem ser feitos, com a nota de passagem na descrição. **Nunca fazer merge**: quem aceita o PR é o grupo.
+- Sem assinatura do Claude no commit (nada de `Co-Authored-By`).
 
-## 6. Fechar
+## 6. Diário de bordo
 
-Rode `dart tool/dependencias.dart verificar <código> --sem-fetch` para confirmar que aparece "JÁ FEITA NESTE BRANCH" e diga ao usuário:
+A revisão técnica é individual e pede, na pergunta 1, o código gerado por IA e o que foi corrigido nele (`docs/specs/revisao-tecnica.md` → Diário de bordo). Como este código saiu do Claude, **ofereça a entrada pronta** para a pessoa colar no diário dela (ex.: `notas/diario-<nome>.md`; pergunte onde fica e não crie o arquivo sem ela pedir):
 
-- a tarefa só libera as que dependem dela quando o PR chegar à `dev`;
-- quais tarefas ela vai liberar (as linhas do `dependencias.yaml` que a citam);
-- a nota de passagem do PR (stubs criados ou trocados, pendências), como pede a regra 6 do plano.
+```markdown
+## AAAA-MM-DD
+- O que fiz: <tarefa e o que foi entregue>
+- Commit(s): <hashes>
+- Problema que apareceu: <o que deu errado de verdade nesta sessão>
+- Como resolvi / o que testei: <testes rodados e resultado>
+- Evidência (print, saída de teste): <o que guardar>
+
+### Código gerado por IA — <arquivo principal>
+- O que pedi:
+- O que veio (trecho):
+- O que estava errado:
+- Como corrigi (trecho final):
+- Como verifiquei:
+```
+
+Preencha só com o que aconteceu na sessão: erros reais de análise, testes que falharam, correções feitas. Se nada deu errado, diga isso em vez de inventar um problema.
+
+## 7. Fechar e abrir o PR
+
+1. Rode `dart tool/dependencias.dart verificar <código> --sem-fetch` e confira que aparece "JÁ FEITA NESTE BRANCH".
+2. Liste o que a tarefa libera: as linhas do `dependencias.yaml` que citam o código.
+3. **PR para a `dev`.** Push do branch e abertura ou atualização do PR podem ser feitos (o `gh` precisa de uma conta com escrita). Se o branch já tem PR aberto, atualize a descrição em vez de abrir outro. A descrição leva a **nota de passagem** (regra 6 do plano):
+
+   ```markdown
+   ## Tarefas entregues
+   | Tarefa | O que entrou |
+   ## Stubs criados ou trocados
+   ## O que estas tarefas liberam
+   ## Pendências
+   ## Como testar
+   flutter analyze / flutter test / dart tool/dependencias.dart validar
+   ```
+
+   Lembre na descrição que o PR deve ser aceito com "Create a merge commit" ou "Rebase and merge", **nunca "Squash and merge"**.
+4. **Nunca fazer merge.** Quem aceita o PR é o grupo. Diga ao usuário que as tarefas só liberam quem depende delas depois do merge na `dev`.
