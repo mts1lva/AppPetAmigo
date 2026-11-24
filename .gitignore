@@ -46,3 +46,8 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
+
+# Material individual da revisão técnica (diário de bordo, respostas das
+# 10 perguntas, evidências pessoais). Fica só no computador de cada um e
+# nunca vai para o GitHub. Veja docs/specs/revisao-tecnica.md.
+/notas/

@@ -68,5 +68,6 @@ Documentos antigos (`docs/justificativas.md` etc.) citam "Android nativo". Isso 
 
 - Commits, push do branch de trabalho e abertura ou atualização de PR para a `dev` podem ser feitos.
 - **Nunca fazer merge** de PR, nem push direto na `dev` ou na `main`. Quem aceita o PR é o grupo.
+- **Material individual da revisão técnica fica só no computador de cada um:** diário de bordo, respostas das 10 perguntas e evidências pessoais vão na pasta `notas/` (ignorada pelo Git) e **nunca** são commitados, enviados ao GitHub nem copiados para `docs/` ou para a descrição de PR. Nunca use `git add -f` em `notas/`.
 - **Sem assinatura do Claude** em commits e PRs: nada de `Co-Authored-By: Claude`, "Generated with Claude Code" ou equivalente.
 - Para abrir ou editar PR, o `gh` precisa estar com uma conta que tenha escrita no repositório.

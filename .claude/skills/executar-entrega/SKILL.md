@@ -101,7 +101,11 @@ Siga o `CLAUDE.md` (arquitetura, convenções, textos de tela, testes). No fim:
 
 ## 6. Diário de bordo
 
-A revisão técnica é individual e pede, na pergunta 1, o código gerado por IA e o que foi corrigido nele (`docs/specs/revisao-tecnica.md` → Diário de bordo). Como este código saiu do Claude, **ofereça a entrada pronta** para a pessoa colar no diário dela (ex.: `notas/diario-<nome>.md`; pergunte onde fica e não crie o arquivo sem ela pedir):
+A revisão técnica é individual e pede, na pergunta 1, o código gerado por IA e o que foi corrigido nele (`docs/specs/revisao-tecnica.md` → Diário de bordo). Como este código saiu do Claude, **ofereça a entrada pronta** para a pessoa colar no diário dela, em `notas/diario-<nome>.md` (não crie o arquivo sem ela pedir).
+
+**O diário é individual e nunca vai para o GitHub.** A pasta `notas/` está no `.gitignore`. Nunca faça commit dela (nem com `git add -f`) e nunca copie o conteúdo para `docs/` ou para a descrição do PR. Antes de cada commit, confira com `git status` que nada de `notas/` aparece.
+
+Modelo:
 
 ```markdown
 ## AAAA-MM-DD
