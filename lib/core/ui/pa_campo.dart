@@ -92,8 +92,15 @@ class _PaCampoState extends State<PaCampo> {
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               ExcludeSemantics(child: Text('${widget.rotulo} • ', style: PaTexto.corpo)),
-              ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: 48),
+              // Vazio, o campo guarda uma largura mínima para o cursor; com
+              // valor, encolhe até o texto, e a unidade fica logo depois
+              // (`5,4 kg`). A caixa inteira recebe o toque.
+              ListenableBuilder(
+                listenable: widget.controller,
+                builder: (context, filho) => ConstrainedBox(
+                  constraints: BoxConstraints(minWidth: widget.controller.text.isEmpty ? 48 : 0),
+                  child: filho,
+                ),
                 child: IntrinsicWidth(
                   child: TextField(
                     controller: widget.controller,
