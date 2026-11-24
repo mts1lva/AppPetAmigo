@@ -33,6 +33,14 @@ android {
         versionName = flutter.versionName
     }
 
+    lint {
+        // O Android Lint do AGP trava (NoSuchMethodError no JavaDocParser) ao
+        // analisar o plugin image_picker_android na compilação release, e o
+        // APK não sai. A análise do código do app continua no flutter analyze
+        // da CI.
+        checkReleaseBuilds = false
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
