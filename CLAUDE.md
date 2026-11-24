@@ -49,4 +49,6 @@ Documentos antigos (`docs/justificativas.md` etc.) citam "Android nativo". Isso 
 
 ## Git
 
-- **Nunca dar push** para o remoto. Commits locais podem ser feitos quando pedidos.
+- Commits, push do branch de trabalho e abertura ou atualização de PR para a `dev` podem ser feitos.
+- **Nunca fazer merge** de PR, nem push direto na `dev` ou na `main`. Quem aceita o PR é o grupo.
+- O `gh` desta máquina tem duas contas e a ativa só tem leitura no repositório. Para escrever (PR), use a conta da faculdade sem trocar a ativa: `GH_TOKEN=$(gh auth token --user MatheusLeaoLagunaz) gh pr ...`.

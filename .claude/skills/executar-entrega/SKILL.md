@@ -48,7 +48,7 @@ Siga o `CLAUDE.md` (arquitetura, convenções, textos de tela, testes). No fim:
 - `flutter analyze` sem avisos e `flutter test` passando.
 - Commit em Conventional Commits, em português, com **o código da tarefa no título**: `feat(diario): P2-1.3 formulário de refeição`. Sem o código no título, a tarefa nunca conta como feita.
 - Tarefas de verificação manual (emulador, TalkBack, Network Inspector) também terminam com um commit que tenha o código no título, guardando a evidência.
-- **Nunca dar push.** Quem envia é o usuário.
+- Push do branch e PR para a `dev` podem ser feitos, com a nota de passagem na descrição. **Nunca fazer merge**: quem aceita o PR é o grupo.
 
 ## 6. Fechar
 
