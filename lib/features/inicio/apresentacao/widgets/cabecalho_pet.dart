@@ -43,7 +43,9 @@ class CabecalhoPet extends StatelessWidget {
         onTap: aoTocar,
         child: ConstrainedBox(
           constraints: const BoxConstraints(minHeight: _alturaMin),
+          // Como no Figma: foto, nome e gato alinhados ao topo da faixa de 80.
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               FotoPet(pet: pet),
               const SizedBox(width: PaEspaco.s),
