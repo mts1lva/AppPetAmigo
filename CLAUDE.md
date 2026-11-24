@@ -39,7 +39,24 @@ Documentos antigos (`docs/justificativas.md` etc.) citam "Android nativo". Isso 
 - Código, nomes de arquivos, classes e textos em **português** (ex.: `resultado.dart`, `apresentacao/`, `RegistrarRefeicao`), seguindo os nomes já usados nas specs.
 - Textos de tela, formatos de data/número e mensagens seguem `docs/specs/comum/regras.md` exatamente.
 - Aparência: `docs/design/telas/*.png` (exportação 2x, 780 px = 390 dp), medidas exatas em `docs/design/estrutura-page1.xml` e tokens em `docs/design/tokens.json`. Evite chamar o Figma: a conta está no plano Starter, sem cota, e tudo já foi exportado para `docs/design/`.
-- Commits em Conventional Commits, em português, com o código da tarefa do plano **no título**: `feat(diario): P2-1.3 formulário de refeição`. É pelo título que o `tool/dependencias.dart` sabe que a tarefa foi feita.
+- Commits em [Conventional Commits](https://www.conventionalcommits.org/pt-br/), em português: `tipo(escopo): descrição`, com o código da tarefa do plano **no título** quando houver: `feat(diario): P2-1.3 formulário de refeição`. É pelo título que o `tool/dependencias.dart` sabe que a tarefa foi feita. Tipos:
+
+  | Tipo | Quando usar |
+  |---|---|
+  | `feat` | Funcionalidade nova |
+  | `fix` | Correção de defeito |
+  | `hotfix` | Correção urgente de algo que já está na `main` (a versão entregue), feita num branch `hotfix/<descrição>` a partir da `main` |
+  | `refactor` | Mudança de código sem mudar comportamento |
+  | `perf` | Melhoria de desempenho |
+  | `test` | Só testes |
+  | `docs` | Só documentação e specs |
+  | `style` | Formatação, sem mudar código |
+  | `build` | Gradle, `pubspec.yaml`, dependências |
+  | `ci` | Integração contínua |
+  | `chore` | Manutenção que não entra nos outros tipos |
+  | `revert` | Desfaz um commit anterior |
+
+  O escopo é a funcionalidade (`pets`, `diario`, `ui`, `banco`, `sync`…). Mudança incompatível leva `!` depois do escopo (`feat(banco)!: …`) e um rodapé `BREAKING CHANGE: …`.
 
 ## Testes
 
