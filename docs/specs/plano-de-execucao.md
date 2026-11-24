@@ -91,7 +91,7 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 | P2-1.5 | Tela 02 Diário com a meta (R02), `PaHistorico`, seleção de data + tela 19 | `pacote-2` |
 | P2-1.6 | Tela 06 Registrar refeição com **escolha de quantidade** (B-b) + tela 20 + título "Diário atualizado" | `pacote-2` |
 | P2-1.7 | Golden do 02 e do 06 | `design-system.md` |
-| P2-2.1 | **Ligar no Início:** trocar o stub de `resumoDiaProvider` pela leitura real (card Hoje e botão Registrar refeição); `aderenciaProvider` real; S1 no `sugestoesProvider`. Sem alimento, o atalho leva ao 09 | `pacote-2`; `pacote-1` → Início |
+| P2-2.1 | **Ligar no Início:** trocar os stubs de `resumoDiaProvider` e `alimentoAtalhoProvider` pela leitura real (card Hoje, botão Registrar refeição e gramas no card Referência alimentar); `aderenciaProvider` real; S1 no `sugestoesProvider`. Sem alimento, o atalho leva ao 09 | `pacote-2`; `pacote-1` → Início |
 | P2-2.3 | **Firebase Emulator Suite** (Auth e Firestore): `firebase.json`, scripts `emuladores.sh`/`.ps1` e `integration_test/apoio_firebase.dart` com `usarEmuladores()`, `limparEmuladores()` e `criarUsuarioDeTeste()`. Documentar em `integration_test/README.md` | `pacote-2` |
 | P2-3.1 | `AlimentoMapeador`, `RefeicaoMapeador`, `ExtraMapeador` + testes de ida e volta | `dados-e-sync.md` |
 | P2-3.2 | Testes de integração de alimentos, refeições e extras (roteiro na P5-3.7). Rodam na etapa 5 | `pacote-2` |
@@ -158,7 +158,7 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 
 | Tarefa | O que entregar | Referência |
 |---|---|---|
-| P5-1.1 | Tela 14 Seus dados | `pacote-5` |
+| P5-1.1 | Tela 14 Seus dados, ligada ao botão "Privacidade e cópia remota" do Início | `pacote-5` |
 | P5-1.2 | Exclusão integral local (transação, fotos, `cancelarTodos` dos lembretes do P3, volta ao 26) | `pacote-5` |
 | P5-1.3 | `wifi.dart` (`connectivity_plus`) | `pacote-5` |
 | P5-1.4 | `FilaSyncAtiva` + `MotorSync` com **envio em lote** contra um **remoto falso em memória** (`FakeRemoto`) + **T5** | `dados-e-sync.md` → Envio em lote |
@@ -189,6 +189,7 @@ Um stub é uma implementação provisória com a **mesma assinatura** da versão
 | Stub | Quem cria | Quem troca |
 |---|---|---|
 | `resumoDiaProvider(petId, dia)` → `ResumoDia.vazio` | P1 (etapa 1) | P2 (P2-2.1) |
+| `alimentoAtalhoProvider(petId)` → `null` (o Início mostra só as kcal, P-24) | P1 (P1-1.6) | P2 (P2-2.1) |
 | `lembretesProvider(petId)` → lista vazia | P1 (etapa 1) | P3 (P3-2.1) |
 | `estadoCopiaProvider` → sempre `desligada` | P1 (etapa 1) | P5 (P5-3.3) |
 | S1, S2, S3 → `null` no `sugestoesProvider` | P1 (P1-0.11, feito) | P2, P3 e P4 (P2-2.1, P3-2.1, P4-2.1) |
