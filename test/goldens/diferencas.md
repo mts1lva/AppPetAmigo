@@ -25,3 +25,11 @@ Corrigido nesta comparação: o cabeçalho estava centralizado na faixa de 80 dp
 | O ponto `•` parece um pouco menor que no PNG | Renderização da Inter no teste contra a do Figma |
 
 Corrigido nesta comparação: o campo de peso mostrava `5,4      kg`, porque a área de digitação tinha largura mínima de 48 dp mesmo com valor. Agora a largura mínima só vale com o campo vazio (`PaCampo`).
+
+## 01 Início com a fonte em 200% (P1-4.6, 24/11/2026)
+
+Evidência: `arquivos/01-inicio-fonte-200.png` (gerada por `test/acessibilidade/telas_p1_acessibilidade_test.dart`). Nada corta: cabeçalho, cards, botões e navegação crescem em altura, como pede `design-system.md`.
+
+| Limitação | Motivo |
+|---|---|
+| Na navegação, "Atividades" e "Evolução" quebram no meio da palavra ("Ativida/des", "Evoluç/ão") | Cada item tem cerca de 87 dp de largura e a palavra em 200% não cabe numa linha. A spec pede crescer em altura em vez de cortar, e isso acontece; reduzir a fonte só na navegação iria contra a ampliação pedida pelo tutor |
