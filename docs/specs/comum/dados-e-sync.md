@@ -96,7 +96,7 @@ abstract interface class MapeadorSync<T> {
 
 | Mapeador | Pacote |
 |---|---|
-| `PetMapeador` (+ upload/download da foto) | P1 |
+| `PetMapeador`, `FotoPetMapeador` + `FotosPetSync` (foto sem rede, P-27) | P1 |
 | `AlimentoMapeador`, `RefeicaoMapeador`, `ExtraMapeador` | P2 |
 | `AtividadeMapeador`, `LembreteMapeador` | P3 |
 | `PesagemMapeador`, `ReferenciaMapeador` | P4 |
