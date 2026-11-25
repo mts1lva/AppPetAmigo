@@ -11,6 +11,8 @@ import '../../../../core/sugestao.dart';
 import '../../../../core/ui/ui.dart';
 import '../../../diario/apresentacao/providers/alimento_atalho_provider.dart';
 import '../../../diario/apresentacao/providers/resumo_dia_provider.dart';
+import '../../../diario/apresentacao/telas/dialogo_alimentos.dart';
+import '../../../diario/apresentacao/telas/dialogo_atalho.dart';
 import '../../../diario/domain/entidades/resumo_dia.dart';
 import '../../../evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
 import '../../../lembretes/apresentacao/providers/lembretes_provider.dart';
@@ -104,8 +106,17 @@ class _CardHoje extends ConsumerWidget {
       titulo: formatarHojeCard(hoje),
       texto: textoHoje(resumo, ref.watch(metaProvider(petId))),
       filhos: [
-        // TODO(P2-2.1): abrir o 06 Registrar refeição (sem alimento, o 09).
-        PaBotao.primario(texto: botaoRegistrarRefeicao, aoTocar: () {}),
+        PaBotao.primario(
+          texto: botaoRegistrarRefeicao,
+          aoTocar: () {
+            final alimento = ref.read(alimentoAtalhoProvider(petId)).value;
+            if (alimento == null) {
+              abrirAlimentos(context, petId: petId, paraAtalho: true);
+              return;
+            }
+            abrirAtalho(context, petId: petId);
+          },
+        ),
       ],
     );
   }
