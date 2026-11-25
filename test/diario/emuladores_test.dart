@@ -57,5 +57,15 @@ void main() {
     expect(ci, contains('flutter test integration_test'));
     expect(ci, contains('android-emulator-runner'));
     expect(File('.firebaserc').readAsStringSync(), contains('pet-amigo-bac9e'));
+    for (final caminho in [
+      'android/app/src/debug/AndroidManifest.xml',
+      'android/app/src/profile/AndroidManifest.xml',
+    ]) {
+      expect(
+        File(caminho).readAsStringSync(),
+        contains('usesCleartextTraffic="true"'),
+        reason: 'API 28+ bloqueia HTTP claro; o emulador em 10.0.2.2 precisa disto',
+      );
+    }
   });
 }

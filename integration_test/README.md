@@ -36,7 +36,7 @@ Noutro terminal, com um emulador Android ligado (API 26 ou mais):
 flutter test integration_test
 ```
 
-Isso chama `usarEmuladores()` (`apoio_firebase.dart`): no aparelho Android o host é `10.0.2.2` (a máquina vista pelo emulador); no host, `127.0.0.1`. Em seguida `limparEmuladores()` e `criarUsuarioDeTeste(...)`.
+Isso chama `usarEmuladores()` (`apoio_firebase.dart`): no aparelho Android o host é `10.0.2.2` (a máquina vista pelo emulador); no host, `127.0.0.1`. Em seguida `limparEmuladores()` e `criarUsuarioDeTeste(...)`. O build debug/profile permite HTTP claro só para esses testes (API 28+ bloqueia `10.0.2.2` por padrão); o release não.
 
 O teste `emuladores_conexao_test.dart` chama `usarEmuladores()` de verdade (Auth + Firestore). O SDK nativo do Firebase precisa de um aparelho ou emulador Android; o `flutter-tester` não basta.
 
