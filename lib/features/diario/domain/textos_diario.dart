@@ -75,6 +75,7 @@ String textoAderencia(Aderencia a) =>
 
 const tituloDiario = 'Diário';
 const tituloDiarioAtualizado = 'Diário atualizado';
+const tituloDataSelecionada = 'Data selecionada';
 const textoCardData = 'Confira o que foi registrado.';
 const botaoSelecionarData = 'Selecionar data';
 const tituloRefeicoes = 'Refeições';
@@ -175,3 +176,15 @@ String textoEnergiaRotulo(double densidadeKcalPor100g) =>
 /// Porção do atalho: `Porção habitual • 30 g / 108 kcal`
 String rotuloPorcao(String nome, double gramas, double kcal) =>
     '$nome • ${formatarNumero(gramas, casas: 0)} g / ${formatarNumero(kcal, casas: 0)} kcal';
+
+String rotuloSemanticoRefeicao(Refeicao r) =>
+    'Editar registro: ${formatarHora(r.dataHora)}, ${r.alimentoNome}, '
+    '${formatarNumero(r.quantidadeG, casas: 0)} gramas, ${formatarNumero(r.energiaKcal, casas: 0)} quilocalorias';
+
+String rotuloSemanticoExtra(Extra e) {
+  final hora = formatarHora(e.dataHora);
+  final kcal = '${formatarNumero(e.energiaKcal, casas: 0)} quilocalorias';
+  final q = e.quantidadeG;
+  if (q == null) return 'Editar registro: $hora, ${e.descricao}, $kcal';
+  return 'Editar registro: $hora, ${e.descricao}, ${formatarNumero(q, casas: 0)} gramas, $kcal';
+}
