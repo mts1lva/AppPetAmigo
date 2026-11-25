@@ -39,5 +39,6 @@ final class Lembrete {
       other.notificacaoId == notificacaoId;
 
   @override
-  int get hashCode => Object.hash(id, petId, horaMinutos, tipo, ativo, notificacaoId);
+  int get hashCode =>
+      Object.hash(id, petId, horaMinutos, tipo, ativo, notificacaoId);
 }
