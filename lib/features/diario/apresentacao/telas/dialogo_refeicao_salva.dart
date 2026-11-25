@@ -38,7 +38,7 @@ class DialogoRefeicaoSalva extends ConsumerWidget {
           texto: botaoConsultarDiarioAtualizado,
           aoTocar: () {
             final roteador = GoRouter.of(context);
-            ref.read(diarioAtualizadoProvider.notifier).marcar();
+            ref.read(diarioAtualizadoProvider.notifier).marcar(dia: depois.dia);
             Navigator.of(context).pop();
             roteador.go(Rotas.diario);
           },

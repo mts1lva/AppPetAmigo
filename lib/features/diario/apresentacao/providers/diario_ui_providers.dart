@@ -1,14 +1,28 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-/// Quando o tutor chega pelo 20 "Consultar diário atualizado", o título do
-/// Diário vira `Diário atualizado` até ele sair da aba (P-05).
-final class DiarioAtualizado extends Notifier<bool> {
-  @override
-  bool build() => false;
+/// Sinal do 20 "Consultar diário atualizado": o título vira `Diário atualizado`
+/// até o tutor sair da aba (P-05), e a aba abre no [dia] da refeição salva.
+final class SinalDiarioAtualizado {
+  const SinalDiarioAtualizado({this.atualizado = false, this.dia, this.geracao = 0});
 
-  void marcar() => state = true;
-
-  void limpar() => state = false;
+  final bool atualizado;
+  final DateTime? dia;
+  final int geracao;
 }
 
-final diarioAtualizadoProvider = NotifierProvider<DiarioAtualizado, bool>(DiarioAtualizado.new);
+final class DiarioAtualizado extends Notifier<SinalDiarioAtualizado> {
+  @override
+  SinalDiarioAtualizado build() => const SinalDiarioAtualizado();
+
+  void marcar({DateTime? dia}) => state = SinalDiarioAtualizado(
+        atualizado: true,
+        dia: dia,
+        geracao: state.geracao + 1,
+      );
+
+  void limpar() => state = SinalDiarioAtualizado(geracao: state.geracao);
+}
+
+final diarioAtualizadoProvider = NotifierProvider<DiarioAtualizado, SinalDiarioAtualizado>(
+  DiarioAtualizado.new,
+);

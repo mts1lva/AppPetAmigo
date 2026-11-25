@@ -28,6 +28,7 @@ class TelaDiario extends ConsumerStatefulWidget {
 
 class _TelaDiarioState extends ConsumerState<TelaDiario> {
   DateTime? _dia;
+  var _geracaoAplicada = 0;
 
   DateTime _hoje() {
     final agora = ref.read(agoraProvider)();
@@ -64,8 +65,21 @@ class _TelaDiarioState extends ConsumerState<TelaDiario> {
   Widget build(BuildContext context) {
     final petId = ref.watch(petAtualIdProvider).value;
     final pet = petId == null ? null : ref.watch(petProvider(petId)).value;
-    final atualizado = ref.watch(diarioAtualizadoProvider);
-    final titulo = atualizado ? tituloDiarioAtualizado : tituloDiario;
+    final sinal = ref.watch(diarioAtualizadoProvider);
+    final titulo = sinal.atualizado ? tituloDiarioAtualizado : tituloDiario;
+    ref.listen(diarioAtualizadoProvider, (prev, next) {
+      if (!next.atualizado || next.dia == null || next.geracao == _geracaoAplicada) return;
+      final alvo = next.dia!;
+      setState(() {
+        _dia = DateTime(alvo.year, alvo.month, alvo.day);
+        _geracaoAplicada = next.geracao;
+      });
+    });
+    if (sinal.atualizado && sinal.dia != null && sinal.geracao != _geracaoAplicada) {
+      final alvo = sinal.dia!;
+      _dia = DateTime(alvo.year, alvo.month, alvo.day);
+      _geracaoAplicada = sinal.geracao;
+    }
     if (pet == null) return PaTelaPrincipal(titulo: titulo);
 
     final d = dia;

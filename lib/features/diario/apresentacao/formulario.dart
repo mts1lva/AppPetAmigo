@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/formato/numeros.dart';
@@ -20,4 +21,17 @@ String textoErroGravacao(Object erro) {
     if (mensagem is String && mensagem.isNotEmpty) return mensagem;
   }
   return '$erro';
+}
+
+/// Lista do dia para a R08: usa o valor já emitido; se ainda não houve emissão,
+/// espera [esperar]. Erro sem valor anterior não é tratado como dia vazio.
+Future<List<T>> listaEmitidaDoDia<T>(
+  AsyncValue<List<T>> async, {
+  required Future<List<T>> Function() esperar,
+}) async {
+  if (async.hasValue) return List<T>.from(async.requireValue);
+  if (async.hasError) {
+    Error.throwWithStackTrace(async.error!, async.stackTrace ?? StackTrace.current);
+  }
+  return esperar();
 }
