@@ -49,4 +49,12 @@ void main() {
     expect(apoio, contains('criarUsuarioDeTeste'));
     expect(apoio, isNot(contains('firebasestorage.app')));
   });
+
+  test('existe o teste de conexão real e o job da CI o executa', () {
+    expect(File('integration_test/emuladores_conexao_test.dart').existsSync(), isTrue);
+    final ci = File('.github/workflows/ci.yml').readAsStringSync();
+    expect(ci, contains('emuladores_conexao_test.dart'));
+    expect(ci, contains('firebase emulators:exec'));
+    expect(File('.firebaserc').readAsStringSync(), contains('pet-amigo-bac9e'));
+  });
 }
