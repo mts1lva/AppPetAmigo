@@ -10,8 +10,19 @@ import '../../domain/casos_de_uso/reagendar_todos.dart';
 import '../../domain/casos_de_uso/serializador_lembretes.dart';
 import '../../domain/repositorios/agendador_notificacoes.dart';
 import '../../domain/repositorios/lembrete_repositorio.dart';
+import '../../domain/entidades/lembrete.dart';
 
 final agendadorLocalProvider = Provider((ref) => AgendadorLocal());
+final pedirNotificacoesProvider = Provider<Future<void> Function()>(
+  (ref) => ref.watch(agendadorLocalProvider).pedirNotificacoes,
+);
+final pedirHorarioExatoProvider = Provider<Future<void> Function()>(
+  (ref) => ref.watch(agendadorLocalProvider).pedirHorarioExato,
+);
+final lembretesConfiguracaoProvider =
+    StreamProvider.family<List<Lembrete>, String>(
+      (ref, petId) => ref.watch(lembreteRepositorioProvider).observar(petId),
+    );
 final agendadorNotificacoesProvider = Provider<AgendadorNotificacoes>(
   (ref) => ref.watch(agendadorLocalProvider),
 );

@@ -55,7 +55,20 @@ final class GerenciarLembretes {
         }
       });
 
-  Future<void> _aplicar(Lembrete l, String nomePet) => l.ativo
-      ? _agendador.agendarDiario(l, nomePet: nomePet)
-      : _agendador.cancelar(l.notificacaoId);
+  Future<void> _aplicar(Lembrete l, String nomePet) async {
+    try {
+      if (l.ativo) {
+        await _agendador.agendarDiario(l, nomePet: nomePet);
+      } else {
+        await _agendador.cancelar(l.notificacaoId);
+      }
+    } catch (_) {
+      throw const AgendamentoPendente();
+    }
+  }
+}
+
+/// A gravação local já terminou; uma nova tentativa não deve criar outro id.
+final class AgendamentoPendente implements Exception {
+  const AgendamentoPendente();
 }

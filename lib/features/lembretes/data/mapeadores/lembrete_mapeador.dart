@@ -54,8 +54,3 @@ final class LembreteMapeador implements MapeadorSync<Lembrete> {
       '${nomeTipoLembrete(l.tipo)}${l.ativo ? '' : ' • pausado'}';
 }
 
-String nomeTipoLembrete(TipoLembrete tipo) => switch (tipo) {
-  TipoLembrete.refeicao => 'Refeição',
-  TipoLembrete.pesagem => 'Pesagem',
-  TipoLembrete.atividade => 'Atividade',
-};
