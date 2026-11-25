@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:petamigo/core/relogio.dart';
@@ -15,7 +16,11 @@ import '../apoio/diario_falso.dart';
 import '../apoio/montar.dart';
 import '../apoio/pets_falsos.dart';
 
-Future<void> abrir(WidgetTester tester, DiarioFalsos diario) async {
+Future<void> abrir(
+  WidgetTester tester,
+  DiarioFalsos diario, {
+  List<Override> extras = const [],
+}) async {
   tester.view
     ..physicalSize = const Size(390, 844)
     ..devicePixelRatio = 1;
@@ -28,6 +33,7 @@ Future<void> abrir(WidgetTester tester, DiarioFalsos diario) async {
       ultimaPesagemProvider.overrideWith(
         (ref, petId) => Stream.value(Pesagem(id: 'pes1', petId: petId, pesoKg: 5.4, dataHora: DateTime(2026, 9, 1))),
       ),
+      ...extras,
     ],
     child: appDeTeste(Scaffold(
       body: Builder(
@@ -84,6 +90,41 @@ void main() {
       expect(find.text(tituloRefeicaoSalva), findsOneWidget);
       expect(find.text(subtituloRefeicaoSalva), findsOneWidget);
       expect(find.textContaining('O diário passa de 0 para 108 kcal'), findsOneWidget);
+    });
+
+    testWidgets('R08 usa as refeições já emitidas no total do dia', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()], refeicoes: [refeicaoHabitual()]);
+      await abrir(tester, diario);
+
+      await tocar(tester, botao(botaoConfirmarRefeicao));
+
+      expect(find.byType(DialogoRefeicaoSalva), findsOneWidget);
+      expect(find.textContaining('O diário passa de 108 para 216 kcal'), findsOneWidget);
+    });
+
+    testWidgets('R08 espera o stream que ainda não emitiu e não trata como dia vazio', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()], refeicoes: [refeicaoHabitual()]);
+      diario.refeicoes.atrasoObservar = const Duration(milliseconds: 80);
+      await abrir(tester, diario);
+
+      await tocar(tester, botao(botaoConfirmarRefeicao));
+
+      expect(find.byType(DialogoRefeicaoSalva), findsOneWidget);
+      expect(find.textContaining('O diário passa de 108 para 216 kcal'), findsOneWidget);
+      expect(find.textContaining('O diário passa de 0 para 108 kcal'), findsNothing);
+    });
+
+    testWidgets('R08 não trata erro do stream como dia vazio', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()]);
+      diario.refeicoes.erroObservar = ArgumentError('Não foi possível ler o diário.');
+      await abrir(tester, diario);
+
+      await tocar(tester, botao(botaoConfirmarRefeicao));
+
+      expect(diario.refeicoes.salvas, isEmpty);
+      expect(find.byType(DialogoRefeicaoSalva), findsNothing);
+      expect(find.byType(DialogoAtalho), findsOneWidget);
+      expect(find.text('Não foi possível ler o diário.'), findsOneWidget);
     });
 
     testWidgets('Metade grava 15 g / 54 kcal', (tester) async {

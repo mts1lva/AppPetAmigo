@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../../../app/tema/cores.dart';
+import '../../../../app/tema/tipografia.dart';
 import '../../../../core/formato/formato.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/resultado.dart';
@@ -15,6 +17,7 @@ import '../../domain/entidades/resumo_dia.dart';
 import '../../domain/periodo.dart';
 import '../../domain/resumo_do_dia.dart';
 import '../../domain/textos_diario.dart';
+import '../formulario.dart';
 import '../providers/alimento_atalho_provider.dart';
 import '../providers/casos_providers.dart';
 import '../providers/repositorios_providers.dart';
@@ -89,6 +92,7 @@ class _DialogoAtalhoState extends ConsumerState<DialogoAtalho> {
   _PorcaoAtalho _porcao = _PorcaoAtalho.habitual;
   var _salvando = false;
   var _inicio = false;
+  String? _erroGravacao;
 
   void _iniciar(Alimento? atalho, List<Alimento> alimentos) {
     if (_inicio) return;
@@ -119,26 +123,37 @@ class _DialogoAtalhoState extends ConsumerState<DialogoAtalho> {
     if (energia is! Disponivel<double>) return;
     final agora = ref.read(agoraProvider)();
     final hoje = diaDe(agora);
-    final refeicoes = ref.read(refeicoesDoDiaProvider((widget.petId, hoje))).value ?? const [];
-    final extras = ref.read(extrasDoDiaProvider((widget.petId, hoje))).value ?? const [];
-    final antes = resumoDoDia(dia: hoje, refeicoes: refeicoes, extras: extras);
-    final nova = Refeicao(
-      id: ref.read(novoIdProvider)(),
-      petId: widget.petId,
-      alimentoId: a.id,
-      alimentoNome: a.nome,
-      densidadeKcalPor100g: a.densidadeKcalPor100g,
-      quantidadeG: q,
-      energiaKcal: energia.valor,
-      dataHora: agora,
-    );
+    final inicio = hoje;
+    final fim = inicio.add(const Duration(days: 1));
 
-    setState(() => _salvando = true);
+    setState(() {
+      _salvando = true;
+      _erroGravacao = null;
+    });
     try {
+      // `.first` espera a primeira emissão. Não usa `.value ?? []` (trataria
+      // loading/erro como dia vazio) nem StreamProvider.future (espera o
+      // stream fechar e trava o diálogo em "Salvando…").
+      final refeicoes =
+          await ref.read(refeicaoRepositorioProvider).observarEntre(widget.petId, inicio, fim).first;
+      final extras = await ref.read(extraRepositorioProvider).observarEntre(widget.petId, inicio, fim).first;
+      final antes = resumoDoDia(dia: hoje, refeicoes: refeicoes, extras: extras);
+      final nova = Refeicao(
+        id: ref.read(novoIdProvider)(),
+        petId: widget.petId,
+        alimentoId: a.id,
+        alimentoNome: a.nome,
+        densidadeKcalPor100g: a.densidadeKcalPor100g,
+        quantidadeG: q,
+        energiaKcal: energia.valor,
+        dataHora: agora,
+      );
       await ref.read(salvarRefeicaoProvider)(nova, agora: agora);
       if (!mounted) return;
       final depois = resumoDoDia(dia: hoje, refeicoes: [...refeicoes, nova], extras: extras);
       Navigator.of(context).pop(_Confirmado(antes.totalKcal, depois));
+    } catch (e) {
+      if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
     } finally {
       if (mounted) setState(() => _salvando = false);
     }
@@ -224,6 +239,8 @@ class _DialogoAtalhoState extends ConsumerState<DialogoAtalho> {
           valorTexto: '${formatarDataCurta(agora)} • agora',
           aoTocar: null,
         ),
+        if (_erroGravacao != null)
+          Text(_erroGravacao!, style: PaTexto.corpo.copyWith(color: PaCores.erro)),
       ],
       botoes: [
         PaBotao.primario(

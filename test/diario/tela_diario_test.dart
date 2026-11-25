@@ -102,6 +102,32 @@ void main() {
     expect(find.text(tituloDiario), findsNothing);
   });
 
+  testWidgets('Consultar diário atualizado abre o 02 no dia da refeição, com ela na lista', (tester) async {
+    final diaRefeicao = DateTime(2026, 9, 29, 8);
+    await montar(
+      tester,
+      diario: DiarioFalsos(
+        alimentos: [racaoHabitual()],
+        refeicoes: [refeicaoHabitual(quando: diaRefeicao)],
+      ),
+    );
+
+    expect(find.text('30 setembro 2026'), findsOneWidget);
+    expect(find.text(textoSemRefeicoes), findsOneWidget);
+
+    ProviderScope.containerOf(tester.element(find.byType(TelaDiario)))
+        .read(diarioAtualizadoProvider.notifier)
+        .marcar(dia: diaRefeicao);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    await tester.pumpAndSettle();
+
+    expect(find.text(tituloDiarioAtualizado), findsOneWidget);
+    expect(find.text('29 setembro 2026'), findsOneWidget);
+    expect(find.text('08:00 • Ração habitual • 30 g • 108 kcal'), findsOneWidget);
+    expect(find.text(textoSemRefeicoes), findsNothing);
+  });
+
   testWidgets('19: textos de R09; Retomar devolve true', (tester) async {
     tester.view
       ..physicalSize = const Size(390, 844)
