@@ -78,3 +78,5 @@ Quem vem antes usa stubs para o que ainda não existe; quem vem depois troca o s
 **Antes das tarefas do P2 em diante:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
 
 Regra de convivência: nenhum pacote cria um componente visual próprio se existe um equivalente em `core/ui`. Se faltar alguma variante, peça ao pacote 1.
+
+Estado da implementação do P3, contratos de integração e bloqueios: [entrega-p3.md](entrega-p3.md).
