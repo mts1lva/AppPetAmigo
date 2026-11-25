@@ -16,8 +16,9 @@ Sugestao? sugestaoExercicios({
       !pesoAtualKg.isFinite ||
       !pesoIdealKg.isFinite ||
       pesoIdealKg <= 0 ||
-      pesoIdealKg >= pesoAtualKg)
+      pesoIdealKg >= pesoAtualKg) {
     return null;
+  }
   final inicio = DateTime(
     hoje.year,
     hoje.month,

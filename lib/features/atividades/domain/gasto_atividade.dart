@@ -8,8 +8,9 @@ Resultado<double> gastoAtividade(Atividade atividade, double rer) {
       atividade.duracaoMin > duracaoMaximaMinutos) {
     return const Indisponivel('Informe a duração em minutos.');
   }
-  if (!rer.isFinite || rer <= 0)
+  if (!rer.isFinite || rer <= 0) {
     return const Indisponivel('Registre uma pesagem para calcular a meta.');
+  }
   final met = atividade.tipo == TipoAtividade.passeio
       ? metPasseio
       : metBrincadeira;
@@ -32,8 +33,10 @@ Resultado<double> mediaGastoAtividade(
   );
   var soma = 0.0;
   for (final atividade in atividades) {
-    if (atividade.dataHora.isBefore(inicio) || atividade.dataHora.isAfter(hoje))
+    if (atividade.dataHora.isBefore(inicio) ||
+        atividade.dataHora.isAfter(hoje)) {
       continue;
+    }
     final gasto = gastoAtividade(atividade, rer);
     if (gasto case Indisponivel<double>()) return gasto;
     soma += gasto.valorOuNulo!;

@@ -25,13 +25,13 @@ final class Atividade {
   final DateTime dataHora;
 
   @override
-  bool operator ==(Object outro) =>
-      outro is Atividade &&
-      outro.id == id &&
-      outro.petId == petId &&
-      outro.tipo == tipo &&
-      outro.duracaoMin == duracaoMin &&
-      outro.dataHora == dataHora;
+  bool operator ==(Object other) =>
+      other is Atividade &&
+      other.id == id &&
+      other.petId == petId &&
+      other.tipo == tipo &&
+      other.duracaoMin == duracaoMin &&
+      other.dataHora == dataHora;
   @override
   int get hashCode => Object.hash(id, petId, tipo, duracaoMin, dataHora);
 }
