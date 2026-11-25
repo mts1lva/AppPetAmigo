@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -138,6 +140,46 @@ void main() {
 
       expect(diario.alimentos.arquivados, ['a1']);
       expect(find.byType(DialogoAlimentos), findsNothing);
+    });
+
+    testWidgets('arquivar espera a transação e só então fecha', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()]);
+      final porta = Completer<void>();
+      diario.alimentos.antesDeGravar = () => porta.future;
+      await abrir(tester, diario);
+
+      await tocar(tester, find.text('Alimento • $rotuloNovoAlimento'));
+      await tocar(tester, botao('Ração habitual'));
+      await tocar(tester, botao(botaoExcluirAlimento));
+      await tocar(tester, botao('Confirmar exclusão'));
+      await tester.pump();
+
+      expect(find.byType(DialogoAlimentos), findsOneWidget);
+      expect(diario.alimentos.arquivados, isEmpty);
+
+      porta.complete();
+      await tester.pumpAndSettle();
+
+      expect(diario.alimentos.arquivados, ['a1']);
+      expect(find.byType(DialogoAlimentos), findsNothing);
+    });
+
+    testWidgets('falha ao arquivar mostra o erro e mantém o diálogo', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()]);
+      diario.alimentos.antesDeGravar = () async {
+        throw ArgumentError('Não foi possível arquivar.');
+      };
+      await abrir(tester, diario);
+
+      await tocar(tester, find.text('Alimento • $rotuloNovoAlimento'));
+      await tocar(tester, botao('Ração habitual'));
+      await tocar(tester, botao(botaoExcluirAlimento));
+      await tocar(tester, botao('Confirmar exclusão'));
+      await tester.pumpAndSettle();
+
+      expect(diario.alimentos.arquivados, isEmpty);
+      expect(find.byType(DialogoAlimentos), findsOneWidget);
+      expect(find.text('Não foi possível arquivar.'), findsOneWidget);
     });
   });
 }

@@ -60,6 +60,7 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
   RefeicaoRepositorioFalso? _refeicoes;
   final salvos = <Alimento>[];
   final arquivados = <String>[];
+  Future<void> Function()? antesDeGravar;
 
   void _avisar() => _hub.avisar();
 
@@ -89,6 +90,7 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
 
   @override
   Future<void> salvar(Alimento alimento, {required DateTime agora}) async {
+    await antesDeGravar?.call();
     salvos.add(alimento);
     _itens[alimento.id] = alimento;
     _hub.avisar();
@@ -96,6 +98,7 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
 
   @override
   Future<void> arquivar(String id, {required DateTime agora}) async {
+    await antesDeGravar?.call();
     arquivados.add(id);
     final atual = _itens[id];
     if (atual != null) _itens[id] = atual.copyWith(arquivado: true);

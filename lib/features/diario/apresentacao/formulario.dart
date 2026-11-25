@@ -12,3 +12,12 @@ DateTime juntarDataHora(DateTime data, TimeOfDay hora) =>
     DateTime(data.year, data.month, data.day, hora.hour, hora.minute);
 
 bool dataHoraFutura(DateTime valor, DateTime agora) => valor.isAfter(agora);
+
+/// Mensagem para mostrar no diálogo quando a gravação (salvar, arquivar, excluir) falha.
+String textoErroGravacao(Object erro) {
+  if (erro is ArgumentError) {
+    final mensagem = erro.message;
+    if (mensagem is String && mensagem.isNotEmpty) return mensagem;
+  }
+  return '$erro';
+}
