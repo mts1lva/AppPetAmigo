@@ -53,8 +53,9 @@ void main() {
   test('existe o teste de conexão real e o job da CI o executa', () {
     expect(File('integration_test/emuladores_conexao_test.dart').existsSync(), isTrue);
     final ci = File('.github/workflows/ci.yml').readAsStringSync();
-    expect(ci, contains('emuladores_conexao_test.dart'));
     expect(ci, contains('firebase emulators:exec'));
+    expect(ci, contains('flutter test integration_test'));
+    expect(ci, contains('android-emulator-runner'));
     expect(File('.firebaserc').readAsStringSync(), contains('pet-amigo-bac9e'));
   });
 }
