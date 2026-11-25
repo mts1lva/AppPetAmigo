@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/sugestao.dart';
+import '../../../atividades/apresentacao/providers/indicadores_atividade_provider.dart';
 import '../../data/sugestoes_adiadas_config.dart';
 import '../../domain/repositorios/sugestoes_adiadas_repositorio.dart';
 
@@ -25,8 +26,7 @@ final sugestoesAdiadasProvider = StreamProvider<Map<TipoSugestao, DateTime>>(
 final sugestoesProvider = Provider.family<List<Sugestao>, String>((ref, petId) {
   // TODO(P2-2.1): S1 reduzir petiscos → ref.watch(<provider da S1>(petId)).value
   const Sugestao? s1 = null;
-  // TODO(P3-2.1): S2 aumentar exercícios → ref.watch(<provider da S2>(petId)).value
-  const Sugestao? s2 = null;
+  final s2 = ref.watch(sugestaoExerciciosProvider(petId));
   // TODO(P4-2.1): S3 mudar objetivo → ref.watch(<provider da S3>(petId)).value
   const Sugestao? s3 = null;
   return selecionarSugestoes(

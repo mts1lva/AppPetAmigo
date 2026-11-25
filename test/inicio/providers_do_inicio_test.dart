@@ -27,9 +27,13 @@ Future<T> esperar<T>(ProviderContainer c, ProviderListenable<Future<T>> p) {
 void main() {
   group('Stubs (trocados pelos donos nas etapas 2, 3 e 5)', () {
     late ProviderContainer container;
+    late BancoLocal banco;
 
-    setUp(() => container = ProviderContainer());
-    tearDown(() => container.dispose());
+    setUp(() {
+      banco = BancoLocal(NativeDatabase.memory());
+      container = ProviderContainer(overrides: [bancoProvider.overrideWithValue(banco)]);
+    });
+    tearDown(() async { container.dispose(); await banco.close(); });
 
     test('resumoDiaProvider → dia vazio (P2-2.1)', () async {
       final resumo = await esperar(container, resumoDiaProvider(('p1', DateTime(2026, 9, 30))).future);
@@ -37,7 +41,7 @@ void main() {
       expect(resumo.temRegistros, isFalse);
     });
 
-    test('lembretesProvider → nenhum lembrete (P3-2.1)', () async {
+    test('lembretesProvider → consulta real vazia (P3-2.1)', () async {
       expect(await esperar(container, lembretesProvider('p1').future), isEmpty);
     });
 
