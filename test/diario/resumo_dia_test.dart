@@ -139,6 +139,21 @@ void main() {
     });
   });
 
+  test('linhas do histórico: refeição e extra com e sem quantidade', () {
+    expect(linhaRefeicao(refeicao()), '08:00 • Ração habitual • 30 g • 108 kcal');
+    expect(linhaExtra(extra()), '12:00 • Petisco • 3 g • 12 kcal');
+    expect(
+      linhaExtra(Extra(
+        id: 'e2',
+        petId: 'p1',
+        descricao: 'Petisco',
+        energiaKcal: 12,
+        dataHora: DateTime(2026, 9, 30, 12),
+      )),
+      '12:00 • Petisco • 12 kcal',
+    );
+  });
+
   test('R08 — refeição salva: de 0 para 108 kcal', () {
     final depois = ResumoDia(dia: hoje, racaoKcal: 108, extrasKcal: 0, registros: 1);
     expect(
