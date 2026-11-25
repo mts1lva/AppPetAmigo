@@ -25,10 +25,12 @@ String textoResumoDia(ResumoDia resumo, Resultado<MetaDiaria>? meta) {
     case Disponivel(valor: final m):
       final mer = formatarNumero(m.mer, casas: 0);
       final linha1 = '$total de $mer kcal • Petiscos $petiscos dos registros';
-      final falta = m.mer - resumo.totalKcal;
-      final linha2 = falta >= 0
-          ? 'Faltam ${formatarNumero(falta, casas: 0)} kcal para a meta de hoje.'
-          : '${formatarNumero(-falta, casas: 0)} kcal acima da meta de hoje.';
+      // Compara os inteiros que a UI mostra, para não escrever "Faltam 0 kcal".
+      final falta = (m.mer).round() - resumo.totalKcal.round();
+      if (falta == 0) return linha1;
+      final linha2 = falta > 0
+          ? 'Faltam ${formatarNumero(falta.toDouble(), casas: 0)} kcal para a meta de hoje.'
+          : '${formatarNumero((-falta).toDouble(), casas: 0)} kcal acima da meta de hoje.';
       return '$linha1\n$linha2';
     case Indisponivel() || null:
       return '$total kcal • Petiscos $petiscos dos registros\n$textoSemMeta';

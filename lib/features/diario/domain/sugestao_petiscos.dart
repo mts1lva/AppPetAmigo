@@ -1,8 +1,9 @@
 /// S1 — reduzir petiscos (U2-11, M8). Dart puro.
 ///
-/// Condição: em ≥ 3 dos últimos 7 **dias com registro**, os extras passam
-/// de 10% do total (AAHA/WSAVA, `pesquisa.md`). Dias sem registro não
-/// contam. Devolve `null` quando a regra não se aplica.
+/// Condição: na janela dos últimos 7 **dias civis**, se ≥ 3 **dias com
+/// registro** tiverem extras > 10% do total (AAHA/WSAVA, `pesquisa.md`).
+/// Dias sem registro não entram na conta (não são 7 dias com registro).
+/// Devolve `null` quando a regra não se aplica.
 library;
 
 import '../../../core/sugestao.dart';

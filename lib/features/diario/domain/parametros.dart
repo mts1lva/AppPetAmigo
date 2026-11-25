@@ -8,7 +8,7 @@ const int janelaAderenciaDias = 14;
 /// Faixa de um dia aderente: ±10% da meta (M7).
 const double faixaAderencia = 0.10;
 
-/// Janela da sugestão S1: últimos 7 dias com registro.
+/// Janela da sugestão S1: últimos 7 dias civis (só os que têm registro entram na conta).
 const int janelaSugestaoPetiscosDias = 7;
 
 /// Limite da parcela de petiscos no total do dia (S1, AAHA/WSAVA).

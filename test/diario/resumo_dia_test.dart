@@ -78,6 +78,15 @@ void main() {
       );
     });
 
+    test('total igual à meta: sem "Faltam 0 kcal"', () {
+      final resumo = ResumoDia(dia: hoje, racaoKcal: 397, extrasKcal: 0, registros: 1);
+      expect(
+        textoResumoDia(resumo, metaLuna),
+        '397 de 397 kcal • Petiscos 0% dos registros',
+      );
+      expect(textoResumoDia(resumo, metaLuna), isNot(contains('Faltam 0')));
+    });
+
     test('acima da meta: N kcal acima da meta de hoje', () {
       final resumo = ResumoDia(dia: hoje, racaoKcal: 420, extrasKcal: 0, registros: 1);
       expect(
