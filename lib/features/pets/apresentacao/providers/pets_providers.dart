@@ -3,6 +3,8 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/sync/fila_sync_provider.dart';
+import '../../../lembretes/apresentacao/providers/notificacoes_providers.dart';
+import '../../../lembretes/data/notificacoes/central_notificacoes.dart';
 import '../../data/fotos/armazenamento_fotos_local.dart';
 import '../../data/fotos/seletor_foto_galeria.dart';
 import '../../data/repositorios/pet_repositorio_drift.dart';
@@ -63,11 +65,21 @@ final cadastrarPetProvider = Provider(
 );
 
 final editarPetProvider = Provider(
-  (ref) => EditarPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider)),
+  (ref) => EditarPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider),
+    reagendarLembretes: (petId, nomePet) async {
+      if (centralNotificacoes.inicializada) {
+        await ref.read(gerenciarLembretesProvider).reagendarPet(petId, nomePet);
+      }
+    }),
 );
 
 final excluirPetProvider = Provider(
-  (ref) => ExcluirPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider)),
+  (ref) => ExcluirPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider),
+    cancelarLembretes: (petId) async {
+      if (centralNotificacoes.inicializada) {
+        await ref.read(gerenciarLembretesProvider).cancelarDoPet(petId);
+      }
+    }),
 );
 
 final trocarPetAtualProvider = Provider((ref) => TrocarPetAtual(ref.watch(petAtualRepositorioProvider)));

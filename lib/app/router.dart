@@ -40,11 +40,14 @@ String? redirecionarPorPet(AsyncValue<String?> petAtual, String local) {
   return null;
 }
 
+final chaveNavegadorProvider = Provider((ref) => GlobalKey<NavigatorState>());
+
 final roteadorProvider = Provider<GoRouter>((ref) {
   final petAtual = ValueNotifier<AsyncValue<String?>>(ref.read(petAtualIdProvider));
   ref.listen(petAtualIdProvider, (_, proximo) => petAtual.value = proximo);
 
   final roteador = GoRouter(
+    navigatorKey: ref.watch(chaveNavegadorProvider),
     initialLocation: Rotas.inicio,
     refreshListenable: petAtual,
     redirect: (context, state) => redirecionarPorPet(petAtual.value, state.matchedLocation),
