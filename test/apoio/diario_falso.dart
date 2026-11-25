@@ -115,6 +115,7 @@ final class RefeicaoRepositorioFalso implements RefeicaoRepositorio {
   void Function()? _avisarAtalho;
   final salvas = <Refeicao>[];
   final excluidas = <String>[];
+  Future<void> Function()? antesDeGravar;
 
   @override
   Stream<List<Refeicao>> observarEntre(String petId, DateTime inicio, DateTime fim) => _hub.observar(
@@ -147,6 +148,7 @@ final class RefeicaoRepositorioFalso implements RefeicaoRepositorio {
 
   @override
   Future<void> salvar(Refeicao refeicao, {required DateTime agora}) async {
+    await antesDeGravar?.call();
     salvas.add(refeicao);
     _itens[refeicao.id] = refeicao;
     _hub.avisar();
@@ -155,6 +157,7 @@ final class RefeicaoRepositorioFalso implements RefeicaoRepositorio {
 
   @override
   Future<void> excluir(String id, {required DateTime agora}) async {
+    await antesDeGravar?.call();
     excluidas.add(id);
     _itens.remove(id);
     _hub.avisar();
@@ -174,6 +177,7 @@ final class ExtraRepositorioFalso implements ExtraRepositorio {
   void Function()? _avisarAtalho;
   final salvos = <Extra>[];
   final excluidos = <String>[];
+  Future<void> Function()? antesDeGravar;
 
   @override
   Stream<List<Extra>> observarEntre(String petId, DateTime inicio, DateTime fim) => _hub.observar(
@@ -199,6 +203,7 @@ final class ExtraRepositorioFalso implements ExtraRepositorio {
 
   @override
   Future<void> salvar(Extra extra, {required DateTime agora}) async {
+    await antesDeGravar?.call();
     salvos.add(extra);
     _itens[extra.id] = extra;
     _hub.avisar();
@@ -207,6 +212,7 @@ final class ExtraRepositorioFalso implements ExtraRepositorio {
 
   @override
   Future<void> excluir(String id, {required DateTime agora}) async {
+    await antesDeGravar?.call();
     excluidos.add(id);
     _itens.remove(id);
     _hub.avisar();

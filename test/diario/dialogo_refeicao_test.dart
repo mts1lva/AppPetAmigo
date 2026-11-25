@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -122,6 +124,42 @@ void main() {
       await tocar(tester, botao('Confirmar exclusão'));
       expect(diario.refeicoes.excluidas, ['r1']);
       expect(find.byType(DialogoRefeicao), findsNothing);
+    });
+
+    testWidgets('excluir espera a transação e só então fecha', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()], refeicoes: [refeicaoHabitual()]);
+      final porta = Completer<void>();
+      diario.refeicoes.antesDeGravar = () => porta.future;
+      await abrir(tester, diario, refeicaoId: 'r1');
+
+      await tocar(tester, botao(botaoExcluirRegistro));
+      await tocar(tester, botao('Confirmar exclusão'));
+      await tester.pump();
+
+      expect(find.byType(DialogoRefeicao), findsOneWidget);
+      expect(diario.refeicoes.excluidas, isEmpty);
+
+      porta.complete();
+      await tester.pumpAndSettle();
+
+      expect(diario.refeicoes.excluidas, ['r1']);
+      expect(find.byType(DialogoRefeicao), findsNothing);
+    });
+
+    testWidgets('falha ao excluir mostra o erro e mantém o diálogo', (tester) async {
+      final diario = DiarioFalsos(alimentos: [racaoHabitual()], refeicoes: [refeicaoHabitual()]);
+      diario.refeicoes.antesDeGravar = () async {
+        throw ArgumentError('Não foi possível excluir.');
+      };
+      await abrir(tester, diario, refeicaoId: 'r1');
+
+      await tocar(tester, botao(botaoExcluirRegistro));
+      await tocar(tester, botao('Confirmar exclusão'));
+      await tester.pumpAndSettle();
+
+      expect(diario.refeicoes.excluidas, isEmpty);
+      expect(find.byType(DialogoRefeicao), findsOneWidget);
+      expect(find.text('Não foi possível excluir.'), findsOneWidget);
     });
 
     testWidgets('Outra quantidade: foco no campo Quantidade', (tester) async {

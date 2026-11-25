@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../../../app/tema/cores.dart';
+import '../../../../app/tema/tipografia.dart';
 import '../../../../core/formato/formato.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/resultado.dart';
@@ -79,7 +81,9 @@ class _DialogoRefeicaoState extends ConsumerState<DialogoRefeicao> {
   String? _erroAlimento;
   String? _erroQuantidade;
   String? _erroData;
+  String? _erroGravacao;
   var _salvando = false;
+  var _excluindo = false;
   var _inicio = false;
   var _preenchidoEdicao = false;
 
@@ -181,7 +185,10 @@ class _DialogoRefeicaoState extends ConsumerState<DialogoRefeicao> {
       return;
     }
 
-    setState(() => _salvando = true);
+    setState(() {
+      _salvando = true;
+      _erroGravacao = null;
+    });
     try {
       final id = widget.refeicaoId ?? ref.read(novoIdProvider)();
       await ref.read(salvarRefeicaoProvider)(
@@ -198,6 +205,8 @@ class _DialogoRefeicaoState extends ConsumerState<DialogoRefeicao> {
         agora: agora,
       );
       if (mounted) Navigator.of(context).pop();
+    } catch (e) {
+      if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
     } finally {
       if (mounted) setState(() => _salvando = false);
     }
@@ -206,10 +215,20 @@ class _DialogoRefeicaoState extends ConsumerState<DialogoRefeicao> {
   Future<void> _excluir() async {
     final id = widget.refeicaoId;
     if (id == null) return;
-    final nav = Navigator.of(context);
     if (!await confirmarExclusao(context)) return;
-    nav.pop();
-    await ref.read(excluirRefeicaoProvider)(id, agora: ref.read(agoraProvider)());
+    if (!mounted) return;
+    setState(() {
+      _excluindo = true;
+      _erroGravacao = null;
+    });
+    try {
+      await ref.read(excluirRefeicaoProvider)(id, agora: ref.read(agoraProvider)());
+      if (mounted) Navigator.of(context).pop();
+    } catch (e) {
+      if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
+    } finally {
+      if (mounted) setState(() => _excluindo = false);
+    }
   }
 
   @override
@@ -271,10 +290,13 @@ class _DialogoRefeicaoState extends ConsumerState<DialogoRefeicao> {
             _erroData = null;
           }),
         ),
+        if (_erroGravacao != null)
+          Text(_erroGravacao!, style: PaTexto.corpo.copyWith(color: PaCores.erro)),
       ],
       botoes: [
         PaBotao.primario(texto: botaoSalvarRefeicao, carregando: _salvando, aoTocar: _salvar),
-        if (_edicao) PaBotao.perigo(texto: botaoExcluirRegistro, aoTocar: _excluir),
+        if (_edicao)
+          PaBotao.perigo(texto: botaoExcluirRegistro, carregando: _excluindo, aoTocar: _excluir),
         PaBotao.secundario(texto: 'Voltar', aoTocar: () => Navigator.of(context).pop()),
       ],
     );
