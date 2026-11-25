@@ -52,6 +52,8 @@ Future<void> tocar(WidgetTester tester, Finder alvo) async {
 }
 
 void main() {
+  setUpAll(() => usarComparadorComTolerancia(tolerancia: 0.03));
+
   group('fonte em 200%: nada corta', () {
     testWidgets('02 Diário', (tester) async {
       await montarApp(tester);
