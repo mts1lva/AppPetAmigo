@@ -33,3 +33,15 @@ Evidência: `arquivos/01-inicio-fonte-200.png` (gerada por `test/acessibilidade/
 | Limitação | Motivo |
 |---|---|
 | Na navegação, "Atividades" e "Evolução" quebram no meio da palavra ("Ativida/des", "Evoluç/ão") | Cada item tem cerca de 87 dp de largura e a palavra em 200% não cabe numa linha. A spec pede crescer em altura em vez de cortar, e isso acontece; reduzir a fonte só na navegação iria contra a ampliação pedida pelo tutor |
+
+## 03 Atividades (P3-1.9, 25/11/2026)
+
+Comparados visualmente `arquivos/03-atividades.png` e `docs/design/telas/03-atividades.png`.
+
+| Diferença | Motivo |
+|---|---|
+| A linha da atividade aumenta o card Hoje em aproximadamente 26 dp | `PaHistorico` mantém a área mínima de toque de 48 dp exigida pelo design system, enquanto o PNG mostra apenas a linha de texto |
+| A navegação fica mais abaixo, com espaço livre após as dicas | Golden em 390 × 844 dp, como exigido; o PNG exportado tem altura menor |
+| Anteriores aparece somente quando há registros nos sete dias anteriores | P-08; o exemplo do golden contém apenas a atividade de hoje |
+
+Também gerado `arquivos/03-atividades-fonte-200.png`: texto rolável e navegação sem corte. Isso verifica o layout automatizado; a conferência manual com TalkBack continua pendente.
