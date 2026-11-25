@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
@@ -85,6 +87,42 @@ void main() {
       await tocar(tester, botao(botaoExcluirRegistro));
       await tocar(tester, botao('Confirmar exclusão'));
       expect(diario.extras.excluidos, ['e1']);
+    });
+
+    testWidgets('excluir espera a transação e só então fecha', (tester) async {
+      final diario = DiarioFalsos(extras: [extraHabitual()]);
+      final porta = Completer<void>();
+      diario.extras.antesDeGravar = () => porta.future;
+      await abrir(tester, diario, extraId: 'e1');
+
+      await tocar(tester, botao(botaoExcluirRegistro));
+      await tocar(tester, botao('Confirmar exclusão'));
+      await tester.pump();
+
+      expect(find.byType(DialogoPetisco), findsOneWidget);
+      expect(diario.extras.excluidos, isEmpty);
+
+      porta.complete();
+      await tester.pumpAndSettle();
+
+      expect(diario.extras.excluidos, ['e1']);
+      expect(find.byType(DialogoPetisco), findsNothing);
+    });
+
+    testWidgets('falha ao excluir mostra o erro e mantém o diálogo', (tester) async {
+      final diario = DiarioFalsos(extras: [extraHabitual()]);
+      diario.extras.antesDeGravar = () async {
+        throw ArgumentError('Não foi possível excluir.');
+      };
+      await abrir(tester, diario, extraId: 'e1');
+
+      await tocar(tester, botao(botaoExcluirRegistro));
+      await tocar(tester, botao('Confirmar exclusão'));
+      await tester.pumpAndSettle();
+
+      expect(diario.extras.excluidos, isEmpty);
+      expect(find.byType(DialogoPetisco), findsOneWidget);
+      expect(find.text('Não foi possível excluir.'), findsOneWidget);
     });
   });
 }
