@@ -89,8 +89,9 @@ class _DialogoAtividadeState extends ConsumerState<DialogoAtividade> {
       await ref.read(salvarAtividadeProvider)(atividade, agora: agora);
       if (mounted) Navigator.of(context).pop();
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         setState(() => _falha = 'Não foi possível salvar. Tente novamente.');
+      }
     } finally {
       if (mounted) setState(() => _ocupado = false);
     }
@@ -109,8 +110,9 @@ class _DialogoAtividadeState extends ConsumerState<DialogoAtividade> {
           );
       if (mounted) Navigator.of(context).pop();
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         setState(() => _falha = 'Não foi possível excluir. Tente novamente.');
+      }
     } finally {
       if (mounted) setState(() => _ocupado = false);
     }

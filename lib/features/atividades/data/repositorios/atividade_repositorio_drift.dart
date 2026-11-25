@@ -36,8 +36,9 @@ final class AtividadeRepositorioDrift implements AtividadeRepositorio {
     Atividade a, {
     required DateTime agora,
   }) => _banco.transaction(() async {
-    if (validarAtividade(a, agora).isNotEmpty)
+    if (validarAtividade(a, agora).isNotEmpty) {
       throw ArgumentError('Atividade inválida.');
+    }
     final pet =
         await (_banco.select(_banco.pets)
               ..where((p) => p.id.equals(a.petId) & p.excluido.equals(false)))
@@ -46,8 +47,9 @@ final class AtividadeRepositorioDrift implements AtividadeRepositorio {
     final anterior = await (_banco.select(
       _banco.atividades,
     )..where((r) => r.id.equals(a.id))).getSingleOrNull();
-    if (anterior != null && (anterior.petId != a.petId || anterior.excluido))
+    if (anterior != null && (anterior.petId != a.petId || anterior.excluido)) {
       throw StateError('Registro indisponível.');
+    }
     final estado = (await _fila.estadoInicial()).name;
     await _banco
         .into(_banco.atividades)

@@ -36,8 +36,9 @@ final class LembreteMapeador implements MapeadorSync<Lembrete> {
       throw const FormatException('Documento de lembrete inválido.');
     }
     final idLocal = notificacaoIdLocal(id);
-    if (idLocal < 0 || idLocal > 0x7fffffff)
+    if (idLocal < 0 || idLocal > 0x7fffffff) {
       throw const FormatException('Id local de notificação inválido.');
+    }
     return Lembrete(
       id: id,
       petId: petId,

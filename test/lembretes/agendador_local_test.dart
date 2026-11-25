@@ -9,9 +9,12 @@ import 'package:timezone/timezone.dart' as tz;
 
 void main() {
   const canal = MethodChannel('dexterous.com/flutter/local_notifications');
+  const permissoes = MethodChannel('br.com.petamigo/permissoes');
   final chamadas = <MethodCall>[];
   var exato = false;
   var revogar = false;
+  var notificacoesPermitidas = true;
+  var negadaPermanentemente = false;
   setUp(() {
     dados.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation('America/Fortaleza'));
@@ -20,11 +23,21 @@ void main() {
     chamadas.clear();
     exato = false;
     revogar = false;
+    notificacoesPermitidas = true;
+    negadaPermanentemente = false;
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(permissoes, (chamada) async {
+          chamadas.add(chamada);
+          return chamada.method == 'notificacoesNegadasPermanentemente'
+              ? negadaPermanentemente
+              : null;
+        });
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(canal, (chamada) async {
           chamadas.add(chamada);
           if (chamada.method == 'canScheduleExactNotifications') return exato;
-          if (chamada.method == 'areNotificationsEnabled') return true;
+          if (chamada.method == 'areNotificationsEnabled')
+            return notificacoesPermitidas;
           if (chamada.method == 'zonedSchedule' && revogar) {
             revogar = false;
             throw PlatformException(code: 'exact_alarms_not_permitted');
@@ -37,6 +50,8 @@ void main() {
     debugDefaultTargetPlatformOverride = null;
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(canal, null);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(permissoes, null);
   });
   const lembrete = Lembrete(
     id: 'l1',
@@ -65,6 +80,10 @@ void main() {
           chamadas.singleWhere((c) => c.method == 'zonedSchedule').arguments
               as Map;
       expect(args['id'], 42);
+      expect(
+        (args['platformSpecifics'] as Map)['scheduleMode'],
+        'inexactAllowWhileIdle',
+      );
       expect(args['payload'], 'p1|refeicao');
       expect(args['title'], 'Hora da refeição de Luna');
       expect(args['body'], 'Toque para registrar.');
@@ -79,6 +98,30 @@ void main() {
     await AgendadorLocal(relogio: () => DateTime(2026, 11, 25))
         .agendarDiario(lembrete, nomePet: 'Luna');
     expect(chamadas.where((c) => c.method == 'zonedSchedule'), hasLength(2));
+  });
+  test('primeiro pedido usa a permissão nativa; negação permanente abre configurações', () async {
+    notificacoesPermitidas = false;
+    final agendador = AgendadorLocal();
+    await agendador.pedirNotificacoes();
+    expect(
+      chamadas.where((c) => c.method == 'requestNotificationsPermission'),
+      hasLength(1),
+    );
+    expect(
+      chamadas.where((c) => c.method == 'openAppNotificationSettings'),
+      isEmpty,
+    );
+    chamadas.clear();
+    negadaPermanentemente = true;
+    await agendador.pedirNotificacoes();
+    expect(
+      chamadas.where((c) => c.method == 'requestNotificationsPermission'),
+      isEmpty,
+    );
+    expect(
+      chamadas.where((c) => c.method == 'openAppNotificationSettings'),
+      hasLength(1),
+    );
   });
   test('horário seguinte passa para amanhã e mantém hora de parede no DST', () {
     final fuso = tz.getLocation('America/New_York');

@@ -52,8 +52,9 @@ final class LembreteRepositorioDrift implements LembreteRepositorio {
     final anterior = await (_banco.select(
       _banco.lembretes,
     )..where((r) => r.id.equals(l.id))).getSingleOrNull();
-    if (anterior != null && (anterior.petId != l.petId || anterior.excluido))
+    if (anterior != null && (anterior.petId != l.petId || anterior.excluido)) {
       throw StateError('Registro indisponível.');
+    }
     // A alocação ocorre na mesma transação; inclui lápides para não reutilizar
     // um id cujo alarme antigo ainda possa existir no Android.
     final maior =
@@ -63,8 +64,9 @@ final class LembreteRepositorioDrift implements LembreteRepositorio {
             .getSingleOrNull();
     final notificacaoId =
         anterior?.notificacaoId ?? (maior?.notificacaoId ?? 0) + 1;
-    if (notificacaoId > 0x7fffffff)
+    if (notificacaoId > 0x7fffffff) {
       throw StateError('Limite de notificações atingido.');
+    }
     await _banco
         .into(_banco.lembretes)
         .insertOnConflictUpdate(

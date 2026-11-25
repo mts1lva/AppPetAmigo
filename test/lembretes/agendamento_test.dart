@@ -212,4 +212,17 @@ void main() {
       'Hora da refeição de Luna',
     );
   });
+
+  test('falha no Android preserva o registro e a nova tentativa usa o mesmo id', () async {
+    agendador.falhar = true;
+    const l = Lembrete(id: 'novo', petId: 'luna', horaMinutos: 480,
+      tipo: TipoLembrete.refeicao, ativo: true, notificacaoId: 0);
+    await expectLater(gerenciar.salvar(l, nomePet: 'Luna', agora: hoje), throwsA(isA<AgendamentoPendente>()));
+    final salvo = (await repo.listar('luna')).single;
+    agendador.falhar = false;
+    final repetido = await gerenciar.salvar(l, nomePet: 'Luna', agora: hoje);
+    expect(repetido.notificacaoId, salvo.notificacaoId);
+    expect(await repo.listar('luna'), hasLength(1));
+    expect(agendador.agendados, hasLength(1));
+  });
 }

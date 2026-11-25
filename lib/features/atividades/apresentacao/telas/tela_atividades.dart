@@ -19,11 +19,12 @@ class TelaAtividades extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pet = ref.watch(petAtualProvider);
-    if (pet == null)
+    if (pet == null) {
       return const PaTelaPrincipal(
         titulo: 'Atividades',
         subtitulo: 'Pequenos momentos juntos.',
       );
+    }
     final agora = ref.watch(agoraProvider)();
     final hoje = DateTime(agora.year, agora.month, agora.day);
     final semana = DateTime(hoje.year, hoje.month, hoje.day - 7);

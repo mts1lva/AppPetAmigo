@@ -28,9 +28,10 @@ final class ExportacaoRepositorioDrift implements ExportacaoRepositorio {
       }
       for (final chave in ['dataHora', 'data', 'idadeInformadaEm']) {
         final valor = json[chave];
-        if (valor is int)
+        if (valor is int) {
           json[chave] = DateTime.fromMillisecondsSinceEpoch(valor)
               .toIso8601String();
+        }
       }
       return json;
     }

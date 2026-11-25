@@ -5,6 +5,7 @@ import 'package:petamigo/features/lembretes/domain/repositorios/agendador_notifi
 import 'package:petamigo/features/lembretes/domain/repositorios/lembrete_repositorio.dart';
 
 final class AgendadorFalso implements AgendadorNotificacoes {
+  bool falhar = false;
   final agendados =
       <int, ({Lembrete lembrete, String nomePet, String payload})>{};
   final cancelados = <int>[];
@@ -12,6 +13,7 @@ final class AgendadorFalso implements AgendadorNotificacoes {
 
   @override
   Future<void> agendarDiario(Lembrete l, {required String nomePet}) async {
+    if (falhar) throw StateError('Falha simulada no agendador.');
     agendados[l.notificacaoId] = (
       lembrete: l,
       nomePet: nomePet,

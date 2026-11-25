@@ -18,7 +18,8 @@ Future<void> abrirLembretes(
   BuildContext context, {
   required String petId,
 }) async {
-  while (context.mounted) {
+  while (true) {
+    if (!context.mounted) return;
     final acao = await mostrarPaDialogo<({Lembrete? lembrete, Pet pet})>(
       context,
       builder: (_) => DialogoLembretes(petId: petId),
@@ -51,14 +52,16 @@ class _DialogoLembretesState extends ConsumerState<DialogoLembretes> {
     try {
       await acao();
     } on AgendamentoPendente {
-      if (mounted)
+      if (mounted) {
         setState(
           () => _falha =
               'Salvo neste aparelho. O agendamento dos avisos está pendente.',
         );
+      }
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         setState(() => _falha = 'Não foi possível concluir. Tente novamente.');
+      }
     } finally {
       if (mounted) {
         ref.invalidate(permissoesLembretesProvider(widget.petId));
@@ -233,18 +236,21 @@ class _DialogoLembreteState extends ConsumerState<DialogoLembrete> {
     } on HorarioRepetido {
       if (mounted) {
         setState(() => _erroHora = 'Já existe um lembrete nesse horário.');
-        if (_chaveHora.currentContext != null)
+        if (_chaveHora.currentContext != null) {
           await Scrollable.ensureVisible(_chaveHora.currentContext!);
+        }
       }
     } on AgendamentoPendente {
-      if (mounted)
+      if (mounted) {
         setState(
           () => _falha =
               'Salvo neste aparelho. O agendamento dos avisos está pendente.',
         );
+      }
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         setState(() => _falha = 'Não foi possível salvar. Tente novamente.');
+      }
     } finally {
       if (mounted) setState(() => _ocupado = false);
     }
@@ -259,8 +265,9 @@ class _DialogoLembreteState extends ConsumerState<DialogoLembrete> {
           .excluir(widget.lembrete!, agora: ref.read(agoraProvider)());
       if (mounted) Navigator.of(context).pop();
     } catch (_) {
-      if (mounted)
+      if (mounted) {
         setState(() => _falha = 'Não foi possível excluir. Tente novamente.');
+      }
     } finally {
       if (mounted) setState(() => _ocupado = false);
     }

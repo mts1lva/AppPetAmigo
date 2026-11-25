@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../core/banco/banco_provider.dart';
@@ -68,7 +69,8 @@ final editarPetProvider = Provider(
   (ref) => EditarPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider),
     reagendarLembretes: (petId, nomePet) async {
       if (centralNotificacoes.inicializada) {
-        await ref.read(gerenciarLembretesProvider).reagendarPet(petId, nomePet);
+        try { await ref.read(gerenciarLembretesProvider).reagendarPet(petId, nomePet); }
+        catch (erro) { debugPrint('Reagendamento pendente (${erro.runtimeType}).'); }
       }
     }),
 );
@@ -77,7 +79,8 @@ final excluirPetProvider = Provider(
   (ref) => ExcluirPet(ref.watch(petRepositorioProvider), ref.watch(armazenamentoFotosProvider),
     cancelarLembretes: (petId) async {
       if (centralNotificacoes.inicializada) {
-        await ref.read(gerenciarLembretesProvider).cancelarDoPet(petId);
+        try { await ref.read(gerenciarLembretesProvider).cancelarDoPet(petId); }
+        catch (erro) { debugPrint('Cancelamento de avisos pendente (${erro.runtimeType}).'); }
       }
     }),
 );
