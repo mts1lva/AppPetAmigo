@@ -1,1 +1,36 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"pet-amigo-bac9e","appId":"1:76934890542:android:0c19c97c6fd3787a6b8bbf","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"pet-amigo-bac9e","configurations":{"android":"1:76934890542:android:0c19c97c6fd3787a6b8bbf"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "pet-amigo-bac9e",
+          "appId": "1:76934890542:android:0c19c97c6fd3787a6b8bbf",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "pet-amigo-bac9e",
+          "configurations": {
+            "android": "1:76934890542:android:0c19c97c6fd3787a6b8bbf"
+          }
+        }
+      }
+    }
+  },
+  "firestore": {
+    "rules": "firestore.rules"
+  },
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8080
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
+  }
+}
