@@ -9,7 +9,6 @@ import 'package:petamigo/features/diario/domain/periodo.dart';
 import 'package:petamigo/features/diario/domain/repositorios/alimento_repositorio.dart';
 import 'package:petamigo/features/diario/domain/repositorios/extra_repositorio.dart';
 import 'package:petamigo/features/diario/domain/repositorios/refeicao_repositorio.dart';
-import 'package:petamigo/features/pets/apresentacao/providers/pets_providers.dart';
 
 /// Repositórios do diário em memória, para widget tests.
 final class DiarioFalsos {
@@ -28,13 +27,11 @@ final class DiarioFalsos {
   final AlimentoRepositorioFalso alimentos;
   final RefeicaoRepositorioFalso refeicoes;
   final ExtraRepositorioFalso extras;
-  var _contador = 0;
 
   List<Override> get overrides => [
         alimentoRepositorioProvider.overrideWithValue(alimentos),
         refeicaoRepositorioProvider.overrideWithValue(refeicoes),
         extraRepositorioProvider.overrideWithValue(extras),
-        novoIdProvider.overrideWithValue(() => 'novo-${++_contador}'),
       ];
 }
 
@@ -223,4 +220,24 @@ Alimento racaoHabitual({String petId = 'p1'}) => Alimento(
       nome: 'Ração habitual',
       densidadeKcalPor100g: 360,
       porcaoPadraoG: 30,
+    );
+
+Refeicao refeicaoHabitual({String petId = 'p1', DateTime? quando}) => Refeicao(
+      id: 'r1',
+      petId: petId,
+      alimentoId: 'a1',
+      alimentoNome: 'Ração habitual',
+      densidadeKcalPor100g: 360,
+      quantidadeG: 30,
+      energiaKcal: 108,
+      dataHora: quando ?? DateTime(2026, 9, 30, 8),
+    );
+
+Extra extraHabitual({String petId = 'p1', DateTime? quando}) => Extra(
+      id: 'e1',
+      petId: petId,
+      descricao: 'Petisco',
+      quantidadeG: 3,
+      energiaKcal: 12,
+      dataHora: quando ?? DateTime(2026, 9, 30, 12),
     );

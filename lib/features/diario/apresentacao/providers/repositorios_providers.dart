@@ -34,6 +34,14 @@ final alimentoProvider = StreamProvider.family<Alimento?, String>(
   (ref, id) => ref.watch(alimentoRepositorioProvider).observar(id),
 );
 
+final refeicaoProvider = StreamProvider.family<Refeicao?, String>(
+  (ref, id) => ref.watch(refeicaoRepositorioProvider).observar(id),
+);
+
+final extraProvider = StreamProvider.family<Extra?, String>(
+  (ref, id) => ref.watch(extraRepositorioProvider).observar(id),
+);
+
 /// Refeições do [dia] (00:00 a 23:59). Passe o dia sem hora.
 final refeicoesDoDiaProvider = StreamProvider.family<List<Refeicao>, (String petId, DateTime dia)>(
   (ref, args) {
