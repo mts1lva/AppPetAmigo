@@ -36,8 +36,9 @@ void main() {
         .setMockMethodCallHandler(canal, (chamada) async {
           chamadas.add(chamada);
           if (chamada.method == 'canScheduleExactNotifications') return exato;
-          if (chamada.method == 'areNotificationsEnabled')
+          if (chamada.method == 'areNotificationsEnabled') {
             return notificacoesPermitidas;
+          }
           if (chamada.method == 'zonedSchedule' && revogar) {
             revogar = false;
             throw PlatformException(code: 'exact_alarms_not_permitted');
