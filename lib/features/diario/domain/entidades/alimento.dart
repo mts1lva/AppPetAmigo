@@ -25,6 +25,22 @@ final class Alimento {
   final double porcaoPadraoG;
   final bool arquivado;
 
+  Alimento copyWith({
+    String? nome,
+    double? densidadeKcalPor100g,
+    double? porcaoPadraoG,
+    bool? arquivado,
+  }) {
+    return Alimento(
+      id: id,
+      petId: petId,
+      nome: nome ?? this.nome,
+      densidadeKcalPor100g: densidadeKcalPor100g ?? this.densidadeKcalPor100g,
+      porcaoPadraoG: porcaoPadraoG ?? this.porcaoPadraoG,
+      arquivado: arquivado ?? this.arquivado,
+    );
+  }
+
   @override
   bool operator ==(Object other) =>
       other is Alimento &&
