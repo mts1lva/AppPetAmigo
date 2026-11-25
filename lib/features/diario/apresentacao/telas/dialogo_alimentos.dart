@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:material_ui/material_ui.dart';
 
+import '../../../../app/tema/cores.dart';
+import '../../../../app/tema/tipografia.dart';
 import '../../../../core/formato/formato.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/ui/ui.dart';
@@ -100,7 +102,9 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
   String _idSelecionado = _idNovo;
   String? _erroNome;
   String? _erroPorcao;
+  String? _erroGravacao;
   var _salvando = false;
+  var _excluindo = false;
 
   bool get _novo => _idSelecionado == _idNovo;
 
@@ -187,7 +191,10 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
       return;
     }
 
-    setState(() => _salvando = true);
+    setState(() {
+      _salvando = true;
+      _erroGravacao = null;
+    });
     try {
       final agora = ref.read(agoraProvider)();
       final id = _novo ? ref.read(novoIdProvider)() : _idSelecionado;
@@ -202,6 +209,8 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
         agora: agora,
       );
       if (mounted) Navigator.of(context).pop();
+    } catch (e) {
+      if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
     } finally {
       if (mounted) setState(() => _salvando = false);
     }
@@ -210,10 +219,20 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
   Future<void> _excluir() async {
     if (_novo) return;
     final id = _idSelecionado;
-    final nav = Navigator.of(context);
     if (!await confirmarExclusao(context)) return;
-    nav.pop();
-    await ref.read(arquivarAlimentoProvider)(id, agora: ref.read(agoraProvider)());
+    if (!mounted) return;
+    setState(() {
+      _excluindo = true;
+      _erroGravacao = null;
+    });
+    try {
+      await ref.read(arquivarAlimentoProvider)(id, agora: ref.read(agoraProvider)());
+      if (mounted) Navigator.of(context).pop();
+    } catch (e) {
+      if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
+    } finally {
+      if (mounted) setState(() => _excluindo = false);
+    }
   }
 
   @override
@@ -265,6 +284,8 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
             aoMudar: (_) => setState(() => _erroPorcao = null),
           ),
         ),
+        if (_erroGravacao != null)
+          Text(_erroGravacao!, style: PaTexto.corpo.copyWith(color: PaCores.erro)),
       ],
       botoes: [
         PaBotao.primario(
@@ -272,7 +293,12 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
           carregando: _salvando,
           aoTocar: _salvar,
         ),
-        if (!_novo) PaBotao.perigo(texto: botaoExcluirAlimento, aoTocar: _excluir),
+        if (!_novo)
+          PaBotao.perigo(
+            texto: botaoExcluirAlimento,
+            carregando: _excluindo,
+            aoTocar: _excluir,
+          ),
         PaBotao.secundario(texto: 'Voltar', aoTocar: () => Navigator.of(context).pop()),
       ],
     );
