@@ -4,10 +4,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:petamigo/core/relogio.dart';
 import 'package:petamigo/core/ui/ui.dart';
+import 'package:petamigo/features/diario/apresentacao/providers/alimento_atalho_provider.dart';
 import 'package:petamigo/features/diario/apresentacao/telas/dialogo_alimentos.dart';
 import 'package:petamigo/features/diario/apresentacao/telas/dialogo_atalho.dart';
 import 'package:petamigo/features/diario/apresentacao/telas/dialogo_refeicao.dart';
 import 'package:petamigo/features/diario/apresentacao/telas/dialogo_refeicao_salva.dart';
+import 'package:petamigo/features/diario/domain/entidades/alimento.dart';
 import 'package:petamigo/features/diario/domain/textos_diario.dart';
 import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
@@ -75,6 +77,35 @@ void main() {
       expect(find.textContaining(rotuloPorcaoHabitual), findsOneWidget);
       expect(botao(botaoConfirmarRefeicao), findsOneWidget);
       expect(botao(botaoAlterarDados), findsOneWidget);
+    });
+
+    const sache = Alimento(id: 'a2', petId: 'p1', nome: 'Sachê', densidadeKcalPor100g: 80, porcaoPadraoG: 85);
+    const umido = Alimento(id: 'a3', petId: 'p1', nome: 'Úmido', densidadeKcalPor100g: 120, porcaoPadraoG: 50);
+
+    testWidgets('sem refeição, vem o último alimento cadastrado', (tester) async {
+      await abrir(tester, DiarioFalsos(alimentos: [racaoHabitual(), sache]));
+
+      expect(find.textContaining('Energia do rótulo: 80 kcal/100 g'), findsOneWidget);
+      expect(find.textContaining('Energia do rótulo: 360 kcal/100 g'), findsNothing);
+    });
+
+    testWidgets('espera o alimento do atalho, mesmo que a lista chegue antes', (tester) async {
+      await abrir(
+        tester,
+        DiarioFalsos(alimentos: [racaoHabitual(), sache, umido]),
+        extras: [
+          alimentoAtalhoProvider.overrideWith(
+            (ref, petId) => Stream.fromFuture(
+              Future<Alimento?>.delayed(const Duration(milliseconds: 500), () => sache),
+            ),
+          ),
+        ],
+      );
+      // A lista já chegou; o atalho só chega depois de 500 ms.
+      await tester.pump(const Duration(milliseconds: 600));
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('Energia do rótulo: 80 kcal/100 g'), findsOneWidget);
     });
 
     testWidgets('2 toques: Confirmar grava a porção habitual e abre o 20', (tester) async {

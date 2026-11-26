@@ -16,6 +16,9 @@ const textoSemRegistros = 'Sem registros nesta data. Ausência de dados não sig
 
 const textoSemMeta = 'Registre uma pesagem para ver a meta.';
 
+/// Falha ao gravar no banco (não é erro de validação), nos diálogos (P-29).
+const textoFalhaGravacao = 'Não foi possível salvar. Tente novamente.';
+
 /// Card "Resumo do dia" do Diário (R02). Duas linhas separadas por `\n`.
 /// Sem registros: só [textoSemRegistros] (R09).
 String textoResumoDia(ResumoDia resumo, Resultado<MetaDiaria>? meta) {
