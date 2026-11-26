@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/sugestao.dart';
+import '../../../diario/apresentacao/providers/sugestao_petiscos_provider.dart';
 import '../../../evolucao/apresentacao/providers/evolucao_providers.dart';
 import '../../data/sugestoes_adiadas_config.dart';
 import '../../domain/repositorios/sugestoes_adiadas_repositorio.dart';
@@ -20,12 +21,11 @@ final sugestoesAdiadasProvider = StreamProvider<Map<TipoSugestao, DateTime>>(
 /// S3 > S1 > S2, tira as adiadas há menos de 7 dias e devolve no máximo 2
 /// (P1-0.11, P1-1.6).
 ///
-/// Cada pacote troca a sua linha pelo próprio provider, sem mudar a
-/// assinatura deste. A S3 foi ligada na P4-2.1; S1 e S2 ainda devolvem
-/// `null`.
+/// S1 vem do diário (`sugestaoPetiscosProvider`, P2-2.1) e S3 da evolução
+/// (`sugestaoObjetivoProvider`, P4-2.1). S2 continua nula até o pacote 3
+/// ligar a própria linha, sem mudar a assinatura deste provider.
 final sugestoesProvider = Provider.family<List<Sugestao>, String>((ref, petId) {
-  // TODO(P2-2.1): S1 reduzir petiscos → ref.watch(<provider da S1>(petId)).value
-  const Sugestao? s1 = null;
+  final s1 = ref.watch(sugestaoPetiscosProvider(petId));
   // TODO(P3-2.1): S2 aumentar exercícios → ref.watch(<provider da S2>(petId)).value
   const Sugestao? s2 = null;
   final s3 = ref.watch(sugestaoObjetivoProvider(petId));

@@ -4,6 +4,7 @@ import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem
 import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provider.dart';
 import 'package:petamigo/features/inicio/domain/repositorios/sugestoes_adiadas_repositorio.dart';
 
+import 'diario_falso.dart';
 import 'pets_falsos.dart';
 
 /// "Agora não" falso: só anota o que foi adiado.
@@ -21,6 +22,7 @@ final class AdiadasFalsas implements SugestoesAdiadasRepositorio {
 /// banco: pets falsos, nenhuma pesagem e nenhuma sugestão adiada.
 List<Override> overridesSemBanco([PetsFalsos? pets]) => [
   ...(pets ?? PetsFalsos()).overrides,
+  ...DiarioFalsos().overrides,
   ultimaPesagemProvider.overrideWith((ref, petId) => Stream.value(null)),
   sugestoesAdiadasRepositorioProvider.overrideWithValue(AdiadasFalsas()),
 ];
