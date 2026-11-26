@@ -73,8 +73,9 @@ void main() {
     testWidgets('legenda e texto alternativo visíveis; o desenho fica fora da acessibilidade', (tester) async {
       await montarWidget(tester, dadosLuna(), alt: 'alt da Luna');
 
-      expect(find.text(GraficoEvolucao.legenda), findsOneWidget);
-      expect(find.text('── pesagens   - - projeção   ··· curva ideal'), findsOneWidget);
+      for (final palavra in ['pesagens', 'projeção', 'curva ideal']) {
+        expect(find.text(palavra), findsOneWidget);
+      }
       expect(find.text('alt da Luna'), findsOneWidget);
       expect(tester.getSize(areaDoGrafico).height, GraficoEvolucao.altura);
       expect(find.bySemanticsLabel('alt da Luna'), findsOneWidget);

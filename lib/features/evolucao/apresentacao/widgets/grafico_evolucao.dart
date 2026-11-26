@@ -29,8 +29,9 @@ class GraficoEvolucao extends StatefulWidget {
   /// Altura da área do gráfico.
   static const altura = 180.0;
 
-  /// Legenda das séries: o traço desenhado + a palavra (RNF02).
-  static const legenda = '── pesagens   - - projeção   ··· curva ideal';
+  /// Palavras da legenda, cada uma depois do desenho do traço da série
+  /// (RNF02): contínuo, tracejado e pontilhado.
+  static const legenda = ['pesagens', 'projeção', 'curva ideal'];
 
   /// Tempo que o balão fica depois de soltar o dedo.
   static const tempoBalao = Duration(seconds: 2);
@@ -107,7 +108,7 @@ class _GraficoEvolucaoState extends State<GraficoEvolucao> {
             },
           ),
         ),
-        const ExcludeSemantics(child: Text(GraficoEvolucao.legenda, style: PaTexto.legenda)),
+        const ExcludeSemantics(child: _Legenda()),
         Text(widget.textoAlternativo, style: PaTexto.legenda),
       ]),
     );
@@ -306,4 +307,63 @@ class PintorGrafico extends CustomPainter {
 
   @override
   bool shouldRepaint(PintorGrafico antigo) => antigo.dados != dados || antigo.diaSelecionado != diaSelecionado;
+}
+
+/// Legenda embaixo do gráfico: o desenho de cada traço seguido da palavra
+/// (`design-system.md`: `── pesagens   - - projeção   ··· curva ideal`).
+/// Desenhada, porque a Inter não tem os caracteres de traço `─`.
+class _Legenda extends StatelessWidget {
+  const _Legenda();
+
+  @override
+  Widget build(BuildContext context) {
+    Widget item(_Traco traco, String palavra) => Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomPaint(size: const Size(20, 8), painter: _PintorTraco(traco)),
+            const SizedBox(width: 6),
+            Text(palavra, style: PaTexto.legenda),
+          ],
+        );
+    return Wrap(
+      spacing: 16,
+      runSpacing: 4,
+      children: [
+        item(_Traco.continuo, GraficoEvolucao.legenda[0]),
+        item(_Traco.tracejado, GraficoEvolucao.legenda[1]),
+        item(_Traco.pontilhado, GraficoEvolucao.legenda[2]),
+      ],
+    );
+  }
+}
+
+enum _Traco { continuo, tracejado, pontilhado }
+
+class _PintorTraco extends CustomPainter {
+  const _PintorTraco(this.traco);
+
+  final _Traco traco;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final (cor, largura, padrao) = switch (traco) {
+      _Traco.continuo => (PaCores.verde, 3.0, null),
+      _Traco.tracejado => (PaCores.verde, 2.0, (6.0, 4.0)),
+      _Traco.pontilhado => (PaCores.texto, 2.0, (2.0, 4.0)),
+    };
+    final tinta = Paint()
+      ..color = cor
+      ..strokeWidth = largura;
+    final y = size.height / 2;
+    if (padrao == null) {
+      canvas.drawLine(Offset(0, y), Offset(size.width, y), tinta);
+      return;
+    }
+    for (var x = 0.0; x < size.width; x += padrao.$1 + padrao.$2) {
+      canvas.drawLine(Offset(x, y), Offset((x + padrao.$1).clamp(0, size.width), y), tinta);
+    }
+  }
+
+  @override
+  bool shouldRepaint(_PintorTraco antigo) => antigo.traco != traco;
 }
