@@ -16,6 +16,7 @@ import '../../../diario/apresentacao/telas/dialogo_atalho.dart';
 import '../../../diario/domain/entidades/resumo_dia.dart';
 import '../../../evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
 import '../../../lembretes/apresentacao/providers/lembretes_provider.dart';
+import '../../../lembretes/apresentacao/telas/dialogo_lembretes.dart';
 import '../../../nutricao/apresentacao/providers/meta_provider.dart';
 import '../../../nutricao/apresentacao/telas/dialogo_como_meta.dart';
 import '../../../nutricao/domain/descricao_meta.dart';
@@ -198,8 +199,7 @@ class _CardLembretes extends ConsumerWidget {
       titulo: tituloLembretes,
       texto: textoLembretes(lembretes),
       filhos: [
-        // TODO(P3-2.1): abrir o N2 Lembretes.
-        PaBotao.secundario(texto: botaoConfigurarLembretes, aoTocar: () {}),
+        PaBotao.secundario(texto: botaoConfigurarLembretes, aoTocar: () => abrirLembretes(context, petId: petId)),
       ],
     );
   }
