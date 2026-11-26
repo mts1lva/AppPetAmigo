@@ -29,10 +29,9 @@ final class VerificadorWifiConnectivity implements VerificadorWifi {
 
   /// Construtor para testes unitários, sem depender de canal de plataforma.
   VerificadorWifiConnectivity.comFonte({
-    required Future<List<ConnectivityResult>> Function() verificar,
-    required Stream<List<ConnectivityResult>> Function() observar,
-  })  : _verificar = verificar,
-        _observar = observar;
+    required this._verificar,
+    required this._observar,
+  });
 
   final Future<List<ConnectivityResult>> Function() _verificar;
   final Stream<List<ConnectivityResult>> Function() _observar;

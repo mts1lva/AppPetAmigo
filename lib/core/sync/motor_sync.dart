@@ -49,15 +49,12 @@ final class ResultadoCicloSync {
 ///   `tentativas + 1`.
 final class MotorSync {
   MotorSync({
-    required BancoLocal banco,
-    required RemotoSync remoto,
-    required VerificadorWifi wifi,
+    required this._banco,
+    required this._remoto,
+    required this._wifi,
     this.tamanhoLote = tamanhoPadraoLote,
     DateTime Function()? agora,
   })  : assert(tamanhoLote > 0 && tamanhoLote <= limiteWriteBatch),
-        _banco = banco,
-        _remoto = remoto,
-        _wifi = wifi,
         _agora = agora ?? DateTime.now;
 
   final BancoLocal _banco;
