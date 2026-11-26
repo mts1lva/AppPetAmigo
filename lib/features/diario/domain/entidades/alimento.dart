@@ -1,10 +1,12 @@
+import 'alimento_cadastrado.dart';
+
 /// Alimento cadastrado de um pet (`dados-e-sync.md` → tabela `alimentos`).
 /// Dart puro.
 ///
 /// Criado pelo P1 na etapa 1, com os campos da tabela, para o card
 /// "Referência alimentar" do Início converter a meta em gramas (R04). O P2 é
 /// o dono e completa na etapa 2.
-final class Alimento {
+final class Alimento implements AlimentoCadastrado {
   const Alimento({
     required this.id,
     required this.petId,
@@ -14,8 +16,11 @@ final class Alimento {
     this.arquivado = false,
   });
 
+  @override
   final String id;
+  @override
   final String petId;
+  @override
   final String nome;
 
   /// Energia do rótulo, em kcal por 100 g.
@@ -23,6 +28,7 @@ final class Alimento {
 
   /// Porção habitual, em gramas.
   final double porcaoPadraoG;
+  @override
   final bool arquivado;
 
   Alimento copyWith({

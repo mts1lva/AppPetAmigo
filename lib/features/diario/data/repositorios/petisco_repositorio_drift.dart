@@ -2,12 +2,9 @@ import 'package:drift/drift.dart';
 
 import '../../../../core/banco/database.dart';
 import '../../../../core/sync/fila_sync.dart';
+import '../../domain/entidades/alimento_cadastrado.dart';
 import '../../domain/entidades/petisco.dart';
 import '../../domain/repositorios/petisco_repositorio.dart';
-
-/// Valores da coluna `alimentos.tipo` (P-32).
-const tipoRacao = 'racao';
-const tipoPetisco = 'petisco';
 
 /// Petiscos cadastrados no drift (P-32): linhas `tipo = petisco` da tabela
 /// `alimentos`, com a mesma fila e o mesmo arquivamento das rações.

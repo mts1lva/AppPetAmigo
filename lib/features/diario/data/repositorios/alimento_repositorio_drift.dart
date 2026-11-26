@@ -3,13 +3,13 @@ import 'package:drift/drift.dart';
 import '../../../../core/banco/database.dart';
 import '../../../../core/sync/fila_sync.dart';
 import '../../domain/entidades/alimento.dart';
+import '../../domain/entidades/alimento_cadastrado.dart';
 import '../../domain/repositorios/alimento_repositorio.dart';
-import 'petisco_repositorio_drift.dart';
 
 /// Rações no drift: gravação atômica com a fila; exclusão **arquiva**.
 ///
 /// A tabela `alimentos` também guarda os petiscos cadastrados (P-32), que são
-/// de [PetiscoRepositorioDrift]: toda leitura daqui filtra `tipo = racao`.
+/// de `PetiscoRepositorioDrift`: toda leitura daqui filtra `tipo = racao`.
 final class AlimentoRepositorioDrift implements AlimentoRepositorio {
   AlimentoRepositorioDrift(this._banco, this._fila);
 
