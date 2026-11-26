@@ -147,17 +147,18 @@ Resultado<GraficoDados> montarGrafico({
   required DateTime hoje,
   required String nomePet,
 }) {
-  final porDia = <DateTime, Pesagem>{};
+  // Chave pelo número do dia: uma consulta de fuso por pesagem (RNF06).
+  final porDia = <int, Pesagem>{};
   for (final p in pesagens) {
     if (!p.pesoKg.isFinite || p.pesoKg <= 0) continue;
-    final dia = diaDe(p.dataHora);
+    final dia = numeroDoDia(p.dataHora);
     final atual = porDia[dia];
     if (atual == null || !p.dataHora.isBefore(atual.dataHora)) porDia[dia] = p;
   }
   if (porDia.isEmpty) return Indisponivel(textoGraficoVazio(nomePet));
 
-  final todas = [for (final e in porDia.entries) (dia: e.key, kg: e.value.pesoKg)]
-    ..sort((a, b) => a.dia.compareTo(b.dia));
+  final numeros = porDia.keys.toList()..sort();
+  final todas = [for (final n in numeros) (dia: diaDoNumero(n), kg: porDia[n]!.pesoKg)];
 
   final dia0 = diaDe(hoje);
   final limiteEsquerdo = somarDias(dia0, -diasPassadosGrafico);
