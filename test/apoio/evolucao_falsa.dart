@@ -5,6 +5,7 @@ import 'package:petamigo/core/relogio.dart';
 import 'package:petamigo/features/atividades/apresentacao/providers/atividades_providers.dart';
 import 'package:petamigo/features/atividades/domain/entidades/atividade.dart';
 import 'package:petamigo/features/atividades/domain/repositorios/atividade_repositorio.dart';
+import 'package:petamigo/features/diario/domain/entidades/alimento.dart';
 import 'package:petamigo/features/diario/domain/entidades/extra.dart';
 import 'package:petamigo/features/diario/domain/entidades/refeicao.dart';
 import 'package:petamigo/features/evolucao/apresentacao/providers/evolucao_providers.dart';
@@ -24,11 +25,12 @@ final class EvolucaoFalsa {
     List<Pesagem> pesagens = const [],
     Referencia? referencia,
     DateTime? agora,
+    List<Alimento> alimentos = const [],
     List<Refeicao> refeicoes = const [],
     List<Extra> extras = const [],
     List<Atividade> atividades = const [],
   })  : agora = agora ?? DateTime(2026, 9, 30, 9),
-        diario = DiarioFalsos(refeicoes: refeicoes, extras: extras),
+        diario = DiarioFalsos(alimentos: alimentos, refeicoes: refeicoes, extras: extras),
         atividades = AtividadesFalsas(atividades) {
     this.pesagens.iniciar(pesagens);
     referencias.atual = referencia;
