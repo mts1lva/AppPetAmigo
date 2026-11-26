@@ -147,17 +147,18 @@ Resultado<GraficoDados> montarGrafico({
   required DateTime hoje,
   required String nomePet,
 }) {
-  final porDia = <DateTime, Pesagem>{};
+  // Chave pelo número do dia: uma consulta de fuso por pesagem (RNF06).
+  final porDia = <int, Pesagem>{};
   for (final p in pesagens) {
     if (!p.pesoKg.isFinite || p.pesoKg <= 0) continue;
-    final dia = diaDe(p.dataHora);
+    final dia = numeroDoDia(p.dataHora);
     final atual = porDia[dia];
     if (atual == null || !p.dataHora.isBefore(atual.dataHora)) porDia[dia] = p;
   }
   if (porDia.isEmpty) return Indisponivel(textoGraficoVazio(nomePet));
 
-  final todas = [for (final e in porDia.entries) (dia: e.key, kg: e.value.pesoKg)]
-    ..sort((a, b) => a.dia.compareTo(b.dia));
+  final numeros = porDia.keys.toList()..sort();
+  final todas = [for (final n in numeros) (dia: diaDoNumero(n), kg: porDia[n]!.pesoKg)];
 
   final dia0 = diaDe(hoje);
   final limiteEsquerdo = somarDias(dia0, -diasPassadosGrafico);
@@ -212,3 +213,40 @@ Resultado<GraficoDados> montarGrafico({
     ),
   );
 }
+
+/// Lacuna entre pesagens que ganha uma linha no texto alternativo (F06).
+const diasLacunaTextoAlternativo = 14;
+
+/// R07 — texto alternativo do gráfico (RNF02), sempre visível embaixo dele:
+/// ```
+/// 16 set. 5,6 kg → 23 set. 5,5 kg → 30 set. 5,4 kg
+/// Peso ideal 4,5 kg • Projeção para 29 dez.: 4,0 kg
+/// Previsão para o peso ideal: 28 nov. 2026
+/// Sem pesagens entre 1 ago. e 20 ago.        (lacuna > 14 dias)
+/// ```
+/// Cada linha só aparece com o dado disponível; a previsão (texto de M5,
+/// [previsao]) só com peso ideal.
+String textoAlternativoGrafico(GraficoDados g, {String? previsao}) {
+  final pesagens = g.historico.map((p) => '${formatarDiaMes(p.dia)} ${formatarPeso(p.kg)}').join(' → ');
+  final ideal = g.pesoIdealKg;
+  final ultimaProjecao = g.projecao.lastOrNull;
+  final referencias = [
+    if (ideal != null) 'Peso ideal ${formatarPeso(ideal)}',
+    if (ultimaProjecao != null)
+      'Projeção para ${formatarDiaMes(ultimaProjecao.dia)}: ${formatarPeso(ultimaProjecao.kg)}',
+  ];
+  final lacunas = [
+    for (var i = 1; i < g.historico.length; i++)
+      if (diasEntre(g.historico[i - 1].dia, g.historico[i].dia) > diasLacunaTextoAlternativo)
+        _frase('Sem pesagens entre ${formatarDiaMes(g.historico[i - 1].dia)} e ${formatarDiaMes(g.historico[i].dia)}'),
+  ];
+  return [
+    if (pesagens.isNotEmpty) pesagens,
+    if (referencias.isNotEmpty) referencias.join(' • '),
+    if (previsao != null && ideal != null) 'Previsão para o peso ideal: $previsao',
+    ...lacunas,
+  ].join('\n');
+}
+
+/// Fecha a frase com ponto, sem repetir o da abreviação do mês (`30 set.`).
+String _frase(String texto) => texto.endsWith('.') ? texto : '$texto.';

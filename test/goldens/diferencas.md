@@ -45,3 +45,19 @@ Comparados visualmente `arquivos/03-atividades.png` e `docs/design/telas/03-ativ
 | Anteriores aparece somente quando há registros nos sete dias anteriores | P-08; o exemplo do golden contém apenas a atividade de hoje |
 
 Também gerado `arquivos/03-atividades-fonte-200.png`: texto rolável e navegação sem corte. Isso verifica o layout automatizado; a conferência manual com TalkBack continua pendente.
+
+## 04 Evolução (P4-1.7, 25/11/2026)
+
+Dados: Luna com 5,6 / 5,5 / 5,4 kg em 16, 23 e 30 set., hoje 30/09/2026 às 09:00, sem ECC nem objetivo e sem refeições (como o PNG, que mostra "objetivo não informado"). Também há os goldens com 1 pesagem (`04-evolucao-1-pesagem.png`) e sem pesagens (`04-evolucao-vazia.png`, estado vazio de M10).
+
+| Diferença | Motivo |
+|---|---|
+| Gráfico de 180 dp com eixo X até hoje + 90, a linha `hoje` e a projeção tracejada; as pesagens ficam à esquerda | U2-02, U2-03, U2-04; `design-system.md` → Gráfico interativo |
+| Legenda desenhada (traço contínuo, tracejado e pontilhado + palavra) | `design-system.md`; a Inter não tem o caractere `─` |
+| Texto alternativo de R07 no lugar de `16 set. 5,6 kg → 23 set. 5,5 kg` / `30 set. 5,4 kg • objetivo não informado` | R07 |
+| Card **Indicadores** novo, logo abaixo do gráfico; os outros cards descem | `pacote-4` → 04 |
+| Card **Pesagens anteriores** (com 3 pesagens, mostra a primeira com ` • peso inicial`) | P-08 |
+
+## 04 Evolução com a fonte em 200% (P4-4.6, 25/11/2026)
+
+Mesmos dados do 04, com ECC 7. Sem PNG de referência: é evidência de que nada corta. Os textos quebram linha e os cards crescem; os rótulos desenhados dentro do gráfico (`hoje`, `ideal 4,5 kg`) não acompanham a escala, porque são parte do desenho (fora da acessibilidade), e quem lê o gráfico é o texto alternativo embaixo dele.

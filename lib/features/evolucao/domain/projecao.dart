@@ -137,24 +137,26 @@ Resultado<Projecao> projecao({
 ///    continua no gráfico;
 /// 3. só os últimos 30 dias (`hoje − 29 … hoje`).
 List<PontoPeso> pontosDaRegressao(Iterable<Pesagem> pesagens, DateTime hoje) {
-  final porDia = <DateTime, Pesagem>{};
+  // Chave pelo número do dia: uma consulta de fuso por pesagem (RNF06).
+  final porDia = <int, Pesagem>{};
   for (final p in pesagens) {
-    final dia = diaDe(p.dataHora);
+    final dia = numeroDoDia(p.dataHora);
     final atual = porDia[dia];
     if (atual == null || !p.dataHora.isBefore(atual.dataHora)) porDia[dia] = p;
   }
-  final ordenadas = porDia.values.toList()..sort((a, b) => a.dataHora.compareTo(b.dataHora));
+  final ordenadas = [for (final e in porDia.entries) (dia: e.key, p: e.value)]
+    ..sort((a, b) => a.p.dataHora.compareTo(b.p.dataHora));
 
-  final validas = <Pesagem>[];
-  for (final p in ordenadas) {
-    if (p.conferida && validas.isNotEmpty && _foraDoLimite(validas.last, p)) continue;
-    validas.add(p);
+  final validas = <({int dia, Pesagem p})>[];
+  for (final item in ordenadas) {
+    if (item.p.conferida && validas.isNotEmpty && _foraDoLimite(validas.last, item)) continue;
+    validas.add(item);
   }
 
+  final diaHoje = numeroDoDia(hoje);
   return [
-    for (final p in validas)
-      if (diasEntre(p.dataHora, hoje) < janelaPesagensDias && diasEntre(p.dataHora, hoje) >= 0)
-        (dia: diaDe(p.dataHora), kg: p.pesoKg),
+    for (final v in validas)
+      if (diaHoje - v.dia < janelaPesagensDias && diaHoje - v.dia >= 0) (dia: diaDoNumero(v.dia), kg: v.p.pesoKg),
   ];
 }
 
@@ -210,8 +212,9 @@ double? tendenciaEnergetica({
 
 /// Mais de 2% do peso por semana entre [anterior] e [p]. No mesmo dia,
 /// qualquer diferença passa do limite.
-bool _foraDoLimite(Pesagem anterior, Pesagem p) {
-  final dias = diasEntre(anterior.dataHora, p.dataHora);
+bool _foraDoLimite(({int dia, Pesagem p}) anteriorValida, ({int dia, Pesagem p}) atual) {
+  final (anterior, p) = (anteriorValida.p, atual.p);
+  final dias = atual.dia - anteriorValida.dia;
   final variacao = (p.pesoKg - anterior.pesoKg).abs() / anterior.pesoKg;
   if (dias <= 0) return variacao > 0;
   return variacao / (dias / 7) > ritmoSemanalMaximo;
