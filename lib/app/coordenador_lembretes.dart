@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:timezone/timezone.dart' as tz;
 
 import '../core/inicializacao.dart';
 import '../core/relogio.dart';
@@ -61,7 +62,7 @@ class _CoordenadorLembretesState extends ConsumerState<CoordenadorLembretes>
     centralNotificacoes.addListener(_consumir);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       unawaited(_consumir());
-      unawaited(_retomar());
+      unawaited(_retomar(abrindoApp: true));
     });
   }
 
@@ -74,8 +75,15 @@ class _CoordenadorLembretesState extends ConsumerState<CoordenadorLembretes>
     }
   }
 
-  Future<void> _retomar() async {
+  /// Ao abrir o app, ao voltar para ele e na virada do dia: atualiza o fuso,
+  /// a hora e as permissões. `ReagendarTodos` roda **só ao abrir o app** ou se
+  /// o fuso mudou (`pacote-3`: abrir o app, restaurar a cópia e editar um pet,
+  /// este pelo gancho do `EditarPet`). Reagendar a cada volta cancelava o
+  /// aviso do dia que o Android ainda não tinha entregue (alarme inexato do
+  /// Android 14) e o jogava para o dia seguinte.
+  Future<void> _retomar({bool abrindoApp = false}) async {
     if (!mounted) return;
+    final fusoAntes = _fusoAtual();
     await inicializarFusoHorario();
     if (!mounted) return;
     ref.invalidate(agoraProvider);
@@ -86,8 +94,17 @@ class _CoordenadorLembretesState extends ConsumerState<CoordenadorLembretes>
       DateTime(agora.year, agora.month, agora.day + 1).difference(agora),
       _retomar,
     );
-    await _reagendar();
+    if (abrindoApp || _fusoAtual() != fusoAntes) await _reagendar();
     if (mounted) await _consumir();
+  }
+
+  /// Nome do fuso local, ou `null` antes de o `timezone` ser inicializado.
+  static String? _fusoAtual() {
+    try {
+      return tz.local.name;
+    } on Error {
+      return null;
+    }
   }
 
   Future<void> _consumir() async {
@@ -165,11 +182,11 @@ class _CoordenadorLembretesState extends ConsumerState<CoordenadorLembretes>
 
   @override
   Widget build(BuildContext context) {
+    // Os pets chegando liberam o toque pendente na notificação. Editar um pet
+    // já reagenda pelo gancho do `EditarPet`; reagendar aqui a cada emissão
+    // cancelava avisos que o Android ainda não tinha entregue.
     ref.listen(petsProvider, (_, proximo) {
-      if (proximo.hasValue) {
-        unawaited(_consumir());
-        if (centralNotificacoes.inicializada) unawaited(_reagendar());
-      }
+      if (proximo.hasValue) unawaited(_consumir());
     });
     return widget.child;
   }

@@ -146,7 +146,6 @@ class _DialogoLembretesState extends ConsumerState<DialogoLembretes> {
               aoTocar: pet == null
                   ? null
                   : () => _executar(() async {
-                      await ref.read(pedirNotificacoesProvider)();
                       await ref
                           .read(gerenciarLembretesProvider)
                           .criarSugeridos(
@@ -219,7 +218,6 @@ class _DialogoLembreteState extends ConsumerState<DialogoLembrete> {
       _falha = null;
     });
     try {
-      if (_ativo) await ref.read(pedirNotificacoesProvider)();
       await ref
           .read(gerenciarLembretesProvider)
           .salvar(
