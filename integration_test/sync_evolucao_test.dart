@@ -13,8 +13,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:petamigo/core/banco/banco_provider.dart';
 import 'package:petamigo/core/banco/database.dart';
+import 'package:petamigo/core/formato/datas.dart';
 import 'package:petamigo/core/relogio.dart';
 import 'package:petamigo/core/resultado.dart';
 import 'package:petamigo/core/sync/fila_sync.dart';
@@ -97,6 +99,9 @@ void main() {
   late String uid;
 
   setUpAll(() async {
+    // Fora de test/ não roda o flutter_test_config.dart: sem isto a data
+    // prevista (formatarDataCurta, pt_BR) lança LocaleDataException.
+    await initializeDateFormatting(localeApp);
     if (Firebase.apps.isEmpty) {
       await Firebase.initializeApp(options: DefaultFirebaseOptions.android);
     }
