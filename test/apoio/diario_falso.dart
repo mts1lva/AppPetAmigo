@@ -38,11 +38,14 @@ final class DiarioFalsos {
 final class _Hub {
   final mudou = StreamController<void>.broadcast();
   void avisar() => mudou.add(null);
-  Stream<T> observar<T>(T Function() ler) => Stream.multi((s) {
-        s.add(ler());
-        final a = mudou.stream.listen((_) => s.add(ler()));
-        s.onCancel = a.cancel;
-      });
+
+  Stream<T> observar<T>(T Function() ler) async* {
+    await Future<void>.delayed(Duration.zero);
+    yield ler();
+    await for (final _ in mudou.stream) {
+      yield ler();
+    }
+  }
 }
 
 final class AlimentoRepositorioFalso implements AlimentoRepositorio {
@@ -62,12 +65,16 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
   void _avisar() => _hub.avisar();
 
   @override
+  /// Do mais recente ao mais antigo, como o drift (ordem de cadastro).
   Stream<List<Alimento>> observarDoPet(String petId) => _hub.observar(
-        () => _itens.values.where((a) => a.petId == petId && !a.arquivado).toList(),
+        () => _itens.values.where((a) => a.petId == petId && !a.arquivado).toList().reversed.toList(),
       );
 
   @override
-  Stream<Alimento?> observar(String id) => _hub.observar(() => _itens[id]);
+  Stream<Alimento?> observar(String id) => _hub.observar(() {
+        final a = _itens[id];
+        return a == null || a.arquivado ? null : a;
+      });
 
   @override
   Stream<Alimento?> observarAtalho(String petId) => _hub.observar(() {
@@ -82,7 +89,7 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
             if (a.id == id) return a;
           }
         }
-        return ativos.last;
+        return ativos.last; // o último cadastrado
       });
 
   @override
@@ -116,14 +123,21 @@ final class RefeicaoRepositorioFalso implements RefeicaoRepositorio {
   final salvas = <Refeicao>[];
   final excluidas = <String>[];
   Future<void> Function()? antesDeGravar;
+  Object? erroObservar;
+  Duration? atrasoObservar;
 
   @override
-  Stream<List<Refeicao>> observarEntre(String petId, DateTime inicio, DateTime fim) => _hub.observar(
-        () => _itens.values
-            .where((r) => r.petId == petId && !r.dataHora.isBefore(inicio) && r.dataHora.isBefore(fim))
-            .toList()
-          ..sort((a, b) => a.dataHora.compareTo(b.dataHora)),
-      );
+  Stream<List<Refeicao>> observarEntre(String petId, DateTime inicio, DateTime fim) {
+    List<Refeicao> ler() => _itens.values
+        .where((r) => r.petId == petId && !r.dataHora.isBefore(inicio) && r.dataHora.isBefore(fim))
+        .toList()
+      ..sort((a, b) => a.dataHora.compareTo(b.dataHora));
+    if (erroObservar != null) return Stream.error(erroObservar!);
+    if (atrasoObservar != null) {
+      return Stream.fromFuture(Future<List<Refeicao>>.delayed(atrasoObservar!, ler));
+    }
+    return _hub.observar(ler);
+  }
 
   @override
   Stream<Refeicao?> observarMaisRecente(String petId) => _hub.observar(() {
