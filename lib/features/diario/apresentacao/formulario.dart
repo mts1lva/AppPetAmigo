@@ -39,3 +39,11 @@ Future<List<T>> listaEmitidaDoDia<T>(
   }
   return esperar();
 }
+
+/// Unidades de petisco (P-32): inteiro > 0, aceitando "2" ou "2,0". `null`
+/// se vazio, fracionário ou ≤ 0 (R05: "Informe um número inteiro de unidades.").
+int? lerUnidades(String texto) {
+  final n = lerNumero(texto);
+  if (n == null || !n.isFinite || n <= 0 || n != n.roundToDouble()) return null;
+  return n.round();
+}
