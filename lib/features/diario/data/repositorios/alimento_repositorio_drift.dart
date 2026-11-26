@@ -27,7 +27,7 @@ final class AlimentoRepositorioDrift implements AlimentoRepositorio {
 
   @override
   Stream<Alimento?> observar(String id) => (_banco.select(_banco.alimentos)
-        ..where((a) => a.id.equals(id) & a.excluido.equals(false)))
+        ..where((a) => a.id.equals(id) & a.excluido.equals(false) & a.arquivado.equals(false)))
       .watchSingleOrNull()
       .map((linha) => linha == null ? null : _paraEntidade(linha));
 

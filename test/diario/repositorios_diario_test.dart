@@ -137,6 +137,7 @@ void main() {
       await alimentos.salvar(racao().copyWith(densidadeKcalPor100g: 400, arquivado: true), agora: t1);
 
       expect(await alimentos.observarDoPet('p1').first, isEmpty);
+      expect(await alimentos.observar('a1').first, isNull);
       final refeicaoSalva = await refeicoes.observar('r1').first;
       expect(refeicaoSalva!.densidadeKcalPor100g, 360);
       expect(refeicaoSalva.energiaKcal, 108);
