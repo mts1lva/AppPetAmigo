@@ -1,7 +1,29 @@
 # Entrega do P3 — atividades, lembretes e exportação
 
 Branch: `p3/paulo-atividades-lembretes`, criada a partir de `origin/dev`.
-Responsável: paulofontes-cyber. Estado em 25/11/2026.
+Responsável: paulofontes-cyber. Revisado em 26/11/2026.
+
+## Conferência com o enunciado
+
+Comparação com as quatro páginas de `PetAmigo.pdf`, especialmente a Unidade II nas páginas 3 e 4, limitada ao pacote P3. **O atendimento ainda é parcial:** a exportação PDF, as ligações com os outros pacotes e as evidências em Android continuam pendentes. A exportação JSON já entregue atende à exportação de dados prevista nas specs, mas não conclui o requisito de PDF do enunciado.
+
+| Pedido relacionado ao P3 | Situação verificada |
+|---|---|
+| Registro de passeios/exercícios, histórico próprio por pet e uso offline | Implementados no banco local, com testes de isolamento e transações |
+| Notificações nos horários do tutor, incluindo 08:00, 14:00 e 20:00 | Implementadas com agendamento nativo; testes de canal Android simulado e T3. Disparo com app fechado, soneca e reinício ainda exige execução em Android |
+| Notificações próprias para cada pet | IDs distintos, cancelamento isolado e troca de pet por notificação testados; falha em um aviso não interrompe os outros |
+| Sugestão de aumentar exercícios | Regra S2 testada; apresentação depende de `pesoIdealAtividadeProvider`, ainda sem o M2 do P4. Não está funcional de ponta a ponta |
+| Recalcular a projeção quando registrar uma atividade | O P3 fornece streams e gasto diário reativos; a projeção é integrada pelo P4 e não foi alterada nesta revisão |
+| Exportação em PDF para consulta veterinária | Não implementada: P3-1.7 continua bloqueada por P2-1.1 fora da `dev` |
+| Riverpod, Clean Architecture, armazenamento offline e testes | Mantidos na parte do P3, com domínio puro e testes de regressão |
+
+Correções desta revisão:
+- O agendamento e o cancelamento tentam todos os avisos antes de informar falha. Uma falha isolada não impede os próximos horários ou os pets seguintes; os dados locais continuam salvos e a pendência é informada.
+- Uma segunda notificação substitui o formulário anterior imediatamente. O fluxo de configuração de lembretes não reabre o pet anterior quando é encerrado por outra notificação.
+- Uma falha ao abrir o formulário conserva o destino pendente e trata o erro assíncrono.
+- O ícone `ic_notificacao` foi incluído em `res/raw/keep.xml`, seguindo a [orientação do plugin para builds de produção](https://pub.dev/packages/flutter_local_notifications#release-build-configuration). Essa proteção foi inspecionada; não houve build de APK nesta revisão.
+
+As dependências externas foram conferidas novamente: P2-1.1 está na [PR #13](https://github.com/mts1lva/AppPetAmigo/pull/13), e P2-2.3 na [PR #12](https://github.com/mts1lva/AppPetAmigo/pull/12), ainda fora da `dev`. A implementação de P1, P2, P4 e P5 não foi modificada nesta revisão.
 
 ## Tarefas na branch
 
@@ -53,7 +75,7 @@ dart tool/dependencias.dart validar
 dart tool/dependencias.dart proximas P3
 ```
 
-A suíte completa passou com 261 testes, incluindo T1, T3, rollback de gravação em falha da fila, isolamento entre pets, repetição de horários, falha do agendador sem perda do registro, toque na notificação, exportação JSON e goldens. T2, T4 e T5 ainda dependem da integração dos pacotes correspondentes.
+A suíte completa passou com 268 testes, incluindo T1, T3, rollback de gravação em falha da fila, isolamento entre pets, repetição de horários, falha do agendador sem perda do registro, toque na notificação, exportação JSON e goldens. T2, T4 e T5 ainda dependem da integração dos pacotes correspondentes.
 
 Os testes do plugin usam o canal Android simulado; eles não substituem a observação de notificações em aparelho. As diferenças visuais estão em `test/goldens/diferencas.md`.
 
