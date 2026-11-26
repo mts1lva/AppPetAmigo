@@ -167,7 +167,7 @@ class _DialogoPetiscoState extends ConsumerState<DialogoPetisco> {
   Widget build(BuildContext context) {
     _iniciar();
     if (_edicao && !_preenchidoEdicao) {
-      final atual = ref.watch(extraProvider(widget.extraId!)).value;
+      final atual = ref.watch(extraProvider((widget.petId, widget.extraId!))).value;
       if (atual != null) _preencher(atual);
     }
 
