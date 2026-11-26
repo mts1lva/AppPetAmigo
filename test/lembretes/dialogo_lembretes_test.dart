@@ -14,9 +14,11 @@ import '../apoio/pets_falsos.dart';
 void main() {
   late LembretesFalsos repo;
   late AgendadorFalso agendador;
+  var pedidosDePermissao = 0;
   setUp(() {
     repo = LembretesFalsos();
     agendador = AgendadorFalso();
+    pedidosDePermissao = 0;
   });
   tearDown(() => repo.fechar());
   Future<void> montar(WidgetTester t, {double escala = 1}) async {
@@ -30,7 +32,7 @@ void main() {
           permissoesLembretesProvider.overrideWith(
             (ref, petId) async => (notificacoes: true, horarioExato: false),
           ),
-          pedirNotificacoesProvider.overrideWithValue(() async {}),
+          pedirNotificacoesProvider.overrideWithValue(() async => pedidosDePermissao++),
           agoraProvider.overrideWithValue(() => DateTime(2026, 9, 30, 8)),
         ],
         child: appDeTeste(
@@ -91,4 +93,12 @@ void main() {
       expect(t.takeException(), isNull);
     },
   );
+
+  testWidgets('salvar não pede permissão: só o botão "Permitir notificações" pede (pacote-3 → N2)', (t) async {
+    await montar(t);
+    await tocar(t, 'Usar 08:00, 14:00 e 20:00');
+
+    expect(pedidosDePermissao, 0);
+    expect(find.text('Permitir notificações'), findsNothing);
+  });
 }
