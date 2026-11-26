@@ -47,7 +47,7 @@ firebase emulators:exec --only auth,firestore --project pet-amigo-bac9e \
 
 O job **Emuladores Firebase** da CI sobe um AVD API 29 e roda `flutter test integration_test`. Ele não entra no `flutter test` do Windows, que só cobre `test/`.
 
-Os testes de cada coleção (`sync_pet_test.dart`, `sync_diario_test.dart`, …) só passam de ponta a ponta quando o motor de sync do P5 existir (etapa 5). Até lá, o ambiente já sobe e `usarEmuladores()` isola o projeto real.
+Os testes de cada coleção (`sync_pet_test.dart`, `sync_diario_test.dart`, …) só passam de ponta a ponta com o motor de sync do P5 (etapa 5). O `sync_diario_test.dart` (P2-3.2) já cobre ida, volta e o histórico do alimento arquivado pelos mapeadores, contra o emulador.
 
 ## Conferir que nada aponta para o projeto real
 
