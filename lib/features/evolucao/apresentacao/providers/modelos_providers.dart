@@ -9,6 +9,7 @@ import '../../../diario/apresentacao/providers/resumo_dia_provider.dart';
 import '../../../nutricao/apresentacao/providers/meta_provider.dart';
 import '../../../pets/apresentacao/providers/pets_providers.dart';
 import '../../domain/data_prevista.dart';
+import '../../domain/grafico_dados.dart';
 import '../../domain/indicadores.dart';
 import '../../domain/modelos_do_pet.dart';
 import '../../domain/peso_ideal.dart';
@@ -85,5 +86,21 @@ final sugestaoObjetivoProvider = Provider.family<Sugestao?, String>((ref, petId)
     referencia: ref.watch(referenciaProvider(petId)).value,
     kgDia: modelos.projecao.valorOuNulo?.kgDia,
     hoje: ref.watch(agoraProvider)(),
+  );
+});
+
+/// M6 — dados do gráfico interativo; [Indisponivel] com o texto do estado
+/// vazio quando não há pesagem (M10). `null` enquanto carrega.
+final graficoProvider = Provider.family<Resultado<GraficoDados>?, String>((ref, petId) {
+  final m = ref.watch(modelosProvider(petId));
+  final nome = ref.watch(petProvider(petId)).value?.nome;
+  if (m == null || nome == null) return null;
+  return montarGrafico(
+    pesagens: m.pesagens,
+    projecao: m.projecao.valorOuNulo?.curva,
+    curvaIdeal: m.curvaIdeal.valorOuNulo,
+    pesoIdealKg: m.pesoIdealKg,
+    hoje: ref.watch(agoraProvider)(),
+    nomePet: nome,
   );
 });
