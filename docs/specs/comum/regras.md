@@ -28,7 +28,7 @@ meta   = MER (M1)
 | Onde | Com meta disponível | Sem meta (sem pesagem) |
 |---|---|---|
 | Início, card "Hoje" | `Ração 108 kcal • Petiscos 12 kcal` / `Total: 120 de 397 kcal` | `… / Total registrado: 120 kcal` |
-| Diário, card "Resumo do dia" | `120 de 397 kcal • Petiscos 10% dos registros` / `Faltam 277 kcal para a meta de hoje.` (acima da meta: `23 kcal acima da meta de hoje.`) | `120 kcal • Petiscos 10% dos registros` / `Registre uma pesagem para ver a meta.` |
+| Diário, card "Resumo do dia" | `120 de 397 kcal • Petiscos 10% dos registros` / `Faltam 277 kcal para a meta de hoje.` (acima da meta: `23 kcal acima da meta de hoje.`; igual à meta: só a primeira linha, P-30) | `120 kcal • Petiscos 10% dos registros` / `Registre uma pesagem para ver a meta.` |
 
 - Nenhum texto usa culpa nem cor de alerta por estar acima ou abaixo da meta. A sugestão sobre petiscos é a S1 (M8), não um aviso no resumo.
 
@@ -63,6 +63,8 @@ meta   = MER (M1)
 | Horário de lembrete | 00:00–23:59, sem repetir horário do mesmo tipo no mesmo pet | "Já existe um lembrete nesse horário." |
 
 Erro aparece no `PaCampo` (borda `erro` e mensagem embaixo). O botão de salvar continua habilitado e, ao tocar, leva o foco ao primeiro campo com erro.
+
+Se a gravação no banco falhar (não é erro de validação), o diálogo continua aberto com os dados e mostra `Não foi possível salvar. Tente novamente.` (P-29).
 
 ## R06 — Pesagem suspeita (técnica, não clínica; P-10)
 

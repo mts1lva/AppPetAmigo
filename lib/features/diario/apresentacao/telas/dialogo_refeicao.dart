@@ -236,7 +236,7 @@ class _DialogoRefeicaoState extends ConsumerState<DialogoRefeicao> {
     final alimentos = ref.watch(alimentosDoPetProvider(widget.petId)).value ?? const <Alimento>[];
     _iniciar(alimentos);
     if (_edicao && !_preenchidoEdicao) {
-      final atual = ref.watch(refeicaoProvider(widget.refeicaoId!)).value;
+      final atual = ref.watch(refeicaoProvider((widget.petId, widget.refeicaoId!))).value;
       if (atual != null) _preencher(atual);
     }
     final opcoes = [for (final a in alimentos) PaOpcao(valor: a.id, rotulo: a.nome)];

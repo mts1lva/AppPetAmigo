@@ -30,16 +30,16 @@ final alimentosDoPetProvider = StreamProvider.family<List<Alimento>, String>(
   (ref, petId) => ref.watch(alimentoRepositorioProvider).observarDoPet(petId),
 );
 
-final alimentoProvider = StreamProvider.family<Alimento?, String>(
-  (ref, id) => ref.watch(alimentoRepositorioProvider).observar(id),
+/// Uma refeição do pet, para o formulário de edição. `null` se não existe,
+/// foi excluída ou é de outro pet. `autoDispose`: a consulta fecha junto com
+/// o diálogo.
+final refeicaoProvider = StreamProvider.autoDispose.family<Refeicao?, (String petId, String id)>(
+  (ref, args) => ref.watch(refeicaoRepositorioProvider).observar(args.$2).map((r) => r?.petId == args.$1 ? r : null),
 );
 
-final refeicaoProvider = StreamProvider.family<Refeicao?, String>(
-  (ref, id) => ref.watch(refeicaoRepositorioProvider).observar(id),
-);
-
-final extraProvider = StreamProvider.family<Extra?, String>(
-  (ref, id) => ref.watch(extraRepositorioProvider).observar(id),
+/// Um petisco ou extra do pet; mesmas regras de [refeicaoProvider].
+final extraProvider = StreamProvider.autoDispose.family<Extra?, (String petId, String id)>(
+  (ref, args) => ref.watch(extraRepositorioProvider).observar(args.$2).map((e) => e?.petId == args.$1 ? e : null),
 );
 
 /// Refeições do [dia] (00:00 a 23:59). Passe o dia sem hora.
