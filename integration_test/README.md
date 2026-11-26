@@ -1,6 +1,6 @@
-# Testes de integração no Firebase Emulator Suite
+# Testes de integração
 
-Os testes em `integration_test/` falam **só** com os emuladores locais de Authentication e Cloud Firestore. Nada vai para o projeto real (`pet-amigo-bac9e`). Sem Cloud Storage (decisão P-23).
+Os testes de sincronização em `integration_test/` falam **só** com os emuladores locais de Authentication e Cloud Firestore. Nada vai para o projeto real (`pet-amigo-bac9e`). Sem Cloud Storage (decisão P-23).
 
 ## Uma vez na máquina
 
@@ -56,3 +56,28 @@ Os testes de cada coleção (`sync_pet_test.dart`, `sync_diario_test.dart`, …)
 3. No console do Firebase (projeto real) não entra documento novo.
 
 Se `usarEmuladores()` não for chamado, o SDK tentaria o projeto real — e falharia de qualquer jeito, porque a rede do Firestore no app fica desligada (`inicializarFirebaseSemRede`).
+
+## RNF06 do Diário no aparelho (P2-4.3)
+
+Conecte um aparelho físico com Android 8.0 e 2 GB de RAM e rode na raiz do repositório:
+
+```sh
+flutter run --profile -t integration_test/desempenho_diario_test.dart
+```
+
+O teste usa um banco SQLite temporário com 1.000 refeições, sem Firebase.
+Guarde as linhas `RNF06` do console. Cada série tem 20 tempos em milissegundos,
+mediana, p95 e percentual dentro do limite. A aprovação exige pelo menos
+19 de 20 em cada série (salvar em até 1 s, abrir em até 2 s e modelos em
+menos de 50 ms).
+
+```text
+Modelo do aparelho:
+Versão do Android:
+RAM:
+Salvar refeição (20 tempos em ms):
+Abrir o resumo (20 tempos em ms):
+Modelos do Diário (20 tempos em ms):
+p95 e percentual dentro do limite por série:
+Resultado:
+```
