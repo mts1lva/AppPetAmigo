@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
 import '../../../core/formato/numeros.dart';
+import '../domain/textos_diario.dart';
 
 /// Número para um `PaCampo.numero`: vírgula decimal, sem zeros à direita.
 String textoNumeroCampo(double valor) {
@@ -13,11 +14,14 @@ DateTime juntarDataHora(DateTime data, TimeOfDay hora) =>
 
 bool dataHoraFutura(DateTime valor, DateTime agora) => valor.isAfter(agora);
 
-/// Mensagem para mostrar no diálogo quando a gravação (salvar, arquivar, excluir) falha.
+/// Mensagem para mostrar no diálogo quando a gravação (salvar, arquivar,
+/// excluir) falha: o texto de validação de R05 que o caso de uso lançou ou,
+/// para qualquer outra falha (banco, fila), [textoFalhaGravacao] (P-29). Nunca
+/// mostra a exceção crua.
 String textoErroGravacao(Object erro) {
   if (erro is ArgumentError) {
     final mensagem = erro.message;
     if (mensagem is String && mensagem.isNotEmpty) return mensagem;
   }
-  return '$erro';
+  return textoFalhaGravacao;
 }
