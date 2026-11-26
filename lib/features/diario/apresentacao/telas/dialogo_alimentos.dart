@@ -7,7 +7,9 @@ import '../../../../core/formato/formato.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/ui/ui.dart';
 import '../../../pets/apresentacao/providers/pets_providers.dart';
+import '../../domain/energia.dart';
 import '../../domain/entidades/alimento.dart';
+import '../../domain/entidades/petisco.dart';
 import '../../domain/textos_diario.dart';
 import '../formulario.dart';
 import '../providers/casos_providers.dart';
@@ -93,15 +95,27 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
   final _nome = TextEditingController();
   final _densidade = TextEditingController();
   final _porcao = TextEditingController();
+  final _kcalUnidade = TextEditingController();
+  final _unidades = TextEditingController();
   final _focoNome = FocusNode();
   final _focoDensidade = FocusNode();
   final _focoPorcao = FocusNode();
+  final _focoKcalUnidade = FocusNode();
+  final _focoUnidades = FocusNode();
   final _chaveNome = GlobalKey();
   final _chavePorcao = GlobalKey();
+  final _chaveKcalUnidade = GlobalKey();
+  final _chaveUnidades = GlobalKey();
 
+  /// Tipo do alimento (P-32). A lista mostra só os do tipo escolhido; trocar
+  /// o tipo volta para "Novo alimento…", então um alimento salvo não muda de
+  /// tipo.
+  var _petisco = false;
   String _idSelecionado = _idNovo;
   String? _erroNome;
   String? _erroPorcao;
+  String? _erroKcalUnidade;
+  String? _erroUnidades;
   String? _erroGravacao;
   var _salvando = false;
   var _excluindo = false;
@@ -130,9 +144,13 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
     _nome.dispose();
     _densidade.dispose();
     _porcao.dispose();
+    _kcalUnidade.dispose();
+    _unidades.dispose();
     _focoNome.dispose();
     _focoDensidade.dispose();
     _focoPorcao.dispose();
+    _focoKcalUnidade.dispose();
+    _focoUnidades.dispose();
     super.dispose();
   }
 
@@ -143,6 +161,40 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
         porcaoTexto: _porcao.text,
         novo: _novo,
       );
+
+  void _escolherTipo(bool petisco) {
+    if (petisco == _petisco) return;
+    setState(() {
+      _petisco = petisco;
+      _idSelecionado = _idNovo;
+      _erroNome = null;
+      _erroPorcao = null;
+      _erroKcalUnidade = null;
+      _erroUnidades = null;
+      _erroGravacao = null;
+      for (final c in [_nome, _densidade, _porcao, _kcalUnidade, _unidades]) {
+        c.clear();
+      }
+    });
+  }
+
+  void _escolherPetisco(String id, List<Petisco> petiscos) {
+    setState(() {
+      _idSelecionado = id;
+      _erroNome = null;
+      if (id == _idNovo) {
+        _nome.clear();
+        return;
+      }
+      for (final p in petiscos) {
+        if (p.id != id) continue;
+        _nome.text = p.nome;
+        _kcalUnidade.text = textoNumeroCampo(p.kcalPorUnidade);
+        _unidades.text = '${p.unidadesHabituais}';
+        return;
+      }
+    });
+  }
 
   void _escolher(String id, List<Alimento> alimentos) {
     setState(() {
@@ -162,7 +214,58 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
     });
   }
 
+  void _focar(GlobalKey chave, FocusNode foco) {
+    final ctx = chave.currentContext;
+    if (ctx != null) Scrollable.ensureVisible(ctx, duration: const Duration(milliseconds: 200));
+    foco.requestFocus();
+  }
+
+  /// Petisco (P-32): energia por unidade > 0 e unidades inteiras > 0 (R05).
+  /// Sem tela 22, que é só da densidade da ração.
+  Future<void> _salvarPetisco() async {
+    final nome = _nome.text.trim();
+    final kcal = lerNumero(_kcalUnidade.text);
+    final unidades = lerUnidades(_unidades.text);
+    final erroNome = _novo && nome.isEmpty ? mensagemInformeNome : null;
+    final erroKcal = kcal == null || kcal <= 0 ? motivoEnergiaPorUnidadeInvalida : null;
+    final erroUnidades = unidades == null ? motivoUnidadesInvalidas : null;
+    if (erroNome != null || erroKcal != null || erroUnidades != null) {
+      setState(() {
+        _erroNome = erroNome;
+        _erroKcalUnidade = erroKcal;
+        _erroUnidades = erroUnidades;
+      });
+      if (erroNome != null) {
+        _focar(_chaveNome, _focoNome);
+      } else if (erroKcal != null) {
+        _focar(_chaveKcalUnidade, _focoKcalUnidade);
+      } else {
+        _focar(_chaveUnidades, _focoUnidades);
+      }
+      return;
+    }
+
+    setState(() {
+      _salvando = true;
+      _erroGravacao = null;
+    });
+    try {
+      final agora = ref.read(agoraProvider)();
+      final id = _novo ? ref.read(novoIdProvider)() : _idSelecionado;
+      await ref.read(salvarPetiscoProvider)(
+        Petisco(id: id, petId: widget.petId, nome: nome, kcalPorUnidade: kcal!, unidadesHabituais: unidades!),
+        agora: agora,
+      );
+      if (mounted) Navigator.of(context).pop();
+    } catch (e) {
+      if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
+    } finally {
+      if (mounted) setState(() => _salvando = false);
+    }
+  }
+
   Future<void> _salvar() async {
+    if (_petisco) return _salvarPetisco();
     final nome = _nome.text.trim();
     final porcao = lerNumero(_porcao.text);
     String? erroNome;
@@ -226,7 +329,12 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
       _erroGravacao = null;
     });
     try {
-      await ref.read(arquivarAlimentoProvider)(id, agora: ref.read(agoraProvider)());
+      final agora = ref.read(agoraProvider)();
+      if (_petisco) {
+        await ref.read(arquivarPetiscoProvider)(id, agora: agora);
+      } else {
+        await ref.read(arquivarAlimentoProvider)(id, agora: agora);
+      }
       if (mounted) Navigator.of(context).pop();
     } catch (e) {
       if (mounted) setState(() => _erroGravacao = textoErroGravacao(e));
@@ -238,9 +346,13 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
   @override
   Widget build(BuildContext context) {
     final alimentos = ref.watch(alimentosDoPetProvider(widget.petId)).value ?? const <Alimento>[];
+    final petiscos = ref.watch(petiscosDoPetProvider(widget.petId)).value ?? const <Petisco>[];
     final opcoes = [
       const PaOpcao(valor: _idNovo, rotulo: rotuloNovoAlimento),
-      for (final a in alimentos) PaOpcao(valor: a.id, rotulo: a.nome),
+      if (_petisco)
+        for (final p in petiscos) PaOpcao(valor: p.id, rotulo: p.nome)
+      else
+        for (final a in alimentos) PaOpcao(valor: a.id, rotulo: a.nome),
     ];
 
     return PaDialogo(
@@ -248,11 +360,20 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
       subtitulo: widget.paraAtalho ? subtituloAlimentosAtalho : subtituloAlimentos,
       texto: textoAlimentosFormulario,
       campos: [
+        PaCampoEscolha<bool>(
+          rotulo: rotuloTipo,
+          opcoes: const [
+            PaOpcao(valor: false, rotulo: opcaoTipoRacao),
+            PaOpcao(valor: true, rotulo: opcaoTipoPetisco),
+          ],
+          valor: _petisco,
+          aoEscolher: _escolherTipo,
+        ),
         PaCampoEscolha<String>(
           rotulo: rotuloAlimento,
           opcoes: opcoes,
           valor: _idSelecionado,
-          aoEscolher: (id) => _escolher(id, alimentos),
+          aoEscolher: (id) => _petisco ? _escolherPetisco(id, petiscos) : _escolher(id, alimentos),
         ),
         if (_novo)
           KeyedSubtree(
@@ -265,25 +386,49 @@ class _DialogoAlimentosState extends ConsumerState<DialogoAlimentos> {
               aoMudar: (_) => setState(() => _erroNome = null),
             ),
           ),
-        PaCampo.numero(
-          rotulo: rotuloDensidade,
-          controller: _densidade,
-          focusNode: _focoDensidade,
-          sufixo: sufixoKcalPor100g,
-          aoMudar: (_) {},
-        ),
-        KeyedSubtree(
-          key: _chavePorcao,
-          child: PaCampo.numero(
-            rotulo: rotuloPorcaoReutilizavel,
-            controller: _porcao,
-            focusNode: _focoPorcao,
-            sufixo: sufixoGramas,
-            acaoTeclado: TextInputAction.done,
-            erro: _erroPorcao,
-            aoMudar: (_) => setState(() => _erroPorcao = null),
+        if (_petisco) ...[
+          KeyedSubtree(
+            key: _chaveKcalUnidade,
+            child: PaCampo.numero(
+              rotulo: rotuloEnergiaPorUnidade,
+              controller: _kcalUnidade,
+              focusNode: _focoKcalUnidade,
+              erro: _erroKcalUnidade,
+              aoMudar: (_) => setState(() => _erroKcalUnidade = null),
+            ),
           ),
-        ),
+          KeyedSubtree(
+            key: _chaveUnidades,
+            child: PaCampo.numero(
+              rotulo: rotuloUnidadesHabituais,
+              controller: _unidades,
+              focusNode: _focoUnidades,
+              acaoTeclado: TextInputAction.done,
+              erro: _erroUnidades,
+              aoMudar: (_) => setState(() => _erroUnidades = null),
+            ),
+          ),
+        ] else ...[
+          PaCampo.numero(
+            rotulo: rotuloDensidade,
+            controller: _densidade,
+            focusNode: _focoDensidade,
+            sufixo: sufixoKcalPor100g,
+            aoMudar: (_) {},
+          ),
+          KeyedSubtree(
+            key: _chavePorcao,
+            child: PaCampo.numero(
+              rotulo: rotuloPorcaoReutilizavel,
+              controller: _porcao,
+              focusNode: _focoPorcao,
+              sufixo: sufixoGramas,
+              acaoTeclado: TextInputAction.done,
+              erro: _erroPorcao,
+              aoMudar: (_) => setState(() => _erroPorcao = null),
+            ),
+          ),
+        ],
         if (_erroGravacao != null)
           Text(_erroGravacao!, style: PaTexto.corpo.copyWith(color: PaCores.erro)),
       ],

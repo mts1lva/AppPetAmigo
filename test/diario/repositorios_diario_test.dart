@@ -4,10 +4,12 @@ import 'package:petamigo/core/banco/database.dart';
 import 'package:petamigo/core/sync/fila_sync.dart';
 import 'package:petamigo/features/diario/data/repositorios/alimento_repositorio_drift.dart';
 import 'package:petamigo/features/diario/data/repositorios/extra_repositorio_drift.dart';
+import 'package:petamigo/features/diario/data/repositorios/petisco_repositorio_drift.dart';
 import 'package:petamigo/features/diario/data/repositorios/refeicao_repositorio_drift.dart';
 import 'package:petamigo/features/diario/domain/casos_de_uso/salvar_refeicao.dart';
 import 'package:petamigo/features/diario/domain/entidades/alimento.dart';
 import 'package:petamigo/features/diario/domain/entidades/extra.dart';
+import 'package:petamigo/features/diario/domain/entidades/petisco.dart';
 import 'package:petamigo/features/diario/domain/entidades/refeicao.dart';
 
 final class _FilaGravadora implements FilaSync {
@@ -31,6 +33,7 @@ void main() {
   late AlimentoRepositorioDrift alimentos;
   late RefeicaoRepositorioDrift refeicoes;
   late ExtraRepositorioDrift extras;
+  late PetiscoRepositorioDrift petiscos;
 
   final t0 = DateTime(2026, 9, 30, 8);
   final t1 = DateTime(2026, 9, 30, 12);
@@ -95,6 +98,7 @@ void main() {
     alimentos = AlimentoRepositorioDrift(banco, fila);
     refeicoes = RefeicaoRepositorioDrift(banco, fila);
     extras = ExtraRepositorioDrift(banco, fila);
+    petiscos = PetiscoRepositorioDrift(banco, fila);
     await cadastrarPet('p1');
     await cadastrarPet('p2');
   });
@@ -246,5 +250,64 @@ void main() {
     expect((await banco.select(banco.alimentos).getSingle()).estadoSync, 'pendente');
     expect((await banco.select(banco.refeicoes).getSingle()).estadoSync, 'pendente');
     expect((await banco.select(banco.extras).getSingle()).estadoSync, 'pendente');
+  });
+
+  group('petiscos cadastrados (P-32)', () {
+    const bifinho = Petisco(id: 'b1', petId: 'p1', nome: 'Bifinho', kcalPorUnidade: 3, unidadesHabituais: 2);
+
+    test('grava na tabela de alimentos com tipo petisco e enfileira upsert', () async {
+      await petiscos.salvar(bifinho, agora: t0);
+
+      final linha = await banco.select(banco.alimentos).getSingle();
+      expect((linha.tipo, linha.kcalPorUnidade, linha.unidadesHabituais), ('petisco', 3, 2));
+      expect((linha.densidadeKcalPor100g, linha.porcaoPadraoG), (null, null));
+      expect(fila.chamadas.single, ('alimentos', 'b1', OperacaoSync.upsert));
+      expect(await petiscos.observarDoPet('p1').first, [bifinho]);
+    });
+
+    test('rações e petiscos não se misturam, nem no atalho', () async {
+      await alimentos.salvar(racao(), agora: t0);
+      await petiscos.salvar(bifinho, agora: t1); // cadastrado depois da ração
+
+      expect((await alimentos.observarDoPet('p1').first).map((a) => a.id), ['a1']);
+      expect((await petiscos.observarDoPet('p1').first).map((p) => p.id), ['b1']);
+      expect(await alimentos.observar('b1').first, isNull);
+      expect((await alimentos.observarAtalho('p1').first)?.id, 'a1');
+    });
+
+    test('editar soma versão; arquivar some da lista e é idempotente', () async {
+      await petiscos.salvar(bifinho, agora: t0);
+      await petiscos.salvar(bifinho.copyWith(kcalPorUnidade: 4), agora: t1);
+      expect((await banco.select(banco.alimentos).getSingle()).versao, 2);
+
+      fila.chamadas.clear();
+      await petiscos.arquivar('b1', agora: t1);
+      await petiscos.arquivar('b1', agora: t1);
+      expect(await petiscos.observarDoPet('p1').first, isEmpty);
+      expect(fila.chamadas, [('alimentos', 'b1', OperacaoSync.upsert)]);
+    });
+
+    test('arquivar pelo repositório de petiscos não mexe numa ração', () async {
+      await alimentos.salvar(racao(), agora: t0);
+      await petiscos.arquivar('a1', agora: t1);
+      expect((await alimentos.observarDoPet('p1').first).map((a) => a.id), ['a1']);
+    });
+
+    test('extra com petisco cadastrado guarda o id e as unidades', () async {
+      final extra = Extra(
+        id: 'e2',
+        petId: 'p1',
+        descricao: 'Bifinho',
+        energiaKcal: 6,
+        dataHora: t1,
+        alimentoId: 'b1',
+        unidades: 2,
+      );
+      await extras.salvar(extra, agora: t1);
+
+      final lido = await extras.observar('e2').first;
+      expect(lido, extra);
+      expect(lido!.kcalPorUnidade, 3);
+    });
   });
 }

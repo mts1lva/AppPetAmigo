@@ -4,8 +4,12 @@ import '../../../../core/banco/database.dart';
 import '../../../../core/sync/fila_sync.dart';
 import '../../domain/entidades/alimento.dart';
 import '../../domain/repositorios/alimento_repositorio.dart';
+import 'petisco_repositorio_drift.dart';
 
-/// Alimentos no drift: gravação atômica com a fila; exclusão **arquiva**.
+/// Rações no drift: gravação atômica com a fila; exclusão **arquiva**.
+///
+/// A tabela `alimentos` também guarda os petiscos cadastrados (P-32), que são
+/// de [PetiscoRepositorioDrift]: toda leitura daqui filtra `tipo = racao`.
 final class AlimentoRepositorioDrift implements AlimentoRepositorio {
   AlimentoRepositorioDrift(this._banco, this._fila);
 
@@ -14,7 +18,7 @@ final class AlimentoRepositorioDrift implements AlimentoRepositorio {
 
   SimpleSelectStatement<$AlimentosTable, AlimentoLinha> _ativosDoPet(String petId) =>
       _banco.select(_banco.alimentos)
-        ..where((a) => a.petId.equals(petId) & a.excluido.equals(false) & a.arquivado.equals(false));
+        ..where((a) => a.petId.equals(petId) & _racao(a) & a.excluido.equals(false) & a.arquivado.equals(false));
 
   @override
   Stream<List<Alimento>> observarDoPet(String petId) => (_ativosDoPet(petId)
@@ -27,14 +31,14 @@ final class AlimentoRepositorioDrift implements AlimentoRepositorio {
 
   @override
   Stream<Alimento?> observar(String id) => (_banco.select(_banco.alimentos)
-        ..where((a) => a.id.equals(id) & a.excluido.equals(false) & a.arquivado.equals(false)))
+        ..where((a) => a.id.equals(id) & _racao(a) & a.excluido.equals(false) & a.arquivado.equals(false)))
       .watchSingleOrNull()
       .map((linha) => linha == null ? null : _paraEntidade(linha));
 
   @override
   Stream<Alimento?> observarAtalho(String petId) {
     final alimentos = (_banco.select(_banco.alimentos)
-          ..where((a) => a.petId.equals(petId) & a.excluido.equals(false)))
+          ..where((a) => a.petId.equals(petId) & _racao(a) & a.excluido.equals(false)))
         .watch();
     final refeicoes = (_banco.select(_banco.refeicoes)
           ..where((r) => r.petId.equals(petId) & r.excluido.equals(false)))
@@ -98,8 +102,9 @@ final class AlimentoRepositorioDrift implements AlimentoRepositorio {
               estadoSync: Value(estado),
               petId: alimento.petId,
               nome: alimento.nome,
-              densidadeKcalPor100g: alimento.densidadeKcalPor100g,
-              porcaoPadraoG: alimento.porcaoPadraoG,
+              tipo: const Value(tipoRacao),
+              densidadeKcalPor100g: Value(alimento.densidadeKcalPor100g),
+              porcaoPadraoG: Value(alimento.porcaoPadraoG),
               arquivado: Value(alimento.arquivado),
             ));
       } else {
@@ -135,12 +140,15 @@ final class AlimentoRepositorioDrift implements AlimentoRepositorio {
     });
   }
 
+  static Expression<bool> _racao($AlimentosTable a) => a.tipo.equals(tipoRacao);
+
+  /// Só recebe linhas `tipo = racao`, que sempre têm densidade e porção.
   static Alimento _paraEntidade(AlimentoLinha l) => Alimento(
         id: l.id,
         petId: l.petId,
         nome: l.nome,
-        densidadeKcalPor100g: l.densidadeKcalPor100g,
-        porcaoPadraoG: l.porcaoPadraoG,
+        densidadeKcalPor100g: l.densidadeKcalPor100g!,
+        porcaoPadraoG: l.porcaoPadraoG!,
         arquivado: l.arquivado,
       );
 }

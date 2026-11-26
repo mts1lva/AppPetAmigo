@@ -41,11 +41,23 @@ class BancoLocal extends _$BancoLocal {
   factory BancoLocal.abrir() => BancoLocal(driftDatabase(name: 'petamigo'));
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 2;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) => m.createAll(),
+        onUpgrade: (m, de, para) async {
+          if (de < 2) {
+            // P-32: petiscos cadastrados. Densidade e porção passam a aceitar
+            // vazio (só ração usa), o que no SQLite exige recriar a tabela;
+            // os alimentos que já existiam viram `racao`.
+            await m.alterTable(
+              TableMigration(alimentos, newColumns: [alimentos.tipo, alimentos.kcalPorUnidade, alimentos.unidadesHabituais]),
+            );
+            await m.addColumn(extras, extras.alimentoId);
+            await m.addColumn(extras, extras.unidades);
+          }
+        },
         beforeOpen: (detalhes) async {
           await customStatement('PRAGMA foreign_keys = ON');
         },

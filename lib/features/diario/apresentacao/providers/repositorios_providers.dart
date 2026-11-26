@@ -4,13 +4,16 @@ import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/sync/fila_sync_provider.dart';
 import '../../data/repositorios/alimento_repositorio_drift.dart';
 import '../../data/repositorios/extra_repositorio_drift.dart';
+import '../../data/repositorios/petisco_repositorio_drift.dart';
 import '../../data/repositorios/refeicao_repositorio_drift.dart';
 import '../../domain/entidades/alimento.dart';
 import '../../domain/entidades/extra.dart';
+import '../../domain/entidades/petisco.dart';
 import '../../domain/entidades/refeicao.dart';
 import '../../domain/periodo.dart';
 import '../../domain/repositorios/alimento_repositorio.dart';
 import '../../domain/repositorios/extra_repositorio.dart';
+import '../../domain/repositorios/petisco_repositorio.dart';
 import '../../domain/repositorios/refeicao_repositorio.dart';
 
 final alimentoRepositorioProvider = Provider<AlimentoRepositorio>(
@@ -23,6 +26,16 @@ final refeicaoRepositorioProvider = Provider<RefeicaoRepositorio>(
 
 final extraRepositorioProvider = Provider<ExtraRepositorio>(
   (ref) => ExtraRepositorioDrift(ref.watch(bancoProvider), ref.watch(filaSyncProvider)),
+);
+
+final petiscoRepositorioProvider = Provider<PetiscoRepositorio>(
+  (ref) => PetiscoRepositorioDrift(ref.watch(bancoProvider), ref.watch(filaSyncProvider)),
+);
+
+/// Petiscos cadastrados do pet, não arquivados, do mais recente ao mais
+/// antigo (P-32).
+final petiscosDoPetProvider = StreamProvider.family<List<Petisco>, String>(
+  (ref, petId) => ref.watch(petiscoRepositorioProvider).observarDoPet(petId),
 );
 
 /// Alimentos não arquivados do pet.
