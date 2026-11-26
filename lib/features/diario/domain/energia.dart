@@ -26,3 +26,18 @@ Resultado<double> energiaRefeicao(double quantidadeG, double densidadeKcalPor100
   assert(kcal.isFinite, 'R01 produziu um valor não finito');
   return kcal.isFinite ? Disponivel(kcal) : const Indisponivel(motivoQuantidadeInvalida);
 }
+
+/// Motivos de R05 para o petisco cadastrado (P-32).
+const motivoEnergiaPorUnidadeInvalida = 'Informe a energia por unidade.';
+const motivoUnidadesInvalidas = 'Informe um número inteiro de unidades.';
+
+/// R01, petisco cadastrado (P-32): `energiaKcal = unidades × kcalPorUnidade`.
+/// Unidades ≤ 0 ou energia por unidade ≤ 0 (ou não finita): [Indisponivel].
+Resultado<double> energiaPetisco(int unidades, double kcalPorUnidade) {
+  if (unidades <= 0) return const Indisponivel(motivoUnidadesInvalidas);
+  if (!kcalPorUnidade.isFinite || kcalPorUnidade <= 0) {
+    return const Indisponivel(motivoEnergiaPorUnidadeInvalida);
+  }
+  final kcal = unidades * kcalPorUnidade;
+  return kcal.isFinite ? Disponivel(kcal) : const Indisponivel(motivoEnergiaPorUnidadeInvalida);
+}

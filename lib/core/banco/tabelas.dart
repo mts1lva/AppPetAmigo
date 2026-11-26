@@ -51,15 +51,22 @@ class Pets extends Table with ColunasControle {
   TextColumn get fotoArquivo => text().nullable()();
 }
 
-/// P2. `arquivado`: excluído do cadastro, preservado para as refeições
-/// antigas.
+/// P2. `arquivado`: excluído do cadastro, preservado para os registros
+/// antigos.
+///
+/// `tipo` (P-32, versão 2): `racao` usa `densidadeKcalPor100g` e
+/// `porcaoPadraoG`; `petisco` usa `kcalPorUnidade` e `unidadesHabituais`.
+/// Os campos do outro tipo ficam vazios.
 @DataClassName('AlimentoLinha')
 @TableIndex(name: 'idx_alimentos_pet', columns: {#petId})
 class Alimentos extends Table with ColunasControle {
   TextColumn get petId => text().references(Pets, #id, onDelete: KeyAction.cascade)();
   TextColumn get nome => text()();
-  RealColumn get densidadeKcalPor100g => real()();
-  RealColumn get porcaoPadraoG => real()();
+  TextColumn get tipo => text().withDefault(const Constant('racao'))();
+  RealColumn get densidadeKcalPor100g => real().nullable()();
+  RealColumn get porcaoPadraoG => real().nullable()();
+  RealColumn get kcalPorUnidade => real().nullable()();
+  IntColumn get unidadesHabituais => integer().nullable()();
   BoolColumn get arquivado => boolean().withDefault(const Constant(false))();
 }
 
@@ -76,13 +83,17 @@ class Refeicoes extends Table with ColunasControle {
   DateTimeColumn get dataHora => dateTime()();
 }
 
-/// P2. Petiscos e extras.
+/// P2. Petiscos e extras. Com petisco cadastrado (P-32, versão 2),
+/// `alimentoId` aponta para ele e `unidades` guarda a quantidade; descrição e
+/// energia são **cópias** (RF04).
 @DataClassName('ExtraLinha')
 @TableIndex(name: 'idx_extras_pet_data', columns: {#petId, #dataHora})
 class Extras extends Table with ColunasControle {
   TextColumn get petId => text().references(Pets, #id, onDelete: KeyAction.cascade)();
+  TextColumn get alimentoId => text().nullable()();
   TextColumn get descricao => text()();
   RealColumn get quantidadeG => real().nullable()();
+  IntColumn get unidades => integer().nullable()();
   RealColumn get energiaKcal => real()();
   DateTimeColumn get dataHora => dateTime()();
 }

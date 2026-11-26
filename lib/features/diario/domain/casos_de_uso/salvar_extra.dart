@@ -1,3 +1,4 @@
+import '../energia.dart';
 import '../entidades/extra.dart';
 import '../repositorios/extra_repositorio.dart';
 
@@ -14,6 +15,10 @@ final class SalvarExtra {
     final q = extra.quantidadeG;
     if (q != null && (!q.isFinite || q <= 0)) {
       throw ArgumentError('A quantidade precisa ser positiva.');
+    }
+    final u = extra.unidades;
+    if (u != null && u <= 0) {
+      throw ArgumentError(motivoUnidadesInvalidas);
     }
     final descricao = extra.descricao.trim();
     return _repositorio.salvar(
