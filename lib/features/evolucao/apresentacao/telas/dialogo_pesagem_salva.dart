@@ -6,6 +6,7 @@ import '../../../../app/tema/tipografia.dart';
 import '../../../../core/ui/ui.dart';
 import '../../domain/celebracao.dart';
 import '../../domain/textos_evolucao.dart';
+import 'tela_evolucao.dart';
 
 /// Abre o N3 Pesagem salva (celebração de M8), com o layout da tela 20.
 Future<void> abrirPesagemSalva(BuildContext context, {required String celebracao}) {
@@ -36,8 +37,8 @@ class DialogoPesagemSalva extends StatelessWidget {
           aoTocar: () {
             final roteador = GoRouter.maybeOf(context);
             Navigator.of(context).pop();
-            // TODO(P4-1.5): rolar até o gráfico quando a tela 04 existir.
             roteador?.go(Rotas.evolucao);
+            WidgetsBinding.instance.addPostFrameCallback((_) => TelaEvolucao.rolarAteGrafico());
           },
         ),
         PaBotao.secundario(texto: 'Voltar', aoTocar: () => Navigator.of(context).pop()),

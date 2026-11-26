@@ -5,13 +5,13 @@ import 'package:material_ui/material_ui.dart';
 import '../core/ui/ui.dart';
 import '../features/diario/apresentacao/providers/diario_ui_providers.dart';
 import '../features/diario/apresentacao/telas/tela_diario.dart';
+import '../features/evolucao/apresentacao/telas/tela_evolucao.dart';
 import '../features/inicio/apresentacao/telas/tela_inicio.dart';
 import '../features/atividades/apresentacao/telas/tela_atividades.dart';
 import '../features/pets/apresentacao/providers/pet_atual_provider.dart';
 import '../features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import '../features/pets/apresentacao/telas/tela_vamos_comecar.dart';
 import 'tema/cores.dart';
-import 'telas_provisorias.dart';
 
 /// Rotas do app (`docs/specs/comum/navegacao.md`). Só existem as 4 abas e o
 /// estado sem pet; todo o resto é diálogo (`PaDialogo`) por cima da aba atual.
@@ -78,8 +78,7 @@ final roteadorProvider = Provider<GoRouter>((ref) {
             ),
           ]),
           StatefulShellBranch(routes: [
-            // TODO(P4-1.5): tela 04 Evolução.
-            GoRoute(path: Rotas.evolucao, builder: (context, state) => const TelaProvisoria(titulo: 'Evolução')),
+            GoRoute(path: Rotas.evolucao, builder: (context, state) => const TelaEvolucao()),
           ]),
         ],
       ),
