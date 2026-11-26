@@ -242,6 +242,14 @@ void main() {
       expect(dataPrevista(p0: 4.52, pi: pi, kgDia: -0.01, hoje: hoje).texto, 'Peso ideal alcançado.');
     });
 
+    test('peso já no objetivo e sem ritmo (sem refeições) → "Peso ideal alcançado." (ordem do M5)', () {
+      expect(dataPrevista(p0: 4.5, pi: 4.5, kgDia: null, hoje: hoje).texto, 'Peso ideal alcançado.');
+      expect(
+        dataPrevista(p0: 5.4, pi: 4.5, kgDia: null, hoje: hoje).texto,
+        'Registre pesagens ou refeições para estimar.',
+      );
+    });
+
     test('sem ritmo', () {
       expect(
         dataPrevista(p0: 5.4, pi: pi, kgDia: null, hoje: hoje).texto,

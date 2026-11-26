@@ -55,10 +55,11 @@ final class DataPrevista {
 /// [pi] o peso ideal (M2).
 DataPrevista dataPrevista({required double? p0, required double? pi, required double? kgDia, required DateTime hoje}) {
   if (pi == null || !pi.isFinite || pi <= 0) return const DataPrevista._(SituacaoPrevisao.semPesoIdeal);
-  if (p0 == null || !p0.isFinite || p0 <= 0 || kgDia == null || !kgDia.isFinite) {
-    return const DataPrevista._(SituacaoPrevisao.semRitmo);
-  }
+  if (p0 == null || !p0.isFinite || p0 <= 0) return const DataPrevista._(SituacaoPrevisao.semRitmo);
+  // M5 (`modelos-matematicos.md`): "alcançado" vem antes de "kgDia
+  // indisponível". Com o peso já no objetivo, não precisa de ritmo.
   if ((p0 - pi).abs() <= toleranciaPesoIdeal * pi) return const DataPrevista._(SituacaoPrevisao.alcancado);
+  if (kgDia == null || !kgDia.isFinite) return const DataPrevista._(SituacaoPrevisao.semRitmo);
 
   final falta = pi - p0;
   if (kgDia.abs() < ritmoMinimo || kgDia.sign != falta.sign) {
