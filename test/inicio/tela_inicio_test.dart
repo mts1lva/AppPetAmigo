@@ -8,6 +8,8 @@ import 'package:petamigo/core/relogio.dart';
 import 'package:petamigo/core/sugestao.dart';
 import 'package:petamigo/core/ui/ui.dart';
 import 'package:petamigo/features/diario/apresentacao/providers/resumo_dia_provider.dart';
+import 'package:petamigo/features/diario/apresentacao/telas/dialogo_alimentos.dart';
+import 'package:petamigo/features/diario/apresentacao/telas/dialogo_atalho.dart';
 import 'package:petamigo/features/diario/domain/entidades/resumo_dia.dart';
 import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
@@ -18,6 +20,7 @@ import 'package:petamigo/features/pets/apresentacao/telas/dialogo_dados_pet.dart
 import 'package:petamigo/features/pets/apresentacao/telas/dialogo_seus_pets.dart';
 import 'package:petamigo/features/pets/domain/entidades/pet.dart';
 
+import '../apoio/diario_falso.dart';
 import '../apoio/inicio_falso.dart';
 import '../apoio/montar.dart';
 import '../apoio/pets_falsos.dart';
@@ -34,6 +37,7 @@ Future<void> montar(
   Map<String, Stream<Pesagem?>> pesos = const {},
   List<Override> extras = const [],
   AdiadasFalsas? adiadas,
+  DiarioFalsos? diario,
 }) async {
   tester.view
     ..physicalSize = const Size(390, 2400)
@@ -43,6 +47,7 @@ Future<void> montar(
     ProviderScope(
       overrides: [
         ...pets.overrides,
+        ...(diario ?? DiarioFalsos()).overrides,
         agoraProvider.overrideWithValue(() => agora),
         ultimaPesagemProvider.overrideWith((ref, petId) => pesos[petId] ?? Stream.value(null)),
         sugestoesAdiadasRepositorioProvider.overrideWithValue(adiadas ?? AdiadasFalsas()),
@@ -162,6 +167,24 @@ void main() {
     expect(find.widgetWithText(PaCard, 'Luna'), findsNothing);
     expect(textoDoCard(tester, 'Thor'), 'Cão • 6 anos • não castrado\nAtividade moderada • 12,0 kg');
     expect(find.text('Cão • 6 anos'), findsOneWidget);
+  });
+
+  testWidgets('Registrar refeição sem alimento abre o 09 (P2-2.1)', (tester) async {
+    await montar(tester, pets: PetsFalsos(iniciais: [(luna(), 5.4)]));
+    await tester.tap(find.widgetWithText(PaBotao, 'Registrar refeição'));
+    await tester.pumpAndSettle();
+    expect(find.byType(DialogoAlimentos), findsOneWidget);
+  });
+
+  testWidgets('Registrar refeição com alimento abre o 06 (P2-2.1)', (tester) async {
+    await montar(
+      tester,
+      pets: PetsFalsos(iniciais: [(luna(), 5.4)]),
+      diario: DiarioFalsos(alimentos: [racaoHabitual()]),
+    );
+    await tester.tap(find.widgetWithText(PaBotao, 'Registrar refeição'));
+    await tester.pumpAndSettle();
+    expect(find.byType(DialogoAtalho), findsOneWidget);
   });
 
   testWidgets('"Editar pet" abre o 05 em modo edição', (tester) async {
