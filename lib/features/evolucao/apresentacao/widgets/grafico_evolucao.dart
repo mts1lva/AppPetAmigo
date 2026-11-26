@@ -87,6 +87,8 @@ class _GraficoEvolucaoState extends State<GraficoEvolucao> {
               final largura = limites.maxWidth;
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
+                // O leitor de tela usa o texto alternativo, não o gesto (RNF02).
+                excludeFromSemantics: true,
                 onTapDown: (d) => _mover(d.localPosition, largura),
                 onTapUp: (_) => _soltar(),
                 onHorizontalDragStart: (d) => _mover(d.localPosition, largura),

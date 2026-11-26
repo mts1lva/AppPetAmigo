@@ -57,3 +57,7 @@ Dados: Luna com 5,6 / 5,5 / 5,4 kg em 16, 23 e 30 set., hoje 30/09/2026 às 09:0
 | Texto alternativo de R07 no lugar de `16 set. 5,6 kg → 23 set. 5,5 kg` / `30 set. 5,4 kg • objetivo não informado` | R07 |
 | Card **Indicadores** novo, logo abaixo do gráfico; os outros cards descem | `pacote-4` → 04 |
 | Card **Pesagens anteriores** (com 3 pesagens, mostra a primeira com ` • peso inicial`) | P-08 |
+
+## 04 Evolução com a fonte em 200% (P4-4.6, 25/11/2026)
+
+Mesmos dados do 04, com ECC 7. Sem PNG de referência: é evidência de que nada corta. Os textos quebram linha e os cards crescem; os rótulos desenhados dentro do gráfico (`hoje`, `ideal 4,5 kg`) não acompanham a escala, porque são parte do desenho (fora da acessibilidade), e quem lê o gráfico é o texto alternativo embaixo dele.
