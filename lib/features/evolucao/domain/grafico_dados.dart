@@ -223,7 +223,8 @@ const diasLacunaTextoAlternativo = 14;
 /// Previsão para o peso ideal: 28 nov. 2026
 /// Sem pesagens entre 1 ago. e 20 ago.        (lacuna > 14 dias)
 /// ```
-/// Cada linha só aparece com o dado disponível. [previsao] é o texto de M5.
+/// Cada linha só aparece com o dado disponível; a previsão (texto de M5,
+/// [previsao]) só com peso ideal.
 String textoAlternativoGrafico(GraficoDados g, {String? previsao}) {
   final pesagens = g.historico.map((p) => '${formatarDiaMes(p.dia)} ${formatarPeso(p.kg)}').join(' → ');
   final ideal = g.pesoIdealKg;
@@ -241,7 +242,7 @@ String textoAlternativoGrafico(GraficoDados g, {String? previsao}) {
   return [
     if (pesagens.isNotEmpty) pesagens,
     if (referencias.isNotEmpty) referencias.join(' • '),
-    if (previsao != null) 'Previsão para o peso ideal: $previsao',
+    if (previsao != null && ideal != null) 'Previsão para o peso ideal: $previsao',
     ...lacunas,
   ].join('\n');
 }
