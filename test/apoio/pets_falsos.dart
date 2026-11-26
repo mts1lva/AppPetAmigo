@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/misc.dart' show Override;
+import 'package:petamigo/features/atividades/apresentacao/providers/atividades_providers.dart';
 import 'package:petamigo/features/evolucao/apresentacao/providers/evolucao_providers.dart';
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
 import 'package:petamigo/features/evolucao/domain/entidades/referencia.dart';
@@ -13,6 +14,8 @@ import 'package:petamigo/features/pets/domain/entidades/pet.dart';
 import 'package:petamigo/features/pets/domain/repositorios/fotos_pet.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_atual_repositorio.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_repositorio.dart';
+
+import 'evolucao_falsa.dart' show AtividadesFalsas;
 
 /// Luna, a gata do protótipo: 6 anos, castrada, atividade moderada. A idade
 /// é informada hoje, para o teste não depender da data em que roda (a idade
@@ -109,6 +112,8 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
         seletorFotoProvider.overrideWithValue(fotos),
         pesagemRepositorioProvider.overrideWithValue(_PesagensDosPets(this)),
         referenciaRepositorioProvider.overrideWithValue(const _SemReferencia()),
+        // A S3 do Início usa a projeção completa (P4-1.3), que lê as atividades.
+        atividadeRepositorioProvider.overrideWithValue(AtividadesFalsas(const [])),
       ];
 
   Stream<T> _observar<T>(T Function() ler) => Stream.multi((s) {
