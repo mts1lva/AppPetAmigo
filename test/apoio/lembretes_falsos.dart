@@ -6,6 +6,9 @@ import 'package:petamigo/features/lembretes/domain/repositorios/lembrete_reposit
 
 final class AgendadorFalso implements AgendadorNotificacoes {
   bool falhar = false;
+  final idsComFalha = <int>{};
+  final idsComFalhaNoCancelamento = <int>{};
+  final tentativas = <int>[];
   final agendados =
       <int, ({Lembrete lembrete, String nomePet, String payload})>{};
   final cancelados = <int>[];
@@ -13,7 +16,10 @@ final class AgendadorFalso implements AgendadorNotificacoes {
 
   @override
   Future<void> agendarDiario(Lembrete l, {required String nomePet}) async {
-    if (falhar) throw StateError('Falha simulada no agendador.');
+    tentativas.add(l.notificacaoId);
+    if (falhar || idsComFalha.contains(l.notificacaoId)) {
+      throw StateError('Falha simulada no agendador.');
+    }
     agendados[l.notificacaoId] = (
       lembrete: l,
       nomePet: nomePet,
@@ -24,6 +30,9 @@ final class AgendadorFalso implements AgendadorNotificacoes {
   @override
   Future<void> cancelar(int id) async {
     cancelados.add(id);
+    if (idsComFalhaNoCancelamento.contains(id)) {
+      throw StateError('Falha simulada no cancelamento.');
+    }
     agendados.remove(id);
   }
 
