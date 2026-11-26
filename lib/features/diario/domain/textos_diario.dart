@@ -153,6 +153,36 @@ const sufixoGramas = 'g';
 const sufixoKcal = 'kcal';
 const textoEnergiaRotuloSufixo = '(rótulo)';
 
+// P-32 — petiscos cadastrados, por unidade.
+const rotuloTipo = 'Tipo';
+const opcaoTipoRacao = 'Ração';
+const opcaoTipoPetisco = 'Petisco';
+const rotuloEnergiaPorUnidade = 'Energia por unidade (kcal)';
+const rotuloUnidadesHabituais = 'Unidades habituais';
+const rotuloPetisco = 'Petisco';
+const rotuloOutroPetisco = 'Outro petisco…';
+const rotuloUnidades = 'Unidades';
+const botaoConfirmarPetisco = 'Confirmar petisco';
+const tituloPetiscoSalvo = 'Petisco salvo';
+
+/// Item do petisco na lista do atalho 06: `Bifinho (petisco)`.
+String rotuloPetiscoNaLista(String nome) => '$nome (petisco)';
+
+/// `1 unidade` / `2 unidades`.
+String textoUnidades(int n) => n == 1 ? '1 unidade' : '$n unidades';
+
+/// Porção habitual do petisco no 06: `Habitual • 2 unidades / 6 kcal`.
+String rotuloPorcaoPetiscoHabitual(int unidades, double kcal) =>
+    'Habitual • ${textoUnidades(unidades)} / ${formatarNumero(kcal, casas: 0)} kcal';
+
+/// Uma unidade do petisco no 06: `1 unidade • 3 kcal`.
+String rotuloPorcaoPetiscoUma(double kcal) => '1 unidade • ${formatarNumero(kcal, casas: 0)} kcal';
+
+/// Texto do rótulo no 06 com um petisco.
+String textoEnergiaRotuloPetisco(double kcalPorUnidade) =>
+    'Energia do rótulo: ${formatarNumero(kcalPorUnidade, casas: 0)} kcal por unidade. '
+    'Esta porção não é uma prescrição.';
+
 /// `08:00 • Ração habitual • 30 g • 108 kcal`
 String linhaRefeicao(Refeicao r) {
   final hora = formatarHora(r.dataHora);
@@ -160,10 +190,15 @@ String linhaRefeicao(Refeicao r) {
   return '$hora • ${r.alimentoNome} • $q • ${formatarEnergia(r.energiaKcal)}';
 }
 
-/// `12:00 • Petisco • 3 g • 12 kcal` (sem quantidade: sem o trecho das gramas).
+/// `12:00 • Petisco • 3 g • 12 kcal` (sem quantidade: sem o trecho das gramas;
+/// petisco cadastrado, P-32: `12:00 • Bifinho • 2 un. • 6 kcal`).
 String linhaExtra(Extra e) {
   final hora = formatarHora(e.dataHora);
-  final q = e.quantidadeG == null ? null : '${formatarNumero(e.quantidadeG!, casas: 0)} g';
+  final q = e.unidades != null
+      ? '${e.unidades} un.'
+      : e.quantidadeG == null
+          ? null
+          : '${formatarNumero(e.quantidadeG!, casas: 0)} g';
   final kcal = formatarEnergia(e.energiaKcal);
   return q == null ? '$hora • ${e.descricao} • $kcal' : '$hora • ${e.descricao} • $q • $kcal';
 }
@@ -184,6 +219,8 @@ String rotuloSemanticoRefeicao(Refeicao r) =>
 String rotuloSemanticoExtra(Extra e) {
   final hora = formatarHora(e.dataHora);
   final kcal = '${formatarNumero(e.energiaKcal, casas: 0)} quilocalorias';
+  final u = e.unidades;
+  if (u != null) return 'Editar registro: $hora, ${e.descricao}, ${textoUnidades(u)}, $kcal';
   final q = e.quantidadeG;
   if (q == null) return 'Editar registro: $hora, ${e.descricao}, $kcal';
   return 'Editar registro: $hora, ${e.descricao}, ${formatarNumero(q, casas: 0)} gramas, $kcal';

@@ -53,8 +53,8 @@ docs/specs/
 |---|---|---|---|---|---|---|
 | 1 | Base em Clean Architecture, design system, navegação, Início, vários pets, meta diária | 01, 05, 18, 23, 26, N1 | U2-01, U2-06, U2-10, U2-14 | Projeto Firebase, inicialização, mapeador dos pets, fotos no Firestore, teste de integração | T1 | Matheus Leão |
 | 2 | Diário: refeições, petiscos, alimentos, atalho, meta no diário, aderência | 02, 06, 07, 08, 09, 19, 20, 21, 22 | U2-01, U2-06, U2-11 (S1), U2-12 | **Firebase Emulator Suite do grupo**; mapeadores do diário; teste de integração | T2 | Matheus Silva |
-| 3 | Atividades, dicas, **lembretes com o app fechado**, **PDF** e exportação | 03, 10, 13, N2 | U2-04, U2-09, U2-11 (S2), U2-18 | Mapeadores de atividades e lembretes; teste de integração com reagendamento | T3 | _a definir_ |
-| 4 | Evolução: pesagens, **peso ideal, curvas de 90 dias, projeção adaptativa, data prevista, gráfico interativo**, indicadores | 04, 11, 12, 25, N3 | U2-02 a U2-08, U2-11 (S3), U2-12 | Mapeadores de pesagens e referências; teste de integração | T4 | _a definir_ |
+| 3 | Atividades, dicas, **lembretes com o app fechado**, **PDF** e exportação | 03, 10, 13, N2 | U2-04, U2-09, U2-11 (S2), U2-18 | Mapeadores de atividades e lembretes; teste de integração com reagendamento | T3 | paulofontes-cyber |
+| 4 | Evolução: pesagens, **peso ideal, curvas de 90 dias, projeção adaptativa, data prevista, gráfico interativo**, indicadores | 04, 11, 12, 25, N3 | U2-02 a U2-08, U2-11 (S3), U2-12 | Mapeadores de pesagens e referências; teste de integração | T4 | Raissa Andrade Santos |
 | 5 | Privacidade, cópia remota, **sincronização em lote**, conflitos e exclusão integral | 14, 15, 16, 17 | U2-15, U2-16 | Auth, motor com `WriteBatch`, regras de segurança, exclusão remota | T5 | João Lopes |
 
 Cada integrante **escolhe** o próprio pacote, um por pessoa. Na primeira tarefa, a skill `executar-entrega` explica os pacotes e pergunta qual a pessoa assume. Sem o Claude Code: `dart tool/dependencias.dart responsaveis` mostra quem pegou o quê (inclusive escolhas ainda em PR) e `dart tool/dependencias.dart assumir P2` registra a escolha nesta tabela. Se duas pessoas escolherem o mesmo pacote, vale a escolha que chegar primeiro à `dev`.
@@ -78,3 +78,5 @@ Quem vem antes usa stubs para o que ainda não existe; quem vem depois troca o s
 **Antes das tarefas do P2 em diante:** levar ao professor a tabela de parâmetros P-17 a P-22 (`pendencias.md`), que o enunciado não define.
 
 Regra de convivência: nenhum pacote cria um componente visual próprio se existe um equivalente em `core/ui`. Se faltar alguma variante, peça ao pacote 1.
+
+Estado da implementação do P3, contratos de integração e bloqueios: [entrega-p3.md](entrega-p3.md).

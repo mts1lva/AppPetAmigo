@@ -68,6 +68,8 @@ final class ExtraRepositorioDrift implements ExtraRepositorio {
               petId: extra.petId,
               descricao: extra.descricao,
               quantidadeG: Value(extra.quantidadeG),
+              alimentoId: Value(extra.alimentoId),
+              unidades: Value(extra.unidades),
               energiaKcal: extra.energiaKcal,
               dataHora: extra.dataHora,
             ));
@@ -75,6 +77,8 @@ final class ExtraRepositorioDrift implements ExtraRepositorio {
         await (_banco.update(_banco.extras)..where((e) => e.id.equals(extra.id))).write(ExtrasCompanion(
           descricao: Value(extra.descricao),
           quantidadeG: Value(extra.quantidadeG),
+          alimentoId: Value(extra.alimentoId),
+          unidades: Value(extra.unidades),
           energiaKcal: Value(extra.energiaKcal),
           dataHora: Value(extra.dataHora),
           versao: Value(atual.versao + 1),
@@ -109,6 +113,8 @@ final class ExtraRepositorioDrift implements ExtraRepositorio {
         petId: l.petId,
         descricao: l.descricao,
         quantidadeG: l.quantidadeG,
+        alimentoId: l.alimentoId,
+        unidades: l.unidades,
         energiaKcal: l.energiaKcal,
         dataHora: l.dataHora,
       );

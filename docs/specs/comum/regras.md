@@ -15,6 +15,8 @@ energiaKcal = quantidadeG × densidadeKcalPor100g / 100
 - Guarda `double`; mostra arredondado para inteiro ("108 kcal").
 - A densidade usada fica copiada na refeição. Ao editar a quantidade, o recálculo usa **a densidade salva na refeição**, não a atual do alimento (`requisitos.md`, exemplo de CRUD).
 
+**Petisco cadastrado (P-32):** `energiaKcal = unidades × kcalPorUnidade`. Ex.: 2 unidades × 3 kcal = **6 kcal**. O nome e a energia ficam copiados no extra; ao editar as unidades, o recálculo usa a energia por unidade da cópia (`energiaKcal ÷ unidades`), não a atual do petisco.
+
 ## R02 — Resumo do dia e comparação com a meta
 
 Para o dia D (00:00 a 23:59 no fuso do aparelho):
@@ -56,6 +58,8 @@ meta   = MER (M1)
 | Densidade | > 0 | Abre a tela 22 "Confira a densidade" |
 | Quantidade (g) | > 0 | "A quantidade precisa ser positiva." |
 | Energia do extra | > 0 | "Informe a energia em kcal." |
+| Energia por unidade do petisco (P-32) | > 0 | "Informe a energia por unidade." |
+| Unidades (petisco cadastrado e unidades habituais, P-32) | inteiro > 0 | "Informe um número inteiro de unidades." |
 | Duração | inteiro > 0, ≤ 600 min (P-10) | "Informe a duração em minutos." |
 | Data/hora de registro | não pode ser futura (P-10) | "Escolha uma data até hoje." |
 | ECC | inteiro de 1 a 9 ou vazio (P-03) | — (escolha) |

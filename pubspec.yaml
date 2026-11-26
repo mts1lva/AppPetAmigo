@@ -59,6 +59,7 @@ flutter:
 
   assets:
     - assets/img/
+    - assets/conteudo/
 
   fonts:
     - family: Inter

@@ -15,6 +15,7 @@ import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
 import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provider.dart';
 import 'package:petamigo/features/inicio/apresentacao/telas/tela_inicio.dart';
+import 'package:petamigo/features/lembretes/apresentacao/providers/lembretes_provider.dart';
 import 'package:petamigo/features/nutricao/apresentacao/telas/dialogo_como_meta.dart';
 import 'package:petamigo/features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import 'package:petamigo/features/pets/apresentacao/telas/dialogo_seus_pets.dart';
@@ -47,6 +48,7 @@ Future<void> montar(
     ProviderScope(
       overrides: [
         ...pets.overrides,
+        lembretesProvider.overrideWith((ref, petId) => Stream.value([])),
         ...(diario ?? DiarioFalsos()).overrides,
         agoraProvider.overrideWithValue(() => agora),
         ultimaPesagemProvider.overrideWith((ref, petId) => pesos[petId] ?? Stream.value(null)),

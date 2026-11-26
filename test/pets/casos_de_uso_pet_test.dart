@@ -26,7 +26,7 @@ final class _RepoFalso implements PetRepositorio {
   }
 
   @override
-  Future<void> editar(Pet pet, {double? pesoInicialKg, required DateTime agora}) async {
+  Future<void> editar(Pet pet, {double? pesoInicialKg, bool pesoInicialConferido = false, required DateTime agora}) async {
     if (falhar) throw StateError('falha simulada');
     edicoes.add((pet, pesoInicialKg));
   }

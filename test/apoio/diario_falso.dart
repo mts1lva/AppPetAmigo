@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:petamigo/features/diario/apresentacao/providers/repositorios_providers.dart';
 import 'package:petamigo/features/diario/domain/entidades/alimento.dart';
 import 'package:petamigo/features/diario/domain/entidades/extra.dart';
+import 'package:petamigo/features/diario/domain/entidades/petisco.dart';
 import 'package:petamigo/features/diario/domain/entidades/refeicao.dart';
 import 'package:petamigo/features/diario/domain/periodo.dart';
 import 'package:petamigo/features/diario/domain/repositorios/alimento_repositorio.dart';
 import 'package:petamigo/features/diario/domain/repositorios/extra_repositorio.dart';
+import 'package:petamigo/features/diario/domain/repositorios/petisco_repositorio.dart';
 import 'package:petamigo/features/diario/domain/repositorios/refeicao_repositorio.dart';
 
 /// Repositórios do diário em memória, para widget tests.
@@ -16,9 +18,11 @@ final class DiarioFalsos {
     List<Alimento> alimentos = const [],
     List<Refeicao> refeicoes = const [],
     List<Extra> extras = const [],
+    List<Petisco> petiscos = const [],
   }) : alimentos = AlimentoRepositorioFalso(alimentos),
        refeicoes = RefeicaoRepositorioFalso(refeicoes),
-       extras = ExtraRepositorioFalso(extras) {
+       extras = ExtraRepositorioFalso(extras),
+       petiscos = PetiscoRepositorioFalso(petiscos) {
     this.alimentos._refeicoes = this.refeicoes;
     this.refeicoes._avisarAtalho = this.alimentos._avisar;
     this.extras._avisarAtalho = this.alimentos._avisar;
@@ -27,11 +31,13 @@ final class DiarioFalsos {
   final AlimentoRepositorioFalso alimentos;
   final RefeicaoRepositorioFalso refeicoes;
   final ExtraRepositorioFalso extras;
+  final PetiscoRepositorioFalso petiscos;
 
   List<Override> get overrides => [
         alimentoRepositorioProvider.overrideWithValue(alimentos),
         refeicaoRepositorioProvider.overrideWithValue(refeicoes),
         extraRepositorioProvider.overrideWithValue(extras),
+        petiscoRepositorioProvider.overrideWithValue(petiscos),
       ];
 }
 
@@ -103,6 +109,40 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
   @override
   Future<void> arquivar(String id, {required DateTime agora}) async {
     await antesDeGravar?.call();
+    arquivados.add(id);
+    final atual = _itens[id];
+    if (atual != null) _itens[id] = atual.copyWith(arquivado: true);
+    _hub.avisar();
+  }
+}
+
+/// Petiscos cadastrados (P-32), do mais recente ao mais antigo, como o drift.
+final class PetiscoRepositorioFalso implements PetiscoRepositorio {
+  PetiscoRepositorioFalso(List<Petisco> iniciais) {
+    for (final p in iniciais) {
+      _itens[p.id] = p;
+    }
+  }
+
+  final _hub = _Hub();
+  final _itens = <String, Petisco>{};
+  final salvos = <Petisco>[];
+  final arquivados = <String>[];
+
+  @override
+  Stream<List<Petisco>> observarDoPet(String petId) => _hub.observar(
+        () => _itens.values.where((p) => p.petId == petId && !p.arquivado).toList().reversed.toList(),
+      );
+
+  @override
+  Future<void> salvar(Petisco petisco, {required DateTime agora}) async {
+    salvos.add(petisco);
+    _itens[petisco.id] = petisco;
+    _hub.avisar();
+  }
+
+  @override
+  Future<void> arquivar(String id, {required DateTime agora}) async {
     arquivados.add(id);
     final atual = _itens[id];
     if (atual != null) _itens[id] = atual.copyWith(arquivado: true);

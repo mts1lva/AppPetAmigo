@@ -22,13 +22,14 @@ enum PaCardVariante {
 class PaCard extends StatelessWidget {
   const PaCard({
     super.key,
-    required this.titulo,
+    this.titulo,
     this.texto,
     this.filhos = const [],
     this.variante = PaCardVariante.padrao,
   });
 
-  final String titulo;
+  /// Opcional: o card do gráfico da Evolução não tem título (`pacote-4` → 04).
+  final String? titulo;
   final String? texto;
   final List<Widget> filhos;
   final PaCardVariante variante;
@@ -46,7 +47,7 @@ class PaCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: espacar([
-          Semantics(header: true, child: Text(titulo, style: PaTexto.secao)),
+          if (titulo != null) Semantics(header: true, child: Text(titulo!, style: PaTexto.secao)),
           if (texto != null) Text(texto!, style: PaTexto.corpo),
           ...filhos,
         ]),

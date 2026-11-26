@@ -41,4 +41,22 @@ void main() {
       expect(caso(quantidadeG: 30, densidadeKcalPor100g: 360), energiaRefeicao(30, 360));
     });
   });
+
+  group('R01 — petisco cadastrado (P-32)', () {
+    test('2 unidades × 3 kcal = 6 kcal', () {
+      expect(energiaPetisco(2, 3), const Disponivel(6.0));
+    });
+
+    test('unidades ou energia por unidade inválidas → indisponível com o texto de R05', () {
+      expect(energiaPetisco(0, 3), const Indisponivel(motivoUnidadesInvalidas));
+      expect(energiaPetisco(-1, 3), const Indisponivel(motivoUnidadesInvalidas));
+      expect(energiaPetisco(2, 0), const Indisponivel(motivoEnergiaPorUnidadeInvalida));
+      expect(energiaPetisco(2, double.nan), const Indisponivel(motivoEnergiaPorUnidadeInvalida));
+    });
+
+    test('textos de R05 da P-32', () {
+      expect(motivoEnergiaPorUnidadeInvalida, 'Informe a energia por unidade.');
+      expect(motivoUnidadesInvalidas, 'Informe um número inteiro de unidades.');
+    });
+  });
 }

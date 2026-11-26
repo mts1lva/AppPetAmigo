@@ -20,8 +20,9 @@ abstract interface class PetRepositorio {
   Future<void> cadastrar(Pet pet, {required double pesoInicialKg, required DateTime agora});
 
   /// Grava as alterações do pet. Com [pesoInicialKg], altera também a
-  /// primeira pesagem.
-  Future<void> editar(Pet pet, {double? pesoInicialKg, required DateTime agora});
+  /// primeira pesagem, gravando [pesoInicialConferido] na coluna `conferida`
+  /// (R06: o tutor manteve um valor suspeito na tela 25).
+  Future<void> editar(Pet pet, {double? pesoInicialKg, bool pesoInicialConferido = false, required DateTime agora});
 
   /// Exclui o pet e, em cascata, todos os registros dele (lápide). Se era o
   /// pet atual, o atual passa a ser o primeiro da lista por ordem de cadastro;

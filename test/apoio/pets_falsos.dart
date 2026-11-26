@@ -2,12 +2,20 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/misc.dart' show Override;
+import 'package:petamigo/features/atividades/apresentacao/providers/atividades_providers.dart';
+import 'package:petamigo/features/evolucao/apresentacao/providers/evolucao_providers.dart';
+import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
+import 'package:petamigo/features/evolucao/domain/entidades/referencia.dart';
+import 'package:petamigo/features/evolucao/domain/repositorios/pesagem_repositorio.dart';
+import 'package:petamigo/features/evolucao/domain/repositorios/referencia_repositorio.dart';
 import 'package:petamigo/features/pets/apresentacao/providers/pet_atual_provider.dart';
 import 'package:petamigo/features/pets/apresentacao/providers/pets_providers.dart';
 import 'package:petamigo/features/pets/domain/entidades/pet.dart';
 import 'package:petamigo/features/pets/domain/repositorios/fotos_pet.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_atual_repositorio.dart';
 import 'package:petamigo/features/pets/domain/repositorios/pet_repositorio.dart';
+
+import 'evolucao_falsa.dart' show AtividadesFalsas;
 
 /// Luna, a gata do protótipo: 6 anos, castrada, atividade moderada. A idade
 /// é informada hoje, para o teste não depender da data em que roda (a idade
@@ -84,6 +92,15 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
   final fotos = FotosFalsas();
   final cadastros = <(Pet, double)>[];
   final edicoes = <(Pet, double?)>[];
+
+  /// `pesoInicialConferido` de cada edição, na ordem de [edicoes].
+  final conferidos = <bool>[];
+
+  /// Pesagens além do peso inicial, por pet (para a conferência R06 do 05).
+  final pesagensExtras = <String, List<Pesagem>>{};
+
+  /// Data do peso inicial nas pesagens falsas.
+  static final dataPesoInicial = DateTime(2026, 9, 1, 8);
   final exclusoes = <String>[];
 
   /// Overrides para o `ProviderScope` do teste.
@@ -93,6 +110,10 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
         novoIdProvider.overrideWithValue(() => 'novo-${cadastros.length + 1}'),
         armazenamentoFotosProvider.overrideWithValue(fotos),
         seletorFotoProvider.overrideWithValue(fotos),
+        pesagemRepositorioProvider.overrideWithValue(_PesagensDosPets(this)),
+        referenciaRepositorioProvider.overrideWithValue(const _SemReferencia()),
+        // A S3 do Início usa a projeção completa (P4-1.3), que lê as atividades.
+        atividadeRepositorioProvider.overrideWithValue(AtividadesFalsas(const [])),
       ];
 
   Stream<T> _observar<T>(T Function() ler) => Stream.multi((s) {
@@ -131,8 +152,9 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
   }
 
   @override
-  Future<void> editar(Pet pet, {double? pesoInicialKg, required DateTime agora}) async {
+  Future<void> editar(Pet pet, {double? pesoInicialKg, bool pesoInicialConferido = false, required DateTime agora}) async {
     edicoes.add((pet, pesoInicialKg));
+    conferidos.add(pesoInicialConferido);
     _pets[pet.id] = pet;
     if (pesoInicialKg != null) _pesos[pet.id] = pesoInicialKg;
     _avisar();
@@ -146,4 +168,47 @@ final class PetsFalsos implements PetRepositorio, PetAtualRepositorio {
     if (_atual == id) _atual = _pets.keys.isEmpty ? null : _pets.keys.first;
     _avisar();
   }
+}
+
+/// Pesagens vistas pelo formulário 05: o peso inicial de cada pet (em
+/// [PetsFalsos.dataPesoInicial]) e as [PetsFalsos.pesagensExtras].
+final class _PesagensDosPets implements PesagemRepositorio {
+  _PesagensDosPets(this._pets);
+
+  final PetsFalsos _pets;
+
+  List<Pesagem> _de(String petId) {
+    final peso = _pets._pesos[petId];
+    return [
+      if (peso != null)
+        Pesagem(id: 'inicial-$petId', petId: petId, pesoKg: peso, dataHora: PetsFalsos.dataPesoInicial),
+      ...?_pets.pesagensExtras[petId],
+    ];
+  }
+
+  @override
+  Stream<List<Pesagem>> observarTodas(String petId) => _pets._observar(() => _de(petId));
+
+  @override
+  Stream<Pesagem?> observarUltima(String petId) => _pets._observar(() => _de(petId).lastOrNull);
+
+  @override
+  Future<void> salvar(Pesagem pesagem, {required DateTime agora}) => throw UnimplementedError();
+
+  @override
+  Future<void> excluir(String id, {required DateTime agora}) => throw UnimplementedError();
+}
+
+/// Nenhum pet tem ECC nem objetivo (a S3 do Início fica sem sugestão).
+final class _SemReferencia implements ReferenciaRepositorio {
+  const _SemReferencia();
+
+  @override
+  Stream<Referencia?> observarVigente(String petId) => Stream.value(null);
+
+  @override
+  Future<void> salvar(Referencia referencia, {required DateTime agora}) => throw UnimplementedError();
+
+  @override
+  Future<void> remover(String petId, {required DateTime agora}) => throw UnimplementedError();
 }

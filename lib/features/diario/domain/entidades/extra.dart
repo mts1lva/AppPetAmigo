@@ -11,6 +11,8 @@ final class Extra {
     this.quantidadeG,
     required this.energiaKcal,
     required this.dataHora,
+    this.alimentoId,
+    this.unidades,
   });
 
   final String id;
@@ -24,11 +26,27 @@ final class Extra {
   final double energiaKcal;
   final DateTime dataHora;
 
+  /// Petisco cadastrado usado (P-32); `null` no petisco digitado na hora.
+  /// A descrição e a energia são cópias do petisco na ocasião (RF04).
+  final String? alimentoId;
+
+  /// Unidades do petisco cadastrado (P-32); `null` no petisco digitado.
+  final int? unidades;
+
+  /// Energia por unidade copiada no registro (R01, P-32), para recalcular ao
+  /// editar as unidades. `null` sem unidades.
+  double? get kcalPorUnidade {
+    final u = unidades;
+    return u == null || u <= 0 ? null : energiaKcal / u;
+  }
+
   Extra copyWith({
     String? descricao,
     double? Function()? quantidadeG,
     double? energiaKcal,
     DateTime? dataHora,
+    String? Function()? alimentoId,
+    int? Function()? unidades,
   }) {
     return Extra(
       id: id,
@@ -37,6 +55,8 @@ final class Extra {
       quantidadeG: quantidadeG == null ? this.quantidadeG : quantidadeG(),
       energiaKcal: energiaKcal ?? this.energiaKcal,
       dataHora: dataHora ?? this.dataHora,
+      alimentoId: alimentoId == null ? this.alimentoId : alimentoId(),
+      unidades: unidades == null ? this.unidades : unidades(),
     );
   }
 
@@ -48,10 +68,12 @@ final class Extra {
       other.descricao == descricao &&
       other.quantidadeG == quantidadeG &&
       other.energiaKcal == energiaKcal &&
-      other.dataHora == dataHora;
+      other.dataHora == dataHora &&
+      other.alimentoId == alimentoId &&
+      other.unidades == unidades;
 
   @override
-  int get hashCode => Object.hash(id, petId, descricao, quantidadeG, energiaKcal, dataHora);
+  int get hashCode => Object.hash(id, petId, descricao, quantidadeG, energiaKcal, dataHora, alimentoId, unidades);
 
   /// Sem a descrição (dado do tutor).
   @override

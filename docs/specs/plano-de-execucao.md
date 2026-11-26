@@ -97,6 +97,8 @@ Resumo por pacote. O detalhe, tarefa a tarefa, está em `dependencias.yaml`.
 | P2-3.2 | Testes de integração de alimentos, refeições e extras (roteiro na P5-3.7). Rodam na etapa 5 | `pacote-2` |
 | P2-4.3 | RNF06 do diário: 20 medições (salvar, abrir o resumo) com 1.000 registros, em `--profile` | `arquitetura.md` → Desempenho |
 | P2-4.6 | TalkBack e fonte em 200% nas telas do P2 | `pacote-2` |
+| P2-5.1 | **Petiscos cadastrados (P-32):** `tipo`, `kcalPorUnidade` e `unidadesHabituais` em `alimentos`, `alimentoId` e `unidades` em `extras` (`schemaVersion` 2, com migração e teste); Tipo no 09; petiscos no 06 (grava extra, `Petisco salvo` no 20); escolha de petisco no 08; linha `2 un.` no 02 | `pendencias.md` → P-32; `pacote-2` |
+| P2-5.2 | Campos novos da P-32 nos mapeadores de alimento e extra (com testes de ida e volta) e na exportação JSON (R13) | `dados-e-sync.md`; P-32 |
 
 **Pronta para passar:**
 - [ ] Em modo avião: registrar refeição pelo atalho em 2 toques, petisco, editar uma refeição passada e ver os totais mudarem.
