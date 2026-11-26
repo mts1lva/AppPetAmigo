@@ -26,6 +26,7 @@ import '../../../pets/apresentacao/telas/dialogo_dados_pet.dart';
 import '../../../pets/apresentacao/telas/dialogo_seus_pets.dart';
 import '../../../pets/domain/entidades/pet.dart';
 import '../../../privacidade/apresentacao/providers/estado_copia_provider.dart';
+import '../../../privacidade/apresentacao/telas/dialogo_seus_dados.dart';
 import '../../domain/textos_inicio.dart';
 import '../providers/sugestoes_provider.dart';
 import '../widgets/cabecalho_pet.dart';
@@ -216,8 +217,10 @@ class _CardSeuControle extends ConsumerWidget {
       titulo: tituloSeuControle,
       texto: estado == null ? null : textoSeuControle(estado),
       filhos: [
-        // TODO(P5-1.1): abrir a tela 14 Seus dados.
-        PaBotao.secundario(texto: botaoPrivacidade, aoTocar: () {}),
+        PaBotao.secundario(
+          texto: botaoPrivacidade,
+          aoTocar: () => abrirSeusDados(context),
+        ),
       ],
     );
   }

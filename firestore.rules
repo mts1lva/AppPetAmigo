@@ -1,6 +1,6 @@
-// Regras da cópia remota (`docs/specs/comum/dados-e-sync.md`).
-// O P5 publica a versão final (P5-1.5). Este arquivo existe desde a P2-2.3
-// para o Firebase Emulator Suite subir nos testes de integração de todos.
+// Regras de segurança do Cloud Firestore (`docs/specs/comum/dados-e-sync.md`; P5-1.5).
+// Cada usuário autenticado só lê e grava os próprios documentos em
+// `usuarios/{uid}/{colecao}/{docId}` (inclusive `fotos`).
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {

@@ -1,6 +1,11 @@
+import 'package:drift/native.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:petamigo/core/banco/banco_provider.dart';
+import 'package:petamigo/core/banco/daos/config_dao.dart';
+import 'package:petamigo/core/banco/database.dart';
 import 'package:petamigo/core/sync/fila_sync.dart';
+import 'package:petamigo/core/sync/fila_sync_ativa.dart';
 import 'package:petamigo/core/sync/fila_sync_provider.dart';
 import 'package:petamigo/core/sync/mapeador_sync.dart';
 
@@ -43,11 +48,42 @@ void main() {
       await expectLater(fila.enfileirar(ColecoesSync.pets, 'p1', OperacaoSync.upsert), completes);
       await expectLater(fila.enfileirar(ColecoesSync.pets, 'p1', OperacaoSync.excluir), completes);
     });
+  });
 
-    test('é a fila do app até a etapa 5', () {
-      final container = ProviderContainer();
+  group('FilaSyncAtiva', () {
+    late BancoLocal banco;
+
+    setUp(() => banco = BancoLocal(NativeDatabase.memory()));
+    tearDown(() => banco.close());
+
+    test('é a fila do app a partir da P5-1.4', () {
+      final container = ProviderContainer(
+        overrides: [bancoProvider.overrideWithValue(banco)],
+      );
       addTearDown(container.dispose);
-      expect(container.read(filaSyncProvider), isA<FilaSyncInativa>());
+      expect(container.read(filaSyncProvider), isA<FilaSyncAtiva>());
+    });
+
+    test('com cópia desligada, devolve local e não grava na fila', () async {
+      final fila = FilaSyncAtiva(banco, agora: () => DateTime(2026, 11, 26, 8));
+      expect(await fila.estadoInicial(), EstadoSync.local);
+      await fila.enfileirar(ColecoesSync.pets, 'p1', OperacaoSync.upsert);
+      expect(await banco.select(banco.itensFilaSync).get(), isEmpty);
+    });
+
+    test('com cópia ligada, devolve pendente e grava na tabela fila_sync', () async {
+      await banco.configDao.gravar(ChavesConfig.copiaRemotaAtiva, 'true');
+      final fila = FilaSyncAtiva(banco, agora: () => DateTime(2026, 11, 26, 8));
+
+      expect(await fila.estadoInicial(), EstadoSync.pendente);
+      await fila.enfileirar(ColecoesSync.pets, 'p1', OperacaoSync.upsert);
+
+      final itens = await banco.select(banco.itensFilaSync).get();
+      expect(itens, hasLength(1));
+      expect(itens.single.tabela, ColecoesSync.pets);
+      expect(itens.single.registroId, 'p1');
+      expect(itens.single.operacao, OperacaoSync.upsert.name);
+      expect(itens.single.tentativas, 0);
     });
   });
 
