@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/sync/fila_sync_provider.dart';
 import '../../data/repositorios/referencia_repositorio_drift.dart';
+import '../../domain/casos_de_uso/excluir_pesagem.dart';
+import '../../domain/casos_de_uso/salvar_pesagem.dart';
 import '../../domain/entidades/pesagem.dart';
 import '../../domain/entidades/referencia.dart';
 import '../../domain/repositorios/referencia_repositorio.dart';
@@ -23,3 +25,7 @@ final pesagensProvider = StreamProvider.family<List<Pesagem>, String>(
 final referenciaProvider = StreamProvider.family<Referencia?, String>(
   (ref, petId) => ref.watch(referenciaRepositorioProvider).observarVigente(petId),
 );
+
+final salvarPesagemProvider = Provider((ref) => SalvarPesagem(ref.watch(pesagemRepositorioProvider)));
+
+final excluirPesagemProvider = Provider((ref) => ExcluirPesagem(ref.watch(pesagemRepositorioProvider)));

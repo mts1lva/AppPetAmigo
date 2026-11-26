@@ -28,3 +28,37 @@ String linhaEccObjetivo(Referencia? r) {
   return 'ECC ${ecc == null ? 'não informado' : rotuloEcc(ecc)} • '
       'Objetivo ${objetivo == null ? 'não informado' : formatarPeso(objetivo)}';
 }
+
+/// Peso como o tutor digitaria: vírgula decimal, até 3 casas e sem zeros à
+/// direita (`5,4`, `54`, `5,43`). Usado para preencher o campo Peso e nos
+/// valores da tela 25, que mostram o número informado sem arredondar.
+String textoPesoDigitado(double kg) {
+  final texto = formatarNumero(kg, casas: 3).replaceAll('.', '');
+  return texto.replaceFirst(RegExp(r',?0+$'), '');
+}
+
+/// Tela 11 — subtítulo e texto (`pacote-4`).
+abstract final class TextosPesagem {
+  static const titulo = 'Pesagem';
+  static const tituloPesoInicial = 'Peso inicial';
+  static const subtitulo = 'Valores positivos em quilogramas.';
+  static const aviso = 'Variações suspeitas exigem conferência; o registro não é descartado silenciosamente.';
+}
+
+/// Tela 25 — Conferir pesagem (`pacote-4`, R06).
+abstract final class TextosConferirPesagem {
+  static const titulo = 'Conferir pesagem';
+  static const subtitulo = 'Valor fora do esperado.';
+
+  static String texto(double anteriorKg) =>
+      'Anterior: ${formatarPeso(anteriorKg)}. Confira unidade e separador decimal. '
+      'Corrija ou mantenha o valor; nenhum dado será descartado silenciosamente.';
+
+  static String corrigirPara(double sugestaoKg) => 'Corrigir para ${textoPesoDigitado(sugestaoKg)} kg';
+}
+
+/// N3 — Pesagem salva (`pacote-4`, R08).
+abstract final class TextosPesagemSalva {
+  static const titulo = 'Pesagem salva';
+  static const subtitulo = 'Salva neste aparelho.';
+}
