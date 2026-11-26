@@ -126,6 +126,16 @@ void main() {
       expect(await repo.observarPesoInicial('p1').first, 5.7);
     });
 
+    test('peso inicial mantido na tela 25 grava conferida; um valor comum depois limpa (R06, P4-2.1)', () async {
+      await repo.cadastrar(pet('p1'), pesoInicialKg: 5.4, agora: t0);
+
+      await repo.editar(pet('p1'), pesoInicialKg: 54, pesoInicialConferido: true, agora: t1);
+      expect((await banco.select(banco.pesagens).getSingle()).conferida, isTrue);
+
+      await repo.editar(pet('p1'), pesoInicialKg: 5.4, agora: t2);
+      expect((await banco.select(banco.pesagens).getSingle()).conferida, isFalse);
+    });
+
     test('pet inexistente → StateError', () async {
       await expectLater(repo.editar(pet('nao-existe'), agora: t1), throwsStateError);
     });

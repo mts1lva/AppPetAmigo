@@ -3,6 +3,9 @@ import 'package:material_ui/material_ui.dart';
 
 import '../../../../core/formato/formato.dart';
 import '../../../../core/ui/ui.dart';
+import '../../../evolucao/apresentacao/providers/evolucao_providers.dart';
+import '../../../evolucao/apresentacao/telas/dialogo_conferir_pesagem.dart';
+import '../../../evolucao/domain/textos_evolucao.dart';
 import '../../domain/entidades/dados_pet.dart';
 import '../../domain/entidades/pet.dart';
 import '../providers/pets_providers.dart';
@@ -135,8 +138,39 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
     });
   }
 
+  /// Tela 25 para o peso inicial novo [kg]. Devolve `false` para salvar sem
+  /// conferência (valor comum ou corrigido pela sugestão, que já vai para o
+  /// campo), `true` para salvar o valor mantido como `conferida` e `null`
+  /// para não salvar ("Voltar" ou "Corrigir valor", que leva o foco ao peso).
+  Future<bool?> _conferirPesoInicial(String petId, double kg) async {
+    final pesagens = await ref.read(pesagensProvider(petId).future);
+    final inicial = pesagens.firstOrNull;
+    if (inicial == null || !mounted) return false;
+    final conferencia = ref.read(salvarPesagemProvider).conferir(
+          pesagens: pesagens,
+          novoKg: kg,
+          dataHora: inicial.dataHora,
+          ignorarId: inicial.id,
+        );
+    if (!conferencia.suspeita) return false;
+
+    final escolha = await abrirConferirPesagem(context, informadoKg: kg, conferencia: conferencia);
+    switch (escolha) {
+      case null:
+        return null;
+      case CorrigirValor():
+        _focoPeso.requestFocus();
+        return null;
+      case CorrigirParaSugestao(kg: final sugestao):
+        _peso.text = textoPesoDigitado(sugestao);
+        return false;
+      case ManterValor():
+        return true;
+    }
+  }
+
   Future<void> _salvar() async {
-    final dados = _dados;
+    var dados = _dados;
     final erros = validarDadosPet(dados);
     if (erros.isNotEmpty) {
       setState(() => _erros = erros);
@@ -144,10 +178,20 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
       return;
     }
 
+    // R06 (U2-06): mudar o peso inicial passa pela conferência de pesagem
+    // suspeita, comparando com a pesagem seguinte (P4-2.1).
+    final petId = widget.petId;
+    var conferido = false;
+    if (petId != null && dados.pesoInicialKg != _pesoInicialSalvo) {
+      final conferencia = await _conferirPesoInicial(petId, dados.pesoInicialKg!);
+      if (conferencia == null) return;
+      conferido = conferencia;
+      dados = _dados;
+    }
+
     setState(() => _salvando = true);
     try {
       final agora = DateTime.now();
-      final petId = widget.petId;
       if (petId == null) {
         await ref.read(cadastrarPetProvider)(dados, agora: agora, fotoEscolhida: _fotoEscolhida);
       } else {
@@ -158,6 +202,7 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
           dados,
           pesoInicialAtualKg: _pesoInicialSalvo,
           agora: agora,
+          pesoInicialConferido: conferido,
           fotoEscolhida: _fotoEscolhida,
         );
       }
@@ -205,6 +250,8 @@ class _DialogoDadosPetState extends ConsumerState<DialogoDadosPet> {
     if (petId != null) {
       pet = ref.watch(petProvider(petId)).value;
       final peso = ref.watch(pesoInicialProvider(petId));
+      // Pronto para a conferência do peso inicial ao salvar (R06).
+      ref.watch(pesagensProvider(petId));
       if (!_preenchido && pet != null && peso.hasValue) _preencher(pet, peso.value);
     }
     final quantidadePets = ref.watch(petsProvider).value?.length ?? 0;
