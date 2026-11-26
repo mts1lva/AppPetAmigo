@@ -4,4 +4,7 @@
          to allow setting breakpoints, to provide hot reload, etc.
     -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Auth e Firestore do emulador local falam HTTP em 10.0.2.2 (API 28+
+         bloqueia tráfego claro por padrão). Só debug/profile; o release não. -->
+    <application android:usesCleartextTraffic="true" />
 </manifest>

@@ -51,3 +51,6 @@ app.*.map.json
 # 10 perguntas, evidências pessoais). Fica só no computador de cada um e
 # nunca vai para o GitHub. Veja docs/specs/revisao-tecnica.md.
 /notas/
+
+# Dados exportados pelo Firebase Emulator Suite (P2-2.3).
+/emulador-dados/
