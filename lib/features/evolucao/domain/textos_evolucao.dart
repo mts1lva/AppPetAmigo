@@ -62,3 +62,14 @@ abstract final class TextosPesagemSalva {
   static const titulo = 'Pesagem salva';
   static const subtitulo = 'Salva neste aparelho.';
 }
+
+/// Tela 12 — ECC e objetivo (`pacote-4`).
+abstract final class TextosReferencias {
+  static const titulo = 'ECC e objetivo';
+  static const subtitulo = 'Informações orientadas pelo veterinário.';
+  static const naoInformado = 'Não informado';
+  static const explicacao =
+      'ECC é o escore de condição corporal. Precisa de avaliação profissional; peso isolado não diagnostica.';
+
+  static String pesoIdealEstimado(double kg) => 'Peso ideal estimado pelo ECC: ${formatarPeso(kg)}.';
+}

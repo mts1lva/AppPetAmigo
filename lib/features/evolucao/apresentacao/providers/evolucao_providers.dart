@@ -4,6 +4,7 @@ import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/sync/fila_sync_provider.dart';
 import '../../data/repositorios/referencia_repositorio_drift.dart';
 import '../../domain/casos_de_uso/excluir_pesagem.dart';
+import '../../domain/casos_de_uso/referencias.dart';
 import '../../domain/casos_de_uso/salvar_pesagem.dart';
 import '../../domain/entidades/pesagem.dart';
 import '../../domain/entidades/referencia.dart';
@@ -29,3 +30,7 @@ final referenciaProvider = StreamProvider.family<Referencia?, String>(
 final salvarPesagemProvider = Provider((ref) => SalvarPesagem(ref.watch(pesagemRepositorioProvider)));
 
 final excluirPesagemProvider = Provider((ref) => ExcluirPesagem(ref.watch(pesagemRepositorioProvider)));
+
+final salvarReferenciasProvider = Provider((ref) => SalvarReferencias(ref.watch(referenciaRepositorioProvider)));
+
+final removerReferenciasProvider = Provider((ref) => RemoverReferencias(ref.watch(referenciaRepositorioProvider)));
