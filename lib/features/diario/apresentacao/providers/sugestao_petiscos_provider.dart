@@ -10,5 +10,5 @@ import 'resumo_dia_provider.dart';
 final sugestaoPetiscosProvider = Provider.family<Sugestao?, String>((ref, petId) {
   final dias = ref.watch(resumosJanelaProvider(petId)).value;
   if (dias == null) return null;
-  return sugestaoPetiscos(dias: dias, hoje: ref.watch(agoraProvider)());
+  return sugestaoPetiscos(dias: dias, hoje: ref.watch(diaAtualProvider));
 });

@@ -49,7 +49,7 @@ class TelaInicio extends ConsumerWidget {
     // instante da troca.
     if (pet == null) return PaTelaPrincipal(titulo: titulo, subtitulo: subtituloInicio);
 
-    final hoje = DateTime(agora.year, agora.month, agora.day);
+    final hoje = ref.watch(diaAtualProvider);
     final variosPets = (ref.watch(petsProvider).value?.length ?? 0) >= 2;
 
     return PaTelaPrincipal(

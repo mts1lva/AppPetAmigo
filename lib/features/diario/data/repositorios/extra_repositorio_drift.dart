@@ -44,7 +44,7 @@ final class ExtraRepositorioDrift implements ExtraRepositorio {
   @override
   Stream<Extra?> observarMaisRecenteDoDia(String petId, DateTime dia) {
     final inicio = diaDe(dia);
-    final fim = inicio.add(const Duration(days: 1));
+    final fim = somarDias(inicio, 1);
     return (_banco.select(_banco.extras)
           ..where((e) =>
               _ativosDoPet(e, petId) & e.dataHora.isBiggerOrEqualValue(inicio) & e.dataHora.isSmallerThanValue(fim))

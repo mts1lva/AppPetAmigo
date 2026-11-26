@@ -12,5 +12,5 @@ final aderenciaProvider = Provider.family<Resultado<Aderencia>?, String>((ref, p
   final meta = ref.watch(metaProvider(petId));
   final dias = ref.watch(resumosJanelaProvider(petId)).value;
   if (meta == null || dias == null) return null;
-  return aderencia(dias: dias, meta: meta, hoje: ref.watch(agoraProvider)());
+  return aderencia(dias: dias, meta: meta, hoje: ref.watch(diaAtualProvider));
 });

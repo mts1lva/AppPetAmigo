@@ -13,7 +13,7 @@ import 'repositorios_providers.dart';
 final resumoDiaProvider = StreamProvider.family<ResumoDia, (String petId, DateTime dia)>((ref, args) {
   final (petId, dia) = args;
   final inicio = diaDe(dia);
-  final fim = inicio.add(const Duration(days: 1));
+  final fim = somarDias(inicio, 1);
   return _combinar(
     refeicoes: ref.watch(refeicaoRepositorioProvider).observarEntre(petId, inicio, fim),
     extras: ref.watch(extraRepositorioProvider).observarEntre(petId, inicio, fim),
@@ -24,16 +24,18 @@ final resumoDiaProvider = StreamProvider.family<ResumoDia, (String petId, DateTi
 /// Resumos dos últimos 14 dias (M7), um por dia civil, do mais antigo ao mais
 /// recente. S1 usa a mesma janela e ignora o que está fora dos 7 dias.
 final resumosJanelaProvider = StreamProvider.family<List<ResumoDia>, String>((ref, petId) {
-  final hoje = diaDe(ref.watch(agoraProvider)());
-  final inicio = hoje.subtract(const Duration(days: janelaAderenciaDias - 1));
-  final fim = hoje.add(const Duration(days: 1));
+  // Lê o dia por diaAtualProvider: com o app aberto na virada do dia, a
+  // janela anda sozinha e as refeições do dia novo entram na conta.
+  final hoje = ref.watch(diaAtualProvider);
+  final inicio = somarDias(hoje, -(janelaAderenciaDias - 1));
+  final fim = somarDias(hoje, 1);
   return _combinar(
     refeicoes: ref.watch(refeicaoRepositorioProvider).observarEntre(petId, inicio, fim),
     extras: ref.watch(extraRepositorioProvider).observarEntre(petId, inicio, fim),
     montar: (refeicoes, extras) => [
       for (var i = 0; i < janelaAderenciaDias; i++)
         resumoDoDia(
-          dia: inicio.add(Duration(days: i)),
+          dia: somarDias(inicio, i),
           refeicoes: refeicoes,
           extras: extras,
         ),

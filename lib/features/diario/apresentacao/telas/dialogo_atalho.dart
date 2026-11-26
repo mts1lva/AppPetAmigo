@@ -132,7 +132,7 @@ class _DialogoAtalhoState extends ConsumerState<DialogoAtalho> {
     final agora = ref.read(agoraProvider)();
     final hoje = diaDe(agora);
     final inicio = hoje;
-    final fim = inicio.add(const Duration(days: 1));
+    final fim = somarDias(inicio, 1);
 
     setState(() {
       _salvando = true;
