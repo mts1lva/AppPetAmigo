@@ -74,7 +74,7 @@ Botões: `primario` **Salvar refeição**, `perigo` **Excluir registro** (só ao
 Título `Petisco ou extra`, subtítulo `Categoria separada das refeições.`
 Campos: Descrição (texto, padrão "Petisco") · Quantidade (número, g, **opcional**) · Energia informada (número, kcal, obrigatória) · Data · Horário.
 
-**Petisco cadastrado (P-32):** o primeiro campo é **Petisco** (escolha entre os petiscos não arquivados + `Outro petisco…`). Num registro novo vem preenchido com o petisco cadastrado mais recente; sem petisco cadastrado, com `Outro petisco…`.
+**Petisco cadastrado (P-32):** com pelo menos um petisco cadastrado, o primeiro campo é **Petisco** (escolha entre os petiscos não arquivados + `Outro petisco…`); sem nenhum, o campo não aparece e o 08 fica como antes. Num registro novo vem preenchido com o petisco cadastrado mais recente (ou o escolhido no 06).
 - Com um petisco cadastrado: **Unidades** (número inteiro, padrão as unidades habituais) e Energia somente leitura (`6 kcal (rótulo)`), recalculada enquanto digita. Descrição e Quantidade (g) não aparecem.
 - Com `Outro petisco…`: os campos de sempre (Descrição, Quantidade, Energia informada).
 - Ao editar um registro de petisco cadastrado, a energia é recalculada com a energia por unidade **copiada no registro** (R01). Se o petisco foi arquivado, o registro continua com o nome copiado.
