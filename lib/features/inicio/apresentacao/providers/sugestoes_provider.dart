@@ -4,6 +4,7 @@ import '../../../../core/banco/banco_provider.dart';
 import '../../../../core/relogio.dart';
 import '../../../../core/sugestao.dart';
 import '../../../atividades/apresentacao/providers/indicadores_atividade_provider.dart';
+import '../../../diario/apresentacao/providers/sugestao_petiscos_provider.dart';
 import '../../data/sugestoes_adiadas_config.dart';
 import '../../domain/repositorios/sugestoes_adiadas_repositorio.dart';
 
@@ -20,12 +21,11 @@ final sugestoesAdiadasProvider = StreamProvider<Map<TipoSugestao, DateTime>>(
 /// S3 > S1 > S2, tira as adiadas há menos de 7 dias e devolve no máximo 2
 /// (P1-0.11, P1-1.6).
 ///
-/// Até a Fase 2, as três regras devolvem `null`, então a lista é vazia e o
-/// card não aparece. Cada pacote troca a sua linha pelo próprio provider,
-/// sem mudar a assinatura deste.
+/// S1 vem do diário (`sugestaoPetiscosProvider`) e S2 das atividades
+/// (`sugestaoExerciciosProvider`). S3 continua nula até o pacote 4 ligar a
+/// própria linha, sem mudar a assinatura deste provider.
 final sugestoesProvider = Provider.family<List<Sugestao>, String>((ref, petId) {
-  // TODO(P2-2.1): S1 reduzir petiscos → ref.watch(<provider da S1>(petId)).value
-  const Sugestao? s1 = null;
+  final s1 = ref.watch(sugestaoPetiscosProvider(petId));
   final s2 = ref.watch(sugestaoExerciciosProvider(petId));
   // TODO(P4-2.1): S3 mudar objetivo → ref.watch(<provider da S3>(petId)).value
   const Sugestao? s3 = null;

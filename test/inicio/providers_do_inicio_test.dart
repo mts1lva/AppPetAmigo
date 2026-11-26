@@ -16,6 +16,8 @@ import 'package:petamigo/features/lembretes/apresentacao/providers/lembretes_pro
 import 'package:petamigo/features/privacidade/apresentacao/providers/estado_copia_provider.dart';
 import 'package:petamigo/features/privacidade/domain/entidades/estado_copia.dart';
 
+import '../apoio/diario_falso.dart';
+
 /// No Riverpod 3, provider sem ouvinte fica pausado: escute antes de esperar
 /// o valor (é o que as telas fazem com `ref.watch`).
 Future<T> esperar<T>(ProviderContainer c, ProviderListenable<Future<T>> p) {
@@ -35,10 +37,22 @@ void main() {
     });
     tearDown(() async { container.dispose(); await banco.close(); });
 
-    test('resumoDiaProvider → dia vazio (P2-2.1)', () async {
-      final resumo = await esperar(container, resumoDiaProvider(('p1', DateTime(2026, 9, 30))).future);
+    test('resumoDiaProvider sem registros → dia vazio (P2-2.1)', () async {
+      final diario = DiarioFalsos();
+      final c = ProviderContainer(overrides: diario.overrides);
+      addTearDown(c.dispose);
+      final resumo = await esperar(c, resumoDiaProvider(('p1', DateTime(2026, 9, 30))).future);
       expect(resumo, ResumoDia.vazio(DateTime(2026, 9, 30)));
       expect(resumo.temRegistros, isFalse);
+    });
+
+    test('resumoDiaProvider com refeição e extra → 120 kcal (P2-2.1)', () async {
+      final diario = DiarioFalsos(refeicoes: [refeicaoHabitual()], extras: [extraHabitual()]);
+      final c = ProviderContainer(overrides: diario.overrides);
+      addTearDown(c.dispose);
+      final resumo = await esperar(c, resumoDiaProvider(('p1', DateTime(2026, 9, 30))).future);
+      expect(resumo.totalKcal, 120);
+      expect(resumo.parcelaExtras, 10);
     });
 
     test('lembretesProvider → consulta real vazia (P3-2.1)', () async {

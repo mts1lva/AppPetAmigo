@@ -21,6 +21,7 @@ import 'package:petamigo/features/pets/apresentacao/telas/dialogo_seus_pets.dart
 import 'package:petamigo/features/pets/apresentacao/telas/tela_vamos_comecar.dart';
 import 'package:petamigo/features/pets/domain/entidades/pet.dart';
 
+import '../apoio/diario_falso.dart';
 import '../apoio/golden.dart';
 import '../apoio/inicio_falso.dart';
 import '../apoio/pets_falsos.dart';
@@ -37,6 +38,7 @@ Future<void> montarApp(WidgetTester tester, PetsFalsos pets, {double escala = 2}
     overrides: [
       ...pets.overrides,
       lembretesProvider.overrideWith((ref, petId) => Stream.value([])),
+      ...DiarioFalsos().overrides,
       agoraProvider.overrideWithValue(() => DateTime(2026, 9, 30, 9)),
       ultimaPesagemProvider.overrideWith(
         (ref, petId) => Stream.value(Pesagem(id: 'pes-$petId', petId: petId, pesoKg: 5.4, dataHora: DateTime(2026, 9, 1))),
