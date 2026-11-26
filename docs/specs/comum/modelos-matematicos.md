@@ -177,7 +177,7 @@ Cada regra é uma função pura que devolve `Sugestao?`. No máximo **2 sugestõ
 
 | Regra | Dono | Condição | Texto |
 |---|---|---|---|
-| S1 Reduzir petiscos | P2 | Em ≥ 3 dos últimos 7 dias com registro, extras > **10%** do total (AAHA/WSAVA, `pesquisa.md`) | "Os petiscos passaram de 10% das calorias em {n} dias. Que tal trocar alguns por um momento de brincadeira?" |
+| S1 Reduzir petiscos | P2 | Em ≥ 3 dos últimos 7 dias com registro (7 dias do calendário, P-31), extras > **10%** do total (AAHA/WSAVA, `pesquisa.md`) | "Os petiscos passaram de 10% das calorias em {n} dias. Que tal trocar alguns por um momento de brincadeira?" |
 | S2 Aumentar exercícios | P3 | Média de atividade nos últimos 7 dias < **30 min/dia (cão)** ou **15 min/dia (gato)** **(P-21)** e o objetivo é perda (Pi < Patual) | "Mais {falta} minutos de passeio ou brincadeira por dia ajudam {nome}. Veja ideias em Atividades." |
 | S3 Mudar objetivo nutricional | P4 | (a) \|Patual − Pi\| ≤ 2% de Pi; **ou** (b) M5 = "não é alcançado" ou > 180 dias, com ≥ 14 dias de dados | (a) "{nome} está perto do peso ideal. Converse com o veterinário sobre passar para manutenção." (b) "Com o ritmo atual, o objetivo está distante. Vale revisar o objetivo com o veterinário." |
 
