@@ -26,9 +26,9 @@ Toda tabela sincronizável tem as **colunas de controle**:
 | Tabela | Campos (além dos de controle) | Pacote |
 |---|---|---|
 | `pets` | `nome` TEXT, `especie` TEXT (`cao`/`gato`), `sexo` TEXT (`macho`/`femea`), `idadeMeses` INT, `idadeInformadaEm` DATE, `castrado` BOOL, `nivelAtividade` TEXT (`baixa`/`moderada`/`alta`), `fotoArquivo` TEXT? | P1 |
-| `alimentos` | `petId`, `nome` TEXT, `densidadeKcalPor100g` REAL, `porcaoPadraoG` REAL, `arquivado` BOOL (excluído do cadastro, preservado para as refeições antigas) | P2 |
+| `alimentos` | `petId`, `nome` TEXT, `tipo` TEXT (`racao`/`petisco`, P-32), `densidadeKcalPor100g` REAL? e `porcaoPadraoG` REAL? (só ração), `kcalPorUnidade` REAL? e `unidadesHabituais` INT? (só petisco), `arquivado` BOOL (excluído do cadastro, preservado para os registros antigos) | P2 |
 | `refeicoes` | `petId`, `alimentoId` TEXT?, `alimentoNome` TEXT (cópia), `densidadeKcalPor100g` REAL (cópia), `quantidadeG` REAL, `energiaKcal` REAL, `dataHora` DATETIME | P2 |
-| `extras` | `petId`, `descricao` TEXT, `quantidadeG` REAL?, `energiaKcal` REAL, `dataHora` DATETIME | P2 |
+| `extras` | `petId`, `alimentoId` TEXT? (petisco cadastrado, P-32), `descricao` TEXT (cópia do nome), `quantidadeG` REAL?, `unidades` INT? (petisco cadastrado), `energiaKcal` REAL (cópia), `dataHora` DATETIME | P2 |
 | `atividades` | `petId`, `tipo` TEXT (`passeio`/`brincadeira`), `duracaoMin` INT, `dataHora` DATETIME | P3 |
 | `lembretes` | `petId`, `hora` INT (minutos desde 00:00), `tipo` TEXT (`refeicao`/`pesagem`/`atividade`), `ativo` BOOL, `notificacaoId` INT (único, estável) | P3 |
 | `pesagens` | `petId`, `pesoKg` REAL, `dataHora` DATETIME, `conferida` BOOL (usuário manteve um valor suspeito) | P4 |

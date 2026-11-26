@@ -54,6 +54,8 @@ P2-3.1: [P2-1.1]                             # Mapeadores do diário
 P2-3.2: [P2-3.1, P2-2.3]                     # Testes de integração do diário
 P2-4.3: [P2-1.5]                             # RNF06 do diário
 P2-4.6: [P2-1.7]                             # TalkBack e fonte 200% nas telas do P2
+P2-5.1: [P1-0.6, P2-1.2, P2-1.4, P2-1.5, P2-1.6]   # Petiscos cadastrados por unidade (P-32): banco e telas
+P2-5.2: [P2-5.1, P2-3.1, P3-1.8]             # P-32 nos mapeadores e na exportação JSON
 
 # Etapa 3 — P3: atividades, lembretes e PDF
 P3-0.1: [P1-0.2]                             # Domínio dos lembretes, gasto de atividade (M4), S2 + T3

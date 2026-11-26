@@ -30,7 +30,7 @@ Tela principal. Título `Diário`. Subtítulo: data selecionada no formato `30 s
 |---|---|---|
 | Data selecionada | `Confira o que foi registrado.` | `secundario` **Selecionar data** → `showDatePicker` (até hoje). Data sem nenhum registro → abre 19 |
 | Refeições | Uma `PaHistorico` por refeição, em ordem de horário: `08:00 • Ração habitual • 30 g • 108 kcal`. Vazio: `Nenhuma refeição registrada.` | `secundario` **Editar refeição** → 07 com a refeição mais recente do dia. Vazio: `secundario` **Adicionar refeição** → 07 em branco (P-08) |
-| Petiscos e extras | `12:00 • Petisco • 3 g • 12 kcal` (sem quantidade: `12:00 • Petisco • 12 kcal`). Vazio: `Nenhum petisco registrado.` | `secundario` **Editar petisco** → 08 com o extra mais recente. Vazio: sem botão |
+| Petiscos e extras | `12:00 • Petisco • 3 g • 12 kcal` (sem quantidade: `12:00 • Petisco • 12 kcal`; petisco cadastrado, P-32: `12:00 • Bifinho • 2 un. • 6 kcal`). Vazio: `Nenhum petisco registrado.` | `secundario` **Editar petisco** → 08 com o extra mais recente. Vazio: sem botão |
 | Resumo do dia | R02 com a meta (M1, do P1): `120 de 397 kcal • Petiscos 10% dos registros` / `Faltam 277 kcal para a meta de hoje.` Sem meta: `… / Registre uma pesagem para ver a meta.` Dia vazio: texto de R09 | `secundario` **Adicionar petisco** → 08 em branco |
 | Alimentos e porções | `Reutilize os valores da embalagem.` | `secundario` **Gerenciar alimentos** → 09 |
 
@@ -50,12 +50,17 @@ Diálogo aberto pelo Início. Título `Registrar refeição`. Subtítulo `Confir
 
 | Campo | Comportamento |
 |---|---|
-| Alimento | escolha entre os não arquivados; vem preenchido com o alimento do atalho |
+| Alimento | escolha entre os não arquivados, rações e petiscos (petisco aparece como `Bifinho (petisco)`, P-32); vem preenchido com o alimento do atalho, que é sempre uma ração |
 | Porção | **escolha** (briefing B-b, "selecionar quantidade"): `Porção habitual • 30 g / 108 kcal` (pré-selecionada), `Metade • 15 g / 54 kcal`, `Uma e meia • 45 g / 162 kcal`, `Outra quantidade…` (abre o 07 com o campo Quantidade em foco). Sem tocar, vale a habitual, e o fluxo continua em **2 toques** |
 | Data e hora | somente leitura: `{data} • agora` |
 
 Texto: `Energia do rótulo: {densidade} kcal/100 g. Esta porção não é uma prescrição.`
 Botões: `primario` **Confirmar refeição** (2º toque: grava e abre 20), `primario` **Alterar dados** (→ 07 preenchido com esses valores, ainda sem gravar), `secundario` **Voltar**.
+
+**Com um petisco escolhido (P-32):**
+- Porção: `Habitual • 2 unidades / 6 kcal` (pré-selecionada), `1 unidade • 3 kcal` (só se as unidades habituais forem mais de 1) e `Outra quantidade…` (abre o 08 com esse petisco e o campo Unidades em foco).
+- Texto: `Energia do rótulo: 3 kcal por unidade. Esta porção não é uma prescrição.` A linha da meta fica sem os gramas (`Meta de hoje: 397 kcal`, como na P-24).
+- Botões: `primario` **Confirmar petisco** (2º toque: grava o **extra** e abre o 20 com o título `Petisco salvo`), `primario` **Alterar dados** (→ 08 preenchido, ainda sem gravar), `secundario` **Voltar**.
 
 ### 07 — Refeição (`07-refeicao.png`)
 
@@ -68,12 +73,19 @@ Botões: `primario` **Salvar refeição**, `perigo` **Excluir registro** (só ao
 
 Título `Petisco ou extra`, subtítulo `Categoria separada das refeições.`
 Campos: Descrição (texto, padrão "Petisco") · Quantidade (número, g, **opcional**) · Energia informada (número, kcal, obrigatória) · Data · Horário.
+
+**Petisco cadastrado (P-32):** o primeiro campo é **Petisco** (escolha entre os petiscos não arquivados + `Outro petisco…`). Num registro novo vem preenchido com o petisco cadastrado mais recente; sem petisco cadastrado, com `Outro petisco…`.
+- Com um petisco cadastrado: **Unidades** (número inteiro, padrão as unidades habituais) e Energia somente leitura (`6 kcal (rótulo)`), recalculada enquanto digita. Descrição e Quantidade (g) não aparecem.
+- Com `Outro petisco…`: os campos de sempre (Descrição, Quantidade, Energia informada).
+- Ao editar um registro de petisco cadastrado, a energia é recalculada com a energia por unidade **copiada no registro** (R01). Se o petisco foi arquivado, o registro continua com o nome copiado.
 Botões: como no 07 (`Salvar petisco`, `Excluir registro`, `Voltar`).
 
 ### 09 — Alimentos e porções (`09-alimentos-e-porcoes.png`)
 
 Título `Alimentos e porções`, subtítulo `Valores do rótulo, sem recomendação automática.`
-Campos: Alimento (escolha entre os existentes + "Novo alimento…"; com "Novo", vira campo de texto para o nome) · Densidade (número, `kcal/100 g`) · Porção reutilizável (número, g).
+Campos: **Tipo** (escolha: `Ração` ou `Petisco`, P-32) · Alimento (escolha entre os existentes daquele tipo + "Novo alimento…"; com "Novo", vira campo de texto para o nome) · Densidade (número, `kcal/100 g`) · Porção reutilizável (número, g).
+
+Com o tipo **Petisco**, Densidade e Porção dão lugar a `Energia por unidade (kcal)` (número > 0) e `Unidades habituais` (inteiro > 0). O tipo de um alimento já salvo não muda: para trocar, cadastre outro.
 Texto: `Registros antigos preservam alimento, densidade e quantidade usados naquele momento.`
 Botões: `primario` **Salvar alimento e porção**, `perigo` **Excluir alimento e porção** → 23 (arquiva), `secundario` **Voltar**.
 - O botão "Conferir erro de densidade" do protótipo **não existe no app**: ele só servia para mostrar o estado 22. No app, o 22 aparece quando se tenta salvar com densidade ≤ 0.
@@ -90,7 +102,7 @@ Botões: `primario` **Retomar registro hoje** (Diário volta para hoje), `secund
 
 ### 20 — Refeição salva (`20-refeicao-salva.png`)
 
-Só aparece **depois** da transação concluída. Título `Refeição salva`, subtítulo `Salva neste aparelho.` Texto de R08 com os totais de antes e depois.
+Só aparece **depois** da transação concluída. Título `Refeição salva`, subtítulo `Salva neste aparelho.` Texto de R08 com os totais de antes e depois. Depois de um petisco pelo 06 (P-32), o título é `Petisco salvo`; o resto não muda.
 Botões: `primario` **Consultar diário atualizado** → aba Diário com o título `Diário atualizado`, `secundario` **Voltar** (fica onde estava).
 
 ### 23 — Confirmar exclusão
