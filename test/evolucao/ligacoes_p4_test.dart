@@ -6,6 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:petamigo/core/sugestao.dart';
 import 'package:petamigo/core/ui/ui.dart';
+import 'package:petamigo/features/atividades/apresentacao/providers/indicadores_atividade_provider.dart';
+import 'package:petamigo/features/diario/apresentacao/providers/sugestao_petiscos_provider.dart';
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
 import 'package:petamigo/features/evolucao/domain/entidades/referencia.dart';
 import 'package:petamigo/features/evolucao/domain/sugestao_objetivo.dart';
@@ -68,6 +70,9 @@ void main() {
       final container = ProviderContainer(overrides: [
         ...dados.overrides,
         sugestoesAdiadasRepositorioProvider.overrideWithValue(AdiadasFalsas()),
+        // S1 e S2 já estão ligadas na dev; aqui o teste é só da S3.
+        sugestaoPetiscosProvider.overrideWith((ref, petId) => null),
+        sugestaoExerciciosProvider.overrideWith((ref, petId) => null),
       ]);
       addTearDown(container.dispose);
       container.listen(sugestoesProvider('p1'), (_, _) {});

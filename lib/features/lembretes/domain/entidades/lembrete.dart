@@ -7,6 +7,12 @@ library;
 /// O `name` é o valor da coluna `lembretes.tipo`.
 enum TipoLembrete { refeicao, pesagem, atividade }
 
+String nomeTipoLembrete(TipoLembrete tipo) => switch (tipo) {
+  TipoLembrete.refeicao => 'Refeição',
+  TipoLembrete.pesagem => 'Pesagem',
+  TipoLembrete.atividade => 'Atividade',
+};
+
 final class Lembrete {
   const Lembrete({
     required this.id,
@@ -39,5 +45,6 @@ final class Lembrete {
       other.notificacaoId == notificacaoId;
 
   @override
-  int get hashCode => Object.hash(id, petId, horaMinutos, tipo, ativo, notificacaoId);
+  int get hashCode =>
+      Object.hash(id, petId, horaMinutos, tipo, ativo, notificacaoId);
 }

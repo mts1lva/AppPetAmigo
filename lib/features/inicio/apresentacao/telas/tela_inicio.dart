@@ -11,9 +11,12 @@ import '../../../../core/sugestao.dart';
 import '../../../../core/ui/ui.dart';
 import '../../../diario/apresentacao/providers/alimento_atalho_provider.dart';
 import '../../../diario/apresentacao/providers/resumo_dia_provider.dart';
+import '../../../diario/apresentacao/telas/dialogo_alimentos.dart';
+import '../../../diario/apresentacao/telas/dialogo_atalho.dart';
 import '../../../diario/domain/entidades/resumo_dia.dart';
 import '../../../evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
 import '../../../lembretes/apresentacao/providers/lembretes_provider.dart';
+import '../../../lembretes/apresentacao/telas/dialogo_lembretes.dart';
 import '../../../nutricao/apresentacao/providers/meta_provider.dart';
 import '../../../nutricao/apresentacao/telas/dialogo_como_meta.dart';
 import '../../../nutricao/domain/descricao_meta.dart';
@@ -47,7 +50,7 @@ class TelaInicio extends ConsumerWidget {
     // instante da troca.
     if (pet == null) return PaTelaPrincipal(titulo: titulo, subtitulo: subtituloInicio);
 
-    final hoje = DateTime(agora.year, agora.month, agora.day);
+    final hoje = ref.watch(diaAtualProvider);
     final variosPets = (ref.watch(petsProvider).value?.length ?? 0) >= 2;
 
     return PaTelaPrincipal(
@@ -104,8 +107,17 @@ class _CardHoje extends ConsumerWidget {
       titulo: formatarHojeCard(hoje),
       texto: textoHoje(resumo, ref.watch(metaProvider(petId))),
       filhos: [
-        // TODO(P2-2.1): abrir o 06 Registrar refeição (sem alimento, o 09).
-        PaBotao.primario(texto: botaoRegistrarRefeicao, aoTocar: () {}),
+        PaBotao.primario(
+          texto: botaoRegistrarRefeicao,
+          aoTocar: () {
+            final alimento = ref.read(alimentoAtalhoProvider(petId)).value;
+            if (alimento == null) {
+              abrirAlimentos(context, petId: petId, paraAtalho: true);
+              return;
+            }
+            abrirAtalho(context, petId: petId);
+          },
+        ),
       ],
     );
   }
@@ -187,8 +199,7 @@ class _CardLembretes extends ConsumerWidget {
       titulo: tituloLembretes,
       texto: textoLembretes(lembretes),
       filhos: [
-        // TODO(P3-2.1): abrir o N2 Lembretes.
-        PaBotao.secundario(texto: botaoConfigurarLembretes, aoTocar: () {}),
+        PaBotao.secundario(texto: botaoConfigurarLembretes, aoTocar: () => abrirLembretes(context, petId: petId)),
       ],
     );
   }

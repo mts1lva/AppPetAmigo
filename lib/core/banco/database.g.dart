@@ -993,6 +993,16 @@ class $AlimentosTable extends Alimentos
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _tipoMeta = const VerificationMeta('tipo');
+  @override
+  late final GeneratedColumn<String> tipo = GeneratedColumn<String>(
+    'tipo',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('racao'),
+  );
   static const VerificationMeta _densidadeKcalPor100gMeta =
       const VerificationMeta('densidadeKcalPor100g');
   @override
@@ -1000,9 +1010,9 @@ class $AlimentosTable extends Alimentos
       GeneratedColumn<double>(
         'densidade_kcal_por100g',
         aliasedName,
-        false,
+        true,
         type: DriftSqlType.double,
-        requiredDuringInsert: true,
+        requiredDuringInsert: false,
       );
   static const VerificationMeta _porcaoPadraoGMeta = const VerificationMeta(
     'porcaoPadraoG',
@@ -1011,9 +1021,31 @@ class $AlimentosTable extends Alimentos
   late final GeneratedColumn<double> porcaoPadraoG = GeneratedColumn<double>(
     'porcao_padrao_g',
     aliasedName,
-    false,
+    true,
     type: DriftSqlType.double,
-    requiredDuringInsert: true,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _kcalPorUnidadeMeta = const VerificationMeta(
+    'kcalPorUnidade',
+  );
+  @override
+  late final GeneratedColumn<double> kcalPorUnidade = GeneratedColumn<double>(
+    'kcal_por_unidade',
+    aliasedName,
+    true,
+    type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unidadesHabituaisMeta = const VerificationMeta(
+    'unidadesHabituais',
+  );
+  @override
+  late final GeneratedColumn<int> unidadesHabituais = GeneratedColumn<int>(
+    'unidades_habituais',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
   );
   static const VerificationMeta _arquivadoMeta = const VerificationMeta(
     'arquivado',
@@ -1041,8 +1073,11 @@ class $AlimentosTable extends Alimentos
     excluido,
     petId,
     nome,
+    tipo,
     densidadeKcalPor100g,
     porcaoPadraoG,
+    kcalPorUnidade,
+    unidadesHabituais,
     arquivado,
   ];
   @override
@@ -1124,6 +1159,12 @@ class $AlimentosTable extends Alimentos
     } else if (isInserting) {
       context.missing(_nomeMeta);
     }
+    if (data.containsKey('tipo')) {
+      context.handle(
+        _tipoMeta,
+        tipo.isAcceptableOrUnknown(data['tipo']!, _tipoMeta),
+      );
+    }
     if (data.containsKey('densidade_kcal_por100g')) {
       context.handle(
         _densidadeKcalPor100gMeta,
@@ -1132,8 +1173,6 @@ class $AlimentosTable extends Alimentos
           _densidadeKcalPor100gMeta,
         ),
       );
-    } else if (isInserting) {
-      context.missing(_densidadeKcalPor100gMeta);
     }
     if (data.containsKey('porcao_padrao_g')) {
       context.handle(
@@ -1143,8 +1182,24 @@ class $AlimentosTable extends Alimentos
           _porcaoPadraoGMeta,
         ),
       );
-    } else if (isInserting) {
-      context.missing(_porcaoPadraoGMeta);
+    }
+    if (data.containsKey('kcal_por_unidade')) {
+      context.handle(
+        _kcalPorUnidadeMeta,
+        kcalPorUnidade.isAcceptableOrUnknown(
+          data['kcal_por_unidade']!,
+          _kcalPorUnidadeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unidades_habituais')) {
+      context.handle(
+        _unidadesHabituaisMeta,
+        unidadesHabituais.isAcceptableOrUnknown(
+          data['unidades_habituais']!,
+          _unidadesHabituaisMeta,
+        ),
+      );
     }
     if (data.containsKey('arquivado')) {
       context.handle(
@@ -1197,14 +1252,26 @@ class $AlimentosTable extends Alimentos
         DriftSqlType.string,
         data['${effectivePrefix}nome'],
       )!,
+      tipo: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tipo'],
+      )!,
       densidadeKcalPor100g: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}densidade_kcal_por100g'],
-      )!,
+      ),
       porcaoPadraoG: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}porcao_padrao_g'],
-      )!,
+      ),
+      kcalPorUnidade: attachedDatabase.typeMapping.read(
+        DriftSqlType.double,
+        data['${effectivePrefix}kcal_por_unidade'],
+      ),
+      unidadesHabituais: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unidades_habituais'],
+      ),
       arquivado: attachedDatabase.typeMapping.read(
         DriftSqlType.bool,
         data['${effectivePrefix}arquivado'],
@@ -1239,8 +1306,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
   final bool excluido;
   final String petId;
   final String nome;
-  final double densidadeKcalPor100g;
-  final double porcaoPadraoG;
+  final String tipo;
+  final double? densidadeKcalPor100g;
+  final double? porcaoPadraoG;
+  final double? kcalPorUnidade;
+  final int? unidadesHabituais;
   final bool arquivado;
   const AlimentoLinha({
     required this.id,
@@ -1252,8 +1322,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
     required this.excluido,
     required this.petId,
     required this.nome,
-    required this.densidadeKcalPor100g,
-    required this.porcaoPadraoG,
+    required this.tipo,
+    this.densidadeKcalPor100g,
+    this.porcaoPadraoG,
+    this.kcalPorUnidade,
+    this.unidadesHabituais,
     required this.arquivado,
   });
   @override
@@ -1270,8 +1343,19 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
     map['excluido'] = Variable<bool>(excluido);
     map['pet_id'] = Variable<String>(petId);
     map['nome'] = Variable<String>(nome);
-    map['densidade_kcal_por100g'] = Variable<double>(densidadeKcalPor100g);
-    map['porcao_padrao_g'] = Variable<double>(porcaoPadraoG);
+    map['tipo'] = Variable<String>(tipo);
+    if (!nullToAbsent || densidadeKcalPor100g != null) {
+      map['densidade_kcal_por100g'] = Variable<double>(densidadeKcalPor100g);
+    }
+    if (!nullToAbsent || porcaoPadraoG != null) {
+      map['porcao_padrao_g'] = Variable<double>(porcaoPadraoG);
+    }
+    if (!nullToAbsent || kcalPorUnidade != null) {
+      map['kcal_por_unidade'] = Variable<double>(kcalPorUnidade);
+    }
+    if (!nullToAbsent || unidadesHabituais != null) {
+      map['unidades_habituais'] = Variable<int>(unidadesHabituais);
+    }
     map['arquivado'] = Variable<bool>(arquivado);
     return map;
   }
@@ -1289,8 +1373,19 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
       excluido: Value(excluido),
       petId: Value(petId),
       nome: Value(nome),
-      densidadeKcalPor100g: Value(densidadeKcalPor100g),
-      porcaoPadraoG: Value(porcaoPadraoG),
+      tipo: Value(tipo),
+      densidadeKcalPor100g: densidadeKcalPor100g == null && nullToAbsent
+          ? const Value.absent()
+          : Value(densidadeKcalPor100g),
+      porcaoPadraoG: porcaoPadraoG == null && nullToAbsent
+          ? const Value.absent()
+          : Value(porcaoPadraoG),
+      kcalPorUnidade: kcalPorUnidade == null && nullToAbsent
+          ? const Value.absent()
+          : Value(kcalPorUnidade),
+      unidadesHabituais: unidadesHabituais == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unidadesHabituais),
       arquivado: Value(arquivado),
     );
   }
@@ -1310,10 +1405,13 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
       excluido: serializer.fromJson<bool>(json['excluido']),
       petId: serializer.fromJson<String>(json['petId']),
       nome: serializer.fromJson<String>(json['nome']),
-      densidadeKcalPor100g: serializer.fromJson<double>(
+      tipo: serializer.fromJson<String>(json['tipo']),
+      densidadeKcalPor100g: serializer.fromJson<double?>(
         json['densidadeKcalPor100g'],
       ),
-      porcaoPadraoG: serializer.fromJson<double>(json['porcaoPadraoG']),
+      porcaoPadraoG: serializer.fromJson<double?>(json['porcaoPadraoG']),
+      kcalPorUnidade: serializer.fromJson<double?>(json['kcalPorUnidade']),
+      unidadesHabituais: serializer.fromJson<int?>(json['unidadesHabituais']),
       arquivado: serializer.fromJson<bool>(json['arquivado']),
     );
   }
@@ -1330,8 +1428,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
       'excluido': serializer.toJson<bool>(excluido),
       'petId': serializer.toJson<String>(petId),
       'nome': serializer.toJson<String>(nome),
-      'densidadeKcalPor100g': serializer.toJson<double>(densidadeKcalPor100g),
-      'porcaoPadraoG': serializer.toJson<double>(porcaoPadraoG),
+      'tipo': serializer.toJson<String>(tipo),
+      'densidadeKcalPor100g': serializer.toJson<double?>(densidadeKcalPor100g),
+      'porcaoPadraoG': serializer.toJson<double?>(porcaoPadraoG),
+      'kcalPorUnidade': serializer.toJson<double?>(kcalPorUnidade),
+      'unidadesHabituais': serializer.toJson<int?>(unidadesHabituais),
       'arquivado': serializer.toJson<bool>(arquivado),
     };
   }
@@ -1346,8 +1447,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
     bool? excluido,
     String? petId,
     String? nome,
-    double? densidadeKcalPor100g,
-    double? porcaoPadraoG,
+    String? tipo,
+    Value<double?> densidadeKcalPor100g = const Value.absent(),
+    Value<double?> porcaoPadraoG = const Value.absent(),
+    Value<double?> kcalPorUnidade = const Value.absent(),
+    Value<int?> unidadesHabituais = const Value.absent(),
     bool? arquivado,
   }) => AlimentoLinha(
     id: id ?? this.id,
@@ -1359,8 +1463,19 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
     excluido: excluido ?? this.excluido,
     petId: petId ?? this.petId,
     nome: nome ?? this.nome,
-    densidadeKcalPor100g: densidadeKcalPor100g ?? this.densidadeKcalPor100g,
-    porcaoPadraoG: porcaoPadraoG ?? this.porcaoPadraoG,
+    tipo: tipo ?? this.tipo,
+    densidadeKcalPor100g: densidadeKcalPor100g.present
+        ? densidadeKcalPor100g.value
+        : this.densidadeKcalPor100g,
+    porcaoPadraoG: porcaoPadraoG.present
+        ? porcaoPadraoG.value
+        : this.porcaoPadraoG,
+    kcalPorUnidade: kcalPorUnidade.present
+        ? kcalPorUnidade.value
+        : this.kcalPorUnidade,
+    unidadesHabituais: unidadesHabituais.present
+        ? unidadesHabituais.value
+        : this.unidadesHabituais,
     arquivado: arquivado ?? this.arquivado,
   );
   AlimentoLinha copyWithCompanion(AlimentosCompanion data) {
@@ -1380,12 +1495,19 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
       excluido: data.excluido.present ? data.excluido.value : this.excluido,
       petId: data.petId.present ? data.petId.value : this.petId,
       nome: data.nome.present ? data.nome.value : this.nome,
+      tipo: data.tipo.present ? data.tipo.value : this.tipo,
       densidadeKcalPor100g: data.densidadeKcalPor100g.present
           ? data.densidadeKcalPor100g.value
           : this.densidadeKcalPor100g,
       porcaoPadraoG: data.porcaoPadraoG.present
           ? data.porcaoPadraoG.value
           : this.porcaoPadraoG,
+      kcalPorUnidade: data.kcalPorUnidade.present
+          ? data.kcalPorUnidade.value
+          : this.kcalPorUnidade,
+      unidadesHabituais: data.unidadesHabituais.present
+          ? data.unidadesHabituais.value
+          : this.unidadesHabituais,
       arquivado: data.arquivado.present ? data.arquivado.value : this.arquivado,
     );
   }
@@ -1402,8 +1524,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
           ..write('excluido: $excluido, ')
           ..write('petId: $petId, ')
           ..write('nome: $nome, ')
+          ..write('tipo: $tipo, ')
           ..write('densidadeKcalPor100g: $densidadeKcalPor100g, ')
           ..write('porcaoPadraoG: $porcaoPadraoG, ')
+          ..write('kcalPorUnidade: $kcalPorUnidade, ')
+          ..write('unidadesHabituais: $unidadesHabituais, ')
           ..write('arquivado: $arquivado')
           ..write(')'))
         .toString();
@@ -1420,8 +1545,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
     excluido,
     petId,
     nome,
+    tipo,
     densidadeKcalPor100g,
     porcaoPadraoG,
+    kcalPorUnidade,
+    unidadesHabituais,
     arquivado,
   );
   @override
@@ -1437,8 +1565,11 @@ class AlimentoLinha extends DataClass implements Insertable<AlimentoLinha> {
           other.excluido == this.excluido &&
           other.petId == this.petId &&
           other.nome == this.nome &&
+          other.tipo == this.tipo &&
           other.densidadeKcalPor100g == this.densidadeKcalPor100g &&
           other.porcaoPadraoG == this.porcaoPadraoG &&
+          other.kcalPorUnidade == this.kcalPorUnidade &&
+          other.unidadesHabituais == this.unidadesHabituais &&
           other.arquivado == this.arquivado);
 }
 
@@ -1452,8 +1583,11 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
   final Value<bool> excluido;
   final Value<String> petId;
   final Value<String> nome;
-  final Value<double> densidadeKcalPor100g;
-  final Value<double> porcaoPadraoG;
+  final Value<String> tipo;
+  final Value<double?> densidadeKcalPor100g;
+  final Value<double?> porcaoPadraoG;
+  final Value<double?> kcalPorUnidade;
+  final Value<int?> unidadesHabituais;
   final Value<bool> arquivado;
   final Value<int> rowid;
   const AlimentosCompanion({
@@ -1466,8 +1600,11 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
     this.excluido = const Value.absent(),
     this.petId = const Value.absent(),
     this.nome = const Value.absent(),
+    this.tipo = const Value.absent(),
     this.densidadeKcalPor100g = const Value.absent(),
     this.porcaoPadraoG = const Value.absent(),
+    this.kcalPorUnidade = const Value.absent(),
+    this.unidadesHabituais = const Value.absent(),
     this.arquivado = const Value.absent(),
     this.rowid = const Value.absent(),
   });
@@ -1481,17 +1618,18 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
     this.excluido = const Value.absent(),
     required String petId,
     required String nome,
-    required double densidadeKcalPor100g,
-    required double porcaoPadraoG,
+    this.tipo = const Value.absent(),
+    this.densidadeKcalPor100g = const Value.absent(),
+    this.porcaoPadraoG = const Value.absent(),
+    this.kcalPorUnidade = const Value.absent(),
+    this.unidadesHabituais = const Value.absent(),
     this.arquivado = const Value.absent(),
     this.rowid = const Value.absent(),
   }) : id = Value(id),
        criadoEm = Value(criadoEm),
        atualizadoEm = Value(atualizadoEm),
        petId = Value(petId),
-       nome = Value(nome),
-       densidadeKcalPor100g = Value(densidadeKcalPor100g),
-       porcaoPadraoG = Value(porcaoPadraoG);
+       nome = Value(nome);
   static Insertable<AlimentoLinha> custom({
     Expression<String>? id,
     Expression<DateTime>? criadoEm,
@@ -1502,8 +1640,11 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
     Expression<bool>? excluido,
     Expression<String>? petId,
     Expression<String>? nome,
+    Expression<String>? tipo,
     Expression<double>? densidadeKcalPor100g,
     Expression<double>? porcaoPadraoG,
+    Expression<double>? kcalPorUnidade,
+    Expression<int>? unidadesHabituais,
     Expression<bool>? arquivado,
     Expression<int>? rowid,
   }) {
@@ -1517,9 +1658,12 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
       if (excluido != null) 'excluido': excluido,
       if (petId != null) 'pet_id': petId,
       if (nome != null) 'nome': nome,
+      if (tipo != null) 'tipo': tipo,
       if (densidadeKcalPor100g != null)
         'densidade_kcal_por100g': densidadeKcalPor100g,
       if (porcaoPadraoG != null) 'porcao_padrao_g': porcaoPadraoG,
+      if (kcalPorUnidade != null) 'kcal_por_unidade': kcalPorUnidade,
+      if (unidadesHabituais != null) 'unidades_habituais': unidadesHabituais,
       if (arquivado != null) 'arquivado': arquivado,
       if (rowid != null) 'rowid': rowid,
     });
@@ -1535,8 +1679,11 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
     Value<bool>? excluido,
     Value<String>? petId,
     Value<String>? nome,
-    Value<double>? densidadeKcalPor100g,
-    Value<double>? porcaoPadraoG,
+    Value<String>? tipo,
+    Value<double?>? densidadeKcalPor100g,
+    Value<double?>? porcaoPadraoG,
+    Value<double?>? kcalPorUnidade,
+    Value<int?>? unidadesHabituais,
     Value<bool>? arquivado,
     Value<int>? rowid,
   }) {
@@ -1550,8 +1697,11 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
       excluido: excluido ?? this.excluido,
       petId: petId ?? this.petId,
       nome: nome ?? this.nome,
+      tipo: tipo ?? this.tipo,
       densidadeKcalPor100g: densidadeKcalPor100g ?? this.densidadeKcalPor100g,
       porcaoPadraoG: porcaoPadraoG ?? this.porcaoPadraoG,
+      kcalPorUnidade: kcalPorUnidade ?? this.kcalPorUnidade,
+      unidadesHabituais: unidadesHabituais ?? this.unidadesHabituais,
       arquivado: arquivado ?? this.arquivado,
       rowid: rowid ?? this.rowid,
     );
@@ -1587,6 +1737,9 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
     if (nome.present) {
       map['nome'] = Variable<String>(nome.value);
     }
+    if (tipo.present) {
+      map['tipo'] = Variable<String>(tipo.value);
+    }
     if (densidadeKcalPor100g.present) {
       map['densidade_kcal_por100g'] = Variable<double>(
         densidadeKcalPor100g.value,
@@ -1594,6 +1747,12 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
     }
     if (porcaoPadraoG.present) {
       map['porcao_padrao_g'] = Variable<double>(porcaoPadraoG.value);
+    }
+    if (kcalPorUnidade.present) {
+      map['kcal_por_unidade'] = Variable<double>(kcalPorUnidade.value);
+    }
+    if (unidadesHabituais.present) {
+      map['unidades_habituais'] = Variable<int>(unidadesHabituais.value);
     }
     if (arquivado.present) {
       map['arquivado'] = Variable<bool>(arquivado.value);
@@ -1616,8 +1775,11 @@ class AlimentosCompanion extends UpdateCompanion<AlimentoLinha> {
           ..write('excluido: $excluido, ')
           ..write('petId: $petId, ')
           ..write('nome: $nome, ')
+          ..write('tipo: $tipo, ')
           ..write('densidadeKcalPor100g: $densidadeKcalPor100g, ')
           ..write('porcaoPadraoG: $porcaoPadraoG, ')
+          ..write('kcalPorUnidade: $kcalPorUnidade, ')
+          ..write('unidadesHabituais: $unidadesHabituais, ')
           ..write('arquivado: $arquivado, ')
           ..write('rowid: $rowid')
           ..write(')'))
@@ -2569,6 +2731,17 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
       'REFERENCES pets (id) ON DELETE CASCADE',
     ),
   );
+  static const VerificationMeta _alimentoIdMeta = const VerificationMeta(
+    'alimentoId',
+  );
+  @override
+  late final GeneratedColumn<String> alimentoId = GeneratedColumn<String>(
+    'alimento_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _descricaoMeta = const VerificationMeta(
     'descricao',
   );
@@ -2589,6 +2762,17 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
     aliasedName,
     true,
     type: DriftSqlType.double,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unidadesMeta = const VerificationMeta(
+    'unidades',
+  );
+  @override
+  late final GeneratedColumn<int> unidades = GeneratedColumn<int>(
+    'unidades',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
     requiredDuringInsert: false,
   );
   static const VerificationMeta _energiaKcalMeta = const VerificationMeta(
@@ -2623,8 +2807,10 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
     estadoSync,
     excluido,
     petId,
+    alimentoId,
     descricao,
     quantidadeG,
+    unidades,
     energiaKcal,
     dataHora,
   ];
@@ -2699,6 +2885,12 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
     } else if (isInserting) {
       context.missing(_petIdMeta);
     }
+    if (data.containsKey('alimento_id')) {
+      context.handle(
+        _alimentoIdMeta,
+        alimentoId.isAcceptableOrUnknown(data['alimento_id']!, _alimentoIdMeta),
+      );
+    }
     if (data.containsKey('descricao')) {
       context.handle(
         _descricaoMeta,
@@ -2714,6 +2906,12 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
           data['quantidade_g']!,
           _quantidadeGMeta,
         ),
+      );
+    }
+    if (data.containsKey('unidades')) {
+      context.handle(
+        _unidadesMeta,
+        unidades.isAcceptableOrUnknown(data['unidades']!, _unidadesMeta),
       );
     }
     if (data.containsKey('energia_kcal')) {
@@ -2776,6 +2974,10 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
         DriftSqlType.string,
         data['${effectivePrefix}pet_id'],
       )!,
+      alimentoId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}alimento_id'],
+      ),
       descricao: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}descricao'],
@@ -2783,6 +2985,10 @@ class $ExtrasTable extends Extras with TableInfo<$ExtrasTable, ExtraLinha> {
       quantidadeG: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
         data['${effectivePrefix}quantidade_g'],
+      ),
+      unidades: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unidades'],
       ),
       energiaKcal: attachedDatabase.typeMapping.read(
         DriftSqlType.double,
@@ -2821,8 +3027,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
   /// Lápide. As consultas da UI sempre filtram `excluido = false`.
   final bool excluido;
   final String petId;
+  final String? alimentoId;
   final String descricao;
   final double? quantidadeG;
+  final int? unidades;
   final double energiaKcal;
   final DateTime dataHora;
   const ExtraLinha({
@@ -2834,8 +3042,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
     required this.estadoSync,
     required this.excluido,
     required this.petId,
+    this.alimentoId,
     required this.descricao,
     this.quantidadeG,
+    this.unidades,
     required this.energiaKcal,
     required this.dataHora,
   });
@@ -2852,9 +3062,15 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
     map['estado_sync'] = Variable<String>(estadoSync);
     map['excluido'] = Variable<bool>(excluido);
     map['pet_id'] = Variable<String>(petId);
+    if (!nullToAbsent || alimentoId != null) {
+      map['alimento_id'] = Variable<String>(alimentoId);
+    }
     map['descricao'] = Variable<String>(descricao);
     if (!nullToAbsent || quantidadeG != null) {
       map['quantidade_g'] = Variable<double>(quantidadeG);
+    }
+    if (!nullToAbsent || unidades != null) {
+      map['unidades'] = Variable<int>(unidades);
     }
     map['energia_kcal'] = Variable<double>(energiaKcal);
     map['data_hora'] = Variable<DateTime>(dataHora);
@@ -2873,10 +3089,16 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
       estadoSync: Value(estadoSync),
       excluido: Value(excluido),
       petId: Value(petId),
+      alimentoId: alimentoId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(alimentoId),
       descricao: Value(descricao),
       quantidadeG: quantidadeG == null && nullToAbsent
           ? const Value.absent()
           : Value(quantidadeG),
+      unidades: unidades == null && nullToAbsent
+          ? const Value.absent()
+          : Value(unidades),
       energiaKcal: Value(energiaKcal),
       dataHora: Value(dataHora),
     );
@@ -2896,8 +3118,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
       estadoSync: serializer.fromJson<String>(json['estadoSync']),
       excluido: serializer.fromJson<bool>(json['excluido']),
       petId: serializer.fromJson<String>(json['petId']),
+      alimentoId: serializer.fromJson<String?>(json['alimentoId']),
       descricao: serializer.fromJson<String>(json['descricao']),
       quantidadeG: serializer.fromJson<double?>(json['quantidadeG']),
+      unidades: serializer.fromJson<int?>(json['unidades']),
       energiaKcal: serializer.fromJson<double>(json['energiaKcal']),
       dataHora: serializer.fromJson<DateTime>(json['dataHora']),
     );
@@ -2914,8 +3138,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
       'estadoSync': serializer.toJson<String>(estadoSync),
       'excluido': serializer.toJson<bool>(excluido),
       'petId': serializer.toJson<String>(petId),
+      'alimentoId': serializer.toJson<String?>(alimentoId),
       'descricao': serializer.toJson<String>(descricao),
       'quantidadeG': serializer.toJson<double?>(quantidadeG),
+      'unidades': serializer.toJson<int?>(unidades),
       'energiaKcal': serializer.toJson<double>(energiaKcal),
       'dataHora': serializer.toJson<DateTime>(dataHora),
     };
@@ -2930,8 +3156,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
     String? estadoSync,
     bool? excluido,
     String? petId,
+    Value<String?> alimentoId = const Value.absent(),
     String? descricao,
     Value<double?> quantidadeG = const Value.absent(),
+    Value<int?> unidades = const Value.absent(),
     double? energiaKcal,
     DateTime? dataHora,
   }) => ExtraLinha(
@@ -2943,8 +3171,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
     estadoSync: estadoSync ?? this.estadoSync,
     excluido: excluido ?? this.excluido,
     petId: petId ?? this.petId,
+    alimentoId: alimentoId.present ? alimentoId.value : this.alimentoId,
     descricao: descricao ?? this.descricao,
     quantidadeG: quantidadeG.present ? quantidadeG.value : this.quantidadeG,
+    unidades: unidades.present ? unidades.value : this.unidades,
     energiaKcal: energiaKcal ?? this.energiaKcal,
     dataHora: dataHora ?? this.dataHora,
   );
@@ -2964,10 +3194,14 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
           : this.estadoSync,
       excluido: data.excluido.present ? data.excluido.value : this.excluido,
       petId: data.petId.present ? data.petId.value : this.petId,
+      alimentoId: data.alimentoId.present
+          ? data.alimentoId.value
+          : this.alimentoId,
       descricao: data.descricao.present ? data.descricao.value : this.descricao,
       quantidadeG: data.quantidadeG.present
           ? data.quantidadeG.value
           : this.quantidadeG,
+      unidades: data.unidades.present ? data.unidades.value : this.unidades,
       energiaKcal: data.energiaKcal.present
           ? data.energiaKcal.value
           : this.energiaKcal,
@@ -2986,8 +3220,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
           ..write('estadoSync: $estadoSync, ')
           ..write('excluido: $excluido, ')
           ..write('petId: $petId, ')
+          ..write('alimentoId: $alimentoId, ')
           ..write('descricao: $descricao, ')
           ..write('quantidadeG: $quantidadeG, ')
+          ..write('unidades: $unidades, ')
           ..write('energiaKcal: $energiaKcal, ')
           ..write('dataHora: $dataHora')
           ..write(')'))
@@ -3004,8 +3240,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
     estadoSync,
     excluido,
     petId,
+    alimentoId,
     descricao,
     quantidadeG,
+    unidades,
     energiaKcal,
     dataHora,
   );
@@ -3021,8 +3259,10 @@ class ExtraLinha extends DataClass implements Insertable<ExtraLinha> {
           other.estadoSync == this.estadoSync &&
           other.excluido == this.excluido &&
           other.petId == this.petId &&
+          other.alimentoId == this.alimentoId &&
           other.descricao == this.descricao &&
           other.quantidadeG == this.quantidadeG &&
+          other.unidades == this.unidades &&
           other.energiaKcal == this.energiaKcal &&
           other.dataHora == this.dataHora);
 }
@@ -3036,8 +3276,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
   final Value<String> estadoSync;
   final Value<bool> excluido;
   final Value<String> petId;
+  final Value<String?> alimentoId;
   final Value<String> descricao;
   final Value<double?> quantidadeG;
+  final Value<int?> unidades;
   final Value<double> energiaKcal;
   final Value<DateTime> dataHora;
   final Value<int> rowid;
@@ -3050,8 +3292,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
     this.estadoSync = const Value.absent(),
     this.excluido = const Value.absent(),
     this.petId = const Value.absent(),
+    this.alimentoId = const Value.absent(),
     this.descricao = const Value.absent(),
     this.quantidadeG = const Value.absent(),
+    this.unidades = const Value.absent(),
     this.energiaKcal = const Value.absent(),
     this.dataHora = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -3065,8 +3309,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
     this.estadoSync = const Value.absent(),
     this.excluido = const Value.absent(),
     required String petId,
+    this.alimentoId = const Value.absent(),
     required String descricao,
     this.quantidadeG = const Value.absent(),
+    this.unidades = const Value.absent(),
     required double energiaKcal,
     required DateTime dataHora,
     this.rowid = const Value.absent(),
@@ -3086,8 +3332,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
     Expression<String>? estadoSync,
     Expression<bool>? excluido,
     Expression<String>? petId,
+    Expression<String>? alimentoId,
     Expression<String>? descricao,
     Expression<double>? quantidadeG,
+    Expression<int>? unidades,
     Expression<double>? energiaKcal,
     Expression<DateTime>? dataHora,
     Expression<int>? rowid,
@@ -3101,8 +3349,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
       if (estadoSync != null) 'estado_sync': estadoSync,
       if (excluido != null) 'excluido': excluido,
       if (petId != null) 'pet_id': petId,
+      if (alimentoId != null) 'alimento_id': alimentoId,
       if (descricao != null) 'descricao': descricao,
       if (quantidadeG != null) 'quantidade_g': quantidadeG,
+      if (unidades != null) 'unidades': unidades,
       if (energiaKcal != null) 'energia_kcal': energiaKcal,
       if (dataHora != null) 'data_hora': dataHora,
       if (rowid != null) 'rowid': rowid,
@@ -3118,8 +3368,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
     Value<String>? estadoSync,
     Value<bool>? excluido,
     Value<String>? petId,
+    Value<String?>? alimentoId,
     Value<String>? descricao,
     Value<double?>? quantidadeG,
+    Value<int?>? unidades,
     Value<double>? energiaKcal,
     Value<DateTime>? dataHora,
     Value<int>? rowid,
@@ -3133,8 +3385,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
       estadoSync: estadoSync ?? this.estadoSync,
       excluido: excluido ?? this.excluido,
       petId: petId ?? this.petId,
+      alimentoId: alimentoId ?? this.alimentoId,
       descricao: descricao ?? this.descricao,
       quantidadeG: quantidadeG ?? this.quantidadeG,
+      unidades: unidades ?? this.unidades,
       energiaKcal: energiaKcal ?? this.energiaKcal,
       dataHora: dataHora ?? this.dataHora,
       rowid: rowid ?? this.rowid,
@@ -3168,11 +3422,17 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
     if (petId.present) {
       map['pet_id'] = Variable<String>(petId.value);
     }
+    if (alimentoId.present) {
+      map['alimento_id'] = Variable<String>(alimentoId.value);
+    }
     if (descricao.present) {
       map['descricao'] = Variable<String>(descricao.value);
     }
     if (quantidadeG.present) {
       map['quantidade_g'] = Variable<double>(quantidadeG.value);
+    }
+    if (unidades.present) {
+      map['unidades'] = Variable<int>(unidades.value);
     }
     if (energiaKcal.present) {
       map['energia_kcal'] = Variable<double>(energiaKcal.value);
@@ -3197,8 +3457,10 @@ class ExtrasCompanion extends UpdateCompanion<ExtraLinha> {
           ..write('estadoSync: $estadoSync, ')
           ..write('excluido: $excluido, ')
           ..write('petId: $petId, ')
+          ..write('alimentoId: $alimentoId, ')
           ..write('descricao: $descricao, ')
           ..write('quantidadeG: $quantidadeG, ')
+          ..write('unidades: $unidades, ')
           ..write('energiaKcal: $energiaKcal, ')
           ..write('dataHora: $dataHora, ')
           ..write('rowid: $rowid')
@@ -8195,8 +8457,11 @@ typedef $$AlimentosTableCreateCompanionBuilder = AlimentosCompanion Function({
   Value<bool> excluido,
   required String petId,
   required String nome,
-  required double densidadeKcalPor100g,
-  required double porcaoPadraoG,
+  Value<String> tipo,
+  Value<double?> densidadeKcalPor100g,
+  Value<double?> porcaoPadraoG,
+  Value<double?> kcalPorUnidade,
+  Value<int?> unidadesHabituais,
   Value<bool> arquivado,
   Value<int> rowid,
 });
@@ -8210,8 +8475,11 @@ typedef $$AlimentosTableUpdateCompanionBuilder = AlimentosCompanion Function({
   Value<bool> excluido,
   Value<String> petId,
   Value<String> nome,
-  Value<double> densidadeKcalPor100g,
-  Value<double> porcaoPadraoG,
+  Value<String> tipo,
+  Value<double?> densidadeKcalPor100g,
+  Value<double?> porcaoPadraoG,
+  Value<double?> kcalPorUnidade,
+  Value<int?> unidadesHabituais,
   Value<bool> arquivado,
   Value<int> rowid,
 });
@@ -8287,6 +8555,11 @@ class $$AlimentosTableFilterComposer
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get tipo => $composableBuilder(
+    column: $table.tipo,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<double> get densidadeKcalPor100g => $composableBuilder(
     column: $table.densidadeKcalPor100g,
     builder: (column) => ColumnFilters(column),
@@ -8294,6 +8567,16 @@ class $$AlimentosTableFilterComposer
 
   ColumnFilters<double> get porcaoPadraoG => $composableBuilder(
     column: $table.porcaoPadraoG,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<double> get kcalPorUnidade => $composableBuilder(
+    column: $table.kcalPorUnidade,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unidadesHabituais => $composableBuilder(
+    column: $table.unidadesHabituais,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -8375,6 +8658,11 @@ class $$AlimentosTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get tipo => $composableBuilder(
+    column: $table.tipo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<double> get densidadeKcalPor100g => $composableBuilder(
     column: $table.densidadeKcalPor100g,
     builder: (column) => ColumnOrderings(column),
@@ -8382,6 +8670,16 @@ class $$AlimentosTableOrderingComposer
 
   ColumnOrderings<double> get porcaoPadraoG => $composableBuilder(
     column: $table.porcaoPadraoG,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<double> get kcalPorUnidade => $composableBuilder(
+    column: $table.kcalPorUnidade,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unidadesHabituais => $composableBuilder(
+    column: $table.unidadesHabituais,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -8453,6 +8751,9 @@ class $$AlimentosTableAnnotationComposer
   GeneratedColumn<String> get nome =>
       $composableBuilder(column: $table.nome, builder: (column) => column);
 
+  GeneratedColumn<String> get tipo =>
+      $composableBuilder(column: $table.tipo, builder: (column) => column);
+
   GeneratedColumn<double> get densidadeKcalPor100g => $composableBuilder(
     column: $table.densidadeKcalPor100g,
     builder: (column) => column,
@@ -8460,6 +8761,16 @@ class $$AlimentosTableAnnotationComposer
 
   GeneratedColumn<double> get porcaoPadraoG => $composableBuilder(
     column: $table.porcaoPadraoG,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<double> get kcalPorUnidade => $composableBuilder(
+    column: $table.kcalPorUnidade,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get unidadesHabituais => $composableBuilder(
+    column: $table.unidadesHabituais,
     builder: (column) => column,
   );
 
@@ -8527,8 +8838,11 @@ class $$AlimentosTableTableManager
                 Value<bool> excluido = const Value.absent(),
                 Value<String> petId = const Value.absent(),
                 Value<String> nome = const Value.absent(),
-                Value<double> densidadeKcalPor100g = const Value.absent(),
-                Value<double> porcaoPadraoG = const Value.absent(),
+                Value<String> tipo = const Value.absent(),
+                Value<double?> densidadeKcalPor100g = const Value.absent(),
+                Value<double?> porcaoPadraoG = const Value.absent(),
+                Value<double?> kcalPorUnidade = const Value.absent(),
+                Value<int?> unidadesHabituais = const Value.absent(),
                 Value<bool> arquivado = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AlimentosCompanion(
@@ -8541,8 +8855,11 @@ class $$AlimentosTableTableManager
                 excluido: excluido,
                 petId: petId,
                 nome: nome,
+                tipo: tipo,
                 densidadeKcalPor100g: densidadeKcalPor100g,
                 porcaoPadraoG: porcaoPadraoG,
+                kcalPorUnidade: kcalPorUnidade,
+                unidadesHabituais: unidadesHabituais,
                 arquivado: arquivado,
                 rowid: rowid,
               ),
@@ -8557,8 +8874,11 @@ class $$AlimentosTableTableManager
                 Value<bool> excluido = const Value.absent(),
                 required String petId,
                 required String nome,
-                required double densidadeKcalPor100g,
-                required double porcaoPadraoG,
+                Value<String> tipo = const Value.absent(),
+                Value<double?> densidadeKcalPor100g = const Value.absent(),
+                Value<double?> porcaoPadraoG = const Value.absent(),
+                Value<double?> kcalPorUnidade = const Value.absent(),
+                Value<int?> unidadesHabituais = const Value.absent(),
                 Value<bool> arquivado = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
               }) => AlimentosCompanion.insert(
@@ -8571,8 +8891,11 @@ class $$AlimentosTableTableManager
                 excluido: excluido,
                 petId: petId,
                 nome: nome,
+                tipo: tipo,
                 densidadeKcalPor100g: densidadeKcalPor100g,
                 porcaoPadraoG: porcaoPadraoG,
+                kcalPorUnidade: kcalPorUnidade,
+                unidadesHabituais: unidadesHabituais,
                 arquivado: arquivado,
                 rowid: rowid,
               ),
@@ -9152,8 +9475,10 @@ typedef $$ExtrasTableCreateCompanionBuilder = ExtrasCompanion Function({
   Value<String> estadoSync,
   Value<bool> excluido,
   required String petId,
+  Value<String?> alimentoId,
   required String descricao,
   Value<double?> quantidadeG,
+  Value<int?> unidades,
   required double energiaKcal,
   required DateTime dataHora,
   Value<int> rowid,
@@ -9167,8 +9492,10 @@ typedef $$ExtrasTableUpdateCompanionBuilder = ExtrasCompanion Function({
   Value<String> estadoSync,
   Value<bool> excluido,
   Value<String> petId,
+  Value<String?> alimentoId,
   Value<String> descricao,
   Value<double?> quantidadeG,
+  Value<int?> unidades,
   Value<double> energiaKcal,
   Value<DateTime> dataHora,
   Value<int> rowid,
@@ -9239,6 +9566,11 @@ class $$ExtrasTableFilterComposer extends Composer<_$BancoLocal, $ExtrasTable> {
     builder: (column) => ColumnFilters(column),
   );
 
+  ColumnFilters<String> get alimentoId => $composableBuilder(
+    column: $table.alimentoId,
+    builder: (column) => ColumnFilters(column),
+  );
+
   ColumnFilters<String> get descricao => $composableBuilder(
     column: $table.descricao,
     builder: (column) => ColumnFilters(column),
@@ -9246,6 +9578,11 @@ class $$ExtrasTableFilterComposer extends Composer<_$BancoLocal, $ExtrasTable> {
 
   ColumnFilters<double> get quantidadeG => $composableBuilder(
     column: $table.quantidadeG,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unidades => $composableBuilder(
+    column: $table.unidades,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -9327,6 +9664,11 @@ class $$ExtrasTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get alimentoId => $composableBuilder(
+    column: $table.alimentoId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get descricao => $composableBuilder(
     column: $table.descricao,
     builder: (column) => ColumnOrderings(column),
@@ -9334,6 +9676,11 @@ class $$ExtrasTableOrderingComposer
 
   ColumnOrderings<double> get quantidadeG => $composableBuilder(
     column: $table.quantidadeG,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unidades => $composableBuilder(
+    column: $table.unidades,
     builder: (column) => ColumnOrderings(column),
   );
 
@@ -9407,6 +9754,11 @@ class $$ExtrasTableAnnotationComposer
   GeneratedColumn<bool> get excluido =>
       $composableBuilder(column: $table.excluido, builder: (column) => column);
 
+  GeneratedColumn<String> get alimentoId => $composableBuilder(
+    column: $table.alimentoId,
+    builder: (column) => column,
+  );
+
   GeneratedColumn<String> get descricao =>
       $composableBuilder(column: $table.descricao, builder: (column) => column);
 
@@ -9414,6 +9766,9 @@ class $$ExtrasTableAnnotationComposer
     column: $table.quantidadeG,
     builder: (column) => column,
   );
+
+  GeneratedColumn<int> get unidades =>
+      $composableBuilder(column: $table.unidades, builder: (column) => column);
 
   GeneratedColumn<double> get energiaKcal => $composableBuilder(
     column: $table.energiaKcal,
@@ -9483,8 +9838,10 @@ class $$ExtrasTableTableManager
                 Value<String> estadoSync = const Value.absent(),
                 Value<bool> excluido = const Value.absent(),
                 Value<String> petId = const Value.absent(),
+                Value<String?> alimentoId = const Value.absent(),
                 Value<String> descricao = const Value.absent(),
                 Value<double?> quantidadeG = const Value.absent(),
+                Value<int?> unidades = const Value.absent(),
                 Value<double> energiaKcal = const Value.absent(),
                 Value<DateTime> dataHora = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -9497,8 +9854,10 @@ class $$ExtrasTableTableManager
                 estadoSync: estadoSync,
                 excluido: excluido,
                 petId: petId,
+                alimentoId: alimentoId,
                 descricao: descricao,
                 quantidadeG: quantidadeG,
+                unidades: unidades,
                 energiaKcal: energiaKcal,
                 dataHora: dataHora,
                 rowid: rowid,
@@ -9513,8 +9872,10 @@ class $$ExtrasTableTableManager
                 Value<String> estadoSync = const Value.absent(),
                 Value<bool> excluido = const Value.absent(),
                 required String petId,
+                Value<String?> alimentoId = const Value.absent(),
                 required String descricao,
                 Value<double?> quantidadeG = const Value.absent(),
+                Value<int?> unidades = const Value.absent(),
                 required double energiaKcal,
                 required DateTime dataHora,
                 Value<int> rowid = const Value.absent(),
@@ -9527,8 +9888,10 @@ class $$ExtrasTableTableManager
                 estadoSync: estadoSync,
                 excluido: excluido,
                 petId: petId,
+                alimentoId: alimentoId,
                 descricao: descricao,
                 quantidadeG: quantidadeG,
+                unidades: unidades,
                 energiaKcal: energiaKcal,
                 dataHora: dataHora,
                 rowid: rowid,

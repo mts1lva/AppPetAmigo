@@ -1,0 +1,8 @@
+[
+  {"id":"gato-brincadeira-1","especie":"gato","texto":"Reserve um momento de brincadeira.","fonte":"pesquisa do projeto","revisadoEm":"2026-09","situacao":"em_revisao"},
+  {"id":"gato-rotina-2","especie":"gato","texto":"Registre os momentos de brincadeira para acompanhar a rotina.","fonte":"pesquisa do projeto","revisadoEm":"2026-09","situacao":"em_revisao"},
+  {"id":"gato-consulta-3","especie":"gato","texto":"Converse com o veterinário sobre atividades adequadas ao seu gato.","fonte":"pesquisa do projeto","revisadoEm":"2026-09","situacao":"em_revisao"},
+  {"id":"cao-passeio-1","especie":"cao","texto":"Reserve um momento para passear ou brincar juntos.","fonte":"pesquisa do projeto","revisadoEm":"2026-09","situacao":"em_revisao"},
+  {"id":"cao-rotina-2","especie":"cao","texto":"Registre os passeios para acompanhar a rotina.","fonte":"pesquisa do projeto","revisadoEm":"2026-09","situacao":"em_revisao"},
+  {"id":"cao-consulta-3","especie":"cao","texto":"Converse com o veterinário sobre atividades adequadas ao seu cão.","fonte":"pesquisa do projeto","revisadoEm":"2026-09","situacao":"em_revisao"}
+]

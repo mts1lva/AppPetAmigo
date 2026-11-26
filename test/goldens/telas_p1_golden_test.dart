@@ -24,6 +24,7 @@ import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provid
 import 'package:petamigo/features/lembretes/apresentacao/providers/lembretes_provider.dart';
 import 'package:petamigo/features/lembretes/domain/entidades/lembrete.dart';
 
+import '../apoio/diario_falso.dart';
 import '../apoio/golden.dart';
 import '../apoio/inicio_falso.dart';
 import '../apoio/pets_falsos.dart';
@@ -41,6 +42,7 @@ Future<void> montarLuna(WidgetTester tester) async {
   await tester.pumpWidget(ProviderScope(
     overrides: [
       ...pets.overrides,
+      ...DiarioFalsos().overrides,
       agoraProvider.overrideWithValue(() => DateTime(2026, 9, 30, 9)),
       ultimaPesagemProvider.overrideWith(
         (ref, petId) => Stream.value(Pesagem(id: 'pes1', petId: petId, pesoKg: 5.4, dataHora: DateTime(2026, 9, 1))),

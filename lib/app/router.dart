@@ -3,7 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:material_ui/material_ui.dart';
 
 import '../core/ui/ui.dart';
+import '../features/diario/apresentacao/providers/diario_ui_providers.dart';
+import '../features/diario/apresentacao/telas/tela_diario.dart';
 import '../features/inicio/apresentacao/telas/tela_inicio.dart';
+import '../features/atividades/apresentacao/telas/tela_atividades.dart';
 import '../features/pets/apresentacao/providers/pet_atual_provider.dart';
 import '../features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import '../features/pets/apresentacao/telas/tela_vamos_comecar.dart';
@@ -39,11 +42,14 @@ String? redirecionarPorPet(AsyncValue<String?> petAtual, String local) {
   return null;
 }
 
+final chaveNavegadorProvider = Provider((ref) => GlobalKey<NavigatorState>());
+
 final roteadorProvider = Provider<GoRouter>((ref) {
   final petAtual = ValueNotifier<AsyncValue<String?>>(ref.read(petAtualIdProvider));
   ref.listen(petAtualIdProvider, (_, proximo) => petAtual.value = proximo);
 
   final roteador = GoRouter(
+    navigatorKey: ref.watch(chaveNavegadorProvider),
     initialLocation: Rotas.inicio,
     refreshListenable: petAtual,
     redirect: (context, state) => redirecionarPorPet(petAtual.value, state.matchedLocation),
@@ -63,14 +69,12 @@ final roteadorProvider = Provider<GoRouter>((ref) {
             GoRoute(path: Rotas.inicio, builder: (context, state) => const TelaInicio()),
           ]),
           StatefulShellBranch(routes: [
-            // TODO(P2-1.5): tela 02 Diário.
-            GoRoute(path: Rotas.diario, builder: (context, state) => const TelaProvisoria(titulo: 'Diário')),
+            GoRoute(path: Rotas.diario, builder: (context, state) => const TelaDiario()),
           ]),
           StatefulShellBranch(routes: [
-            // TODO(P3-1.3): tela 03 Atividades.
             GoRoute(
               path: Rotas.atividades,
-              builder: (context, state) => const TelaProvisoria(titulo: 'Atividades'),
+              builder: (context, state) => const TelaAtividades(),
             ),
           ]),
           StatefulShellBranch(routes: [
@@ -94,18 +98,23 @@ final roteadorProvider = Provider<GoRouter>((ref) {
 ///
 /// Botão voltar do Android: numa aba ≠ Início, vai para o Início; no Início,
 /// sai do app. Diálogos abertos fecham antes (rota do navegador raiz).
-class EstruturaAbas extends StatelessWidget {
+class EstruturaAbas extends ConsumerWidget {
   const EstruturaAbas({super.key, required this.abas});
 
   final StatefulNavigationShell abas;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final noInicio = abas.currentIndex == 0;
     return PopScope(
       canPop: noInicio,
       onPopInvokedWithResult: (saiu, _) {
-        if (!saiu) abas.goBranch(0);
+        if (!saiu) {
+          if (abas.currentIndex == 1) {
+            ref.read(diarioAtualizadoProvider.notifier).limpar();
+          }
+          abas.goBranch(0);
+        }
       },
       child: Scaffold(
         backgroundColor: PaCores.fundo,
@@ -113,7 +122,12 @@ class EstruturaAbas extends StatelessWidget {
         bottomNavigationBar: PaNavegacao(
           indiceAtual: abas.currentIndex,
           // Tocar na aba atual volta à raiz dela.
-          aoSelecionar: (i) => abas.goBranch(i, initialLocation: i == abas.currentIndex),
+          aoSelecionar: (i) {
+            if (abas.currentIndex == 1 && i != 1) {
+              ref.read(diarioAtualizadoProvider.notifier).limpar();
+            }
+            abas.goBranch(i, initialLocation: i == abas.currentIndex);
+          },
         ),
       ),
     );

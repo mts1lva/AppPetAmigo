@@ -15,6 +15,8 @@ energiaKcal = quantidadeG × densidadeKcalPor100g / 100
 - Guarda `double`; mostra arredondado para inteiro ("108 kcal").
 - A densidade usada fica copiada na refeição. Ao editar a quantidade, o recálculo usa **a densidade salva na refeição**, não a atual do alimento (`requisitos.md`, exemplo de CRUD).
 
+**Petisco cadastrado (P-32):** `energiaKcal = unidades × kcalPorUnidade`. Ex.: 2 unidades × 3 kcal = **6 kcal**. O nome e a energia ficam copiados no extra; ao editar as unidades, o recálculo usa a energia por unidade da cópia (`energiaKcal ÷ unidades`), não a atual do petisco.
+
 ## R02 — Resumo do dia e comparação com a meta
 
 Para o dia D (00:00 a 23:59 no fuso do aparelho):
@@ -28,7 +30,7 @@ meta   = MER (M1)
 | Onde | Com meta disponível | Sem meta (sem pesagem) |
 |---|---|---|
 | Início, card "Hoje" | `Ração 108 kcal • Petiscos 12 kcal` / `Total: 120 de 397 kcal` | `… / Total registrado: 120 kcal` |
-| Diário, card "Resumo do dia" | `120 de 397 kcal • Petiscos 10% dos registros` / `Faltam 277 kcal para a meta de hoje.` (acima da meta: `23 kcal acima da meta de hoje.`) | `120 kcal • Petiscos 10% dos registros` / `Registre uma pesagem para ver a meta.` |
+| Diário, card "Resumo do dia" | `120 de 397 kcal • Petiscos 10% dos registros` / `Faltam 277 kcal para a meta de hoje.` (acima da meta: `23 kcal acima da meta de hoje.`; igual à meta: só a primeira linha, P-30) | `120 kcal • Petiscos 10% dos registros` / `Registre uma pesagem para ver a meta.` |
 
 - Nenhum texto usa culpa nem cor de alerta por estar acima ou abaixo da meta. A sugestão sobre petiscos é a S1 (M8), não um aviso no resumo.
 
@@ -56,6 +58,8 @@ meta   = MER (M1)
 | Densidade | > 0 | Abre a tela 22 "Confira a densidade" |
 | Quantidade (g) | > 0 | "A quantidade precisa ser positiva." |
 | Energia do extra | > 0 | "Informe a energia em kcal." |
+| Energia por unidade do petisco (P-32) | > 0 | "Informe a energia por unidade." |
+| Unidades (petisco cadastrado e unidades habituais, P-32) | inteiro > 0 | "Informe um número inteiro de unidades." |
 | Duração | inteiro > 0, ≤ 600 min (P-10) | "Informe a duração em minutos." |
 | Data/hora de registro | não pode ser futura (P-10) | "Escolha uma data até hoje." |
 | ECC | inteiro de 1 a 9 ou vazio (P-03) | — (escolha) |
@@ -63,6 +67,8 @@ meta   = MER (M1)
 | Horário de lembrete | 00:00–23:59, sem repetir horário do mesmo tipo no mesmo pet | "Já existe um lembrete nesse horário." |
 
 Erro aparece no `PaCampo` (borda `erro` e mensagem embaixo). O botão de salvar continua habilitado e, ao tocar, leva o foco ao primeiro campo com erro.
+
+Se a gravação no banco falhar (não é erro de validação), o diálogo continua aberto com os dados e mostra `Não foi possível salvar. Tente novamente.` (P-29).
 
 ## R06 — Pesagem suspeita (técnica, não clínica; P-10)
 

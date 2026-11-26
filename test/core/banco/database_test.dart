@@ -42,9 +42,9 @@ void main() {
         dataHora: agora,
       );
 
-  group('Esquema (migração 1)', () {
+  group('Esquema (versão 2, P-32)', () {
     test('todas as tabelas de domínio e de controle existem', () async {
-      expect(banco.schemaVersion, 1);
+      expect(banco.schemaVersion, 2);
       expect(await nomes('table'), [
         'alimentos',
         'atividades',
