@@ -52,6 +52,7 @@ class _CoordenadorLembretesState extends ConsumerState<CoordenadorLembretes>
     with WidgetsBindingObserver {
   Timer? _viradaDoDia;
   var _abrindo = false;
+  var _ultimaAbertura = 0;
 
   @override
   void initState() {
@@ -121,10 +122,25 @@ class _CoordenadorLembretesState extends ConsumerState<CoordenadorLembretes>
             ?.overlay
             ?.context;
         final abrir = ref.read(abridoresLembreteProvider)[destino.tipo];
+        final aberturaAtual = ++_ultimaAbertura;
         centralNotificacoes.concluir();
         if (contexto != null && contexto.mounted && abrir != null) {
           ref.read(registroLembretePendenteProvider.notifier).definir(null);
-          await abrir(contexto, destino.petId);
+          // O Future do diálogo só termina ao fechá-lo. A fila precisa poder
+          // tratar outro toque e substituir esse formulário imediatamente.
+          unawaited(
+            Future<void>.sync(() => abrir(contexto, destino.petId))
+                .onError((erro, stack) {
+                  if (mounted && aberturaAtual == _ultimaAbertura) {
+                    ref
+                        .read(registroLembretePendenteProvider.notifier)
+                        .definir(destino);
+                  }
+                  debugPrint(
+                    'Abertura do lembrete pendente (${erro.runtimeType}).',
+                  );
+                }),
+          );
         }
       }
     } catch (erro) {

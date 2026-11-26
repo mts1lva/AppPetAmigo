@@ -13,7 +13,8 @@ import '../../domain/entidades/lembrete.dart';
 import '../../domain/repositorios/lembrete_repositorio.dart';
 import '../providers/notificacoes_providers.dart';
 
-/// Cada formulário substitui a lista; ao terminar, a lista abre novamente.
+/// A lista volta depois de salvar, excluir ou tocar em Voltar. Um fechamento
+/// externo (como outra notificação) encerra o fluxo sem reabrir o pet anterior.
 Future<void> abrirLembretes(
   BuildContext context, {
   required String petId,
@@ -25,10 +26,11 @@ Future<void> abrirLembretes(
       builder: (_) => DialogoLembretes(petId: petId),
     );
     if (acao == null || !context.mounted) return;
-    await mostrarPaDialogo<void>(
+    final voltarParaLista = await mostrarPaDialogo<bool>(
       context,
       builder: (_) => DialogoLembrete(pet: acao.pet, lembrete: acao.lembrete),
     );
+    if (voltarParaLista != true) return;
   }
 }
 
@@ -232,7 +234,7 @@ class _DialogoLembreteState extends ConsumerState<DialogoLembrete> {
             nomePet: widget.pet.nome,
             agora: ref.read(agoraProvider)(),
           );
-      if (mounted) Navigator.of(context).pop();
+      if (mounted) Navigator.of(context).pop(true);
     } on HorarioRepetido {
       if (mounted) {
         setState(() => _erroHora = 'Já existe um lembrete nesse horário.');
@@ -263,7 +265,14 @@ class _DialogoLembreteState extends ConsumerState<DialogoLembrete> {
       await ref
           .read(gerenciarLembretesProvider)
           .excluir(widget.lembrete!, agora: ref.read(agoraProvider)());
-      if (mounted) Navigator.of(context).pop();
+      if (mounted) Navigator.of(context).pop(true);
+    } on AgendamentoPendente {
+      if (mounted) {
+        setState(
+          () => _falha =
+              'Excluído neste aparelho. O cancelamento do aviso está pendente.',
+        );
+      }
     } catch (_) {
       if (mounted) {
         setState(() => _falha = 'Não foi possível excluir. Tente novamente.');
@@ -320,7 +329,7 @@ class _DialogoLembreteState extends ConsumerState<DialogoLembrete> {
           ),
         PaBotao.secundario(
           texto: 'Voltar',
-          aoTocar: _ocupado ? null : () => Navigator.of(context).pop(),
+          aoTocar: _ocupado ? null : () => Navigator.of(context).pop(true),
         ),
       ],
     ),
