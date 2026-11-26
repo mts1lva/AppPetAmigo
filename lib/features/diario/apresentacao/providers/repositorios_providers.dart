@@ -30,10 +30,6 @@ final alimentosDoPetProvider = StreamProvider.family<List<Alimento>, String>(
   (ref, petId) => ref.watch(alimentoRepositorioProvider).observarDoPet(petId),
 );
 
-final alimentoProvider = StreamProvider.family<Alimento?, String>(
-  (ref, id) => ref.watch(alimentoRepositorioProvider).observar(id),
-);
-
 final refeicaoProvider = StreamProvider.family<Refeicao?, String>(
   (ref, id) => ref.watch(refeicaoRepositorioProvider).observar(id),
 );
