@@ -46,13 +46,13 @@ final extraProvider = StreamProvider.autoDispose.family<Extra?, (String petId, S
 final refeicoesDoDiaProvider = StreamProvider.family<List<Refeicao>, (String petId, DateTime dia)>(
   (ref, args) {
     final inicio = diaDe(args.$2);
-    return ref.watch(refeicaoRepositorioProvider).observarEntre(args.$1, inicio, inicio.add(const Duration(days: 1)));
+    return ref.watch(refeicaoRepositorioProvider).observarEntre(args.$1, inicio, somarDias(inicio, 1));
   },
 );
 
 final extrasDoDiaProvider = StreamProvider.family<List<Extra>, (String petId, DateTime dia)>(
   (ref, args) {
     final inicio = diaDe(args.$2);
-    return ref.watch(extraRepositorioProvider).observarEntre(args.$1, inicio, inicio.add(const Duration(days: 1)));
+    return ref.watch(extraRepositorioProvider).observarEntre(args.$1, inicio, somarDias(inicio, 1));
   },
 );

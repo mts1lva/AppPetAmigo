@@ -52,7 +52,7 @@ final class RefeicaoRepositorioDrift implements RefeicaoRepositorio {
   @override
   Stream<Refeicao?> observarMaisRecenteDoDia(String petId, DateTime dia) {
     final inicio = diaDe(dia);
-    final fim = inicio.add(const Duration(days: 1));
+    final fim = somarDias(inicio, 1);
     return (_banco.select(_banco.refeicoes)
           ..where((r) =>
               _ativasDoPet(r, petId) & r.dataHora.isBiggerOrEqualValue(inicio) & r.dataHora.isSmallerThanValue(fim))
