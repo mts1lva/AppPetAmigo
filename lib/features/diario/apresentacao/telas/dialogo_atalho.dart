@@ -12,6 +12,7 @@ import '../../../nutricao/domain/meta_diaria.dart';
 import '../../../pets/apresentacao/providers/pets_providers.dart';
 import '../../domain/energia.dart';
 import '../../domain/entidades/alimento.dart';
+import '../../domain/repositorios/alimento_repositorio.dart';
 import '../../domain/entidades/refeicao.dart';
 import '../../domain/entidades/resumo_dia.dart';
 import '../../domain/periodo.dart';
@@ -94,11 +95,18 @@ class _DialogoAtalhoState extends ConsumerState<DialogoAtalho> {
   var _inicio = false;
   String? _erroGravacao;
 
-  void _iniciar(Alimento? atalho, List<Alimento> alimentos) {
+  /// Pré-seleciona o alimento do atalho uma vez só. Espera o
+  /// [alimentoAtalhoProvider] responder (valor ou erro): se a lista chegasse
+  /// antes, a escolha travaria num alimento que não é o do atalho. Sem
+  /// atalho, o último cadastrado, que é o primeiro da lista
+  /// ([AlimentoRepositorio.observarDoPet] vem do mais recente ao mais antigo).
+  void _iniciar(AsyncValue<Alimento?> atalho, List<Alimento>? alimentos) {
     if (_inicio) return;
-    if (atalho == null && alimentos.isEmpty) return;
+    if (alimentos == null || (!atalho.hasValue && !atalho.hasError)) return;
+    final escolhido = atalho.value ?? (alimentos.isEmpty ? null : alimentos.first);
+    if (escolhido == null) return;
     _inicio = true;
-    _alimentoId = atalho?.id ?? alimentos.last.id;
+    _alimentoId = escolhido.id;
   }
 
   Alimento? _alimento(List<Alimento> alimentos) {
@@ -161,9 +169,9 @@ class _DialogoAtalhoState extends ConsumerState<DialogoAtalho> {
 
   @override
   Widget build(BuildContext context) {
-    final alimentos = ref.watch(alimentosDoPetProvider(widget.petId)).value ?? const <Alimento>[];
-    final atalho = ref.watch(alimentoAtalhoProvider(widget.petId)).value;
-    _iniciar(atalho, alimentos);
+    final lista = ref.watch(alimentosDoPetProvider(widget.petId)).value;
+    final alimentos = lista ?? const <Alimento>[];
+    _iniciar(ref.watch(alimentoAtalhoProvider(widget.petId)), lista);
     final alimento = _alimento(alimentos);
     if (alimento == null) {
       return PaDialogo(
