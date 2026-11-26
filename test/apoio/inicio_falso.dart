@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:petamigo/core/sugestao.dart';
 import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
+import 'package:petamigo/features/lembretes/apresentacao/providers/lembretes_provider.dart';
 import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provider.dart';
 import 'package:petamigo/features/inicio/domain/repositorios/sugestoes_adiadas_repositorio.dart';
 
@@ -24,5 +25,6 @@ List<Override> overridesSemBanco([PetsFalsos? pets]) => [
   ...(pets ?? PetsFalsos()).overrides,
   ...DiarioFalsos().overrides,
   ultimaPesagemProvider.overrideWith((ref, petId) => Stream.value(null)),
+  lembretesProvider.overrideWith((ref, petId) => Stream.value([])),
   sugestoesAdiadasRepositorioProvider.overrideWithValue(AdiadasFalsas()),
 ];

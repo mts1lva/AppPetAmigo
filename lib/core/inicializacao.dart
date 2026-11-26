@@ -4,6 +4,8 @@ import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../features/lembretes/data/notificacoes/central_notificacoes.dart';
+
 /// Fuso horário do aparelho para o `zonedSchedule` dos lembretes (U2-09).
 /// Sem conseguir ler o fuso, fica em UTC e o app continua.
 Future<void> inicializarFusoHorario() async {
@@ -23,11 +25,17 @@ Future<void> inicializarNotificacoes() async {
   try {
     await FlutterLocalNotificationsPlugin().initialize(
       settings: const InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        android: AndroidInitializationSettings('ic_notificacao'),
       ),
-      // TODO(P3-1.4): abrir o app no pet do lembrete (payload `petId`) e no
-      // diálogo de registro do tipo (06, 11 ou 10).
+      onDidReceiveNotificationResponse: (resposta) =>
+          centralNotificacoes.receber(resposta.payload),
     );
+    centralNotificacoes.inicializada = true;
+    final abertura = await FlutterLocalNotificationsPlugin()
+        .getNotificationAppLaunchDetails();
+    if (abertura?.didNotificationLaunchApp ?? false) {
+      centralNotificacoes.receber(abertura?.notificationResponse?.payload);
+    }
   } catch (erro) {
     debugPrint('Notificações indisponíveis (${erro.runtimeType}).');
   }

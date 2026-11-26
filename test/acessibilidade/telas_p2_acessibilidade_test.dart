@@ -22,6 +22,7 @@ import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem
 import 'package:petamigo/features/evolucao/domain/entidades/pesagem.dart';
 import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provider.dart';
 import 'package:petamigo/features/inicio/apresentacao/telas/tela_inicio.dart';
+import 'package:petamigo/features/lembretes/apresentacao/providers/lembretes_provider.dart';
 
 import '../apoio/diario_falso.dart';
 import '../apoio/golden.dart';
@@ -40,6 +41,7 @@ Future<void> montarApp(WidgetTester tester, {double escala = 2, DiarioFalsos? di
       ...PetsFalsos(iniciais: [(luna(), 5.4)]).overrides,
       ...(diario ?? DiarioFalsos(alimentos: [racaoHabitual()], refeicoes: [refeicaoHabitual()], extras: [extraHabitual()]))
           .overrides,
+      lembretesProvider.overrideWith((ref, petId) => Stream.value([])),
       agoraProvider.overrideWithValue(() => DateTime(2026, 9, 30, 9)),
       ultimaPesagemProvider.overrideWith(
         (ref, petId) => Stream.value(Pesagem(id: 'pes-$petId', petId: petId, pesoKg: 5.4, dataHora: DateTime(2026, 9, 1))),

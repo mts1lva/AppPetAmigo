@@ -6,6 +6,7 @@ import '../core/ui/ui.dart';
 import '../features/diario/apresentacao/providers/diario_ui_providers.dart';
 import '../features/diario/apresentacao/telas/tela_diario.dart';
 import '../features/inicio/apresentacao/telas/tela_inicio.dart';
+import '../features/atividades/apresentacao/telas/tela_atividades.dart';
 import '../features/pets/apresentacao/providers/pet_atual_provider.dart';
 import '../features/pets/apresentacao/telas/dialogo_dados_pet.dart';
 import '../features/pets/apresentacao/telas/tela_vamos_comecar.dart';
@@ -41,11 +42,14 @@ String? redirecionarPorPet(AsyncValue<String?> petAtual, String local) {
   return null;
 }
 
+final chaveNavegadorProvider = Provider((ref) => GlobalKey<NavigatorState>());
+
 final roteadorProvider = Provider<GoRouter>((ref) {
   final petAtual = ValueNotifier<AsyncValue<String?>>(ref.read(petAtualIdProvider));
   ref.listen(petAtualIdProvider, (_, proximo) => petAtual.value = proximo);
 
   final roteador = GoRouter(
+    navigatorKey: ref.watch(chaveNavegadorProvider),
     initialLocation: Rotas.inicio,
     refreshListenable: petAtual,
     redirect: (context, state) => redirecionarPorPet(petAtual.value, state.matchedLocation),
@@ -68,10 +72,9 @@ final roteadorProvider = Provider<GoRouter>((ref) {
             GoRoute(path: Rotas.diario, builder: (context, state) => const TelaDiario()),
           ]),
           StatefulShellBranch(routes: [
-            // TODO(P3-1.3): tela 03 Atividades.
             GoRoute(
               path: Rotas.atividades,
-              builder: (context, state) => const TelaProvisoria(titulo: 'Atividades'),
+              builder: (context, state) => const TelaAtividades(),
             ),
           ]),
           StatefulShellBranch(routes: [

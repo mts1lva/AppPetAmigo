@@ -10,7 +10,8 @@ import '../repositorios/pet_repositorio.dart';
 /// A conferência de pesagem suspeita (R06, tela 25) no peso inicial é ligada
 /// pelo P4 na P4-2.1.
 final class EditarPet {
-  const EditarPet(this._repositorio, this._fotos);
+  const EditarPet(this._repositorio, this._fotos, {this.reagendarLembretes});
+  final Future<void> Function(String petId, String nomePet)? reagendarLembretes;
 
   final PetRepositorio _repositorio;
   final ArmazenamentoFotos _fotos;
@@ -57,5 +58,6 @@ final class EditarPet {
     // Só depois da transação confirmada: apaga a foto antiga.
     final antiga = atual.fotoArquivo;
     if (fotoNova != null && antiga != null && antiga != fotoNova) await _fotos.apagar(antiga);
+    await reagendarLembretes?.call(editado.id, editado.nome);
   }
 }
