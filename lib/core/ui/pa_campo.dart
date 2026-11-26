@@ -35,6 +35,7 @@ class PaCampo extends StatefulWidget {
     this.focusNode,
     this.acaoTeclado = TextInputAction.next,
     this.maxCaracteres,
+    this.dica,
   });
 
   const PaCampo.numero({
@@ -47,6 +48,7 @@ class PaCampo extends StatefulWidget {
     this.focusNode,
     this.acaoTeclado = TextInputAction.next,
     this.maxCaracteres,
+    this.dica,
   }) : tipo = PaCampoTipo.numero;
 
   final String rotulo;
@@ -60,6 +62,10 @@ class PaCampo extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputAction acaoTeclado;
   final int? maxCaracteres;
+
+  /// Texto mostrado no lugar do valor enquanto o campo está vazio, ex.:
+  /// `Não informado` (Objetivo da tela 12). Some ao digitar.
+  final String? dica;
 
   @override
   State<PaCampo> createState() => _PaCampoState();
@@ -118,7 +124,7 @@ class _PaCampoState extends State<PaCampo> {
                         LengthLimitingTextInputFormatter(widget.maxCaracteres),
                     ],
                     onChanged: widget.aoMudar,
-                    decoration: const InputDecoration.collapsed(hintText: null),
+                    decoration: InputDecoration.collapsed(hintText: widget.dica, hintStyle: PaTexto.corpo),
                   ),
                 ),
               ),

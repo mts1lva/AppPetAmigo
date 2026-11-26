@@ -101,7 +101,7 @@ final class PetRepositorioDrift implements PetRepositorio {
   }
 
   @override
-  Future<void> editar(Pet pet, {double? pesoInicialKg, required DateTime agora}) {
+  Future<void> editar(Pet pet, {double? pesoInicialKg, bool pesoInicialConferido = false, required DateTime agora}) {
     return _banco.transaction(() async {
       final atual = await (_petsAtivos()..where((p) => p.id.equals(pet.id))).getSingleOrNull();
       if (atual == null) throw StateError('Pet não encontrado: ${pet.id}');
@@ -134,11 +134,13 @@ final class PetRepositorioDrift implements PetRepositorio {
                 petId: pet.id,
                 pesoKg: pesoInicialKg,
                 dataHora: agora,
+                conferida: Value(pesoInicialConferido),
               ));
           await _fila.enfileirar(ColecoesSync.pesagens, pesagemId, OperacaoSync.upsert);
         } else {
           await (_banco.update(_banco.pesagens)..where((p) => p.id.equals(primeira.id))).write(PesagensCompanion(
             pesoKg: Value(pesoInicialKg),
+            conferida: Value(pesoInicialConferido),
             versao: Value(primeira.versao + 1),
             atualizadoEm: Value(agora),
             estadoSync: Value(estado),

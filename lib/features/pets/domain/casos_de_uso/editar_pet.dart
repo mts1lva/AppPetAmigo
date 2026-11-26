@@ -7,8 +7,8 @@ import '../repositorios/pet_repositorio.dart';
 /// primeira pesagem, e meta, gráfico e projeção se recalculam pelos streams.
 /// Trocar a foto apaga o arquivo antigo da área privada (critério do P1).
 ///
-/// A conferência de pesagem suspeita (R06, tela 25) no peso inicial é ligada
-/// pelo P4 na P4-2.1.
+/// A conferência de pesagem suspeita (R06, tela 25) no peso inicial é feita
+/// pelo formulário 05 antes de chamar este caso de uso (P4-2.1).
 final class EditarPet {
   const EditarPet(this._repositorio, this._fotos, {this.reagendarLembretes});
   final Future<void> Function(String petId, String nomePet)? reagendarLembretes;
@@ -17,12 +17,15 @@ final class EditarPet {
   final ArmazenamentoFotos _fotos;
 
   /// [pesoInicialAtualKg]: peso inicial salvo hoje; só regrava a pesagem se
-  /// o valor mudou. [fotoEscolhida]: caminho temporário de uma foto nova.
+  /// o valor mudou. [pesoInicialConferido]: o tutor manteve um peso inicial
+  /// suspeito na tela 25 (R06). [fotoEscolhida]: caminho temporário de uma
+  /// foto nova.
   Future<void> call(
     Pet atual,
     DadosPet dados, {
     required double? pesoInicialAtualKg,
     required DateTime agora,
+    bool pesoInicialConferido = false,
     String? fotoEscolhida,
   }) async {
     final erros = validarDadosPet(dados);
@@ -48,6 +51,7 @@ final class EditarPet {
       await _repositorio.editar(
         editado,
         pesoInicialKg: novoPeso == pesoInicialAtualKg ? null : novoPeso,
+        pesoInicialConferido: pesoInicialConferido,
         agora: agora,
       );
     } catch (_) {
