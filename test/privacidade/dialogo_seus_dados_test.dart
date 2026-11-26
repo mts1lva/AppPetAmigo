@@ -3,8 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:petamigo/core/relogio.dart';
 import 'package:petamigo/core/ui/ui.dart';
-import 'package:petamigo/features/evolucao/apresentacao/providers/ultima_pesagem_provider.dart';
-import 'package:petamigo/features/inicio/apresentacao/providers/sugestoes_provider.dart';
 import 'package:petamigo/features/inicio/apresentacao/telas/tela_inicio.dart';
 import 'package:petamigo/features/privacidade/apresentacao/telas/dialogo_seus_dados.dart';
 
@@ -23,10 +21,8 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [
-          ...pets.overrides,
+          ...overridesSemBanco(pets),
           agoraProvider.overrideWithValue(() => DateTime(2026, 9, 30, 9)),
-          ultimaPesagemProvider.overrideWith((ref, petId) => Stream.value(null)),
-          sugestoesAdiadasRepositorioProvider.overrideWithValue(AdiadasFalsas()),
         ],
         child: appDeTeste(const Scaffold(body: TelaInicio())),
       ),
