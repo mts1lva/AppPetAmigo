@@ -1,9 +1,11 @@
+import 'alimento_cadastrado.dart';
+
 /// Petisco cadastrado de um pet (P-32). Dart puro.
 ///
 /// Fica na tabela `alimentos` com `tipo = petisco`, mas é uma entidade à
 /// parte: a energia é **por unidade**, não por 100 g, e o registro vira um
 /// [Extra], não uma refeição.
-final class Petisco {
+final class Petisco implements AlimentoCadastrado {
   const Petisco({
     required this.id,
     required this.petId,
@@ -13,8 +15,11 @@ final class Petisco {
     this.arquivado = false,
   });
 
+  @override
   final String id;
+  @override
   final String petId;
+  @override
   final String nome;
 
   /// Energia do rótulo por unidade, em kcal.
@@ -22,6 +27,7 @@ final class Petisco {
 
   /// Quantas unidades costuma dar de uma vez.
   final int unidadesHabituais;
+  @override
   final bool arquivado;
 
   Petisco copyWith({String? nome, double? kcalPorUnidade, int? unidadesHabituais, bool? arquivado}) {

@@ -124,6 +124,8 @@ Cada documento: campos do domínio (inclusive petId) + versao (int)
 
 As coleções ficam "achatadas" por usuário, com `petId` como campo, em vez de uma subcoleção por pet. Assim o motor sincroniza todos os pets com as mesmas consultas, e a exclusão integral apaga uma coleção por vez.
 
+Na coleção `alimentos`, `tipo` indica `racao` (`densidadeKcalPor100g` e `porcaoPadraoG`) ou `petisco` (`kcalPorUnidade` e `unidadesHabituais`). Documentos antigos sem `tipo` são lidos como `racao`. Em `extras`, `alimentoId` e `unidades` ausentes são lidos como `null`.
+
 Regras de segurança (P5 publica, todos revisam):
 
 ```

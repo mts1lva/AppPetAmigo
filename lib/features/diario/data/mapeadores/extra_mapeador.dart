@@ -19,8 +19,10 @@ final class ExtraMapeador implements MapeadorSync<Extra> {
   @override
   Map<String, Object?> paraFirestore(Extra extra) => {
         'petId': extra.petId,
+        'alimentoId': extra.alimentoId,
         'descricao': extra.descricao,
         'quantidadeG': extra.quantidadeG,
+        'unidades': extra.unidades,
         'energiaKcal': extra.energiaKcal,
         'dataHora': Timestamp.fromDate(extra.dataHora),
       };
@@ -33,11 +35,17 @@ final class ExtraMapeador implements MapeadorSync<Extra> {
       return valor;
     }
 
+    final unidades = campo<int?>('unidades');
+    if (unidades != null && unidades <= 0) {
+      throw FormatException('extras/$id: campo "unidades" inválido');
+    }
     return Extra(
       id: id,
       petId: campo<String>('petId'),
+      alimentoId: campo<String?>('alimentoId'),
       descricao: campo<String>('descricao'),
       quantidadeG: documento['quantidadeG'] == null ? null : campo<num>('quantidadeG').toDouble(),
+      unidades: unidades,
       energiaKcal: campo<num>('energiaKcal').toDouble(),
       dataHora: campo<Timestamp>('dataHora').toDate(),
     );
@@ -46,6 +54,8 @@ final class ExtraMapeador implements MapeadorSync<Extra> {
   @override
   String resumoConflito(Extra extra) {
     final hora = formatarHora(extra.dataHora);
+    final unidades = extra.unidades;
+    if (unidades != null) return '$unidades un. • $hora';
     final kcal = formatarNumero(extra.energiaKcal, casas: 0);
     final q = extra.quantidadeG;
     return q == null ? '$kcal kcal • $hora' : '${formatarNumero(q, casas: 0)} g • $hora';
