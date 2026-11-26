@@ -65,12 +65,16 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
   void _avisar() => _hub.avisar();
 
   @override
+  /// Do mais recente ao mais antigo, como o drift (ordem de cadastro).
   Stream<List<Alimento>> observarDoPet(String petId) => _hub.observar(
-        () => _itens.values.where((a) => a.petId == petId && !a.arquivado).toList(),
+        () => _itens.values.where((a) => a.petId == petId && !a.arquivado).toList().reversed.toList(),
       );
 
   @override
-  Stream<Alimento?> observar(String id) => _hub.observar(() => _itens[id]);
+  Stream<Alimento?> observar(String id) => _hub.observar(() {
+        final a = _itens[id];
+        return a == null || a.arquivado ? null : a;
+      });
 
   @override
   Stream<Alimento?> observarAtalho(String petId) => _hub.observar(() {
@@ -85,7 +89,7 @@ final class AlimentoRepositorioFalso implements AlimentoRepositorio {
             if (a.id == id) return a;
           }
         }
-        return ativos.last;
+        return ativos.last; // o último cadastrado
       });
 
   @override
